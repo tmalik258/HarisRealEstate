@@ -1,0 +1,16 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block body %}
+<section>
+	<h1>Create Listing</h1>
+	<form action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{{ listing_form.as_p }}
+		{{ image_form.as_p }}
+		<input type="submit" value="Create" class="btn btn-primary">
+	</form>
+</section>
+
+{% endblock %}

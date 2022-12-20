@@ -1,0 +1,34 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block body %}
+<section>
+	{% if user.profile_image %}
+		<div class="profileImage"><img src="media/{{ user.profile_image }}" alt="Front image" width="100%" height="100%" ></div>
+	{% else %}
+		<div class="profileImage"><img src="media/images/no_profile/blank-profile-picture.png" alt="Front image" width="100%" height="100%" ></div>
+	{% endif %}
+	<h1 class="text-center">{{ user.first_name }} {{ user.last_name }}</h1>
+	<h6 class="text-muted text-center">{{ user.bio_info }}</h6>
+</section><hr>
+<section class="agents">
+	{% if 'Empty' in posts %}
+		<h1 class="text-center">{{ posts }}</h1>
+	{% else %}
+		{% for post in posts %}
+			<div class="card" style="width: 18rem; background: black;">
+				<a href="">
+					<div class="imageContainer">
+						<img src="./Images/dslr.jpg" class="card-img-top" alt="...">
+					</div>
+					<div class="card-body text-center text-center">
+					<h5 class="card-title">{{ post.username | title }}</h5>
+					<p class="card-text">{{ post.bio_info }}</p>
+					<a href="#" class="btn btn-primary">More Info</a>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+	{% endif %}
+</section>
+{% endblock %}

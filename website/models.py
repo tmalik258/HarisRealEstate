@@ -5,7 +5,11 @@ from django.conf import settings
 # Create your models here.
 
 class User (AbstractUser):
-	pass
+	def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
+	bio_info = models.TextField(max_length=500)
+	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 
 class Category (models.Model):
 	code = models.CharField(primary_key=True, max_length=24)
@@ -44,7 +48,7 @@ class Comments (models.Model):
 
 class Images (models.Model):
 	def user_directory_path(instance, filename):
-        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-		return 'images/user_{0}/{1}'.format(instance.creator.username, filename)
+        # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
+		return 'images/user_{0}/listing_{1}/{2}'.format(instance.creator.username, instance.listing.title, filename)
 	images = models.ImageField(upload_to = user_directory_path, blank=True)
 	listing = models.ForeignKey(listing, on_delete= models.CASCADE, related_name='img')
