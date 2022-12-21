@@ -1,4 +1,6 @@
 $(window).on("load",function(){
-	$(".loader").fadeOut("slow");
-	$('main').css('display', 'block');
+	setTimeout(() => {
+		$('.loader').css('transform', 'translateY(-100%)');
+		$('main').css('display', 'block');
+	}, 700);
 });

@@ -18,48 +18,38 @@
 	{% block nav %}
 	<header>
 		<!-----------------------	Navigation menu	 ------------------------->
-		<div class="collapse" id="navbarToggleExternalContent">
-			<div class="bg-dark p-4">
-				<h5 class="text-white h4">Live Convenient Life</h5>
-				<span class="text-muted">ABOVE & BEYOND SERVICES FOR YOUR EVERY PROPERTY NEED</span>
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 text-bg-dark p-3">
-					<li class="nav-item">
-					  <a class="nav-link active" aria-current="page" href="#">Home</a>
-					</li>
-					<li class="nav-item">
-					  <a class="nav-link" href="#">Contact</a>
-					</li>
-					<li class="nav-item dropdown">
-					  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Dropdown
-					  </a>
-					  <ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Action</a></li>
-						<li><a class="dropdown-item" href="#">Another action</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">Something else here</a></li>
-					  </ul>
-					</li>
-					<li class="nav-item text-muted">
-					  <a class="nav-link disabled">Disabled</a>
-					</li>
-				  </ul>
-				  <form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search by location ..." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				  </form>
-			</div>
-		</div>
-		<nav class="navbar navbar-dark ">
+		<nav class="navbar navbar-dark navbar-expand-lg">
 			<div class="container-fluid">
 				<a class="navbar-brand mb-0 h1" href="{% url 'index' %}">
-					<img src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" alt="LOGO" width="35" height="30">
-					Haris Real Estate
+					<img class="logo" src="{% static 'website/img/icons/Dark theme logo(withouttext).png' %}" alt="Haris Real Estate LOGO" width="90" height="85">
+					<span class="HRE">Haris<br><span style="font-size: 13px;">Real Estate</span></span>
 				</a>
-				<span class="text-muted">+92 309-8109886</span>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="icon"></span>
 				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav navbar-nav-scroll">
+						<li class="nav-item">
+							<a href="{% url 'index' %}" class="nav-link hover-underline active text-center"><div class="seperator seperator-home"></div>HOME</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>PROPERTIES</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>ABOUT US</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>AGENTS</a>
+						</li>
+						<li class="nav-item">
+							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>CONTACT US</a>
+						</li>
+					</ul>
+					<div class="text-center">
+						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
+						<a href="mailto:harisrealestate@example.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@example.com</a>
+					</div>
+				</div>
 			</div>
 		</nav>
 		<!--------------------------	 Navigation Ends	 --------------------------->

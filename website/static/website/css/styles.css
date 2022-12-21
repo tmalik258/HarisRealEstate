@@ -8,6 +8,7 @@ body
 	font-family: 'Unbounded', cursive;
 }
 
+/* //////////////////////////////////	SCROLL BAR	////////////////////////////////////////////// */
 ::-webkit-scrollbar
 {
 	width: 3px;
@@ -19,8 +20,10 @@ body
 	background: wheat;
 }
 
+/* //////////////////////////////////	PRE-LOADER ANIMATION PAGE	//////////////////////////////////////////////////////// */
 .loader
 {
+	font-family: 'Unbounded', cursive;
 	width: 100%;
 	height: 100%;
 	background: wheat;
@@ -32,6 +35,7 @@ body
 	justify-content: center;
 	align-items: center;
 	color: black;
+	transition: 1s;
 }
 
 .animation
@@ -52,6 +56,7 @@ body
 	height: 1px;
 	width: 100px;
 	border: black solid 1px;
+	background: black;
 	position: relative;
 	left: 20px;
 	top: -20px;
@@ -154,6 +159,7 @@ main
 	display: none;
 }
 
+/* //////////////////////////////////////	DISPLAYING CARD FOR PROFILE AND PRODUCTS	/////////////////////////////////////////////// */
 .card
 {
 	margin: 15px 15px;
@@ -203,6 +209,7 @@ main
 	/* background: none; */
 /* } */
 
+/* //////////////////////////////////////////	IMAGES	/////////////////////////////////////////////////// */
 .mainImage
 {
 	position: absolute;
@@ -237,4 +244,81 @@ main
 	width: 250px;
 	height: 250px;
 	overflow: hidden;
+}
+
+/* //////////////////////////////////////////	NAV BAR	/////////////////////////////////////////// */
+.HRE
+{
+	width: 10px;
+	display: inline-block;
+	line-height: 15px;
+	font-size: 27px;
+	margin-top: 32px;
+	margin-right: 160px;
+	/* color: wheat; */
+}
+
+.logo
+{
+	padding-right: -5px;
+	margin-right: -5px;
+	margin-top: -5px;
+}
+
+.container-fluid
+{
+	position: relative;
+	display: flex;
+	margin-top: -28px;
+}
+
+.seperator
+{
+	display: inline-flex;
+	position: relative;
+	width: 8px;
+	height: 8px;
+	top: -2px;
+	border: 1px solid wheat;
+	margin-right: 5px;
+	transform: rotate(45deg);
+	transition: 0.2s ease-in-out;
+}
+
+.nav-item:hover .seperator, .mail:hover .seperator
+{
+	background: wheat;
+	transform: rotate(-45deg);
+}
+
+.nav-item:hover .nav-link, .mail:hover
+{
+	text-decoration: solid line-through wheat;
+}
+
+.nav-link.active .seperator
+{
+	background: wheat;
+}
+
+.nav-item .nav-link.active
+{
+	color: wheat;
+}
+
+@media screen and (min-width:1185px) {
+	.collapse .mail
+	{
+		position: absolute;
+		right: 25px;
+		top: 41px;
+		display: inline-block;
+	}
+}
+
+@media screen and (max-width: 990px) {
+	.mail .seperator
+	{
+		display: none;
+	}
 }
