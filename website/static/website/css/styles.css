@@ -8,6 +8,11 @@ body
 	font-family: 'Unbounded', cursive;
 }
 
+header
+{
+	display: none;
+}
+
 /* //////////////////////////////////	SCROLL BAR	////////////////////////////////////////////// */
 ::-webkit-scrollbar
 {
@@ -35,7 +40,7 @@ body
 	justify-content: center;
 	align-items: center;
 	color: black;
-	transition: 1s;
+	transition: 1s ease-out;
 }
 
 .animation
@@ -255,7 +260,13 @@ main
 	font-size: 27px;
 	margin-top: 32px;
 	margin-right: 160px;
-	/* color: wheat; */
+}
+
+.navbar-brand
+{
+	margin-top: 32px;
+	display: contents;
+	background: white;
 }
 
 .logo
@@ -291,19 +302,72 @@ main
 	transform: rotate(-45deg);
 }
 
-.nav-item:hover .nav-link, .mail:hover
+.nav-item:hover .nav-link, .mail:hover{	text-decoration: solid line-through wheat;	}
+
+.nav-link.active .seperator{	background: wheat;	}
+
+.nav-item .nav-link.active{	color: wheat;	}
+
+.navbar-toggler
 {
-	text-decoration: solid line-through wheat;
+	border: none;
+	outline: none;
+	display: flex;
+	position: relative;
+	align-items: center;
+	color: transparent;
+	/* background-color: wheat; */
+	padding-left: 0px;
+	padding-right: 0px;
+	/* height: 19px; */
+	border-radius: 0;
 }
 
-.nav-link.active .seperator
+.navbar-toggler::before
 {
-	background: wheat;
+	content: '';
+	width: 30px;
+	height: 3px;
+	background-color: wheat;
+	position: relative;
+	transform: translateY(-7px);
+	transition: 0.2s;
 }
 
-.nav-item .nav-link.active
+.navbar-toggler::after
 {
-	color: wheat;
+	content: '';
+	width: 30px;
+	height: 3px;
+	background-color: wheat;
+	position: absolute;
+	transform: translateY(7px);
+	transition: 0.2s;
+}
+
+.navbar-toggler[aria-expanded="true"]{	animation: toggler 5s infinite ease-in-out;	}
+
+.navbar-toggler[aria-expanded="true"]::before{	transform: rotate(45deg);	}
+
+.navbar-toggler[aria-expanded="true"]::after{	transform: rotate(-45deg);	}
+
+@keyframes toggler {
+	0%{
+		background-color: transparent;
+		height: 0px;
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(90deg);
+	}
+	75%{
+		transform: rotate(180deg);
+	}
+	100%{
+		/* background-color: wheat; */
+		/* height: 17px; */
+		transform: rotate(360deg);
+	}
 }
 
 @media screen and (min-width:1185px) {
