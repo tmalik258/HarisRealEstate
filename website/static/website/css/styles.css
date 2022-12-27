@@ -262,12 +262,12 @@ main
 	margin-right: 160px;
 }
 
-.navbar-brand
+/* .navbar-brand
 {
 	margin-top: 32px;
-	display: contents;
-	background: white;
-}
+	/* display: contents; */
+	/* background: white; */
+/* } */
 
 .logo
 {
@@ -350,6 +350,52 @@ main
 .navbar-toggler[aria-expanded="true"]::before{	transform: rotate(45deg);	}
 
 .navbar-toggler[aria-expanded="true"]::after{	transform: rotate(-45deg);	}
+
+                       /* Login */
+.login{
+	color: wheat;
+	display: block;
+	align-items: center;
+	justify-content: center;
+	width: 50%;
+	height: 83.5vh;
+	box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
+	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
+	background-color: #141414;
+	border-radius: 20px;
+	padding: 25px 20px;
+	margin: auto;
+	margin-top: 5%;
+	box-sizing: border-box;
+	/* padding-bottom: 100px; */
+	/* margin-bottom: 5%; */
+	overflow: auto;
+	/* scroll-padding-bottom: 150px; */
+	/* scroll-behavior: smooth; */
+}
+
+.login input, .login input:focus, .login textarea, .login textarea:focus
+{
+	background: #141414;
+	border: none;
+	outline: none;
+	border-radius: 11px;
+	padding: 12px 20px;
+	color: #fff;
+	box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
+	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.login input[type="submit"]
+{
+	color: rgb(136, 133, 133);
+	/* background: wheat; */
+}
+
+.login input[type="submit"]:hover
+{
+	background: wheat;
+}
 
 @keyframes toggler {
 	0%{
