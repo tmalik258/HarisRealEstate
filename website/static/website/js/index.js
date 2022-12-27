@@ -4,4 +4,5 @@ $(window).on("load",function(){
 		$('header').css('display', 'initial');
 		$('main').css('display', 'block');
 	}, 700);
+
 });

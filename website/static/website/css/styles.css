@@ -258,29 +258,26 @@ main
 	display: inline-block;
 	line-height: 15px;
 	font-size: 27px;
-	margin-top: 32px;
+	margin-top: 34px;
 	margin-right: 160px;
 }
 
-/* .navbar-brand
+.navbar
 {
-	margin-top: 32px;
-	/* display: contents; */
-	/* background: white; */
-/* } */
+	/* background: black; */
+	height: 70px;
+}
 
 .logo
 {
-	padding-right: -5px;
 	margin-right: -5px;
-	margin-top: -5px;
 }
 
 .container-fluid
 {
 	position: relative;
 	display: flex;
-	margin-top: -28px;
+	/* margin-top: -28px; */
 }
 
 .seperator
@@ -321,6 +318,7 @@ main
 	padding-right: 0px;
 	/* height: 19px; */
 	border-radius: 0;
+	margin-right: 11px;
 }
 
 .navbar-toggler::before
@@ -431,4 +429,20 @@ main
 	{
 		display: none;
 	}
+	.navbar
+	{
+		/* background: black; */
+		height: initial;
+		margin-top: -10px;
+	}
+	/* .navbar.active
+	{
+		height: 95px;
+		margin-top: -30px;
+	} */
+	/* .navbar:has(.navbar-toggler[aria-expanded="false"])
+	{
+		background: wheat;
+		height: 100px;
+	} */
 }
