@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from .models import listing, User, Category, Comments, Images
+from .models import listing, User, Comments, Images
 from .forms import listingForm, imageForm
 from django.forms import modelformset_factory
 from django.contrib import messages
@@ -20,7 +20,7 @@ def index (request):
 @login_required
 def profile (request):
     try:
-        posts = listing.objects.get(creator=request.user)
+        posts = listing.objects.filter(creator=request.user)
     except listing.DoesNotExist:
         posts = "Empty!! No listing found"
     return render(request, 'website/profile.html',{
@@ -38,7 +38,7 @@ def createListing (request):
 
         if listing_form.is_valid() and image_form.is_valid():
             listingform = listing_form.save(commit=False)
-            listingform.user = request.user
+            listingform.creator = request.user
             listingform.active = True
             listingform.save()
 

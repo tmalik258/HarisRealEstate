@@ -11,20 +11,59 @@ class User (AbstractUser):
 	bio_info = models.TextField(max_length=500)
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 
-class Category (models.Model):
-	code = models.CharField(primary_key=True, max_length=24)
-	category = models.CharField(max_length=24)
-	def __str__(self):
-		return f"{self.category}"
+# class Category (models.Model):
+# 	code = models.CharField(primary_key=True, max_length=24)
+# 	category = models.CharField(max_length=24)
+# 	def __str__(self):
+# 		return f"{self.category}"
 
 class listing (models.Model):
+	PURPOSE_CHOICES = (
+		('S', 'Sale'),
+		('R', 'Rent Out')
+	)
+	CITY_CHOICES = (
+		('lhr', 'Lahore'),
+		('khi', 'Karachi'),
+		('isl', 'Islamabad')
+	)
+	CATEGORY_CHOICES = [
+		('Homes', (
+			('house', 'House'),
+			('flat', 'Flat'),
+			('up', 'Upper Portion'),
+			('lp', 'Lower Portion'),
+			('fh', 'Farm House'),
+			('room', 'Room'),
+			('ph', 'Penthouse')
+		)),
+		('Plots', (
+			('rp', 'Residential Plots'),
+			('cp', 'Commercial Plots'),
+			('al', 'Agricultural Land'),
+			('il', 'Industrial Land'),
+			('pfile', 'Plot File'),
+			('pform', 'Plot Form'),
+		)),
+		('Commercial', (
+			('off', 'Office'),
+			('shop', 'Shop'),
+			('wh', 'Warehouse'),
+			('fact', 'Factory'),
+			('buil', 'Building'),
+			('other', 'Other')
+		))
+	]
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listingUser")
 	title = models.CharField(max_length=64)
-	price = models.DecimalField(max_digits=15, decimal_places=4)
-	category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="cat")
+	price = models.IntegerField()
+	purpose = models.CharField( max_length=2, choices=PURPOSE_CHOICES, default='S')
+	category = models.CharField( max_length=5, choices=CATEGORY_CHOICES, default='house')
+	area_size = models.IntegerField()
+	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=100)
-	description = models.TextField(max_length=255)
-	time_created = models.DateTimeField(auto_created=True)
+	description = models.TextField(max_length=300)
+	time_created = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
 
 	def __str__(self) -> str:

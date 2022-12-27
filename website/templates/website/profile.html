@@ -19,11 +19,27 @@
 			<div class="card" style="width: 18rem; background: black;">
 				<a href="">
 					<div class="imageContainer">
-						<img src="./Images/dslr.jpg" class="card-img-top" alt="...">
+						{% if not post.img.images %}
+							<img src="media\images\no_profile\blank-profile-picture.png" class="card-img-top" alt="...">
+						<!-- {% comment %} -->
+						{% else %}
+							<!-- {% for image in post.img.images %} -->
+								<img src="media/{{ post.img.first.images }}" class="card-img-top" alt="...">
+							<!-- {% endfor %} -->
+						<!-- {% endcomment %} -->
+						{% endif %}
 					</div>
 					<div class="card-body text-center text-center">
-					<h5 class="card-title">{{ post.username | title }}</h5>
-					<p class="card-text">{{ post.bio_info }}</p>
+					<h5 class="card-title">{{ post.title | title }}</h5>
+					<p class="card-text">{{ post.price }}</p>
+					<p class="card-text">{{ post.get_purpose_display }}</p>
+					<p class="card-text">{{ post.get_category_display }}</p>
+					<p class="card-text">{{ post.area_size }} Marla</p>
+					<p class="card-text">{{ post.get_city_display }}</p>
+					<p class="card-text">{{ post.address }}</p>
+					<p class="card-text">{{ post.description }}</p>
+					<p class="card-text">{{ post.time_created }}</p>
+					<p class="card-text">{{ post.creator.email }}</p>
 					<a href="#" class="btn btn-primary">More Info</a>
 					</div>
 				</a>
