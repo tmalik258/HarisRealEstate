@@ -2,10 +2,45 @@
 {% load static %}
 
 {% block body %}
-<!-- <section> -->
-	<!-- <img src="{% static 'website/img/background/homeHanging.jpg' %}" alt="Front image" width="100%" height="100%" class="mainImage"> -->
-	<!-- <h1>Welcome Abroad!</h1> -->
-<!-- </section> -->
+<article>
+	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+		<div class="carousel-inner">
+		  <div class="carousel-item active">
+			<img src="{% static 'website/img/crousal/city.jpg' %}" class="d-block w-100" alt="...">
+			<div class="carousel-caption d-none d-md-block">
+				<h5>LOREM IPSEM</h5>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			</div>
+		  </div>
+		  <div class="carousel-item">
+			<img src="{% static 'website/img/crousal/buildings.jpg' %}" class="d-block w-100" alt="...">
+			<div class="carousel-caption d-none d-md-block">
+				<h5>Tincidunt Lobortis Feugiat</h5>
+				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+			</div>
+		  </div>
+		  <div class="carousel-item">
+			<img src="{% static 'website/img/crousal/house.jpg' %}" class="d-block w-100" alt="...">
+			<div class="carousel-caption d-none d-md-block">
+				<h5>Amet Tellus</h5>
+				<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</div>
+		  </div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+		  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		  <span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+		  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		  <span class="visually-hidden">Next</span>
+		</button>
+	  </div>
+</article>
+<article>
+	<div class="top-categories">
+	</div>
+</article>
 <section class="agents">
 	{% for agent in agents %}
 		<div class="card" style="width: 18rem; background: black;">

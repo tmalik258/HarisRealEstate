@@ -162,6 +162,7 @@ header
 main
 {
 	display: none;
+	/* margin-top: 70px; */
 }
 
 /* //////////////////////////////////////	DISPLAYING CARD FOR PROFILE AND PRODUCTS	/////////////////////////////////////////////// */
@@ -264,7 +265,27 @@ main
 
 .navbar
 {
-	/* background: black; */
+	height: 70px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 4;
+	width: 100%;
+	transition: 0.1s;
+}
+
+.navbar.active
+{
+	position: fixed;
+	background: rgb(24, 24, 24);
+	box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
+	/* transition: 0.2s; */
+}
+
+.navbar.hide
+{
+	position: absolute;
+	/* width: 100%; */
 	height: 70px;
 }
 
@@ -349,7 +370,7 @@ main
 
 .navbar-toggler[aria-expanded="true"]::after{	transform: rotate(-45deg);	}
 
-                       /* Login */
+/* //////////////////////////////////////////	LOGIN	/////////////////////////////////////////// */
 .login{
 	color: wheat;
 	display: block;
@@ -414,6 +435,92 @@ main
 	}
 }
 
+/* //////////////////////////////////////////	CAROUSEL	/////////////////////////////////////////// */
+.carousel
+{
+	box-shadow: 0px 1px 20px rgba(80, 80, 80, 0.856);
+}
+
+.carousel-item
+{
+	overflow: hidden;
+}
+.carousel-item.active img
+{
+	transition: 10s;
+	transform: scale(1.5);
+}
+
+.carousel button
+{
+	/* top: 50%; */
+	height: 30px;
+	width: 30px;
+	margin: auto 20px;
+	/* background: wheat; */
+	border: 1px solid wheat;
+	transform: rotate(45deg);
+	transition: 0.5s;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon
+{
+	transform: rotate(-45deg) scale(0.5);
+	margin: 0 auto;
+}
+
+.carousel button:hover
+{
+	background: wheat;
+}
+
+.carousel-control-prev:hover
+{
+	transform: rotate(-45deg);
+}
+
+.carousel-control-next:hover
+{
+	transform: rotate(135deg);
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon{
+	transform: rotate(45deg)  scale(0.5);
+	filter: invert(100%);
+}
+
+.carousel-control-next:hover .carousel-control-next-icon{
+	transform: rotate(-135deg)  scale(0.5);
+	filter: invert(100%);
+}
+
+.carousel-item .carousel-caption
+{
+	opacity: 0;
+	top: 40%;
+	transition: 2.5s;
+}
+.carousel-item.active .carousel-caption
+{
+	top: 30%;
+	opacity: 1;
+}
+
+/* //////////////////////////////////////////	CATEGORIES	/////////////////////////////////////////// */
+.top-categories
+{
+	width: 100%;
+	background: black;
+	box-shadow: 0px 0px 15px rgba(136, 136, 136, 0.856);
+	/* height: 50em; */
+}
+
+/* //////////////////////////////////////////	PROFILE	/////////////////////////////////////////// */
+.profile
+{
+	margin-top: 5%;
+}
+
 @media screen and (min-width:1185px) {
 	.collapse .mail
 	{
@@ -422,6 +529,10 @@ main
 		top: 41px;
 		display: inline-block;
 	}
+	/* .carousel-caption
+	{
+		top: 30%;
+	} */
 }
 
 @media screen and (max-width: 990px) {
@@ -434,15 +545,6 @@ main
 		/* background: black; */
 		height: initial;
 		margin-top: -10px;
+		margin-bottom: -10px;
 	}
-	/* .navbar.active
-	{
-		height: 95px;
-		margin-top: -30px;
-	} */
-	/* .navbar:has(.navbar-toggler[aria-expanded="false"])
-	{
-		background: wheat;
-		height: 100px;
-	} */
 }
