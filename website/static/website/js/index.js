@@ -1,15 +1,20 @@
 $(window).on("load",function(){
 	setTimeout(() => {
 		$('.loader').css('transform', 'translateY(-100%)');
+	}, 500);
+	setTimeout(() => {
 		$('header').css('display', 'initial');
-		$('main').css('display', 'block');
+		$('main').css({opacity: 1, visibility: 'visible'});
 	}, 700);
 	
 	if (window.innerWidth > 990)
 	{
 		$('.carousel-inner').height(window.innerHeight);
-		$('.top-categories').height(window.innerHeight);
+		// $('.top-categories').height(window.innerHeight);
 	}
+	$('.top-categories .card img').each(item, function (indexInArray, valueOfElement) { 
+		console.log(item.height());
+	});
 });
 
 window.onscroll = function () {

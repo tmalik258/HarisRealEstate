@@ -39,26 +39,98 @@
 </article>
 <article>
 	<div class="top-categories">
+		<h1><div class="seperator"></div>Top Properties<div class="seperator"></div></h1>
+		<div class="row row-cols-1 row-cols-md-3">
+			<div class="col col-1">
+			  <div class="card h-100 card-1">
+				<img src="{% static 'website/img/categories/home.jpg' %}" class="card-img-top" alt="...">
+				<div class="card-img-overlay"></div>
+				<div class="card-body">
+					<h5 class="card-title">HOMES</h5>
+				  <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+				</div>
+			  </div>
+			</div>
+			<div class="col">
+			  <div class="card h-100">
+				<img src="{% static 'website/img/categories/plots.jpg' %}" class="card-img-top img2" alt="...">
+				<div class="card-img-overlay">
+				  <h5 class="card-title">LAND/PLOTS</h5>
+				  <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> -->
+				</div>
+			  </div>
+			</div>
+			<div class="col">
+				<div class="card h-100">
+					<div class="card-body">
+						<h5 class="card-title">COMMERCIAL</h5>
+						<!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p> -->
+					</div>
+					<img src="{% static 'website/img/categories/commercial.jpg' %}" class="card-img-top" alt="...">
+					<div class="card-img-overlay"></div>
+			  </div>
+			</div>
+		  </div>
 	</div>
 </article>
-<section class="agents">
-	{% for agent in agents %}
-		<div class="card" style="width: 18rem; background: black;">
-			<a href="">
-				<div class="imageContainer">
-					{% if agent.profile_image %}
-						<img src="media/{{ agent.profile_image }}" class="card-img-top agentImage" alt="...">
-					{% else %}
-						<img src="media/images/no_profile/blank-profile-picture.png" class="card-img-top agentImage" alt="...">
-					{% endif %}
+
+<article>
+	<div class="about-us">
+		<div class="card mb-0" style="max-width: 100%;">
+			<div class="row g-0">
+			  <div class="col-md-6">
+				<img src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" class="img-fluid rounded-start" alt="...">
+			  </div>
+			  <div class="col-md-6">
+				<div class="card-body">
+					<!-- <h5 class="card-title">About Us</h5> -->
+					<!-- <button type="button" class="btn btn-outline-secondary">About Us</button> -->
+					<p class="card-text">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ornare arcu odio ut sem nulla pharetra diam. Mi eget mauris pharetra et ultrices neque ornare aenean euismod. Amet nisl suscipit adipiscing bibendum est ultricies. Tristique senectus et netus et malesuada fames ac. Sem integer vitae justo eget magna fermentum iaculis eu non. Duis ut diam quam nulla porttitor massa id. Volutpat ac tincidunt vitae semper quis lectus. Cursus risus at ultrices mi. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat. Leo vel orci porta non pulvinar neque laoreet. Scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Malesuada nunc vel risus commodo viverra maecenas. Dictum sit amet justo donec enim diam vulputate. Elementum nisi quis eleifend quam. Tristique magna sit amet purus gravida. Feugiat pretium nibh ipsum consequat nisl vel pretium.
+
+						In pellentesque massa placerat duis ultricies lacus sed turpis. Diam maecenas sed enim ut sem viverra aliquet eget sit. Quis vel eros donec ac. Lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Id leo in vitae turpis massa sed elementum. In est ante in nibh. Facilisis leo vel fringilla est ullamcorper. Velit egestas dui id ornare arcu odio ut. Viverra nibh cras pulvinar mattis nunc sed blandit libero. Id cursus metus aliquam eleifend mi in nulla. Sed faucibus turpis in eu mi bibendum neque. Vel fringilla est ullamcorper eget nulla facilisi etiam. Semper auctor neque vitae tempus quam pellentesque.
+					</p>
+					<button type="button" class="btn btn-outline-secondary">About Us</button>
 				</div>
-				<div class="card-body text-center text-center">
-				  <h5 class="card-title">{{ agent.username | title }}</h5>
-				  <p class="card-text">{{ agent.bio_info }}</p>
-				  <a href="#" class="btn btn-primary">More Info</a>
-				</div>
-			</a>
+			  </div>
+			</div>
+		  </div>
+	</div>
+</article>
+
+<article>
+	<div class="agents">
+		<div class="agent-title text-center">
+			<h1 class="card-title"><div class="seperator"></div>MEET OUR TEAM<div class="seperator"></div></h1>
+			<h6 class="card-text">A COLLECTIVE, THAT MAKES DREAMS COME TRUE</h6>
+			<p class="card-text">Our strength lies in our individuality. Set up by Esther Bryce, Presson's team strives to bring in the best talent in various fields, from architecture to interior design and sales. </p>
 		</div>
-	{% endfor %}
-</section>
+		<div class="row row-cols-2 row-cols-md-5">
+			{% for agent in agents %}
+				<div class="col">
+					<div class="card">
+						<a href="">
+							<!-- <div class="imageContainer"> -->
+								{% if agent.profile_image %}
+									<img src="media/{{ agent.profile_image }}" class="card-img" alt="...">
+								{% else %}
+									<img src="media/images/no_profile/blank-profile-picture.png" class="card-img" alt="...">
+								{% endif %}
+							<!-- </div> -->
+							<div class="card-body text-center">
+							  <h5 class="card-title">{{ agent.first_name | title }} {{ agent.last_name | title }}</h5>
+							  <!-- <p class="card-text">{{ agent.bio_info }}</p> -->
+							  <!-- <a href="#" class="btn btn-primary">More Info</a> -->
+							</div>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</article>
+
+<article>
+	<div class="contact-us"></div>
+</article>
 {% endblock %}
