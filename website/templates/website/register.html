@@ -1,5 +1,8 @@
 {% extends "website/layout.html" %}
 
+{% block nav %}
+{% endblock %}
+
 {% block body %}
 
     <div class="login">
@@ -38,4 +41,7 @@
         Already have an account? <a href="{% url 'login' %}">Log In here.</a>
     </div>
 
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

@@ -29,19 +29,19 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav">
 						<li class="nav-item">
-							<a href="{% url 'index' %}" class="nav-link hover-underline active text-center"><div class="seperator seperator-home"></div>HOME</a>
+							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="home"><div class="seperator"></div>HOME</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>PROPERTIES</a>
+							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties"><div class="seperator"></div>PROPERTIES</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>ABOUT US</a>
+							<a href="{% url 'about_us' %}" {% if "/about-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="about-us"><div class="seperator"></div>ABOUT US</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>AGENTS</a>
+							<a href="{% url 'agents' %}" {% if "/agents" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="agents"><div class="seperator"></div>AGENTS</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="nav-link hover-underline text-center"><div class="seperator seperator-home"></div>CONTACT US</a>
+							<a href="{% url 'contact_us' %}" {% if "/contact-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>CONTACT US</a>
 						</li>
 					</ul>
 					<div class="text-center">
@@ -56,14 +56,9 @@
 	{% endblock %}
 
 	<div class="loader">
-		<div class="animation">
-			<!-- <span class="icon">
-				<ion-icon name="home-outline"></ion-icon>
-			</span> -->
-		</div>
+		<div class="animation"></div>
 		<div class="shadow">HARIS REAL ESTATE</div>
 	</div>
-
 
 	<!--------------------------	Body Starts	 ------------------------------->
 	<main>
@@ -71,6 +66,38 @@
 		{% endblock %}
 	</main>
 	<!--------------------------	Body ends  --------------------------------->
+	
+	<!--------------------------	FOOTER Starts  --------------------------------->
+	{% block footer %}
+	<footer>
+		<div class="footer_row">
+			<div class="footer_col">
+				<img src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" class="img-fluid rounded-start" alt="..." width="40%" height="auto" class="logo">
+				<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed viverra tellus in hac habitasse platea dictumst. Pretium quam vulputate dignissim suspendisse in est. </p> -->
+			</div>
+			<div class="footer_col">
+				<ul class="list-group list-group-flush">
+					<th class="list-group-item"><h3>CONTACT</h3></th>
+					<li class="list-group-item">+92 311-5239286</li>
+					<li class="list-group-item">harisrealestate@example.com</li>
+					<li class="list-group-item">Johartown, Lahore, Punjab, Pakistan</li>
+					<!-- <li class="list-group-item">And a fifth one</li> -->
+				</ul>
+			</div>
+			<div class="footer_col">
+				<ul class="list-group list-group-flush">
+					<th class="list-group-item"><h3>LINKS</h3></th>
+					<li class="list-group-item">Home</li>
+					<li class="list-group-item">Properties</li>
+					<li class="list-group-item">About Us</li>
+					<li class="list-group-item">Contact Us</li>
+				</ul>
+			</div>
+			<!-- <div class="footer_col"></div> -->
+		</div>
+	</footer>
+	{% endblock %}
+	<!--------------------------	FOOTER Ends  --------------------------------->
 
 	<!-------------------------		bootstrap javascript 	---------------------------->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

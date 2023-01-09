@@ -1,0 +1,36 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block body %}
+<section class="about_us_main">
+	<div class="agents">
+		<div class="agent-title text-center">
+			<h1 class="card-title"><div class="seperator"></div>MEET OUR TEAM<div class="seperator"></div></h1>
+			<h6 class="card-text">A COLLECTIVE, THAT MAKES DREAMS COME TRUE</h6>
+			<p class="card-text">Our strength lies in our individuality. Set up by Esther Bryce, Presson's team strives to bring in the best talent in various fields, from architecture to interior design and sales. </p>
+		</div>
+		<div class="row row-cols-2 row-cols-md-5">
+			{% for agent in agents %}
+				<div class="col">
+					<div class="card">
+						<a href="">
+							<!-- <div class="imageContainer"> -->
+								{% if agent.profile_image %}
+									<img src="media/{{ agent.profile_image }}" class="card-img" alt="...">
+								{% else %}
+									<img src="media/images/no_profile/blank-profile-picture.png" class="card-img" alt="...">
+								{% endif %}
+							<!-- </div> -->
+							<div class="card-body text-center">
+							  <h5 class="card-title">{{ agent.first_name | title }} {{ agent.last_name | title }}</h5>
+							  <!-- <p class="card-text">{{ agent.bio_info }}</p> -->
+							  <!-- <a href="#" class="btn btn-primary">More Info</a> -->
+							</div>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock %}

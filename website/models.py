@@ -10,12 +10,7 @@ class User (AbstractUser):
 		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
 	bio_info = models.TextField(max_length=500)
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
-
-# class Category (models.Model):
-# 	code = models.CharField(primary_key=True, max_length=24)
-# 	category = models.CharField(max_length=24)
-# 	def __str__(self):
-# 		return f"{self.category}"
+	# phone_number = PhoneNumberField()
 
 class listing (models.Model):
 	PURPOSE_CHOICES = (
@@ -88,6 +83,17 @@ class Comments (models.Model):
 class Images (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
-		return 'images/user_{0}/listing_{1}/{2}'.format(instance.creator.username, instance.listing.title, filename)
+		return 'images/user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)
 	images = models.ImageField(upload_to = user_directory_path, blank=True)
 	listing = models.ForeignKey(listing, on_delete= models.CASCADE, related_name='img')
+
+class Contact (models.Model):
+	fname = models.CharField(max_length=24)
+	lname = models.CharField(max_length=24, blank=True)
+	email = models.EmailField(max_length=254)
+	message = models.TextField(max_length=500)
+	date_created = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self) -> str:
+		time = self.date_created.strftime("%H:%M | %d-%m-%Y")
+		return f"{self.fname} | {self.email} | {time}"

@@ -1,6 +1,16 @@
 				/* UNBOUNDED, RUBIK Font */
 @import url('https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Sigmar+One&family=Unbounded:wght@200;300;400&display=swap');
 
+*
+{
+	box-sizing: border-box;
+}
+
+html
+{
+	height: 100%;
+}
+
 body
 {
 	background-color: rgb(24, 22, 17);
@@ -8,6 +18,11 @@ body
 	/* font-family: 'Unbounded', cursive; */
 	font-family: 'unbounded', 'Sigmar One', 'Rubik 80s Fade', Times, serif;
 	scroll-behavior: smooth;
+	/* position: relative; */
+	/* margin: 0; */
+	/* min-height: 100%; */
+	/* padding-bottom: 4em; */
+	/* padding-bottom: 250px; */
 }
 
 header
@@ -42,7 +57,7 @@ header
 	justify-content: center;
 	align-items: center;
 	color: black;
-	transition: 1s ease-in-out;
+	transition: 1s ease-out;
 }
 
 .animation
@@ -171,9 +186,6 @@ main
 	transition: 2.5s ease-in-out;
 	/* margin-top: 70px; */
 }
-
-/* ///////////////////////////////////	DISPLAYING CARD FOR PROFILE AND PRODUCTS	//////////////////////////////////////////// */
-
 
 /* //////////////////////////////////////////	IMAGES	/////////////////////////////////////////////////// */
 .mainImage
@@ -386,6 +398,7 @@ main
 .carousel
 {
 	box-shadow: 0px 1px 20px wheat;
+	transition: 0.2s;
 	/* box-shadow: 0px 1px 20px rgba(80, 80, 80, 0.856); */
 	/* margin-bottom: 25px; */
 }
@@ -462,9 +475,10 @@ main
 	background: rgb(167, 147, 124);
 }
 
-.top-categories, .about-us, .agents, .contact-us
+.top-categories, .about-us, .agents, .contact-us, .properties, .singleProperty
 {
-	margin: 50px auto;
+	margin: 50px 10px;
+	border-radius: 10px;
 	/* background: rgba(245, 222, 179, 0.068); */
 	box-shadow: 0px 0px 15px wheat;
 	overflow: hidden;
@@ -506,7 +520,7 @@ main
 	right: 0;
 }
 
-.top-categories h1 .seperator, .agents .agent-title .card-title .seperator
+.top-categories h1 .seperator, .agents .agent-title .card-title .seperator, .properties h1 .seperator
 {
 	background: black;
 	width: 10px;
@@ -772,6 +786,234 @@ main
 .agents .agent-title .card-title::before, .agents .agent-title .card-title::after
 {
 	width: 33%;
+}
+
+/* //////////////////////////////////////////	CONTACT US	/////////////////////////////////////////// */
+.contact-us .login
+{
+	width: 98%;
+	height: 98%;
+	margin: 1% auto;
+}
+
+.contact-us .login h1
+{
+	font-size: 70px;
+}
+
+.contact-us .login .login-body
+{
+	width: 40%;
+	/* text-align: center; */
+	/* white-space: pre-wrap; */
+	text-align: justify;
+	margin: 12% auto auto 11%;
+	position: relative;
+	display: inline-block;
+	transition: 0.2s ease-in-out;
+}
+
+.contact-us .login form, .contact-us .login .form_message
+{
+	margin: 5% 5% 5% auto;
+	/* display: block; */
+	/* position: relative; */
+	float: right;
+}
+
+.contact-us .login input[type="submit"]
+{
+	width: 100%;
+}
+
+/* //////////////////////////////////////////	FOOTER	/////////////////////////////////////////// */
+footer
+{
+	/* background: linear-gradient(to right, rgb(107, 92, 63), black); */
+	color: #fff;
+	background: #141414;
+	/* background: rgb(24, 22, 17); */
+	box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
+	/* width: 100%; */
+	/* margin-bottom: 0; */
+	/* padding: 100px 0 30px; */
+	border-top-right-radius: 30px;
+	border-top-left-radius: 30px;
+	/* line-height: 20px; */
+	/* margin-bottom: -100px; */
+	padding-right: 80px;
+	/* padding: 10px 80px 10px 5px; */
+	/* bottom: 0; */
+	position: relative;
+}
+
+footer .footer_row
+{
+	/* width: 85%; */
+	/* margin: auto; */
+	display: flex;
+	/* flex-wrap: wrap; */
+	/* align-items: flex-start; */
+	/* justify-content: space-between; */
+	font-size: 12px;
+	margin-right: 200px;
+	/* margin: auto ; */
+}
+
+footer .footer_col img
+{
+	/* float: left; */
+	/* width: 200px; */
+	margin-left: 50px;
+}
+
+footer .footer_col ul
+{
+	/* margin: auto; */
+	margin-top: 60px;
+}
+
+footer .footer_col ul li
+{
+	background: none;
+	color: #fff;
+}
+
+/* //////////////////////////////////////////	PROPERTIES	/////////////////////////////////////////// */
+.properties
+{
+	/* position: relative; */
+	height: 40em;
+	padding: 20px 20px;
+	margin-top: 80px;
+	overflow: auto;
+}
+.properties h1
+{
+	text-align: center;
+	color: wheat;
+	/* margin: auto; */
+}
+
+.properties .emptyProperty
+{
+	height: 9em;
+}
+
+.properties .emptyProperty h6
+{
+	position: relative;
+	/* margin-top: 50px; */
+	text-align: center;
+	margin: auto;
+}
+
+.properties h1 .seperator
+{
+	background: wheat;
+	width: 10px;
+	height: 10px;
+	position: relative;
+	margin: auto 10px;
+	top: -8px;
+	border: none;
+	/* display: inline-block; */
+	/* display: inline; */
+}
+
+.properties .card
+{
+	/* position: relative; */
+	/* display: flex; */
+	/* align-items: center; */
+	/* justify-content: center; */
+	margin: auto;
+	background: wheat;
+	border: none;
+	box-shadow: 8px 8px 6px black;
+}
+
+.properties .card .card-body
+{
+	line-height: 20px;
+}
+
+.properties .card .card-body .email
+{
+	color: black;
+	position: relative;
+}
+
+.properties .card .card-body .email
+{
+	border: black solid 1px;
+	transition: 0.25s;
+}
+
+.properties .card .card-body .email:hover
+{
+	color: wheat;
+	background: black;
+	/* text-decoration: underline 2px; */
+	transform: scaleX(1.1);
+}
+
+.properties .card .card-body .email:is(:hover)::before
+{
+	content: '';
+	width: 8px;
+	height: 8px;
+	background: black;
+	display: inline-block;
+	position: absolute;
+	top: 12px;
+	left: 85px;
+	transform: rotate(45deg);
+}
+
+.properties .card .card-body .email:is(:hover)::after
+{
+	content: '';
+	position: absolute;
+	width: 130px;
+	height: 2px;
+	background: black;
+	top: 15px;
+	left: 105px;
+	display: inline-block;
+	/* margin-top: -10px; */
+}
+
+.properties .card .card-body .email.more:is(:hover)::before
+{
+	left: 155px;
+}
+
+.properties .card .card-body .email.more:is(:hover)::after
+{
+	left: 175px;
+}
+
+/* //////////////////////////////////////////	SINGLE PROPERTY	/////////////////////////////////////////// */
+.properties.singleProperty
+{
+	height: 100%;
+}
+
+.properties.singleProperty .carousel-item.active img
+{
+	transform: scale(1);
+}
+
+.properties.singleProperty .card .card-body
+{
+	color: black;
+}
+
+/* //////////////////////////////////////////	about_us_main	/////////////////////////////////////////// */
+.about_us_main
+{
+	margin-top: 80px;
 }
 
 /* //////////////////////////////////////////	PROFILE	/////////////////////////////////////////// */

@@ -1,0 +1,59 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block body %}
+	<article class="properties singleProperty">
+		<h1>Property: {{ post.title }}</h1>
+		<div class="card mb-3">
+			{% if post.img %}
+			<div id="carouselExample" class="carousel slide">
+				<div class="carousel-inner">
+					{% for image in post.img.all %}
+						{% if forloop.first %}
+							<div class="carousel-item active">
+								<img src="{{ image.images.url }}" class="d-block w-100" alt="..." height="750px">
+							</div>
+						{% else %}
+							<div class="carousel-item">
+							<img src="{{ image.images.url }}" class="d-block w-100" alt="..." height="750px">
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				  <span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				  <span class="visually-hidden">Next</span>
+				</button>
+			  </div>
+				<!-- <img src="{{ post.img.first.images.url }}" class="img-fluid rounded-start" alt="..." max-height="300px" max-width="300px"> -->
+			{% else %}
+				<img src="media/images/no_image/No_image_available.png" class="card-img-top" alt="...">
+			{% endif %}
+			<div class="col-md-10">
+				<div class="card-body">
+						<!-- <h5 class="card-title text-center">{{ post.title | title }}</h5> -->
+						<h5 class="card-title">Price: </h5>
+						<p class="card-text">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
+						<h5 class="card-title">Purpose: </h5>
+						<p class="card-text">{{ post.get_purpose_display }}</p>
+						<h5 class="card-title">Category: </h5>
+						<p class="card-text">{{ post.get_category_display }}</p>
+						<h5 class="card-title">Size (in marla): </h5>
+						<p class="card-text">{{ post.area_size }} Marla</p>
+						<!-- <p class="card-text">{{ post.get_city_display }}</p> -->
+						<h5 class="card-title">Description: </h5>
+						<p class="card-text">{{ post.description }}</p>
+						<h5 class="card-title">Location: </h5>
+						<p class="card-text">{{ post.address }}</p>
+						<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+						<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+					</div>
+				</div>
+			</div>
+		  </div>
+	</article>
+{% endblock %}

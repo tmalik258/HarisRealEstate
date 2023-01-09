@@ -1,0 +1,24 @@
+{% extends 'website/layout.html' %}
+{% load static %}
+
+{% block body %}
+<section class="about_us_main">
+	<div class="contact-us">
+		<section class="login">
+			<div class="login-body">
+				<h1 class="card-text">CONTACT US</h1>
+				<p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p>
+				{% if message %}
+				<p>{{ message }}</p>
+				{% endif %}
+			</div>
+			<form action="" method="post" class="form-floating">
+				{% csrf_token %}
+		
+				{{ contact_form.as_p }}
+				<input type="submit" value="SEND" class="btn btn-dark">
+			</form>
+		</section>
+	</div>
+</section>
+{% endblock %}

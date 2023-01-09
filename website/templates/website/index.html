@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-<article>
+<section>
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
 		  <div class="carousel-item active">
@@ -36,45 +36,51 @@
 		  <span class="visually-hidden">Next</span>
 		</button>
 	  </div>
-</article>
-<article>
+</section>
+<section>
 	<div class="top-categories">
 		<h1><div class="seperator"></div>Top Properties<div class="seperator"></div></h1>
 		<div class="row row-cols-1 row-cols-md-3">
 			<div class="col col-1">
-			  <div class="card h-100 card-1">
-				<img src="{% static 'website/img/categories/home.jpg' %}" class="card-img-top" alt="...">
-				<div class="card-img-overlay"></div>
-				<div class="card-body">
-					<h5 class="card-title">HOMES</h5>
-				  <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
-				</div>
-			  </div>
-			</div>
-			<div class="col">
-			  <div class="card h-100">
-				<img src="{% static 'website/img/categories/plots.jpg' %}" class="card-img-top img2" alt="...">
-				<div class="card-img-overlay">
-				  <h5 class="card-title">LAND/PLOTS</h5>
-				  <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> -->
-				</div>
-			  </div>
-			</div>
-			<div class="col">
-				<div class="card h-100">
-					<div class="card-body">
-						<h5 class="card-title">COMMERCIAL</h5>
-						<!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p> -->
+				<a href="{% url 'properties_category' category='house' %}" class="nav-link">
+					<div class="card h-100 card-1">
+						<img src="{% static 'website/img/categories/home.jpg' %}" class="card-img-top" alt="...">
+						<div class="card-img-overlay"></div>
+						<div class="card-body">
+							<h5 class="card-title">HOMES</h5>
+						<!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+						</div>
 					</div>
-					<img src="{% static 'website/img/categories/commercial.jpg' %}" class="card-img-top" alt="...">
-					<div class="card-img-overlay"></div>
-			  </div>
+				</a>
+				</div>
+			<div class="col">
+			  <a href="{% url 'properties_category' category='Plots' %}" class="nav-link">
+				<div class="card h-100">
+								<img src="{% static 'website/img/categories/plots.jpg' %}" class="card-img-top img2" alt="...">
+								<div class="card-img-overlay">
+								  <h5 class="card-title">LAND/PLOTS</h5>
+								  <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> -->
+								</div>
+				</div>
+			  </a>
+			</div>
+			<div class="col">
+				<a href="{% url 'properties_category' category='Commercial' %}" class="nav-link">
+					<div class="card h-100">
+						<div class="card-body">
+							<h5 class="card-title">COMMERCIAL</h5>
+							<!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p> -->
+						</div>
+						<img src="{% static 'website/img/categories/commercial.jpg' %}" class="card-img-top" alt="...">
+						<div class="card-img-overlay"></div>
+								  </div>
+				</a>
 			</div>
 		  </div>
 	</div>
-</article>
+</section>
 
-<article>
+<section>
 	<div class="about-us">
 		<div class="card mb-0" style="max-width: 100%;">
 			<div class="row g-0">
@@ -96,9 +102,9 @@
 			</div>
 		  </div>
 	</div>
-</article>
+</section>
 
-<article>
+<section>
 	<div class="agents">
 		<div class="agent-title text-center">
 			<h1 class="card-title"><div class="seperator"></div>MEET OUR TEAM<div class="seperator"></div></h1>
@@ -128,9 +134,25 @@
 			{% endfor %}
 		</div>
 	</div>
-</article>
+</section>
 
-<article>
-	<div class="contact-us"></div>
-</article>
+<section>
+	<div class="contact-us">
+		<section class="login">
+			<div class="login-body">
+				<h1 class="card-text">CONTACT US</h1>
+				<p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p>
+				{% if message %}
+					<p>{{ message }}</p>
+				{% endif %}
+			</div>
+			<form action="" method="POST" class="form-floating">
+				{% csrf_token %}
+		
+				{{ contact_form.as_p }}
+				<input type="submit" value="SEND" class="btn btn-dark">
+			</form>
+		</section>
+	</div>
+</section>
 {% endblock %}

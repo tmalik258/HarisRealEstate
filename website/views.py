@@ -1,19 +1,121 @@
+import json
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from django.db import IntegrityError
-from .models import listing, User, Comments, Images
-from .forms import listingForm, imageForm
+from .models import listing, User, Comments, Images, Contact
+from .forms import listingForm, imageForm, contactForm
 from django.forms import modelformset_factory
 from django.contrib import messages
 
 
 # Create your views here.
 def index (request):
+    submitted = False
+    if request.method == "POST":
+        contact_form = contactForm (request.POST)
+        if contact_form.is_valid():
+            contact_form.save()
+            return HttpResponseRedirect('?submitted=True')
+
+    else:
+        agents = User.objects.all()
+        contact_form = contactForm
+        if 'submitted' in request.GET:
+            submitted = "Thank You For Contacting Us!!"
+        return render(request, 'website/index.html', {
+            'agents': agents,
+            'contact_form': contact_form,
+            'message': submitted
+        })
+
+# @csrf_exempt
+# def contact (request):
+
+#     # Composing a new message must be via POST
+#     if request.method != "POST":
+#         return JsonResponse({"error": "POST request required."}, status=400)
+
+#     # Check sender email
+#     data = json.loads(request.body)
+
+#     # Get contents of contact
+#     fname = data.get("fname", "")
+#     lname = data.get("lname", "")
+#     email = data.get('email', '')
+#     message = data.get("message", "")
+
+#     if fname == "":
+#         return JsonResponse({
+#             "error": "First Name is required."
+#         }, status=400)
+
+#     if email == "":
+#         return JsonResponse({
+#             "error": "Email is required."
+#         }, status=400)
+
+#     if message == "":
+#         return JsonResponse({
+#             "error": "Message is required."
+#         })
+        
+#     # Create contact
+#     contact = Contact(
+#         fname = fname,
+#         lname = lname,
+#         email = email,
+#         message = message
+#     )
+#     contact.save()
+
+#     return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
+
+def properties (request):
+    posts = listing.objects.all()
+    return render (request, 'website/properties.html', {
+        'posts': posts
+    })
+
+def properties_category (request, category):
+    posts = listing.objects.filter(category=category)
+    return render(request, 'website/properties.html', {
+        'posts': posts
+    })
+
+def single_property (request, item):
+    post = listing.objects.get(id=item)
+    return render(request, 'website/singleProperty.html', {
+        'post': post
+    })
+
+def about_us (request):
+    return render(request, 'website/about-us.html')
+
+def contact_us (request):
+    submitted = False
+    if request.method == "POST":
+        contact_form = contactForm (request.POST)
+        if contact_form.is_valid():
+            contact_form.save()
+            return HttpResponseRedirect('contact_us?submitted=True')
+
+    else:
+        contact_form = contactForm
+        if 'submitted' in request.GET:
+            submitted = "Thank You For Contacting Us!!"
+        return render(request, 'website/contactUs.html', {
+            'contact_form': contact_form,
+            'message': submitted
+        })
+
+def agents (request):
     agents = User.objects.all()
-    return render(request, 'website/index.html', {
+    return render(request, 'website/agents.html', {
         'agents': agents
     })
 
