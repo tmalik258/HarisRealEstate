@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
 
 # Create your models here.
@@ -10,7 +11,7 @@ class User (AbstractUser):
 		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
 	bio_info = models.TextField(max_length=500)
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
-	# phone_number = PhoneNumberField()
+	phone_number = PhoneNumberField(blank=True)
 
 class listing (models.Model):
 	PURPOSE_CHOICES = (
