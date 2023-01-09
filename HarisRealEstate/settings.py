@@ -36,9 +36,9 @@ ALLOWED_HOSTS = ['*']
 
 # CORS_REPLACE_HTTPS_REFERER = True
 
-CSRF_COOKIE_DOMAIN = 'railway.app'
+CSRF_COOKIE_DOMAIN = 'web-production-6874.up.railway.app'
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-6874.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://web-production-6874.up.railway.app']
 
 
 # Application definition
