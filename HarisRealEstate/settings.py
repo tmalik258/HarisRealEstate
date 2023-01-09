@@ -30,6 +30,14 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+# CORS_ALLOW_CREDENTIALS = True
+
+# CORS_ALLOWED_ORIGINS = ['https://web-production-6874.up.railway.app/']
+
+# CORS_REPLACE_HTTPS_REFERER = True
+
+CSRF_COOKIE_DOMAIN = 'railway.app'
+
 CSRF_TRUSTED_ORIGINS = ['https://web-production-6874.up.railway.app/']
 
 
