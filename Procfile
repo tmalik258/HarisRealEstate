@@ -1,0 +1,1 @@
+web: gunicorn HarisRealEstate.wsgi --log-file -
