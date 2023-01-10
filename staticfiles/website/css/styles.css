@@ -1048,10 +1048,17 @@ footer .footer_col ul li
 		/* background: black; */
 		height: initial;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		background: rgb(24, 24, 24);
 		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
 =======
 >>>>>>> 23f7ba962da7be8b660889d7727e4d40cdc17c74
+=======
+=======
+		background: rgb(24, 24, 24);
+		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
+>>>>>>> main
+>>>>>>> responsive
 		/* margin-top: -10px; */
 		/* margin-bottom: -10px; */
 	}
@@ -1067,7 +1074,10 @@ footer .footer_col ul li
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> responsive
 	.navbar
 	{
 		/* position: relative; */
@@ -1075,7 +1085,12 @@ footer .footer_col ul li
 		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
 	}
 
+<<<<<<< HEAD
 >>>>>>> 23f7ba962da7be8b660889d7727e4d40cdc17c74
+=======
+=======
+>>>>>>> main
+>>>>>>> responsive
 	.carousel
 	{
 		width: 100%;
