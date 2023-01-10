@@ -13,7 +13,6 @@ html
 
 body
 {
-	margin: auto;
 	background-color: rgb(24, 22, 17);
 	color: whitesmoke;
 	/* font-family: 'Unbounded', cursive; */
@@ -556,10 +555,10 @@ main
 	z-index: 2;
 }
 
-/* .top-categories .row .col-1
+.top-categories .row .col-1
 {
 	align-self: flex-start;
-} */
+}
 
 .top-categories .card .card-img-overlay
 {
@@ -1042,16 +1041,12 @@ footer .footer_col ul li
 	{
 		display: none;
 	}
-
 	.navbar
 	{
 		/* background: black; */
 		height: initial;
-<<<<<<< HEAD
-=======
 		background: rgb(24, 24, 24);
 		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
->>>>>>> main
 		/* margin-top: -10px; */
 		/* margin-bottom: -10px; */
 	}
@@ -1066,16 +1061,6 @@ footer .footer_col ul li
 		display: none;
 	}
 
-<<<<<<< HEAD
-	.navbar
-	{
-		/* position: relative; */
-		background: rgb(24, 24, 24);
-		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
-	}
-
-=======
->>>>>>> main
 	.carousel
 	{
 		width: 100%;
