@@ -4,10 +4,6 @@ from .models import listing, Comments, Images, Contact
 
 class listingForm (ModelForm):
 	class Meta:
-		PURPOSE_CHOICES = (
-			('S', 'Sale'),
-			('R', 'Rent Out')
-		)
 		model = listing
 		fields = ('__all__')
 

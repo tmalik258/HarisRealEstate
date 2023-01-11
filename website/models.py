@@ -26,35 +26,35 @@ class listing (models.Model):
 	CATEGORY_CHOICES = [
 		('Homes', (
 			('house', 'House'),
-			('flat', 'Flat'),
-			('up', 'Upper Portion'),
-			('lp', 'Lower Portion'),
-			('fh', 'Farm House'),
-			('room', 'Room'),
-			('ph', 'Penthouse')
+			# ('flat', 'Flat'),
+			# ('up', 'Upper Portion'),
+			# ('lp', 'Lower Portion'),
+			# ('fh', 'Farm House'),
+			# ('room', 'Room'),
+			# ('ph', 'Penthouse')
 		)),
 		('Plots', (
 			('rp', 'Residential Plots'),
-			('cp', 'Commercial Plots'),
-			('al', 'Agricultural Land'),
-			('il', 'Industrial Land'),
-			('pfile', 'Plot File'),
-			('pform', 'Plot Form'),
+			# ('cp', 'Commercial Plots'),
+			# ('al', 'Agricultural Land'),
+			# ('il', 'Industrial Land'),
+			# ('pfile', 'Plot File'),
+			# ('pform', 'Plot Form'),
 		)),
 		('Commercial', (
 			('off', 'Office'),
-			('shop', 'Shop'),
-			('wh', 'Warehouse'),
-			('fact', 'Factory'),
-			('buil', 'Building'),
-			('other', 'Other')
-		))
+			# ('shop', 'Shop'),
+			# ('wh', 'Warehouse'),
+			# ('fact', 'Factory'),
+			# ('buil', 'Building'),
+		)),
+		('other', 'Other')
 	]
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listingUser")
 	title = models.CharField(max_length=64)
 	price = models.IntegerField()
 	purpose = models.CharField( max_length=2, choices=PURPOSE_CHOICES, default='S')
-	category = models.CharField( max_length=5, choices=CATEGORY_CHOICES, default='house')
+	category = models.CharField( max_length=5, choices=CATEGORY_CHOICES, default='')
 	area_size = models.IntegerField()
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=100)

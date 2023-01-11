@@ -28,17 +28,12 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app']
 
-# CORS_ALLOW_CREDENTIALS = True
+# For PRODUCTION PURPOSE
+CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
 
-# CORS_ALLOWED_ORIGINS = ['https://web-production-6874.up.railway.app/']
-
-# CORS_REPLACE_HTTPS_REFERER = True
-
-CSRF_COOKIE_DOMAIN = 'web-production-6874.up.railway.app'
-
-CSRF_TRUSTED_ORIGINS = ['https://web-production-6874.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
 
 
 # Application definition
