@@ -26,19 +26,21 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app']
 
+# DISABLE_COLLECTSTATIC = 0
+
 # For PRODUCTION PURPOSE
 CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
-
 CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +49,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'website',
-    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
