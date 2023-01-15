@@ -45,6 +45,11 @@
 						<li class="nav-item">
 							<a href="{% url 'contact_us' %}" {% if "/contact-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>CONTACT US</a>
 						</li>
+						{% if user.is_authenticated %}
+						<li class="nav-item">
+							<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>CREATE</a>
+						</li>
+						{% endif %}
 					</ul>
 					<div class="text-center">
 						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
