@@ -53,7 +53,7 @@
 					</ul>
 					<div class="text-center">
 						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
-						<a href="mailto:harisrealestate@example.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@example.com</a>
+						<a href="mailto:harisrealestate@yahoo.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@yahoo.com</a>
 					</div>
 				</div>
 			</div>
@@ -85,8 +85,15 @@
 			<div class="footer_col">
 				<ul class="list-group list-group-flush">
 					<th class="list-group-item"><h3>CONTACT</h3></th>
-					<li class="list-group-item">+92 311-5239286</li>
-					<li class="list-group-item">harisrealestate@example.com</li>
+					<a href="tel:+92 3004882031" class="nav-link">
+						<li class="list-group-item">+92 3004882031</li>
+					</a>
+					<a href="tel:+92 3214882031" class="nav-link">
+						<li class="list-group-item">+92 3214882031</li>
+					</a>
+					<a href="mail:harisrealestate@yahoo.com" class="nav-link">
+						<li class="list-group-item">harisrealestate@yahoo.com</li>
+					</a>
 					<li class="list-group-item">Johartown, Lahore, Punjab, Pakistan</li>
 					<!-- <li class="list-group-item">And a fifth one</li> -->
 				</ul>
@@ -94,10 +101,18 @@
 			<div class="footer_col">
 				<ul class="list-group list-group-flush">
 					<th class="list-group-item"><h3>LINKS</h3></th>
-					<li class="list-group-item">Home</li>
-					<li class="list-group-item">Properties</li>
-					<li class="list-group-item">About Us</li>
-					<li class="list-group-item">Contact Us</li>
+					<a href="{% url 'index' %}" class="nav-link">
+						<li class="list-group-item">Home</li>
+					</a>
+					<a href="{% url 'properties' %}" class="nav-link">
+						<li class="list-group-item">Properties</li>
+					</a>
+					<a href="{% url 'about_us' %}" class="nav-link">
+						<li class="list-group-item">About Us</li>
+					</a>
+					<a href="{% url 'contact_us' %}" class="nav-link">
+						<li class="list-group-item">Contact Us</li>
+					</a>
 				</ul>
 			</div>
 			<!-- <div class="footer_col"></div> -->
