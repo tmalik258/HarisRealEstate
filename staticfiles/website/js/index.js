@@ -1,11 +1,9 @@
 $(window).on("load",function(){
-	setTimeout(() => {
-		$('.loader').css('transform', 'translateY(-100%)');
-	}, 500);
+	$('.loader').css('transform', 'translateY(-100%)');
 	setTimeout(() => {
 		$('header').css('display', 'initial');
 		$('main').css({opacity: 1, visibility: 'visible'});
-	}, 700);
+	}, 500);
 	
 	if (window.innerWidth > 990)
 	{
