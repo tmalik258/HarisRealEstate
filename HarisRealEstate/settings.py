@@ -27,15 +27,15 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app']
 
 # DISABLE_COLLECTSTATIC = 0
 
-# For PRODUCTION PURPOSE
-CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
-CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
+# For PRODUCTION PURPOSE CSRF TOKEN CLEARANCE
+# CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
+# CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
 
 
 # Application definition

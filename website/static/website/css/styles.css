@@ -220,7 +220,7 @@ main
 	line-height: 15px;
 	font-size: 27px;
 	margin-top: 34px;
-	margin-right: 160px;
+	margin-right: 100px;
 }
 
 .navbar
@@ -1021,6 +1021,13 @@ footer .footer_col ul li
 .profile
 {
 	margin-top: 5%;
+}
+
+/* //////////////////////////////////////////	CREATELISTING	/////////////////////////////////////////// */
+.login.createListing
+{
+	height: auto;
+	margin-bottom: 30px;
 }
 
 @media screen and (min-width:1185px) {

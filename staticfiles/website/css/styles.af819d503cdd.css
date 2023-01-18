@@ -1027,7 +1027,7 @@ footer .footer_col ul li
 .login.createListing
 {
 	height: auto;
-	margin-bottom: 30px;
+	margin-bottom: 10px;
 }
 
 @media screen and (min-width:1185px) {
