@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app']
 # DISABLE_COLLECTSTATIC = 0
 
 # For PRODUCTION PURPOSE CSRF TOKEN CLEARANCE
-# CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
-# CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
+CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
+CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
 
 
 # Application definition
