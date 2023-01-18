@@ -16,9 +16,9 @@
 						<a href="">
 							<!-- <div class="imageContainer"> -->
 								{% if agent.profile_image %}
-									<img src="media/{{ agent.profile_image }}" class="card-img" alt="...">
+									<img src="{% media 'agent.profile_image.url' %}" class="card-img" alt="...">
 								{% else %}
-									<img src="media\images\No_image\No_image_available.png" class="card-img" alt="...">
+									<img src="{% media 'images/No_image/No_image_available.png' %}" class="card-img" alt="...">
 								{% endif %}
 							<!-- </div> -->
 							<div class="card-body text-center">
