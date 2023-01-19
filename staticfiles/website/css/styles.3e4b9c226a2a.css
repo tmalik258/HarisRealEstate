@@ -1031,10 +1031,7 @@ footer .footer_col ul li
 	margin: 10% auto auto 10%;
 	width: 30%;
 }
-/* .main_section.create_listing .contact-us .login form
-{
-	width: 40%;
-} */
+
 @media screen and (min-width:1185px) {
 	.collapse .mail
 	{
@@ -1056,13 +1053,9 @@ footer .footer_col ul li
 	}
 
 	main{
-		margin-top: 170px;
+		margin-top: 100px;
 	}
-	.main_section.create_listing .contact-us .login form
-	{
-		width: 90%;
-		/* margin-left: 1000px; */
-	}
+
 	.navbar
 	{
 		height: initial;

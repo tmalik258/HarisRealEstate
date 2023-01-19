@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+{% comment %}
 <section class="login createListing">
 	<h1>Create Listing</h1>
 	<form action="" method="post" enctype="multipart/form-data">
@@ -12,5 +13,27 @@
 		<input type="submit" value="Create" class="btn btn-primary">
 	</form>
 </section>
-
+{% endcomment %}
+<section class="main_section create_listing">
+	<div class="contact-us">
+		<section class="login">
+			<div class="login-body">
+				<h1 class="card-text">Create Listing</h1>
+				<!-- <p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p> -->
+				{% comment %}
+					{% if message %}
+					<p>{{ message }}</p>
+					{% endif %}
+				{% endcomment %}
+			</div>
+			<form action="" method="post" enctype="multipart/form-data" class="form-floating">
+				{% csrf_token %}
+		
+				{{ listing_form.as_p }}
+				{{ image_form.as_p }}
+				<input type="submit" value="Create" class="btn btn-dark">
+			</form>
+		</section>
+	</div>
+</section>
 {% endblock %}

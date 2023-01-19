@@ -1012,7 +1012,7 @@ footer .footer_col ul li
 }
 
 /* //////////////////////////////////////////	about_us_main	/////////////////////////////////////////// */
-.about_us_main
+.main_section
 {
 	margin-top: 80px;
 }
@@ -1024,12 +1024,17 @@ footer .footer_col ul li
 }
 
 /* //////////////////////////////////////////	CREATELISTING	/////////////////////////////////////////// */
-.login.createListing
+.main_section.create_listing .contact-us .login .login-body
 {
-	height: auto;
-	margin-bottom: 30px;
+	/* height: auto; */
+	/* margin-top: 30px; */
+	margin: 10% auto auto 10%;
+	width: 30%;
 }
-
+/* .main_section.create_listing .contact-us .login form
+{
+	width: 40%;
+} */
 @media screen and (min-width:1185px) {
 	.collapse .mail
 	{
@@ -1051,9 +1056,13 @@ footer .footer_col ul li
 	}
 
 	main{
-		margin-top: 100px;
+		margin-top: 170px;
 	}
-
+	.main_section.create_listing .contact-us .login form
+	{
+		width: 90%;
+		/* margin-left: 1000px; */
+	}
 	.navbar
 	{
 		height: initial;

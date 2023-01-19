@@ -1060,8 +1060,8 @@ footer .footer_col ul li
 	}
 	.main_section.create_listing .contact-us .login form
 	{
-		width: 90%;
-		/* margin-left: 1000px; */
+		width: 100%;
+		margin-left: 1000px;
 	}
 	.navbar
 	{
