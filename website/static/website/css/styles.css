@@ -830,54 +830,88 @@ main
 /* //////////////////////////////////////////	FOOTER	/////////////////////////////////////////// */
 footer
 {
-	/* background: linear-gradient(to right, rgb(107, 92, 63), black); */
+	background: linear-gradient(to right, rgb(43, 37, 25), black);
 	color: #fff;
-	background: #141414;
+	/* background: #141414; */
 	/* background: rgb(24, 22, 17); */
 	box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
-	/* width: 100%; */
-	/* margin-bottom: 0; */
-	/* padding: 100px 0 30px; */
 	border-top-right-radius: 30px;
 	border-top-left-radius: 30px;
-	/* line-height: 20px; */
-	/* margin-bottom: -100px; */
-	padding-right: 80px;
-	/* padding: 10px 80px 10px 5px; */
-	/* bottom: 0; */
+	padding-right: 10%;
+	padding-left: 5%;
 	position: relative;
 }
 
 footer .footer_row
 {
-	/* width: 85%; */
+	padding: 0;
+	/* width: 100%; */
 	/* margin: auto; */
 	display: flex;
+	align-items: center;
+	/* justify-content: center; */
 	/* flex-wrap: wrap; */
 	/* align-items: flex-start; */
 	/* justify-content: space-between; */
 	font-size: 12px;
-	margin-right: 200px;
+	/* position: relative; */
+	/* margin-right: 200px; */
+
 	/* margin: auto ; */
 }
 
-footer .footer_col img
+footer .footer_row .footer_col img
 {
 	/* float: left; */
 	/* width: 200px; */
-	margin-left: 50px;
+	/* background: white; */
+	margin: auto;
+	/* margin-left: 50px; */
+	padding: 0;
 }
 
-footer .footer_col ul
+footer .footer_row .footer_col:nth-child(2), footer .footer_row .footer_col:nth-child(3)
 {
-	/* margin: auto; */
-	margin-top: 60px;
+	margin-right: 50px;
+	/* padding-left: 10em;
+	padding-right: 10em; */
+	/* background: white; */
+	width: 115em;
+
 }
 
-footer .footer_col ul li
+footer .footer_row .footer_col ul
 {
-	background: none;
+	/* background: white; */
+	line-height: 30px;
+	list-style: none;
+	/* position: relative; */
+	/* display: flex; */
+	color: wheat;
+	text-align: center;
+	margin: auto;
+	/* margin-top: 60px; */
+	padding: 0;
+	/* margin: 0; */
+}
+
+footer .footer_row .footer_col ul li
+{
+	/* background: none; */
 	color: #fff;
+	border: none;
+	color: rgb(170, 170, 170);
+	/* margin-right: 10px; */
+	/* margin: auto; */
+	/* width: auto; */
+}
+
+footer .footer_row .footer_col ul li a
+{
+	/* background: purple; */
+	text-decoration: none;
+	color: rgb(170, 170, 170);
+	/* width: 50%; */
 }
 
 /* //////////////////////////////////////////	PROPERTIES	/////////////////////////////////////////// */

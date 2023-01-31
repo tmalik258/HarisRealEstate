@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -119,7 +120,7 @@ def agents (request):
         'agents': agents
     })
 
-@login_required
+@staff_member_required
 def profile (request):
     try:
         posts = listing.objects.filter(creator=request.user)
@@ -129,7 +130,7 @@ def profile (request):
         'posts': posts
     })
 
-@login_required
+@staff_member_required
 def createListing (request):
     ImageFormSet = modelformset_factory(Images, form=imageForm, extra=5)
      #'extra' means the number of photos that you can upload
