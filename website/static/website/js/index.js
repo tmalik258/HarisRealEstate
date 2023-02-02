@@ -1,7 +1,7 @@
 $(window).on("load",function(){
 	$('.loader').css('transform', 'translateY(-100%)');
 	$('header').css('display', 'initial');
-	$('main').css({opacity: 1, visibility: 'visible'});
+	$('main').css({opacity: 1, visibility: 'visible', display: 'initial'});
 	
 	if (window.innerWidth > 990)
 	{

@@ -181,7 +181,7 @@ header
 
 main
 {
-	/* display: none; */
+	display: none;
 	opacity: 0;
 	visibility: hidden;
 	transition: 2.5s ease-in-out;
