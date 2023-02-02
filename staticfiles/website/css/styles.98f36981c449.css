@@ -1146,24 +1146,7 @@ footer .footer_row .footer_col ul li a
 		margin-right: 150px;
 	} */
 
-	.login
-	{
-		height: auto;
-		/* margin-top: auto; */
-		width: 90%;
-	}
-
 	footer .footer_row .footer_col img
-	{
-		display: none;
-	}
-
-	footer .footer_row .footer_col:nth-child(2), footer .footer_row .footer_col:nth-child(3)
-	{
-		margin-right: auto;
-	}
-
-	footer .footer_row .footer_col .footer_list .seperator
 	{
 		display: none;
 	}
