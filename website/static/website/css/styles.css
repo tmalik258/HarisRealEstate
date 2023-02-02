@@ -1153,6 +1153,12 @@ footer .footer_row .footer_col ul li a
 		width: 90%;
 	}
 
+	footer .footer_row
+	{
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
 	footer .footer_row .footer_col img
 	{
 		display: none;
