@@ -3,6 +3,7 @@ document.onreadystatechange = function (e) {
 		$('.loader').css('transform', 'translateY(-100%)');
 		$('header').css('display', 'initial');
 		$('main').css({display: 'block'});
+		$('footer').css({display: 'block'});
 		
 		if (window.innerWidth > 990)
 		{

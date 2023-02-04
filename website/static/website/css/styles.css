@@ -995,6 +995,7 @@ footer
 	padding-right: 10%;
 	padding-left: 5%;
 	position: relative;
+	display: none;
 }
 
 footer .footer_row
