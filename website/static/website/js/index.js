@@ -1,14 +1,18 @@
-$(window).on("load",function(){
-	$('.loader').css('transform', 'translateY(-100%)');
-	$('header').css('display', 'initial');
-	$('main').css({opacity: 1, visibility: 'visible', display: 'initial'});
-	
-	if (window.innerWidth > 990)
-	{
-		$('.carousel-inner').height(window.innerHeight);
-		// $('.top-categories').height(window.innerHeight);
+document.onreadystatechange = function (e) {
+	if (document.readyState === 'complete') {
+		$('.loader').css('transform', 'translateY(-100%)');
+		$('header').css('display', 'initial');
+		$('main').css({display: 'block'});
+		
+		if (window.innerWidth > 990)
+		{
+			$('.carousel-inner').height(window.innerHeight);
+			// $('.top-categories').height(window.innerHeight);
+		}
 	}
+}
 
+$(window).on("load",function(){
 	// To send a message or to save a contact us message
 	$('#contact-us').submit(function () { 
 		return send_message();
