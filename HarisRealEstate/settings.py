@@ -29,14 +29,18 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app', 'harisrealestate.com', 'www.harisrealestate.com']
 
 # DISABLE_COLLECTSTATIC = 0
 
-# For PRODUCTION PURPOSE CSRF TOKEN CLEARANCE
-CSRF_COOKIE_DOMAIN = 'harisrealestate.up.railway.app'
-CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app']
+# For PRODUCTION PURPOSE 
+## CSRF TOKEN CLEARANCE
+CSRF_COOKIE_DOMAIN = 'www.harisrealestate.com'
+CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app', 'https://www.harisrealestate.com', 'https://harisrealestate.com']
 
+## HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 # Application definition
 
