@@ -4,7 +4,7 @@ from .base import *
 
 
 ## ALLOWED HOSTS
-ALLOWED_HOSTS = ['harisrealestate.up.railway.app', 'harisrealestate.com', 'www.harisrealestate.com']
+ALLOWED_HOSTS = ['harisrealestate.up.railway.app', 'harisrealestate.com', 'www.harisrealestate.com', 'https://www.harisrealestate.com']
 
 
 ## CSRF TOKEN CLEARANCE
