@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Load .env file for variables and key
 load_dotenv(os.path.join(BASE_DIR, ".env"))
@@ -26,7 +26,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 # DISABLE_COLLECTSTATIC = 0
@@ -124,7 +124,7 @@ DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    ('website\static')
+    os.path.join(BASE_DIR, 'website/static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
