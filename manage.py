@@ -3,18 +3,10 @@
 import os
 import sys
 
-from HarisRealEstate.settings import base
-
 
 def main():
     """Run administrative tasks."""
-
-    if base.DEBUG:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'HarisRealEstate.settings.local')
-    else:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'HarisRealEstate.settings.production')
-
-        
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'HarisRealEstate.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
