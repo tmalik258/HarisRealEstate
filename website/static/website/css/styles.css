@@ -374,6 +374,24 @@ main
 	background: wheat;
 }
 
+.login.register
+{
+	height: auto;
+	margin-top: 2%;
+	margin-bottom: 5%;
+}
+
+.login.register input[type="submit"]
+{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.register .form-floating label
+{
+	color: rgb(136, 133, 133);
+}
+
 @keyframes toggler {
 	0%{
 		background-color: transparent;
@@ -829,7 +847,7 @@ main
 .properties
 {
 	/* position: relative; */
-	height: 40em;
+	height: 50em;
 	padding: 20px 20px;
 	margin-top: 80px;
 	overflow: auto;

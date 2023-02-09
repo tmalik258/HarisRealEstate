@@ -77,7 +77,9 @@ def index (request):
 #     return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
 
 def properties (request):
-    posts = listing.objects.all()
+    posts = listing.objects.filter(active=True)
+    # Return posts in reverse chronologial order
+    posts = posts.order_by("-time_created").all()
     return render (request, 'website/properties.html', {
         'posts': posts
     })
