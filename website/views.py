@@ -85,7 +85,9 @@ def properties (request):
     })
 
 def properties_category (request, category):
-    posts = listing.objects.filter(category=category)
+    posts = listing.objects.filter(category=category, active=True)
+    # Return posts in reverse chronologial order
+    posts = posts.order_by("-time_created").all()
     return render(request, 'website/properties.html', {
         'posts': posts
     })
