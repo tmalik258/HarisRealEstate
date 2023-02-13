@@ -19,7 +19,7 @@
 						<div class="col-md-8">
 							<a href="{% url 'single_property' post.id %}" style="color: black; text-decoration: none;">
 								<div class="card-body">
-									<h5 class="card-title text-center">{{ post.title | title }}</h5>
+									<h5 class="card-title text-center">{{ post.title | title }}</h5><hr>
 									<p class="card-text">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
 									<p class="card-text">{{ post.get_category_display }} for {{ post.get_purpose_display }}</p>
 									<p class="card-text">{{ post.area_size }} Marla</p>

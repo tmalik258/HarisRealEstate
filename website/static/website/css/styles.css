@@ -351,7 +351,7 @@ main
 	/* scroll-behavior: smooth; */
 }
 
-.login input, .login input:focus, .login textarea, .login textarea:focus
+.login input, .login input:focus, .login textarea, .login textarea:focus, .contact-us .login .btn
 {
 	background: #141414;
 	border: none;
@@ -363,13 +363,13 @@ main
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.login input[type="submit"]
+.login input[type="submit"], .contact-us .login .btn
 {
 	color: rgb(136, 133, 133);
 	/* background: wheat; */
 }
 
-.login input[type="submit"]:hover
+.login input[type="submit"]:hover, .contact-us .login .btn:hover
 {
 	background: wheat;
 }
@@ -387,7 +387,7 @@ main
 	margin-bottom: 20px;
 }
 
-.register .form-floating label
+.login .form-floating label
 {
 	color: rgb(136, 133, 133);
 }
@@ -838,7 +838,17 @@ main
 	float: right;
 }
 
-.contact-us .login input[type="submit"]
+.contact-us .login .form_message
+{
+	font-size: 30px;
+}
+
+.contact-us .login form
+{
+	width: 30em;
+}
+
+.contact-us .login .btn
 {
 	width: 100%;
 }
@@ -1050,7 +1060,7 @@ footer .footer_row .footer_col:nth-child(2), footer .footer_row .footer_col:nth-
 	/* padding-left: 10em;
 	padding-right: 10em; */
 	/* background: white; */
-	width: 120em;
+	width: 130em;
 
 }
 
@@ -1173,6 +1183,12 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	{
 		width: 100%;
 		margin: auto;
+	}
+
+	.contact-us .login form
+	{
+		margin: auto;
+		width: 18.5em;
 	}
 
 	/* footer .footer_row

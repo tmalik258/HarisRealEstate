@@ -4,21 +4,43 @@
 {% block body %}
 <section class="main_section">
 	<div class="contact-us">
-		<section class="login">
-			<div class="login-body">
-				<h1 class="card-text">CONTACT US</h1>
-				<p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p>
-				{% if message %}
-				<p>{{ message }}</p>
-				{% endif %}
-			</div>
-			<form action="" method="post" class="form-floating">
-				{% csrf_token %}
-		
-				{{ contact_form.as_p }}
-				<input type="submit" value="SEND" class="btn btn-dark">
-			</form>
-		</section>
+		{% for contact in contacts %}
+			<p class="text-center m-auto my-4">
+				{{ forloop.counter }}) -
+				<span class="mx-3">(Name) {{ contact.fname }}</span> : 
+				<span class="mx-3">(Message) {{ contact.message }}</span>
+				<a class="btn btn-outline-light mx-3" href="mailto:{{ contact.email }}">Email</a> :
+				<button class="btn btn-secondary mx-3" title="Disabled/Not available/Upcoming feature" type="button" disabled>Call</button>
+			</p>
+			<hr style="width: 50%; margin: auto; color: wheat; box-shadow: 0px 0px 3px whitesmoke;">
+		{% empty %}
+			<section class="login">
+				<div class="login-body">
+					<h1 class="card-text">CONTACT US</h1>
+					<p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p>
+				</div>
+				<form id="contact-us">
+					<div class="form-floating">
+						<input class="form-control first_name" type="text" id="floatingInput" placeholder="*First Name" required>
+						<label for="floatingInput">What is your First Name?</label>
+					</div><br>
+					<div class="form-floating">
+						<input class="form-control last_name" type="text" id="floatingInput" placeholder="Last Name">
+						<label for="floatingInput">What is your Last Name?</label>
+					</div><br>
+					<div class="form-floating">
+						<input class="form-control email" type="email" id="floatingInput" placeholder="*Email" required>
+						<label for="floatingInput">What is your Email? (name@example.com)</label>
+					</div><br>
+					<div class="form-floating">
+						<textarea class="form-control message" placeholder="Leave a message here" id="floatingTextarea2" style="height: 150px" required></textarea>
+						<label for="floatingTextarea2">What is your Message?</label>
+					</div>
+					<p class="form_message"></p>
+					<input type="submit" class="btn btn-dark" value="SEND">
+				</form>
+			</section>
+		{% endfor %}
 	</div>
 </section>
 {% endblock %}

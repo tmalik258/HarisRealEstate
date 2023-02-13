@@ -32,10 +32,10 @@
 						<li class="nav-item">
 							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="home"><div class="seperator"></div>HOME</a>
 						</li>
-						<li class="nav-item">
-							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties"><div class="seperator"></div>PROPERTIES</a>
-						</li>
 						{% if not user.is_authenticated %}
+							<li class="nav-item">
+								<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties"><div class="seperator"></div>PROPERTIES</a>
+							</li>
 							<li class="nav-item">
 								<a href="{% url 'about_us' %}" {% if "/about-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="about-us"><div class="seperator"></div>ABOUT US</a>
 							</li>
@@ -44,21 +44,21 @@
 							</li>
 						{% endif %}
 						<li class="nav-item">
-							<a href="{% url 'contact_us' %}" {% if "/contact-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>CONTACT US</a>
+							<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
 						</li>
 						{% if user.is_authenticated %}
 							<li class="nav-item">
-								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>PROFILE</a>
+								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>PROFILE</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>CREATE LISTING</a>
+								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CREATE LISTING</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'logout' %}" {% if "/logout" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="contact-us"><div class="seperator"></div>LOGOUT</a>
+								<a href="{% url 'logout' %}" {% if "/logout" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>LOGOUT</a>
 							</li>
 						{% else %}
 							<li class="nav-item">
-								<a href="{% url 'login' %}" class="nav-link text-center" id="contact-us"><div class="seperator"></div>LOGIN/STAFF</a>
+								<a href="{% url 'login' %}" class="nav-link text-center"><div class="seperator"></div>LOGIN</a>
 							</li>
 						{% endif %}
 					</ul>

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import listing, Comments, Images, Contact
+from .models import listing, Comments, Images
 
 class listingForm (ModelForm):
 	class Meta:
@@ -43,23 +43,23 @@ class imageForm (ModelForm):
 			'images': forms.ClearableFileInput()
 		}
 
-class contactForm (ModelForm):
-	class Meta:
-		model = Contact
-		fields = ('__all__')
+# class contactForm (ModelForm):
+# 	class Meta:
+# 		model = Contact
+# 		fields = ('__all__')
 
-		exclude = ('time_created',)
+# 		exclude = ('time_created',)
 
-		labels = {
-			'fname': '*First Name',
-			'lname': 'Last Name',
-			'email': '*Email',
-			'message': '*Message',
-		}
+# 		labels = {
+# 			'fname': '*First Name',
+# 			'lname': 'Last Name',
+# 			'email': '*Email',
+# 			'message': '*Message',
+# 		}
 
-		widgets = {
-			'fname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your First Name?', 'id': 'first_name'}),
-			'lname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your Last Name?', 'id': 'last_name'}),
-			'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'What is your Email? i.e., name@example.com', 'id': 'email'}),
-            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Your Message', 'id': 'message'}),
-		}
+# 		widgets = {
+# 			'fname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your First Name?', 'id': 'first_name'}),
+# 			'lname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your Last Name?', 'id': 'last_name'}),
+# 			'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'What is your Email? i.e., name@example.com', 'id': 'email'}),
+#             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Your Message', 'id': 'message'}),
+# 		}

@@ -9,72 +9,63 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.db import IntegrityError
 from .models import listing, User, Comments, Images, Contact
-from .forms import listingForm, imageForm, contactForm
+from .forms import listingForm, imageForm
 from django.forms import modelformset_factory
 from django.contrib import messages
 
 
 # Create your views here.
 def index (request):
-    submitted = False
-    if request.method == "POST":
-        contact_form = contactForm (request.POST)
-        if contact_form.is_valid():
-            contact_form.save()
-            return HttpResponseRedirect('?submitted=True')
+    agents = User.objects.all()
+    return render(request, 'website/index.html', {
+        'agents': agents,
+    })
 
-    else:
-        agents = User.objects.all()
-        contact_form = contactForm
-        if 'submitted' in request.GET:
-            submitted = "Thank You For Contacting Us!!"
-        return render(request, 'website/index.html', {
-            'agents': agents,
-            'contact_form': contact_form,
-            'message': submitted
+@csrf_exempt
+def contact (request):
+    # print('contact view is called')
+    # Composing a new message must be via POST
+    if request.method != "POST":
+        # print('contact_view is not post')
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    # Check sender email
+    data = json.loads(request.body)
+
+    # Get contents of contact
+    fname = data.get("fname", "")
+    lname = data.get("lname", "")
+    email = data.get('email', '')
+    message = data.get("message", "")
+
+    if fname == "":
+        # print('fname error')
+        return JsonResponse({
+            "error": "First Name is required."
+        }, status=400)
+
+    if email == "":
+        # print('email error')
+        return JsonResponse({
+            "error": "Email is required."
+        }, status=400)
+
+    if message == "":
+        # print('message error')
+        return JsonResponse({
+            "error": "Message is required."
         })
-
-# @csrf_exempt
-# def contact (request):
-
-#     # Composing a new message must be via POST
-#     if request.method != "POST":
-#         return JsonResponse({"error": "POST request required."}, status=400)
-
-#     # Check sender email
-#     data = json.loads(request.body)
-
-#     # Get contents of contact
-#     fname = data.get("fname", "")
-#     lname = data.get("lname", "")
-#     email = data.get('email', '')
-#     message = data.get("message", "")
-
-#     if fname == "":
-#         return JsonResponse({
-#             "error": "First Name is required."
-#         }, status=400)
-
-#     if email == "":
-#         return JsonResponse({
-#             "error": "Email is required."
-#         }, status=400)
-
-#     if message == "":
-#         return JsonResponse({
-#             "error": "Message is required."
-#         })
         
-#     # Create contact
-#     contact = Contact(
-#         fname = fname,
-#         lname = lname,
-#         email = email,
-#         message = message
-#     )
-#     contact.save()
-
-#     return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
+    # Create contact
+    contact = Contact(
+        fname = fname,
+        lname = lname,
+        email = email,
+        message = message
+    )
+    contact.save()
+    # print('contact saved')
+    return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
 
 def properties (request):
     posts = listing.objects.filter(active=True)
@@ -101,22 +92,14 @@ def single_property (request, item):
 def about_us (request):
     return render(request, 'website/about-us.html')
 
-def contact_us (request):
-    submitted = False
-    if request.method == "POST":
-        contact_form = contactForm (request.POST)
-        if contact_form.is_valid():
-            contact_form.save()
-            return HttpResponseRedirect('contact_us?submitted=True')
-
-    else:
-        contact_form = contactForm
-        if 'submitted' in request.GET:
-            submitted = "Thank You For Contacting Us!!"
+def contact_us_page (request):
+    if request.user.is_staff and request.user.is_authenticated:
+        contacts = Contact.objects.all()
+        contacts = contacts.order_by("-date_created").all()
         return render(request, 'website/contactUs.html', {
-            'contact_form': contact_form,
-            'message': submitted
+            'contacts': contacts
         })
+    return render(request, 'website/contactUs.html')
 
 def agents (request):
     agents = User.objects.all()
@@ -128,6 +111,7 @@ def agents (request):
 def profile (request):
     try:
         posts = listing.objects.filter(creator=request.user)
+        posts = posts.order_by("-time_created").all()
     except listing.DoesNotExist:
         posts = "Empty!! No listing found"
     return render(request, 'website/profile.html',{
