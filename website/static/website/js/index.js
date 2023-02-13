@@ -44,6 +44,10 @@ function load_contact_form () {
 					<label for="floatingInput">What is your Last Name?</label>
 				</div><br>
 				<div class="form-floating">
+					<input class="form-control tel_n" pattern="+[0-9]{2}-[0-9]{3}-[0-9]{7}" type="tel" id="floatingInput" placeholder="*Phone Number" required>
+					<label for="floatingInput">What is your Phone Number?  (+92-312-3456789)</label>
+				</div><br>
+				<div class="form-floating">
 					<input class="form-control email" type="email" id="floatingInput" placeholder="*Email" required>
 					<label for="floatingInput">What is your Email? (name@example.com)</label>
 				</div><br>
@@ -65,6 +69,7 @@ function send_message() {
 	  body: JSON.stringify({
 		fname: $('.first_name').val(),
 		lname: $('.last_name').val(),
+		phone_number: $('.tel_n').val(),
 		email: $('.email').val(),
 		message: $('.message').val()
 	  })

@@ -35,6 +35,7 @@ def contact (request):
     # Get contents of contact
     fname = data.get("fname", "")
     lname = data.get("lname", "")
+    phone_number = data.get("phone_number", "")
     email = data.get('email', '')
     message = data.get("message", "")
 
@@ -42,6 +43,12 @@ def contact (request):
         # print('fname error')
         return JsonResponse({
             "error": "First Name is required."
+        }, status=400)
+
+    if phone_number == "":
+        # print('fname error')
+        return JsonResponse({
+            "error": "Phone number is required."
         }, status=400)
 
     if email == "":
@@ -60,6 +67,7 @@ def contact (request):
     contact = Contact(
         fname = fname,
         lname = lname,
+        phone_number = phone_number,
         email = email,
         message = message
     )

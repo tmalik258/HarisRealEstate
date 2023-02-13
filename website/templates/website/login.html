@@ -10,7 +10,7 @@
         {% if message %}
             <div>{{ message }}</div>
         {% endif %}
-        <div class="mb-2">Only For Authorized Staff Member</div>
+        <div class="mb-2 ml-2">Only For Authorized Staff Member</div>
         
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
