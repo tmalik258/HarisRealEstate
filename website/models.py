@@ -91,6 +91,7 @@ class Images (models.Model):
 class Contact (models.Model):
 	fname = models.CharField(max_length=24)
 	lname = models.CharField(max_length=24, blank=True)
+	phone_number = PhoneNumberField()
 	email = models.EmailField(max_length=254)
 	message = models.TextField(max_length=500)
 	date_created = models.DateTimeField(auto_now_add=True)

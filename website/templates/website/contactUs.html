@@ -10,7 +10,7 @@
 				<span class="mx-3">(Name) {{ contact.fname }}</span> : 
 				<span class="mx-3">(Message) {{ contact.message }}</span>
 				<a class="btn btn-outline-light mx-3" href="mailto:{{ contact.email }}">Email</a> :
-				<button class="btn btn-secondary mx-3" title="Disabled/Not available/Upcoming feature" type="button" disabled>Call</button>
+				<a class="btn btn-outline-info mx-3" href="tel:{{ contact.phone_number }}">Call</a>
 			</p>
 			<hr style="width: 50%; margin: auto; color: wheat; box-shadow: 0px 0px 3px whitesmoke;">
 		{% empty %}
