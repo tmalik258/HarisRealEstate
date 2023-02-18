@@ -4,7 +4,7 @@ from .base import *
 
 
 ## ALLOWED HOSTS
-ALLOWED_HOSTS = ['127.0.0.1', 'harisrealestate.up.railway.app', 'harisrealestate.com', 'www.harisrealestate.com', 'ec2-13-231-223-105.ap-northeast-1.compute.amazonaws.com']
+ALLOWED_HOSTS = ['13.231.223.105', '127.0.0.1', 'harisrealestate.up.railway.app', 'harisrealestate.com', 'www.harisrealestate.com', 'ec2-13-231-223-105.ap-northeast-1.compute.amazonaws.com']
 
 
 ## CSRF TOKEN CLEARANCE
