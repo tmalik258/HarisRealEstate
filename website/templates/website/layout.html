@@ -7,10 +7,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Haris Real Estate</title>
 
-	<!-----------------------	Bootstrap CSS	--------------------------->
+	<!-----------------------	Bootstrap CSS	-------------------------- -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-	<!-----------------------	Style Sheet CSS	--------------------------->
+	<!-----------------------	Style Sheet CSS	-------------------------- -->
 	<link rel="stylesheet" href="{% static 'website/css/styles.css' %}">
 
 	<link rel="shortcut icon" href="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" type="image/x-icon">
@@ -18,10 +18,10 @@
 <body>
 	{% block nav %}
 	<header>
-		<!-----------------------	Navigation menu	 ------------------------->
+		<!-----------------------	Navigation menu	 ------------------------ -->
 		<nav class="navbar navbar-dark navbar-expand-lg">
 			<div class="container-fluid">
-				<a class="navbar-brand mb-0 h1" > <!--href="{% url 'index' %}"-->
+				<a class="navbar-brand mb-0 h1" >
 					<img class="logo" src="{% static 'website/img/icons/Dark theme logo(withouttext).png' %}" alt="Haris Real Estate LOGO" width="90" height="85">
 					<span class="HRE">Haris<br><span style="font-size: 13px;">Real Estate</span></span>
 				</a>
@@ -69,7 +69,7 @@
 				</div>
 			</div>
 		</nav>
-		<!--------------------------	 Navigation Ends	 --------------------------->
+		<!--------------------------	 Navigation Ends	 -------------------------- -->
 	</header>
 	{% endblock %}
 
@@ -78,20 +78,19 @@
 		<div class="shadow">HARIS REAL ESTATE</div>
 	</div>
 
-	<!--------------------------	Body Starts	 ------------------------------->
+	<!--------------------------	Body Starts	 ------------------------------ -->
 	<main>
 		{% block body %}
 		{% endblock %}
 	</main>
-	<!--------------------------	Body ends  --------------------------------->
+	<!--------------------------	Body ends  -------------------------------- -->
 	
-	<!--------------------------	FOOTER Starts  --------------------------------->
+	<!--------------------------	FOOTER Starts  ------------------------------ -->
 	{% block footer %}
 	<footer>
 		<div class="footer_row">
 			<div class="footer_col">
 				<img src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" class="img-fluid rounded-start" alt="..." width="50%" height="auto" class="logo">
-				<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed viverra tellus in hac habitasse platea dictumst. Pretium quam vulputate dignissim suspendisse in est. </p> -->
 			</div>
 			<div class="footer_col">
 				<ul class="footer_list">
@@ -112,7 +111,6 @@
 						</a>
 					</li>
 					<li><div class="seperator"></div>Johartown, Lahore, Punjab, Pakistan<div class="seperator"></div>
-					<!-- <li>And a fifth one -->
 				</ul>
 			</div>
 			<div class="footer_col">
@@ -145,13 +143,12 @@
 					</li>
 				</ul>
 			</div>
-			<!-- <div class="footer_col"></div> -->
 		</div>
 	</footer>
 	{% endblock %}
-	<!--------------------------	FOOTER Ends  --------------------------------->
+	<!--------------------------	FOOTER Ends  -------------------------------- -->
 
-	<!-------------------------		bootstrap javascript 	---------------------------->
+	<!-------------------------		bootstrap javascript 	-------------------------- -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -163,11 +160,7 @@
 
 	<script src="{% static 'website/js/index.js' %}"></script>
 
-	 <!------------------------ Animation Library: GSAP (GreenSock Animation Platform) ------------------->
+	 <!------------------------ Animation Library: GSAP (GreenSock Animation Platform) ------------------ -->
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-
-	 <!-- <script> -->
-		
-	 <!-- </script> -->
 </body>
 </html>
