@@ -4,12 +4,11 @@ from .base import *
 
 
 ## ALLOWED HOSTS
-ALLOWED_HOSTS = ['13.231.223.105', '127.0.0.1', 'harisrealestate.up.railway.app', 'harisrealestate.com', 'www.harisrealestate.com', 'ec2-13-231-223-105.ap-northeast-1.compute.amazonaws.com']
-
+ALLOWED_HOSTS = ['13.231.223.105', '127.0.0.1', '.harisrealestate.com']
 
 ## CSRF TOKEN CLEARANCE
-CSRF_COOKIE_DOMAIN = 'www.harisrealestate.com'
-CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.up.railway.app', 'https://www.harisrealestate.com', 'https://harisrealestate.com']
+CSRF_COOKIE_DOMAIN = '.harisrealestate.com'
+CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.com', 'https://www.harisrealestate.com']
 
 
 ## HTTPS
