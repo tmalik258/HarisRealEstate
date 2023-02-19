@@ -1,18 +1,3 @@
-document.onreadystatechange = function (e) {
-	if (document.readyState === 'complete') {
-		$('.loader').css('transform', 'translateY(-100%)');
-		$('header').css('display', 'initial');
-		$('main').css({display: 'block'});
-		$('footer').css({display: 'block'});
-		
-		if (window.innerWidth > 990)
-		{
-			$('.carousel-inner').height(window.innerHeight);
-			// $('.top-categories').height(window.innerHeight);
-		}
-	}
-}
-
 window.onload = function(){
 	//	load contact form virtually
 	if (!$('.contact-us').html()) {
