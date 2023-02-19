@@ -6,21 +6,21 @@
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
 		  <div class="carousel-item active">
-			<img src="{% static 'website/img/crousal/city.jpg' %}" class="d-block w-100" alt="...">
+			<img src="{% static 'website/img/crousal/city.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
 			<div class="carousel-caption d-none d-md-block">
 				<h5>Haris Real Estate</h5>
 				<p>We have Experienced Professional Stall Always Available to Fullfill your Property Needs.</p>
 			</div>
 		  </div>
 		  <div class="carousel-item">
-			<img src="{% static 'website/img/crousal/buildings.jpg' %}" class="d-block w-100" alt="...">
+			<img src="{% static 'website/img/crousal/buildings.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
 			<div class="carousel-caption d-none d-md-block">
 				<h5>Haris Real Estate & Builders</h5>
 				<p>We have Experienced Professional Stall Always Available to Fullfill your Property Needs.</p>
 			</div>
 		  </div>
 		  <div class="carousel-item">
-			<img src="{% static 'website/img/crousal/house.jpg' %}" class="d-block w-100" alt="...">
+			<img src="{% static 'website/img/crousal/house.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
 			<div class="carousel-caption d-none d-md-block">
 				<h5>Haris Real Estate</h5>
 				<p>We have Experienced Professional Stall Always Available to Fullfill your Property Needs.</p>
@@ -44,7 +44,7 @@
 			<div class="col col_1">
 				<a href="{% url 'properties_category' category='house' %}" class="nav-link">
 					<div class="card h-100">
-						<img src="{% static 'website/img/categories/home.jpg' %}" class="card-img-top" alt="...">
+						<img src="{% static 'website/img/categories/home.jpg' %}" class="card-img-top" alt="..." width="100%" height="100%">
 						<div class="card-img-overlay"></div>
 						<div class="card-body">
 							<h5 class="card-title">HOMES</h5>
@@ -56,7 +56,7 @@
 			<div class="col">
 			  <a href="{% url 'properties_category' category='rp' %}" class="nav-link">
 				<div class="card h-100">
-								<img src="{% static 'website/img/categories/plots.jpg' %}" class="card-img-top img2" alt="...">
+								<img src="{% static 'website/img/categories/plots.jpg' %}" class="card-img-top img2" width="100%" height="100%" alt="...">
 								<div class="card-img-overlay">
 								  <h5 class="card-title">LAND/PLOTS</h5>
 								  <!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p> -->
@@ -71,7 +71,7 @@
 							<h5 class="card-title">COMMERCIAL</h5>
 							<!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p> -->
 						</div>
-						<img src="{% static 'website/img/categories/commercial.jpg' %}" class="card-img-top" alt="...">
+						<img src="{% static 'website/img/categories/commercial.jpg' %}" class="card-img-top" width="100%" height="100%" alt="...">
 						<div class="card-img-overlay"></div>
 					</div>
 				</a>
@@ -85,7 +85,7 @@
 		<div class="card mb-0" style="max-width: 100%;">
 			<div class="row g-0">
 			  <div class="col-md-6">
-				<img src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" class="img-fluid rounded-start" alt="...">
+				<img src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" class="img-fluid rounded-start" width="100%" height="100%" alt="...">
 			  </div>
 			  <div class="col-md-6">
 				<div class="card-body">
@@ -125,9 +125,9 @@
 						<a href="#">
 							<!-- <div class="imageContainer"> -->
 								{% if agent.profile_image %}
-									<img src="{{ agent.profile_image.url }}" class="card-img" alt="...">
+									<img src="{{ agent.profile_image.url }}" class="card-img" width="100%" height="100%" alt="...">
 								{% else %}
-									<img src="media/images/No_image/No_image_available.png" class="card-img" alt="...">
+									<img src="media/images/No_image/No_image_available.png" class="card-img" width="100%" height="100%" alt="...">
 								{% endif %}
 							<!-- </div> -->
 							<div class="card-body text-center">
