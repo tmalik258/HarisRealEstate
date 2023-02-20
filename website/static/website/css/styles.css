@@ -236,6 +236,7 @@ main
 .navbar .navbar-brand a:first-child
 {
 	text-decoration: none;
+	color: transparent;
 }
 
 .container-fluid
