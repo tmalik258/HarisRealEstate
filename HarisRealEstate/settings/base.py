@@ -18,9 +18,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 ## DEBUG_PROPAGATE_EXCEPTIONS = True
 
-
-# DISABLE_COLLECTSTATIC = 0
-
 # Application definition
 
 INSTALLED_APPS = [
