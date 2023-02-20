@@ -76,6 +76,9 @@
 								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>PROFILE</a>
 							</li>
 							<li class="nav-item">
+								<a href="{% url 'admin:index' %}" {% if "/admin" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>ADMIN</a>
+							</li>
+							<li class="nav-item">
 								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CREATE LISTING</a>
 							</li>
 							<li class="nav-item">

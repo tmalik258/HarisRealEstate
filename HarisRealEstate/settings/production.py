@@ -7,13 +7,16 @@ from .base import *
 ALLOWED_HOSTS = ['13.231.223.105', '127.0.0.1', '.harisrealestate.com']
 
 ## CSRF TOKEN CLEARANCE
+CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_DOMAIN = '.harisrealestate.com'
 CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.com', 'https://www.harisrealestate.com']
 
+## Secure-Only Session Cookie
+SESSION_COOKIE_SECURE = True
 
 ## HTTPS
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 
 DATABASE_URL = os.getenv("DATABASE_URL")
