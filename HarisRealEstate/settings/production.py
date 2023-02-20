@@ -15,7 +15,7 @@ CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.com', 'https://www.harisrealest
 SESSION_COOKIE_SECURE = True
 
 ## HTTPS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 
 
