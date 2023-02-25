@@ -88,6 +88,9 @@ class Images (models.Model):
 	images = models.ImageField(upload_to = user_directory_path, blank=True)
 	listing = models.ForeignKey(listing, on_delete= models.CASCADE, related_name='img')
 
+	def __str__(self):
+		return f"{self.listing}"
+
 class Contact (models.Model):
 	fname = models.CharField(max_length=24)
 	lname = models.CharField(max_length=24, blank=True)

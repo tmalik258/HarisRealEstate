@@ -9,8 +9,8 @@
 					<div class="row g-0">
 						<div class="col-md-4">
 							<a href="{% url 'single_property' post.id %}">
-								{% if post.img.images %}
-									<img src="{{ post.img.first.images.url }}" class="img-fluid rounded-start" alt="...">
+								{% if post.img.first %}
+									<img loading="lazy" src="{{ post.img.first.images.url }}" class="card-img-top" height="100%" alt="{{ post.img.first.images }}">
 								{% else %}
 									<img src="{% static 'website\img\icons\Dark theme logo (Haris real estate).png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 								{% endif %}
