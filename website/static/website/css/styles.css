@@ -897,6 +897,43 @@ main
 	left: 175px;
 }
 
+/* ////////////////////////////////////////	PAGINATION	///////////////////////////////////////// */
+.pagination .page-item a
+{
+	background: black;
+	color: wheat;
+	/* border: none; */
+}
+
+.pagination .page-item.active a
+{
+	background: rgb(151, 111, 65);
+	color: rgb(0, 0, 0);
+	border: 1px solid white;
+
+}
+
+.pagination .page-item a:hover
+{
+	background: wheat;
+	color: black;
+}
+
+.pagination .page-item .page-link span
+{
+	color: white;
+}
+
+.pagination .page-item a:hover span
+{
+	color: black;
+}
+
+.pagination .page-item.disabled .page-link span
+{
+	color: #969696;
+}
+
 /* //////////////////////////////////////////	SINGLE PROPERTY	/////////////////////////////////////////// */
 .properties.singleProperty
 {

@@ -1,4 +1,5 @@
 import json
+from msilib.schema import ListView
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -8,10 +9,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.db import IntegrityError
-from .models import listing, User, Comments, Images, Contact
-from .forms import listingForm, imageForm
 from django.forms import modelformset_factory
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.views.generic import ListView
+
+from .models import listing, User, Comments, Images, Contact
+from .forms import listingForm, imageForm
 
 
 # Create your views here.
@@ -75,21 +79,23 @@ def contact (request):
     # print('contact saved')
     return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
 
-def properties (request):
-    posts = listing.objects.filter(active=True)
-    # Return posts in reverse chronologial order
-    posts = posts.order_by("-time_created").all()
-    return render (request, 'website/properties.html', {
-        'posts': posts
-    })
 
-def properties_category (request, category):
-    posts = listing.objects.filter(category=category, active=True)
-    # Return posts in reverse chronologial order
-    posts = posts.order_by("-time_created").all()
-    return render(request, 'website/properties.html', {
-        'posts': posts
-    })
+class PropertiesListView (ListView):
+    model = listing
+    queryset = listing.objects.filter(active=True).order_by("-time_created").all()
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+
+class PropertiesCategoryListView (ListView):
+    model = listing
+    paginate_by = 1 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+    def get_queryset(self, **kwargs):
+       qs = super().get_queryset(**kwargs)
+       return qs.filter(category=self.kwargs['category'], active=True).order_by("-time_created").all()
+
 
 def single_property (request, item):
     post = listing.objects.get(id=item)
@@ -145,7 +151,7 @@ def createListing (request):
                 #this helps to not crash if the user do not upload all the photos
                 if form:
                     image = form['images']
-                    photo = Images(listing=listingform, image=image)
+                    photo = Images(listing=listingform, images=image)
                     photo.save()
 
             # use django messages framework

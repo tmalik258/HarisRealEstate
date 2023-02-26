@@ -4,7 +4,7 @@
 {% block body %}
 	<article class="properties">
 		<h1><div class="seperator"></div>Properties<div class="seperator"></div></h1>
-		{% for post in posts %}
+		{% for post in page_obj %}
 				<div class="card my-4" style="max-width: 700px; color: black;">
 					<div class="row g-0">
 						<div class="col-md-4">
@@ -12,14 +12,14 @@
 								{% if post.img.first %}
 									<img loading="lazy" src="{{ post.img.first.images.url }}" class="card-img-top" height="100%" alt="{{ post.img.first.images }}">
 								{% else %}
-									<img src="{% static 'website\img\icons\Dark theme logo (Haris real estate).png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+									<img loading="lazy" src="{% static 'website\img\icons\Dark theme logo (Haris real estate).png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 								{% endif %}
 							</a>
 						</div>
 						<div class="col-md-8">
 							<a href="{% url 'single_property' post.id %}" style="color: black; text-decoration: none;">
 								<div class="card-body">
-									<h5 class="card-title text-center">{{ post.title | title }}</h5><hr>
+									<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
 									<p class="card-text">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
 									<p class="card-text">{{ post.get_category_display }} for {{ post.get_purpose_display }}</p>
 									<p class="card-text">{{ post.area_size }} Marla</p>
@@ -40,5 +40,51 @@
 					<h6>Sorry! No Property Found !!</h6>
 				</div>
 			{% endfor %}
+
+					<!-- PAGINATION START -->
+		{% if is_paginated %}
+			<nav aria-label="Page Navigation">
+				<ul class="pagination justify-content-center">
+					{% if page_obj.has_previous %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					{% else %}
+						<li class="page-item disabled">
+							<a class="page-link" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					{% endif %}
+					{% for i in page_obj.paginator.get_elided_page_range %}
+						{% if page_obj.paginator.ELLIPSIS == forloop.counter %}
+							<li class="page-item disabled"><a class="page-link">{{ forloop.counter }}</a></li>
+						{% else %}
+							{% if page_obj.number == forloop.counter %}
+								<li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+							{% else %}
+								<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{% if page_obj.has_next %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					{% else %}
+						<li class="page-item disabled">
+							<a class="page-link" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</nav>
+		{% endif %}
+							<!-- PAGINATION START -->
 	</article>
 {% endblock %}
