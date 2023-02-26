@@ -89,7 +89,7 @@ class PropertiesListView (ListView):
 
 class PropertiesCategoryListView (ListView):
     model = listing
-    paginate_by = 1 # show 25 posts in reverse chronologial order
+    paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/properties.html"
 
     def get_queryset(self, **kwargs):
