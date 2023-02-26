@@ -26,27 +26,27 @@ class listing (models.Model):
 	CATEGORY_CHOICES = [
 		('Homes', (
 			('house', 'House'),
-			# ('flat', 'Flat'),
-			# ('up', 'Upper Portion'),
-			# ('lp', 'Lower Portion'),
-			# ('fh', 'Farm House'),
-			# ('room', 'Room'),
-			# ('ph', 'Penthouse')
+			('flat', 'Flat'),
+			('up', 'Upper Portion'),
+			('lp', 'Lower Portion'),
+			('fh', 'Farm House'),
+			('room', 'Room'),
+			('ph', 'Penthouse')
 		)),
 		('Plots', (
 			('rp', 'Residential Plots'),
-			# ('cp', 'Commercial Plots'),
-			# ('al', 'Agricultural Land'),
-			# ('il', 'Industrial Land'),
-			# ('pfile', 'Plot File'),
-			# ('pform', 'Plot Form'),
+			('cp', 'Commercial Plots'),
+			('al', 'Agricultural Land'),
+			('il', 'Industrial Land'),
+			('pfile', 'Plot File'),
+			('pform', 'Plot Form'),
 		)),
 		('Commercial', (
 			('off', 'Office'),
-			# ('shop', 'Shop'),
-			# ('wh', 'Warehouse'),
-			# ('fact', 'Factory'),
-			# ('buil', 'Building'),
+			('shop', 'Shop'),
+			('wh', 'Warehouse'),
+			('fact', 'Factory'),
+			('buil', 'Building'),
 		)),
 		('other', 'Other')
 	]
