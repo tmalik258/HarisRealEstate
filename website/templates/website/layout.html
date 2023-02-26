@@ -193,6 +193,15 @@
 	<script src="{% static 'website/js/index.js' %}"></script>
 
 	<script>
+		setTimeout(function () {
+			// Not complete. Document hasn't finished loading.
+			if (document.readyState !== 'complete') {
+				let loader = document.querySelector('.loader');
+				let div = document.createElement('div');
+				loader.innerHTML = "Connection timed out. Please Refresh the page or Check Your Internet Connection";
+				// loader.append(div);
+			}
+		}, 20000);
 		document.onreadystatechange = function (e) {
 			if (document.readyState === 'complete') {
 				$('.loader').css('transform', 'translateY(-100%)');
