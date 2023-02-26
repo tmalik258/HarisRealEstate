@@ -5,7 +5,7 @@
 	<article class="properties singleProperty">
 		<h1>Property: {{ post.title }}</h1>
 		<div class="card mb-3">
-			{% if post.img.images %}
+			{% if post.img.first %}
 			<div id="carouselExample" class="carousel slide">
 				<div class="carousel-inner">
 					{% for image in post.img.all %}
@@ -31,7 +31,7 @@
 			  </div>
 				<!-- <img src="{{ post.img.first.images.url }}" class="img-fluid rounded-start" alt="..." max-height="300px" max-width="300px"> -->
 			{% else %}
-				<img src="media/images/No_image/No_image_available.png" class="card-img-top" alt="">
+				<img src="media\images\No_image\no-image-found.png" class="card-img-top" alt="No image available">
 			{% endif %}
 			<div class="col-md-10">
 				<div class="card-body">
