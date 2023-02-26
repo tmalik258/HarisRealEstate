@@ -1,5 +1,4 @@
 import json
-from msilib.schema import ListView
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
