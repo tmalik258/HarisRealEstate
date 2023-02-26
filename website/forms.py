@@ -15,7 +15,7 @@ class listingForm (ModelForm):
 			'category': 'Category',
 			'address': 'Address',
 			'description': 'Property Description',
-			'area_size': 'Area Size (in marla)'
+			'area_size': 'Area Size'
 		}
 
 		widgets = {

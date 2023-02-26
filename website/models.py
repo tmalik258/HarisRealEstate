@@ -14,15 +14,25 @@ class User (AbstractUser):
 	phone_number = PhoneNumberField(blank=True)
 
 class listing (models.Model):
+	AREA_SIZE_CHOICES = (
+		('SFt', 'Sq. Ft.'),
+		('SM', 'Sq. M.'),
+		('SYd', 'Sq. Yd.'),
+		('M', 'Marla'),
+		('K', 'Kanal'),
+	)
+
 	PURPOSE_CHOICES = (
 		('S', 'Sale'),
 		('R', 'Rent Out')
 	)
+
 	CITY_CHOICES = (
 		('lhr', 'Lahore'),
 		('khi', 'Karachi'),
 		('isl', 'Islamabad')
 	)
+
 	CATEGORY_CHOICES = [
 		('Homes', (
 			('house', 'House'),
@@ -50,12 +60,14 @@ class listing (models.Model):
 		)),
 		('other', 'Other')
 	]
+
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listingUser")
 	title = models.CharField(max_length=64)
 	price = models.IntegerField()
 	purpose = models.CharField( max_length=2, choices=PURPOSE_CHOICES, default='S')
 	category = models.CharField( max_length=5, choices=CATEGORY_CHOICES, default='')
 	area_size = models.IntegerField()
+	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=100)
 	description = models.TextField(max_length=300)

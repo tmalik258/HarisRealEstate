@@ -22,7 +22,7 @@
 									<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
 									<p class="card-text">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
 									<p class="card-text">{{ post.get_category_display }} for {{ post.get_purpose_display }}</p>
-									<p class="card-text">{{ post.area_size }} Marla</p>
+									<p class="card-text">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
 									<!-- <p class="card-text">{{ post.get_city_display }}</p> -->
 									<p class="card-text">{{ post.address | truncatechars:25 }}</p>
 									<p class="card-text">{{ post.description | truncatechars:25 }}</p>
