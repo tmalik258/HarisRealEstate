@@ -21,23 +21,23 @@ function load_contact_form () {
 			</div>
 			<form id="contact-us">
 				<div class="form-floating">
-					<input class="form-control first_name" type="text" id="floatingInput" placeholder="*First Name" required>
+					<input class="form-control first_name" type="text" id="floatingInput" placeholder="*First Name" aria-id=1 required>
 					<label for="floatingInput">What is your First Name?</label>
 				</div><br>
 				<div class="form-floating">
-					<input class="form-control last_name" type="text" id="floatingInput" placeholder="Last Name">
+					<input class="form-control last_name" type="text" id="floatingInput" placeholder="Last Name" aria-id=2>
 					<label for="floatingInput">What is your Last Name?</label>
 				</div><br>
 				<div class="form-floating">
-					<input class="form-control tel_n" pattern="+[0-9]{2}-[0-9]{3}-[0-9]{7}" type="tel" id="floatingInput" placeholder="*Phone Number" required>
+					<input class="form-control tel_n" pattern="+[0-9]{2}-[0-9]{3}-[0-9]{7}" type="tel" id="floatingInput" placeholder="*Phone Number" aria-id=3 required>
 					<label for="floatingInput">What is your Phone Number?  (+92-312-3456789)</label>
 				</div><br>
 				<div class="form-floating">
-					<input class="form-control email" type="email" id="floatingInput" placeholder="*Email" required>
+					<input class="form-control email" type="email" id="floatingInput" placeholder="*Email" aria-id=4 required>
 					<label for="floatingInput">What is your Email? (name@example.com)</label>
 				</div><br>
 				<div class="form-floating">
-					<textarea class="form-control message" placeholder="Leave a message here" id="floatingTextarea2" style="height: 150px" required></textarea>
+					<textarea class="form-control message" placeholder="Leave a message here" aria-id=5 id="floatingTextarea2" style="height: 150px" required></textarea>
 					<label for="floatingTextarea2">What is your Message?</label>
 				</div>
 				<p class="form_message"></p>
