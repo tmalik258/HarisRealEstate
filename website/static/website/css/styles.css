@@ -22,7 +22,14 @@ body
 
 header
 {
-	display: none;
+	/* display: none; */
+	transition: 0.2s;
+}
+
+main
+{
+	/* display: none; */
+	transition: 0.2s;
 }
 
 /* //////////////////////////////////	SCROLL BAR	////////////////////////////////////////////// */
@@ -164,10 +171,6 @@ header
 	}
 }
 
-main
-{
-	display: none;
-}
 
 /* //////////////////////////////////////////	IMAGES	/////////////////////////////////////////////////// */
 .mainImage
@@ -465,7 +468,7 @@ main
 	background: rgb(167, 147, 124);
 }
 
-.top-categories, .about-us, .agents, .contact-us, .properties, .singleProperty
+.top-categories, .about-us, .agents, .contact-us, .properties, .singleProperty, .create_listing
 {
 	margin: 50px 10px;
 	border-radius: 10px;
@@ -750,14 +753,14 @@ main
 }
 
 /* //////////////////////////////////////////	CONTACT US	/////////////////////////////////////////// */
-.contact-us .login
+.contact-us .login, .create_listing .login
 {
 	width: 98%;
 	height: 98%;
 	margin: 1% auto;
 }
 
-.contact-us .login h1
+.contact-us .login h1, .create_listing .login h1
 {
 	font-size: 70px;
 }
@@ -980,7 +983,8 @@ footer
 	padding-right: 10%;
 	padding-left: 5%;
 	position: relative;
-	display: none;
+	transition: 0.2s;
+	/* display: none; */
 }
 
 footer .footer_row
@@ -1071,7 +1075,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-top: 170px;
 	}
 
-	.main_section.create_listing .contact-us .login form
+	.create_listing .login form
 	{
 		width: 90%;
 	}
@@ -1111,7 +1115,9 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	.contact-us .login form
 	{
 		margin: auto;
-		width: 18.5em;
+		/* width: 18.5em; */
+		width: auto;
+		float: initial;
 	}
 
 	.login

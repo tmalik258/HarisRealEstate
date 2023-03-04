@@ -102,10 +102,12 @@
 	</header>
 	{% endblock %}
 
+	{% comment %}
 	<div class="loader">
 		<div class="animation"></div>
 		<div class="shadow">HARIS REAL ESTATE</div>
 	</div>
+	{% endcomment %}
 
 	<!--------------------------	Body Starts	 ------------------------------ -->
 	<main>
@@ -129,11 +131,11 @@
 							<div class="seperator"></div>+92 300-4882031<div class="seperator"></div>
 						</a>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="tel:+92 3214882031">
 							<div class="seperator"></div>+92 321-4882031<div class="seperator"></div>
 						</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="mail:harisrealestate@yahoo.com">
 							<div class="seperator"></div>harisrealestate@yahoo.com<div class="seperator"></div>
@@ -193,21 +195,21 @@
 	<script src="{% static 'website/js/index.js' %}"></script>
 
 	<script>
-		setTimeout(function () {
+		// setTimeout(function () {
 			// Not complete. Document hasn't finished loading.
-			if (document.readyState !== 'complete') {
-				let loader = document.querySelector('.loader');
-				let div = document.createElement('div');
-				loader.innerHTML = "Connection timed out. Please Refresh the page or Check Your Internet Connection";
-				// loader.append(div);
-			}
-		}, 20000);
+		// 	if (document.readyState !== 'complete') {
+		// 		let loader = document.querySelector('.loader');
+		// 		// let div = document.createElement('div');
+		// 		loader.innerHTML = "Connection timed out. Please Refresh the page or Check Your Internet Connection";
+		// 		// loader.append(div);
+		// 	}
+		// }, 20000);
 		document.onreadystatechange = function (e) {
 			if (document.readyState === 'complete') {
-				$('.loader').css('transform', 'translateY(-100%)');
-				$('header').css('display', 'initial');
-				$('main').css({display: 'block'});
-				$('footer').css({display: 'block'});
+				// $('.loader').css('transform', 'translateY(-100%)');
+				// $('header').css('display', 'initial');
+				// $('main').css({display: 'block'});
+				// $('footer').css({display: 'block'});
 				
 				if (window.innerWidth > 990)
 				{

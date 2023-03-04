@@ -69,8 +69,8 @@ class listing (models.Model):
 	area_size = models.IntegerField()
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
-	address = models.TextField(max_length=100)
-	description = models.TextField(max_length=300)
+	address = models.TextField(max_length=250)
+	description = models.TextField(max_length=600)
 	time_created = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
 

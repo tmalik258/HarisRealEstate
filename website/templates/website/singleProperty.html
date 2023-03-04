@@ -33,23 +33,32 @@
 			{% else %}
 				<img loading="lazy" src="\media\images\No_image\no-image.png"  class="card-img-top d-block m-auto w-50" alt="No Image Uploaded">
 			{% endif %}
-			<div class="col-md-10">
+			<div class="col">
 				<div class="card-body">
-						<!-- <h5 class="card-title text-center">{{ post.title | title }}</h5> -->
-						<h5 class="card-title">Price: </h5>
-						<p class="card-text">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
-						<h5 class="card-title">Purpose: </h5>
-						<p class="card-text">{{ post.get_purpose_display }}</p>
-						<h5 class="card-title">Category: </h5>
-						<p class="card-text">{{ post.get_category_display }}</p>
-						<h5 class="card-title">Size: </h5>
-						<p class="card-text">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
-						<!-- <p class="card-text">{{ post.get_city_display }}</p> -->
-						<h5 class="card-title">Description: </h5>
-						<p class="card-text">{{ post.description }}</p>
-						<h5 class="card-title">Location: </h5>
-						<p class="card-text">{{ post.address }}</p>
-						<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col border-end border-dark">
+								<h5 class="card-title">Price: </h5>
+								<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
+								<h5 class="card-title">Purpose: </h5>
+								<p class="card-text ms-3">{{ post.get_purpose_display }}</p>
+								<h5 class="card-title">Category: </h5>
+								<p class="card-text ms-3">{{ post.get_category_display }}</p>
+								<h5 class="card-title">Size: </h5>
+								<p class="card-text ms-3">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
+							</div>
+							<div class="col border-start border-dark">
+								<h5 class="card-title">Location: </h5>
+								<p class="card-text ms-3">{{ post.address }}</p>
+								<h5 class="card-title">Description: </h5>
+								<p class="card-text ms-3">{{ post.description }}</p>
+							</div>
+						</div>
+					</div>
+						<p class="card-text text-center"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+						{% if post.creator.phone_number %}
+						<a href="tel:+{{ post.creator.phone_number }}"  class="btn btn-outline-secondary email more">Call</a>
+						{% endif %}
 						<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
 					</div>
 				</div>
