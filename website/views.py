@@ -14,7 +14,7 @@ from django.core.paginator import Paginator
 from django.views.generic import ListView
 
 from .models import listing, User, Comments, Images, Contact
-from .forms import listingForm, imageForm
+from .forms import listingForm
 
 
 # Create your views here.
@@ -133,40 +133,33 @@ def profile (request):
 
 @staff_member_required
 def createListing (request):
-    ImageFormSet = modelformset_factory(Images, form=imageForm, extra=5)
+    # ImageFormSet = modelformset_factory(Images, form=imageForm, extra=5)
      #'extra' means the number of photos that you can upload
 
     if request.method == "POST":
         listing_form = listingForm (request.POST)
-        image_form = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+        images = request.FILES.getlist('images')
+        # image_form = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
 
-        if listing_form.is_valid() and image_form.is_valid():
-            listingform = listing_form.save(commit=False)
-            listingform.creator = request.user
-            listingform.active = True
-            listingform.save()
+        if listing_form.is_valid():
+            listing_obj = listing_form.save(commit=False)
+            listing_obj.creator = request.user
+            listing_obj.active = True
+            listing_obj.save()
 
-            for form in image_form.cleaned_data:
-                #this helps to not crash if the user do not upload all the photos
-                if form:
-                    image = form['images']
-                    photo = Images(listing=listingform, images=image)
-                    photo.save()
+            for img in images:
+                Images.objects.create(listing=listing_obj, images=img)
 
-            # use django messages framework
             messages.success(request, "Yeew, check it out on the home page!")
             return HttpResponseRedirect("/createListing")
         
         else:
-            print(listingForm.errors, image_form.errors)
+            messages.error(request, "Form is invalid. Please recheck the fields or fields\' values")
+            print(listingForm.errors)
 
-    else:
-        listing_form = listingForm
-        image_form = ImageFormSet(queryset=Images.objects.none())
-
+    listing_form = listingForm
     return render(request, 'website/createListing.html', {
         'listing_form': listing_form,
-        'image_form': image_form
     })
         
 def login_view(request):

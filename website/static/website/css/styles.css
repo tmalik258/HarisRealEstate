@@ -334,7 +334,8 @@ main
 	overflow: auto;
 }
 
-.login input, .login input:focus, .login textarea, .login textarea:focus, .contact-us .login .btn
+.login input, .login input:focus, .login textarea, .login textarea:focus, .contact-us .login .btn,
+.login .form-select
 {
 	background: #141414;
 	border: none;
@@ -1056,6 +1057,27 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		top: 43px;
 		display: inline-block;
 	}
+
+	.create_listing .login form
+	{
+		width: 75%;
+	}
+
+	.create_listing .login form .form-select
+	{
+		width: 25%;
+	}
+
+	/* .create_listing .login form .form-select::before {
+		position: absolute;
+		content: "\25bc";
+		top: 0px;
+		right: -8px;
+		height: 200px;
+		width: 200px;
+		z-index: 1000;
+		color: white;
+	} */
 }
 
 @media screen and (max-width: 990px) {
@@ -1075,10 +1097,10 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-top: 170px;
 	}
 
-	.create_listing .login form
+	/* .create_listing .login form
 	{
-		width: 90%;
-	}
+		width: 100em;
+	} */
 
 	.top-categories h1, .agents .agent-title .card-title
 	{

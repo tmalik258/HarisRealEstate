@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import listing, Comments, Images
 
+
 class listingForm (ModelForm):
 	class Meta:
 		model = listing
@@ -10,56 +11,46 @@ class listingForm (ModelForm):
 		exclude = ('creator', 'time_created','active')
 
 		labels = {
-			'title': ' Property Title',
+			'title': 'Property Title',
 			'price': 'Price',
 			'category': 'Category',
 			'address': 'Address',
 			'description': 'Property Description',
-			'area_size': 'Area Size'
+			'area_size': 'Area Size',
+			'area_size_unit': 'Area Unit',
 		}
 
 		widgets = {
 			'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
 			'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Price', 'min': 0}),
-            'category': forms.Select(attrs={'class': 'custom-select'}),
-            'address': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Address'}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'city': forms.Select(attrs={'class': 'form-select'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description'}),
-			'purpose': forms.RadioSelect(),
-			'area_size': forms.NumberInput(attrs={'class': 'form-control', 'min': 0})
+			'purpose': forms.RadioSelect(attrs={'class': 'form-radio-inline'}),
+			'area_size': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Area Size', 'min': 0}),
+            'area_size_unit': forms.Select(attrs={'class': 'form-select'}),
 		}
 
-class imageForm (ModelForm):
-	class Meta:
-		model = Images
-		fields = ('__all__')
 
-		exclude = ('listing',)
+# class listingFullForm (listingForm):
+# 	images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
-		labels = {
-			'images': 'Image'
-		}
 
-		widgets = {
-			'images': forms.ClearableFileInput()
-		}
+# 	class Meta (listingForm.Meta):
+# 		fields = listingForm.Meta.fields + str('images')
 
-# class contactForm (ModelForm):
+# class imageForm (ModelForm):
 # 	class Meta:
-# 		model = Contact
+# 		model = Images
 # 		fields = ('__all__')
 
-# 		exclude = ('time_created',)
+# 		exclude = ('listing',)
 
 # 		labels = {
-# 			'fname': '*First Name',
-# 			'lname': 'Last Name',
-# 			'email': '*Email',
-# 			'message': '*Message',
+# 			'images': 'Image'
 # 		}
 
 # 		widgets = {
-# 			'fname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your First Name?', 'id': 'first_name'}),
-# 			'lname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'What is your Last Name?', 'id': 'last_name'}),
-# 			'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'What is your Email? i.e., name@example.com', 'id': 'email'}),
-#             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Your Message', 'id': 'message'}),
+# 			'images': forms.ClearableFileInput(attrs={'multiple': True})
 # 		}

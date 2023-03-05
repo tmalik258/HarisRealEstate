@@ -2,36 +2,49 @@
 {% load static %}
 
 {% block body %}
-{% comment %}
-<section class="login createListing">
-	<h1>Create Listing</h1>
-	<form action="" method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-
-		{{ listing_form.as_p }}
-		{{ image_form.as_p }}
-		<input type="submit" value="Create" class="btn btn-primary">
-	</form>
-</section>
-{% endcomment %}
+	{% if messages %}
+		{% for message in messages %}
+			<div {% if message.tags %} {% if message.tags == 'error' %} class="alert alert-danger alert-dismissible fade show text-center" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" {% endif %} {% endif %} role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
+	{% endif %}
 <section class="main_section">
 	<div class="create_listing">
 		<section class="login">
 			<div class="login-body">
 				<h1 class="card-text text-center">Create Listing</h1><hr>
-				<!-- <p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p> -->
-				{% comment %}
-					{% if message %}
-					<p>{{ message }}</p>
-					{% endif %}
-				{% endcomment %}
 			</div>
-			<form action="" method="post" enctype="multipart/form-data" class="form-floating w-75 m-auto">
+			<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto">
 				{% csrf_token %}
-		
-				{{ listing_form.as_p }}
-				{{ image_form.as_p }}
-				<input type="submit" value="Create" class="btn btn-dark">
+				
+				<div class="col mb-3">{{ listing_form.title.label }}{{ listing_form.title }}</div>
+				<!-- <div class="row"> -->
+				<div class="col mb-3">{{ listing_form.price.label }}{{ listing_form.price }}</div>
+				<!-- </div> -->
+				<div class="row mb-3">
+					<div class="col">{{ listing_form.purpose.label }}{{ listing_form.purpose }}</div>
+					<div class="col">{{ listing_form.category.label }}{{ listing_form.category }}</div>
+				</div>
+
+				<div class="row">
+					<div class="col">{{ listing_form.area_size.label }}{{ listing_form.area_size }}</div>
+					<div class="col">{{ listing_form.area_size_unit.label }}{{ listing_form.area_size_unit }}</div>
+				</div>
+
+				<div class="row">
+					<div class="col">{{ listing_form.address.label }}{{ listing_form.address }}</div>
+					<div class="col">{{ listing_form.city.label }}{{ listing_form.city }}</div>
+				</div>
+				<div class="col">{{ listing_form.description.label }}{{ listing_form.description }}</div>
+				<!-- {{ listing_form.as_p }} -->
+				<div class="form-group">
+					<label for="listing-image">Images</label>
+					<input type="file" name="images" class="form-control-file" id="listing-image" multiple>
+					<div class="form-text ms-5">Select upto 15 images for the property to upload.</div>
+				</div>
+				<input type="submit" value="Create" class="btn btn-dark mt-3">
 			</form>
 		</section>
 	</div>
