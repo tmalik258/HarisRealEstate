@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 # Create your models here.
 
@@ -12,6 +13,7 @@ class User (AbstractUser):
 	bio_info = models.TextField(max_length=500)
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 	phone_number = PhoneNumberField(blank=True)
+
 
 class listing (models.Model):
 	AREA_SIZE_CHOICES = (
@@ -82,6 +84,7 @@ class listing (models.Model):
 		time = self.time_created.strftime("%H:%M | %d-%m-%Y")
 		return f"Listing: {self.id} | {self.title} | ({self.creator}, {time}) | {listing}"
 
+
 class Comments (models.Model):
 	fname = models.CharField(max_length=24)
 	lname = models.CharField(max_length=24)
@@ -93,6 +96,7 @@ class Comments (models.Model):
 		time = self.date_created.strftime("%H:%M | %d-%m-%Y")
 		return f"{self.creator} | {self.auction_list.title} | {time}"
 
+
 class Images (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
@@ -102,6 +106,14 @@ class Images (models.Model):
 
 	def __str__(self):
 		return f"{self.listing}"
+
+	def image_tag (self):
+		if self.images:
+			return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.images.url)
+		else:
+			return 'No image found'
+	image_tag.short_description = 'Image'
+
 
 class Contact (models.Model):
 	fname = models.CharField(max_length=24)

@@ -37,7 +37,7 @@
 				<div class="card-body">
 					<div class="container-fluid">
 						<div class="row">
-							<div class="col border-end border-dark">
+							<div class="col">
 								<h5 class="card-title">Price: </h5>
 								<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
 								<h5 class="card-title">Purpose: </h5>
@@ -47,7 +47,7 @@
 								<h5 class="card-title">Size: </h5>
 								<p class="card-text ms-3">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
 							</div>
-							<div class="col border-start border-dark">
+							<div class="col">
 								<h5 class="card-title">Location: </h5>
 								<p class="card-text ms-3">{{ post.address }}</p>
 								<h5 class="card-title">Description: </h5>
@@ -59,7 +59,7 @@
 						{% if post.creator.phone_number %}
 						<a href="tel:+{{ post.creator.phone_number }}"  class="btn btn-outline-secondary email more">Call</a>
 						{% endif %}
-						<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+						<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email ms-3">Email</a>
 					</div>
 				</div>
 			</div>

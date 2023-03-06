@@ -1078,6 +1078,10 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		z-index: 1000;
 		color: white;
 	} */
+	.properties.singleProperty .card .col .card-body .container-fluid .row .col:last-child
+	{
+		border-left: 2px black solid;
+	}
 }
 
 @media screen and (max-width: 990px) {

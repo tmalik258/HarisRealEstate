@@ -13,4 +13,8 @@ admin.site.register(listing, ListingAdmin)
 
 admin.site.register(Contact)
 admin.site.register(Comments)
-admin.site.register(Images)
+
+# Image Model
+class ImageAdmin (admin.ModelAdmin):
+	list_display = ('listing', 'image_tag')
+admin.site.register(Images, ImageAdmin)
