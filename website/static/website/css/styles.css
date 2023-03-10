@@ -357,12 +357,6 @@ main
 	background: wheat;
 }
 
-.login.register
-{
-	height: auto;
-	margin-top: 2%;
-	margin-bottom: 5%;
-}
 
 .login.register input[type="submit"]
 {
@@ -1050,6 +1044,13 @@ footer .footer_row .footer_col ul li a:hover .seperator
 }
 
 @media screen and (min-width:1185px) {
+	.login.register
+	{
+		height: auto;
+		margin-top: 5%;
+		margin-bottom: 5%;
+	}
+
 	.collapse .mail
 	{
 		position: absolute;
@@ -1151,6 +1152,11 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		height: auto;
 		width: 90%;
 	}
+
+	/* .login.register
+	{
+		margin-top: 0%;
+	} */
 
 	footer .footer_row
 	{

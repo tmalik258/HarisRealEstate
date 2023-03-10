@@ -4,8 +4,10 @@
 Register New Account
 {% endblock %}
 
+{% comment %}
 {% block nav %}
 {% endblock %}
+{% endcomment %}
 
 {% block body %}
     <div class="login register">
@@ -16,36 +18,36 @@ Register New Account
         <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-floating mb-3">
-                <input class="form-control" autofocus type="text" id="floatingInput" name="fname" placeholder="First Name">
-                <label for="floatingInput" >First Name</label>
+                <input class="form-control" autofocus type="text" id="floatingInputForFirstName" name="fname" placeholder="First Name">
+                <label for="floatingInputForFirstName" >First Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" type="text" name="lname" placeholder="Last Name">
-                <label for="floatingInput" >Last Name</label>
+                <input class="form-control" id="floatingInputForLastName" type="text" name="lname" placeholder="Last Name">
+                <label for="floatingInputForLastName" >Last Name</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" type="text" name="username" placeholder="Username">
-                <label for="floatingInput" >Username</label>
+                <input class="form-control" id="floatingInputForUsername" type="text" name="username" placeholder="Username">
+                <label for="floatingInputForUsername" >Username</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" type="email" name="email" placeholder="Email Address">
-                <label for="floatingInput" >Email Address</label>
+                <input class="form-control" id="floatingInputForEmail" type="email" name="email" placeholder="Email Address">
+                <label for="floatingInputForEmail" >Email Address</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" type="tel" name="tel" placeholder="Phone Number">
-                <label for="floatingInput" >Phone Number</label>
+                <input class="form-control" id="floatingInputForPhoneNumber" type="tel" name="tel" placeholder="Phone Number">
+                <label for="floatingInputForPhoneNumber" >Phone Number</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" type="password" name="password" placeholder="Password">
-                <label for="floatingInput" >Password</label>
+                <input class="form-control" id="floatingInputForPassword" type="password" name="password" placeholder="Password">
+                <label for="floatingInputForPassword" >Password</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInput" type="password" name="confirmation" placeholder="Confirm Password">
-                <label for="floatingInput" >Confirm Password</label>
+                <input class="form-control" id="floatingInputForConfirmPassword" type="password" name="confirmation" placeholder="Confirm Password">
+                <label for="floatingInputForConfirmPassword" >Confirm Password</label>
             </div>
             <div class="form-floating mb-3">
-                <textarea name="bio_info" id="floatingInput" class="form-control" placeholder="Write your bio..." id="" cols="30" rows="10"></textarea>
-                <label for="floatingInput" >Write your bio...</label>
+                <textarea name="bio_info" id="floatingInputForBio" class="form-control" placeholder="Write your bio..." id="" cols="30" rows="10"></textarea>
+                <label for="floatingInputForBio" >Write your bio...</label>
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Profile Picture</label>
@@ -57,5 +59,7 @@ Register New Account
     </div>
 {% endblock %}
 
+{% comment %}
 {% block footer %}
 {% endblock %}
+{% endcomment %}
