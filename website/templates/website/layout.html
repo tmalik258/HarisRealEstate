@@ -82,7 +82,7 @@
 						<li class="nav-item">
 							<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
 						</li>
-						{% if user.is_authenticated %}
+						{% if user.is_authenticated and user.is_staff %}
 							<li class="nav-item">
 								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>PROFILE</a>
 							</li>
