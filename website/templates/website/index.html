@@ -22,7 +22,7 @@
 			<div class="carousel-caption d-none d-md-block">
 				<h5>Haris Real Estate</h5>
 				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
-				<form class="search row g-3" method="GET" action="{% url 'getProperty' %}">
+				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
 					<div class="col-md-2">
 						{{ listing_form.city }}
 					</div>
@@ -33,7 +33,10 @@
 						{{ listing_form.category }}
 					</div>
 					<div class="col-3">
-					  {{ listing_form.price }}
+						{{ listing_form.min_price }}
+					</div>
+					<div class="col-md-3">
+						{{ listing_form.max_price }}
 					</div>
 					<div class="col-3">
 						{{ listing_form.area_size }}
@@ -55,7 +58,7 @@
 			<div class="carousel-caption d-none d-md-block">
 				<h5>Haris Real Estate & Builders</h5>
 				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
-				<form class="search row g-3" method="GET" action="{% url 'getProperty' %}">
+				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
 					<div class="col-md-2">
 						{{ listing_form.city }}
 					</div>
@@ -66,7 +69,10 @@
 						{{ listing_form.category }}
 					</div>
 					<div class="col-3">
-					  {{ listing_form.price }}
+						{{ listing_form.min_price }}
+					</div>
+					<div class="col-md-3">
+						{{ listing_form.max_price }}
 					</div>
 					<div class="col-3">
 						{{ listing_form.area_size }}
@@ -88,7 +94,7 @@
 			<div class="carousel-caption d-none d-md-block">
 				<h5>Haris Real Estate</h5>
 				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
-				<form class="search row g-3" method="GET" action="{% url 'getProperty' %}">
+				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
 					<div class="col-md-2">
 						{{ listing_form.city }}
 					</div>
@@ -99,7 +105,10 @@
 						{{ listing_form.category }}
 					</div>
 					<div class="col-3">
-					  {{ listing_form.price }}
+						{{ listing_form.min_price }}
+					</div>
+					<div class="col-md-3">
+						{{ listing_form.max_price }}
 					</div>
 					<div class="col-3">
 						{{ listing_form.area_size }}

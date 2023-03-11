@@ -7,6 +7,7 @@ urlpatterns = [
 	path('properties', views.PropertiesListView.as_view(), name = 'properties'),
 	path('properties/<str:category>', views.PropertiesCategoryListView.as_view(), name = 'properties_category'),
 	path('properties/property/<str:item>', views.single_property, name = 'single_property'),
+    path('filtered_properties', views.FilteredPropertiesListView.as_view(), name = 'get_property'),
 	path('about_us', views.about_us, name = 'about_us'),
 	path('agents', views.agents, name = 'agents'),
 	path('contact_us', views.contact_us_page, name = 'contact_us_page'),

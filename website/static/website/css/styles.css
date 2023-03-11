@@ -334,8 +334,9 @@ main
 	overflow: auto;
 }
 
-.login input, .login input:focus, .login textarea, .login textarea:focus, .contact-us .login .btn,
-.login .form-select
+.login input, .login input:focus, .login textarea, .login textarea:focus, .login .form-select, 
+.contact-us .login .btn,
+.search input, .search input:focus, .search .form-select
 {
 	background: #141414;
 	border: none;
@@ -347,14 +348,24 @@ main
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.login input[type="submit"], .contact-us .login .btn
+.search .form-select
 {
-	color: rgb(136, 133, 133);
+	cursor: pointer;
 }
 
-.login input[type="submit"]:hover, .contact-us .login .btn:hover
+.login input[type="submit"], 
+.contact-us .login .btn, 
+.search input[type="submit"]
 {
+	color: rgb(136, 133, 133);
 	background: wheat;
+}
+
+.login input[type="submit"]:hover, 
+.contact-us .login .btn:hover, 
+.search input[type="submit"]:hover
+{
+	background: #141414;
 }
 
 
@@ -453,7 +464,7 @@ main
 }
 .carousel-item.active .carousel-caption
 {
-	top: 30%;
+	top: 25%;
 	opacity: 1;
 }
 

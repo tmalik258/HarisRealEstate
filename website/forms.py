@@ -34,6 +34,64 @@ class listingForm (ModelForm):
 		}
 
 
+class listingGetRequestForm (ModelForm):
+	location = forms.CharField(widget=forms.TextInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Search by Location',
+		'title': 'Temporarily Disabled'
+	}), label='', required=False, disabled=True)
+	min_price = forms.CharField(widget=forms.NumberInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Enter Min Price',
+		'min': 10000,
+		'title': 'Temporarily Disabled'
+	}), label='', required=False, disabled=True, min_length=4)
+	max_price = forms.CharField(widget=forms.NumberInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Enter Max Price',
+		'min': 10000,
+		'title': 'Temporarily Disabled'
+	}), label='', required=False, disabled=True, min_length=4)
+	class Meta:
+		model = listing
+		fields = ('__all__')
+
+		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price')
+
+		labels = {
+			# 'price': 'Price',
+			'category': 'Category',
+			'address': '',
+			'area_size': 'Area Size'
+		}
+
+		widgets = {
+			# 'price': forms.NumberInput(attrs={
+			# 	'class': 'form-control',
+			# 	'placeholder': 'Enter Max Price',
+			# 	'min': 10000
+			# }),
+            'category': forms.Select(attrs={
+				'class': 'form-select'
+			}),
+			'purpose': forms.Select(attrs={
+				'class': 'form-select',
+				'required': 'false'
+			}),
+			'area_size': forms.NumberInput(attrs={
+				'class': 'form-control',
+				'min': 0,
+				'placeholder': 'Area Size'
+			}),
+			'city': forms.Select(attrs={
+				'class': 'form-select'
+			}),
+			'area_size_unit': forms.Select(attrs={
+				'class': 'form-select'
+			}),
+		}
+
+
 # class listingFullForm (listingForm):
 # 	images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 

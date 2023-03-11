@@ -11,27 +11,47 @@ from django.db import IntegrityError
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.views.generic import ListView
+from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import ListView, View
 
 from .models import listing, User, Comments, Images, Contact
-from .forms import listingForm
+from .forms import listingForm, listingGetRequestForm
 
 
 # Create your views here.
 def index (request):
     agents = User.objects.all()
+    listing_form = listingGetRequestForm()
+    # print("hello")
     return render(request, 'website/index.html', {
         'agents': agents,
+        'listing_form': listing_form
     })
 
 
-def getProperty (request):
-    if request.method == "GET":
-        listing_form = listingForm (request.GET)
-        posts = listing.objects.filter(purpose=listing_form.purpose, category=listing_form.category, area_size=listing_form.area_size, area_size_unit=listing_form.area_size_unit, city=listing_form.city, active=True)
-        return render(request, "website/properties.html", {
-            'posts': posts
-        })
+class FilteredPropertiesListView (ListView):
+    model = listing
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+    #    category=self.kwargs['category'], 
+        qs = qs.filter(
+                category=self.request.GET['category'],
+                # address=self.request.GET['location'],
+                city=self.request.GET['city'],
+                purpose=self.request.GET['purpose'],
+                area_size=self.request.GET['area_size'],
+                area_size_unit=self.request.GET['area_size_unit'],
+                active=True
+            ).order_by("-time_created").all()
+        # SEARCH BY LOCATION
+        # if self.request.GET['location']:
+        #     qs = qs.filter(
+        #         address=self.request.GET['location']
+        #     )
+        return qs
 
 
 @csrf_exempt
