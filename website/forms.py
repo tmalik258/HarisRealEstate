@@ -38,8 +38,8 @@ class listingGetRequestForm (ModelForm):
 	location = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Search by Location',
-		'title': 'Temporarily Disabled'
-	}), label='', required=False, disabled=True)
+		# 'title': 'Temporarily Disabled'
+	}), label='', required=False)
 	min_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Enter Min Price',

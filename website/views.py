@@ -48,10 +48,10 @@ class FilteredPropertiesListView (ListView):
                 active=True
             ).order_by("-time_created").all()
         # SEARCH BY LOCATION
-        # if self.request.GET['location']:
-        #     qs = qs.filter(
-        #         address=self.request.GET['location']
-        #     )
+        if self.request.GET['location']:
+            qs = qs.filter(
+                address__icontains=self.request.GET['location']
+            )
 
         # SEARCH BY PRICE RANGE
         if self.request.GET['min_price'] and self.request.GET['max_price']:
