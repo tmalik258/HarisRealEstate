@@ -354,11 +354,21 @@ main
 }
 
 .login input[type="submit"], 
-.contact-us .login .btn, 
-.search input[type="submit"]
+.contact-us .login .btn
 {
 	color: rgb(136, 133, 133);
 	background: wheat;
+}
+
+.search input[type="submit"]
+{
+	background: wheat;
+	color: #2e2e2e;
+}
+
+.search input[type="submit"]:hover
+{
+	color: rgb(136, 133, 133);
 }
 
 .login input[type="submit"]:hover, 
@@ -459,8 +469,8 @@ main
 .carousel-item .carousel-caption
 {
 	opacity: 0;
-	top: 40%;
-	transition: 2.5s;
+	top: 45%;
+	transition: 2.7s;
 }
 .carousel-item.active .carousel-caption
 {

@@ -23,6 +23,17 @@
 				<h5>Haris Real Estate</h5>
 				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
 				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
+					<div class="col-5">
+						<input type="radio" class="btn-check" name="purpose" id="form1_option1" autocomplete="off" value="S" checked>
+						<label class="btn btn-primary form-select" for="form1_option1">For Sale</label>
+					</div>
+					<div class="col-5">
+						<input type="radio" class="btn-check" name="purpose" id="form1_option2" autocomplete="off" value="R">
+						<label class="btn btn-primary form-select" for="form1_option2">Rent Out</label>
+					</div>
+					<div class="col-2">
+					  <input type="submit" class="btn btn-primary" value="SEARCH">
+					</div>
 					<div class="col-md-2">
 						{{ listing_form.city }}
 					</div>
@@ -43,12 +54,6 @@
 					</div>
 					<div class="col-md-2">
 						{{ listing_form.area_size_unit }}
-					</div>
-					<div class="col-2">
-						{{ listing_form.purpose }}
-					</div>
-					<div class="col-2">
-					  <input type="submit" class="btn btn-primary" value="Search">
 					</div>
 				</form>
 			</div>
@@ -59,6 +64,17 @@
 				<h5>Haris Real Estate & Builders</h5>
 				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
 				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
+					<div class="col-5">
+						<input type="radio" class="btn-check" name="purpose" id="form2_option1" autocomplete="off" value="S" checked>
+						<label class="btn btn-primary form-select" for="form2_option1">For Sale</label>
+					</div>
+					<div class="col-5">
+						<input type="radio" class="btn-check" name="purpose" id="form2_option2" autocomplete="off" value="R">
+						<label class="btn btn-primary form-select" for="form2_option2">Rent Out</label>
+					</div>
+					<div class="col-2">
+					  <input type="submit" class="btn btn-primary" value="SEARCH">
+					</div>
 					<div class="col-md-2">
 						{{ listing_form.city }}
 					</div>
@@ -79,12 +95,6 @@
 					</div>
 					<div class="col-md-2">
 						{{ listing_form.area_size_unit }}
-					</div>
-					<div class="col-2">
-						{{ listing_form.purpose }}
-					</div>
-					<div class="col-2">
-					  <input type="submit" class="btn btn-primary" value="Search">
 					</div>
 				</form>
 			</div>
@@ -95,6 +105,17 @@
 				<h5>Haris Real Estate</h5>
 				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
 				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
+					<div class="col-5">
+						<input type="radio" class="btn-check" name="purpose" id="form3_option1" autocomplete="off" value="S" checked>
+						<label class="btn btn-primary form-select" for="form3_option1">For Sale</label>
+					</div>
+					<div class="col-5">
+						<input type="radio" class="btn-check" name="purpose" id="form3_option2" autocomplete="off" value="R">
+						<label class="btn btn-primary form-select" for="form3_option2">Rent Out</label>
+					</div>
+					<div class="col-2">
+					  <input type="submit" class="btn btn-primary" value="SEARCH">
+					</div>
 					<div class="col-md-2">
 						{{ listing_form.city }}
 					</div>
@@ -115,12 +136,6 @@
 					</div>
 					<div class="col-md-2">
 						{{ listing_form.area_size_unit }}
-					</div>
-					<div class="col-2">
-						{{ listing_form.purpose }}
-					</div>
-					<div class="col-2">
-					  <input type="submit" class="btn btn-primary" value="Search">
 					</div>
 				</form>
 			</div>

@@ -44,19 +44,25 @@ class listingGetRequestForm (ModelForm):
 		'class': 'form-control',
 		'placeholder': 'Enter Min Price',
 		'min': 10000,
-		'title': 'Temporarily Disabled'
-	}), label='', required=False, disabled=True, min_length=4)
+		# 'title': 'Temporarily Disabled'
+	}), label='', required=False, min_length=4)
 	max_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Enter Max Price',
 		'min': 10000,
-		'title': 'Temporarily Disabled'
-	}), label='', required=False, disabled=True, min_length=4)
+		# 'title': 'Temporarily Disabled'
+	}), label='', required=False, min_length=4)
+	area_size = forms.CharField(widget=forms.NumberInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Area Size',
+		# 'title': 'Temporarily Disabled',
+		'min': 0
+	}), label='', required=False)
 	class Meta:
 		model = listing
 		fields = ('__all__')
 
-		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price')
+		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price', 'purpose')
 
 		labels = {
 			# 'price': 'Price',
@@ -72,22 +78,26 @@ class listingGetRequestForm (ModelForm):
 			# 	'min': 10000
 			# }),
             'category': forms.Select(attrs={
-				'class': 'form-select'
-			}),
-			'purpose': forms.Select(attrs={
 				'class': 'form-select',
-				'required': 'false'
+				'title': 'Select Category'
 			}),
-			'area_size': forms.NumberInput(attrs={
-				'class': 'form-control',
-				'min': 0,
-				'placeholder': 'Area Size'
-			}),
+			# 'purpose': forms.Select(attrs={
+			# 	'class': 'form-select',
+			# 	'required': 'false',
+			# 	'title': 'Option for Sale or Rent'
+			# }),
+			# 'area_size': forms.NumberInput(attrs={
+			# 	'class': 'form-control',
+			# 	'min': 0,
+			# 	'placeholder': 'Area Size'
+			# }, required=False),
 			'city': forms.Select(attrs={
-				'class': 'form-select'
+				'class': 'form-select',
+				'title': 'Select City'
 			}),
 			'area_size_unit': forms.Select(attrs={
-				'class': 'form-select'
+				'class': 'form-select',
+				'title': 'Specify Unit for Area Size'
 			}),
 		}
 

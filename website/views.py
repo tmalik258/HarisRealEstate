@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.db import IntegrityError
+from django.db.models import Max
 from django.forms import modelformset_factory
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -42,8 +43,8 @@ class FilteredPropertiesListView (ListView):
                 # address=self.request.GET['location'],
                 city=self.request.GET['city'],
                 purpose=self.request.GET['purpose'],
-                area_size=self.request.GET['area_size'],
-                area_size_unit=self.request.GET['area_size_unit'],
+                # area_size=self.request.GET['area_size'],
+                # area_size_unit=self.request.GET['area_size_unit'],
                 active=True
             ).order_by("-time_created").all()
         # SEARCH BY LOCATION
@@ -51,6 +52,30 @@ class FilteredPropertiesListView (ListView):
         #     qs = qs.filter(
         #         address=self.request.GET['location']
         #     )
+
+        # SEARCH BY PRICE RANGE
+        if self.request.GET['min_price'] and self.request.GET['max_price']:
+            qs = qs.filter(
+                price__range=(self.request.GET['min_price'], self.request.GET['max_price'])
+            )
+        elif self.request.GET['min_price']:
+            max_price = qs.aggregate(
+                Max('price')
+            )['price__max']
+            qs = qs.filter(
+                price__range=(self.request.GET['min_price'], max_price)
+            )
+        elif self.request.GET['max_price']:
+            qs = qs.filter(
+                price__range=(0, self.request.GET['max_price'])
+            )
+        
+        # SEARCH BY AREA SIZE
+        if self.request.GET['area_size']:
+            qs = qs.filter(
+                area_size=self.request.GET['area_size'],
+                area_size_unit=self.request.GET['area_size_unit']
+            )
         return qs
 
 
