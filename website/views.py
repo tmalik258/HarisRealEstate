@@ -24,6 +24,16 @@ def index (request):
         'agents': agents,
     })
 
+
+def getProperty (request):
+    if request.method == "GET":
+        listing_form = listingForm (request.GET)
+        posts = listing.objects.filter(purpose=listing_form.purpose, category=listing_form.category, area_size=listing_form.area_size, area_size_unit=listing_form.area_size_unit, city=listing_form.city, active=True)
+        return render(request, "website/properties.html", {
+            'posts': posts
+        })
+
+
 @csrf_exempt
 def contact (request):
     # print('contact view is called')
