@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block body %}
+<section class="main_section">
 	{% if messages %}
 		{% for message in messages %}
 			<div {% if message.tags %} {% if message.tags == 'error' %} class="alert alert-danger alert-dismissible fade show text-center" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" {% endif %} {% endif %} role="alert">
@@ -10,7 +11,6 @@
 			</div>
 		{% endfor %}
 	{% endif %}
-<section class="main_section">
 	<div class="create_listing">
 		<section class="login">
 			<div class="login-body">
@@ -18,33 +18,102 @@
 			</div>
 			<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto">
 				{% csrf_token %}
-				
 				<div class="col mb-3">{{ listing_form.title.label }}{{ listing_form.title }}</div>
 				<!-- <div class="row"> -->
 				<div class="col mb-3">{{ listing_form.price.label }}{{ listing_form.price }}</div>
 				<!-- </div> -->
-				<div class="row mb-3">
-					<div class="col">{{ listing_form.purpose.label }}{{ listing_form.purpose }}</div>
-					<div class="col">{{ listing_form.category.label }}{{ listing_form.category }}</div>
+				<!-- <div class="row mb-2"> -->
+					<div class="col-md-10">
+						{{ listing_form.purpose.label }}<br>
+						<div class="ms-4">
+							<input type="radio" class="btn-check" name="purpose" id="purpose_option1" autocomplete="off" value="S" checked>
+							<label class="btn btn-primary form-select ms-2" for="purpose_option1">For Sale</label>
+						<!-- </div>
+						<div class="col-5"> -->
+							<input type="radio" class="btn-check" name="purpose" id="purpose_option2" autocomplete="off" value="R">
+							<label class="btn btn-primary form-select ms-2" for="purpose_option2">Rent Out</label>
+						</div>
+					</div>
+				<div class="col my-3">{{ listing_form.category.label }}{{ listing_form.category }}</div>
+				<div class="col-md-8 my-3" id="bedroom">
+					{{ listing_form.bedroom.label }} <br>
+					<div class="ms-4">
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option0" autocomplete="off" value="S" checked>
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option0">Studio</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option1" autocomplete="off" value="1">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option1">1</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option2" autocomplete="off" value="2">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option2">2</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option3" autocomplete="off" value="3">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option3">3</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option4" autocomplete="off" value="4">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option4">4</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option5" autocomplete="off" value="5">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option5">5</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option6" autocomplete="off" value="6">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option6">6</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option7" autocomplete="off" value="7">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option7">7</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option8" autocomplete="off" value="8">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option8">8</label>
+
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option9" autocomplete="off" value="9">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option9">9</label>
+						
+						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option10" autocomplete="off" value="10">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option10">10</label>
+					</div>
 				</div>
 
-				<div class="row">
+				<div class="col-md-8 my-3" id="bathroom">
+					{{ listing_form.bathroom.label }} <br>
+					<div class="ms-4">
+						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option1" autocomplete="off" value="1">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option1">1</label>
+
+						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option2" autocomplete="off" value="2">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option2">2</label>
+
+						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option3" autocomplete="off" value="3">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option3">3</label>
+
+						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option4" autocomplete="off" value="4">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option4">4</label>
+
+						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option5" autocomplete="off" value="5">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option5">5</label>
+
+						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option6" autocomplete="off" value="6">
+						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option6">6</label>
+					</div>
+				</div>
+				<!-- </div> -->
+
+				<div class="row my-3">
 					<div class="col">{{ listing_form.area_size.label }}{{ listing_form.area_size }}</div>
 					<div class="col">{{ listing_form.area_size_unit.label }}{{ listing_form.area_size_unit }}</div>
 				</div>
 
-				<div class="row">
+				<div class="row my-3">
 					<div class="col">{{ listing_form.address.label }}{{ listing_form.address }}</div>
 					<div class="col">{{ listing_form.city.label }}{{ listing_form.city }}</div>
 				</div>
-				<div class="col">{{ listing_form.description.label }}{{ listing_form.description }}</div>
+				<div class="col my-3">{{ listing_form.description.label }}{{ listing_form.description }}</div>
 				<!-- {{ listing_form.as_p }} -->
 				<div class="form-group">
 					<label for="listing-image">Images</label>
 					<input type="file" accept="image/" name="images" class="form-control-file" id="listing-image" multiple>
 					<div class="form-text ms-5">Select upto 15 images for the property to upload.</div>
 				</div>
-				<input type="submit" value="Create" class="btn btn-dark mt-3">
+				<input type="submit" value="Create" class="btn btn-dark mt-3 float-end">
 			</form>
 		</section>
 	</div>

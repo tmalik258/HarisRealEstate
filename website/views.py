@@ -194,11 +194,25 @@ def createListing (request):
     if request.method == "POST":
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')
+        bedroom = request.POST['bedroom']
+        bathroom = request.POST.get('bathroom', None)
         # image_form = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
-
+        category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
         if listing_form.is_valid():
             listing_obj = listing_form.save(commit=False)
             listing_obj.creator = request.user
+            listing_obj.purpose = request.POST['purpose']
+
+            if listing_obj.category in category_list:
+                if bedroom:
+                    listing_obj.bedroom = bedroom
+                if bedroom and bathroom:
+                    listing_obj.bathroom = bathroom
+                else:
+                    listing_obj.bathroom = ''
+            else:
+                listing_obj.bedroom = ''
+                listing_obj.bathroom = ''
             listing_obj.active = True
             listing_obj.save()
 

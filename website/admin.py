@@ -25,7 +25,7 @@ admin.site.register(User, UserAdmin)
 
 # Listing Model
 class ListingAdmin (admin.ModelAdmin):
-	list_display = ('id', 'title', 'area_size', 'area_size_unit', 'active', 'creator', 'time_created')
+	list_display = ('title', 'purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'active', 'creator', 'time_created')
 
 	@admin.action
 	def make_active (self, request, queryset):

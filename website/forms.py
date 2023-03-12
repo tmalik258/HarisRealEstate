@@ -16,7 +16,7 @@ class listingForm (ModelForm):
 			'price': 'Price',
 			'category': 'Category',
 			'address': 'Address',
-			'description': 'Property Description',
+			'description': 'Description',
 			'area_size': 'Area Size',
 			'area_size_unit': 'Area Unit',
 		}
@@ -24,11 +24,13 @@ class listingForm (ModelForm):
 		widgets = {
 			'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
 			'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Price', 'min': 0}),
-            'category': forms.Select(attrs={'class': 'form-select'}),
+            'category': forms.Select(attrs={'class': 'form-select', 'id': 'category_input'}),
             'city': forms.Select(attrs={'class': 'form-select'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write a description about your property'}),
 			'purpose': forms.RadioSelect(attrs={'class': 'form-radio-inline'}),
+			'bedroom': forms.RadioSelect(attrs={'id': 'bedroom_input'}),
+			'bathroom': forms.RadioSelect(attrs={'id': 'bathroom_input'}),
 			'area_size': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Area Size', 'min': 0}),
             'area_size_unit': forms.Select(attrs={'class': 'form-select'}),
 		}

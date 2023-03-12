@@ -30,6 +30,29 @@ class listing (models.Model):
 		('R', 'Rent Out')
 	)
 
+	BEDROOM_CHOICES = (
+		('S', 'Studio'),
+		('1', 1),
+		('2', 2),
+		('3', 3),
+		('4', 4),
+		('5', 5),
+		('6', 6),
+		('7', 7),
+		('8', 8),
+		('9', 9),
+		('10', 10)
+	)
+
+	BATHROOM_CHOICES = (
+		('1', 1),
+		('2', 2),
+		('3', 3),
+		('4', 4),
+		('5', 5),
+		('6', 6)
+	)
+
 	CITY_CHOICES = (
 		('lhr', 'Lahore'),
 		('khi', 'Karachi'),
@@ -69,6 +92,8 @@ class listing (models.Model):
 	price = models.IntegerField()
 	purpose = models.CharField( max_length=2, choices=PURPOSE_CHOICES, default='S')
 	category = models.CharField( max_length=5, choices=CATEGORY_CHOICES, default='')
+	bedroom = models.CharField(max_length=6, choices=BEDROOM_CHOICES, null=True, blank=True)
+	bathroom = models.CharField(max_length=1, choices=BATHROOM_CHOICES, null=True, blank=True)
 	area_size = models.IntegerField()
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')

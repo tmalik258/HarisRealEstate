@@ -349,7 +349,7 @@ main
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.search .form-select
+.form-select
 {
 	cursor: pointer;
 }

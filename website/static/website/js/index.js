@@ -10,6 +10,23 @@ window.onload = function(){
 		e.preventDefault();
 		return send_message();
 	});
+
+
+	// To make create listing form dynamic
+	const category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+	$('#category_input').on('change', function (e) {
+		if(!category_list.includes($('#category_input').val())){
+			$('#bedroom').hide();
+			$('#bathroom').hide();
+		}
+		else
+		{
+			$('#bedroom').show();
+			$('#bathroom').show();
+		}
+		
+		console.log('Changed')
+	})
 };
 
 function load_contact_form () {
