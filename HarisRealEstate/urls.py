@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 admin.site.site_header = 'Haris Real Estate Administration'
 admin.site.site_title = 'Site Admin'
 admin.site.index_title = 'Site administration | Haris Real Estate Site Administration'
+admin.site.empty_value_display = '(Empty)'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -26,6 +26,13 @@ admin.site.register(User, UserAdmin)
 # Listing Model
 class ListingAdmin (admin.ModelAdmin):
 	list_display = ('title', 'purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'active', 'creator', 'time_created')
+	list_filter = ('purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'active', 'creator', 'time_created')
+
+	# def get_images (self, obj):
+	# 	return obj.img
+	# get_images.short_description = 'Images'
+	# get_images.admin_order_field = 'img__images'
+	# get_images.empty_value_display = 'Empty'
 
 	@admin.action
 	def make_active (self, request, queryset):

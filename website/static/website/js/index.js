@@ -24,8 +24,6 @@ window.onload = function(){
 			$('#bedroom').show();
 			$('#bathroom').show();
 		}
-		
-		console.log('Changed')
 	})
 };
 
