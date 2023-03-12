@@ -10,7 +10,8 @@ class User (AbstractUser):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
 		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
-	bio_info = models.TextField(max_length=500)
+	bio_info = models.CharField(max_length=500)
+	estate_name = models.TextField(max_length=256, default='Haris Real Estate')
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 	phone_number = PhoneNumberField(blank=True)
 

@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -21,7 +21,7 @@ from .forms import listingForm, listingGetRequestForm
 
 # Create your views here.
 def index (request):
-    agents = User.objects.all()
+    agents = User.objects.filter(is_staff=True, is_active=True)
     listing_form = listingGetRequestForm()
     # print("hello")
     return render(request, 'website/index.html', {
@@ -226,12 +226,16 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
 
         # Check if authentication successful
-        if user is not None:
+        if user is not None and user.is_staff:
             login(request, user)
             return HttpResponseRedirect(reverse('profile'))
-        else:
+        elif user is None:
             return render(request, "website/login.html", {
-                "message": "Invalid username and/or password."
+                "error_message": "Invalid username and/or password."
+            })
+        elif not user.is_staff:
+            return render(request, "website/login.html", {
+                "error_message": "Sorry! You are not a staff member. If you are trying to log in as staff member, please contact admin. Sorry for inconvenience."
             })
     else:
         return render(request, "website/login.html")
@@ -242,21 +246,37 @@ def logout_view(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+
     if request.method == "POST":
         first_name = request.POST["fname"]
         last_name = request.POST["lname"]
         username = request.POST["username"]
         email = request.POST["email"]
+        estate_name = request.POST["estate_name"]
         bio_info = request.POST["bio_info"]
-        profile_image = request.POST["profile_image"]
+        profile_image = request.FILES.get("profile_image")
 
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
             return render(request, "website/register.html", {
-                "message": "Passwords must match."
+                "pass_error_message": "Passwords must match.",
+                'pass_error': True
             })
+        elif password in username:
+            return render(request, "website/register.html", {
+                "pass_error_message": "Your password can't be similar to username.",
+                'pass_error': True
+            })
+        elif password in email:
+            return render(request, "website/register.html", {
+                "pass_error_message": "Your password can't be similar to email.",
+                'pass_error': True
+            })
+
 
         # Attempt to create new user
         try:
@@ -267,9 +287,13 @@ def register(request):
             user.save()
         except IntegrityError:
             return render(request, "website/register.html", {
-                "message": "Username already taken."
+                "username_error_message": "Username already taken.",
+                'username_error': True
             })
-        login(request, user)
-        return HttpResponseRedirect(reverse("profile"))
+        # messages.success(request, "Hurray! Your account has been activated. Contact admin in order to login as staff/agent")
+        # login(request, user)
+        return render(request, "website/login.html", {
+            "message": "Hurray! Your account has been successfully created.<br>Contact admin in order to become a staff/agent"
+        })
     else:
         return render(request, "website/register.html")

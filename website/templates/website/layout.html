@@ -79,10 +79,15 @@
 								<a href="{% url 'agents' %}" {% if "/agents" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="agents"><div class="seperator"></div>AGENTS</a>
 							</li>
 						{% endif %}
-						<li class="nav-item">
+						{% comment %}
+						<!-- <li class="nav-item">
 							<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
-						</li>
+						</li> -->
+						{% endcomment %}
 						{% if user.is_authenticated and user.is_staff %}
+							<li class="nav-item">
+								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
+							</li>
 							<li class="nav-item">
 								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>PROFILE</a>
 							</li>
@@ -99,11 +104,16 @@
 							<li class="nav-item">
 								<a href="{% url 'login' %}" class="nav-link text-center"><div class="seperator"></div>LOGIN</a>
 							</li>
+							<li class="nav-item">
+								<a href="{% url 'register' %}" class="nav-link text-center"><div class="seperator"></div>REGISTER</a>
+							</li>
 						{% endif %}
 					</ul>
 					<div class="text-center">
 						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
 						<a href="mailto:harisrealestate@yahoo.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@yahoo.com</a>
+						<!-- <a href="tel:+92 3004882031" class="nav-link contact_number" style="color: wheat;"><div class="seperator seperator-home"></div>03004882031</a>
+						<hr> -->
 					</div>
 				</div>
 			</div>

@@ -216,6 +216,7 @@ main
 {
 	height: 70px;
 	position: absolute;
+	/* top: 25px; */
 	top: 0;
 	left: 0;
 	z-index: 4;
@@ -223,7 +224,7 @@ main
 	transition: 0.1s;
 }
 
-.navbar.active
+/* .navbar.active
 {
 	position: fixed;
 	background: rgb(24, 24, 24);
@@ -234,7 +235,7 @@ main
 {
 	position: absolute;
 	height: 70px;
-}
+} */
 
 .navbar .navbar-brand a:first-child
 {
@@ -261,13 +262,13 @@ main
 	transition: 0.2s ease-in-out;
 }
 
-.nav-item:hover .seperator, .mail:hover .seperator
+.nav-item:hover .seperator, .mail:hover .seperator, .contact_number:hover .seperator
 {
 	background: wheat;
 	transform: rotate(-45deg);
 }
 
-.nav-item:hover .nav-link, .mail:hover{	text-decoration: solid line-through wheat;	}
+.nav-item:hover .nav-link, .mail:hover, .contact_number:hover{	text-decoration: solid line-through wheat;	}
 
 .nav-link.active .seperator{	background: wheat;	}
 
@@ -377,7 +378,6 @@ main
 {
 	background: #141414;
 }
-
 
 .login.register input[type="submit"]
 {
@@ -1076,7 +1076,16 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	{
 		position: absolute;
 		right: 25px;
-		top: 43px;
+		top: 44px;
+		display: inline-block;
+	}
+
+	.collapse .contact_number
+	{
+		position: absolute;
+		right: 50%;
+		/* right: px; */
+		top: 8px;
 		display: inline-block;
 	}
 
@@ -1109,15 +1118,17 @@ footer .footer_row .footer_col ul li a:hover .seperator
 @media screen and (max-width: 990px) {
 	.navbar
 	{
+		top: 0;
 		height: initial;
 		background: rgb(24, 24, 24);
 		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
 	}
 
-	.mail .seperator
+	.mail .seperator, .contact_number .seperator
 	{
 		display: none;
 	}
+
 
 	main{
 		margin-top: 170px;
