@@ -25,6 +25,27 @@ window.onload = function(){
 			$('#bathroom').show();
 		}
 	})
+
+	$('#price_input').on('change', function (e) {
+		let val = $('#price_input').val();
+		if (val >= 1000000000) {
+			$('#price_int_word').text(($('#price_input').val()/1000000000).toFixed(2) + " arab");
+		}
+		else if (val >= 10000000) {
+			$('#price_int_word').text(($('#price_input').val()/10000000).toFixed(2) + " crore");
+		}
+		else if (val >= 100000) {
+				$('#price_int_word').text(($('#price_input').val()/100000).toFixed(2) + " lakh");
+		}
+		else if (val >= 10000)
+		{
+			$('#price_int_word').text(($('#price_input').val()/100000).toFixed(2) + " thousand");
+		}
+		else if (val === '')
+		{
+			$('#price_int_word').text("After setting price click out of the price box to know price in words i.e., lakhs, crores and arabs.");
+		}
+	})
 };
 
 function load_contact_form () {

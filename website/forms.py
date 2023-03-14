@@ -23,7 +23,7 @@ class listingForm (ModelForm):
 
 		widgets = {
 			'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
-			'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Price', 'min': 0}),
+			'price': forms.NumberInput(attrs={'class': 'form-control', 'id': 'price_input', 'placeholder': 'Enter Price', 'min': 0}),
             'category': forms.Select(attrs={'class': 'form-select', 'id': 'category_input'}),
             'city': forms.Select(attrs={'class': 'form-select'}),
             'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),

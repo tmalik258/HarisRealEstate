@@ -68,10 +68,10 @@
 						<li class="nav-item">
 							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="home"><div class="seperator"></div>HOME</a>
 						</li>
+						<li class="nav-item">
+							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties"><div class="seperator"></div>PROPERTIES</a>
+						</li>
 						{% if not user.is_authenticated %}
-							<li class="nav-item">
-								<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties"><div class="seperator"></div>PROPERTIES</a>
-							</li>
 							<li class="nav-item">
 								<a href="{% url 'about_us' %}" {% if "/about-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="about-us"><div class="seperator"></div>ABOUT US</a>
 							</li>
@@ -109,12 +109,14 @@
 							</li>
 						{% endif %}
 					</ul>
+					{% if not user.is_authenticated and not user.is_staff %}
 					<div class="text-center">
 						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
 						<a href="mailto:harisrealestate@yahoo.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@yahoo.com</a>
 						<!-- <a href="tel:+92 3004882031" class="nav-link contact_number" style="color: wheat;"><div class="seperator seperator-home"></div>03004882031</a>
 						<hr> -->
 					</div>
+					{% endif %}
 				</div>
 			</div>
 		</nav>

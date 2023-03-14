@@ -20,7 +20,10 @@
 				{% csrf_token %}
 				<div class="col mb-3">{{ listing_form.title.label }}{{ listing_form.title }}</div>
 				<!-- <div class="row"> -->
-				<div class="col mb-3">{{ listing_form.price.label }}{{ listing_form.price }}</div>
+				<div class="col mb-3">
+					{{ listing_form.price.label }}{{ listing_form.price }}
+					<div class="form-text" id="price_int_word">After setting price click out of the price box to know price in words i.e., lakhs, crores and arabs.</div>
+				</div>
 				<!-- </div> -->
 				<!-- <div class="row mb-2"> -->
 					<div class="col-md-10">
