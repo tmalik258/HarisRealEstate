@@ -26,7 +26,7 @@ window.onload = function(){
 		}
 	})
 
-	$('#price_input').on('change', function (e) {
+	$('#price_input').on('input', function (e) {
 		let val = $('#price_input').val();
 		if (val >= 1000000000) {
 			$('#price_int_word').text(($('#price_input').val()/1000000000).toFixed(2) + " arab");
@@ -39,11 +39,11 @@ window.onload = function(){
 		}
 		else if (val >= 10000)
 		{
-			$('#price_int_word').text(($('#price_input').val()/100000).toFixed(2) + " thousand");
+			$('#price_int_word').text(($('#price_input').val()/1000).toFixed(2) + " thousand");
 		}
-		else if (val === '')
+		else if (val < 10000)
 		{
-			$('#price_int_word').text("After setting price click out of the price box to know price in words i.e., lakhs, crores and arabs.");
+			$('#price_int_word').text("");
 		}
 	})
 };
