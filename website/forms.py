@@ -36,7 +36,19 @@ class listingForm (ModelForm):
 		}
 
 
+CITY_CHOICES = (
+		('', 'Choose City'),
+		('lhr', 'Lahore'),
+		('khi', 'Karachi'),
+		('isl', 'Islamabad')
+	)
+
+
 class listingGetRequestForm (ModelForm):
+	city = forms.CharField(widget=forms.Select(attrs={
+		'class': 'form-select',
+		'title': 'Select Category'
+	}, choices=CITY_CHOICES), required=False)
 	location = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Search by Location',
@@ -60,11 +72,12 @@ class listingGetRequestForm (ModelForm):
 		# 'title': 'Temporarily Disabled',
 		'min': 0
 	}), label='', required=False)
+
 	class Meta:
 		model = listing
 		fields = ('__all__')
 
-		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price', 'purpose')
+		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price', 'purpose', 'city')
 
 		labels = {
 			# 'price': 'Price',

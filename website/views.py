@@ -30,6 +30,40 @@ def index (request):
     })
 
 
+class PropertiesListView (ListView):
+    model = listing
+    queryset = listing.objects.filter(active=True).order_by("-time_created").all()
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+    def get_context_data (self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = listingGetRequestForm()
+        return context
+
+
+class PropertiesCategoryListView (ListView):
+    model = listing
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+    def get_queryset(self, **kwargs):
+       qs = super().get_queryset(**kwargs)
+       return qs.filter(category=self.kwargs['category'], active=True).order_by("-time_created").all()
+       
+    def get_context_data (self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = listingGetRequestForm()
+        return context
+
+
+def single_property (request, item):
+    post = listing.objects.get(id=item)
+    return render(request, 'website/singleProperty.html', {
+        'post': post
+    })
+
+
 class FilteredPropertiesListView (ListView):
     model = listing
     paginate_by = 25 # show 25 posts in reverse chronologial order
@@ -40,17 +74,19 @@ class FilteredPropertiesListView (ListView):
     #    category=self.kwargs['category'], 
         qs = qs.filter(
                 category=self.request.GET['category'],
-                # address=self.request.GET['location'],
-                city=self.request.GET['city'],
                 purpose=self.request.GET['purpose'],
-                # area_size=self.request.GET['area_size'],
-                # area_size_unit=self.request.GET['area_size_unit'],
                 active=True
             ).order_by("-time_created").all()
         # SEARCH BY LOCATION
         if self.request.GET['location']:
             qs = qs.filter(
                 address__icontains=self.request.GET['location']
+            )
+
+        # SEARCH BY CITY
+        if self.request.GET['city'] != '':
+            qs = qs.filter(
+                city=self.request.GET['city']
             )
 
         # SEARCH BY PRICE RANGE
@@ -77,6 +113,11 @@ class FilteredPropertiesListView (ListView):
                 area_size_unit=self.request.GET['area_size_unit']
             )
         return qs
+        
+    def get_context_data (self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = listingGetRequestForm()
+        return context
 
 
 @csrf_exempt
@@ -133,29 +174,6 @@ def contact (request):
     # print('contact saved')
     return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
 
-
-class PropertiesListView (ListView):
-    model = listing
-    queryset = listing.objects.filter(active=True).order_by("-time_created").all()
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
-
-
-class PropertiesCategoryListView (ListView):
-    model = listing
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
-
-    def get_queryset(self, **kwargs):
-       qs = super().get_queryset(**kwargs)
-       return qs.filter(category=self.kwargs['category'], active=True).order_by("-time_created").all()
-
-
-def single_property (request, item):
-    post = listing.objects.get(id=item)
-    return render(request, 'website/singleProperty.html', {
-        'post': post
-    })
 
 def about_us (request):
     return render(request, 'website/about-us.html')

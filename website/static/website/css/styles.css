@@ -815,27 +815,38 @@ main
 /* //////////////////////////////////////////	PROPERTIES	/////////////////////////////////////////// */
 .properties
 {
-	height: 50em;
+	/* height: 50em; */
 	padding: 20px 20px;
 	margin-top: 80px;
 	overflow: auto;
+	position: relative;
 }
+
+.properties .search input[type="text"], .properties .search input[type="number"],
+.properties .search select
+{
+	color: black;
+	background: rgb(226, 226, 226);
+}
+
 .properties h1
 {
 	text-align: center;
 	color: wheat;
+	position: sticky;
+	top: 0;
 }
 
 .properties .emptyProperty
 {
 	height: 9em;
+	width: 100%;
 }
 
-.properties .emptyProperty h6
+.properties .emptyProperty h2
 {
 	position: relative;
 	text-align: center;
-	margin: auto;
 }
 
 .properties h1 .seperator
@@ -1099,16 +1110,11 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		width: 25%;
 	}
 
-	/* .create_listing .login form .form-select::before {
-		position: absolute;
-		content: "\25bc";
-		top: 0px;
-		right: -8px;
-		height: 200px;
-		width: 200px;
-		z-index: 1000;
-		color: white;
-	} */
+	.properties .emptyProperty h2
+	{
+		line-height: 150px;
+	}
+
 	.properties.singleProperty .card .col .card-body .container-fluid .row .col:last-child
 	{
 		border-left: 2px black solid;
@@ -1179,16 +1185,16 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		float: initial;
 	}
 
+	.properties .emptyProperty h2
+	{
+		margin-top: 15%;
+	}
+
 	.login
 	{
 		height: auto;
 		width: 90%;
 	}
-
-	/* .login.register
-	{
-		margin-top: 0%;
-	} */
 
 	footer .footer_row
 	{

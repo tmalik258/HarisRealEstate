@@ -1,5 +1,6 @@
 {% extends 'website/layout.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block body %}
 	<article class="properties singleProperty">
@@ -39,7 +40,7 @@
 						<div class="row">
 							<div class="col">
 								<h5 class="card-title">Price: </h5>
-								<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price }}</span></p>
+								<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
 								<h5 class="card-title">Purpose: </h5>
 								<p class="card-text ms-3">{{ post.get_purpose_display }}</p>
 								<h5 class="card-title">Category: </h5>
