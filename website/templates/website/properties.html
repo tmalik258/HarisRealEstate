@@ -45,7 +45,7 @@
 				<div class="col">
 					<div class="card my-4" style="max-width: 700px; color: black;">
 						<div class="row g-0">
-							<div class="col-md-4">
+							<div class="col-md-5">
 								<a href="{% url 'single_property' post.id %}">
 									{% if post.img.first %}
 										<img loading="lazy" src="{{ post.img.first.images.url }}" class="card-img-top" height="100%" alt="{{ post.img.first.images }}">
@@ -54,19 +54,27 @@
 									{% endif %}
 								</a>
 							</div>
-							<div class="col-md-8">
+							<div class="col-md-7">
 								<a href="{% url 'single_property' post.id %}" style="color: black; text-decoration: none;">
 									<div class="card-body">
 										<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
 										<p class="card-text">PKR <span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
+										<p class="card-text">{{ post.address | truncatechars:33 }}</p>
 										<p class="card-text">{{ post.get_category_display }} for {{ post.get_purpose_display }}</p>
 										<p class="card-text">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
 										<!-- <p class="card-text">{{ post.get_city_display }}</p> -->
-										<p class="card-text">{{ post.address | truncatechars:30 }}</p>
-										<p class="card-text">{{ post.description | truncatechars:35 }}</p>
-										<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
-										<a href="{% url 'single_property' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
-										<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+										{% if post.bedroom and post.bathroom %}
+											<p class="card-text"><strong>{{ post.get_bedroom_display }}</strong> Beds <strong>{{ post.get_bathroom_display }}</strong> Baths</p>
+										{% elif post.bedroom %}
+											<p class="card-text"><strong>{{ post.get_bedroom_display }}</strong> Beds</p>
+										{% endif %}
+										<!-- <p class="card-text">{{ post.description | truncatechars:35 }}</p> -->
+										<p class="card-text mt-3">
+											<a href="{% url 'single_property' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
+											<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+										</p>
+
+										<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
 										<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
 									</div>
 								</a>
