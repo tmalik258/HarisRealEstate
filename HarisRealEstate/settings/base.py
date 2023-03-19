@@ -15,7 +15,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = False
 
 # Application definition
@@ -71,7 +71,8 @@ WSGI_APPLICATION = 'HarisRealEstate.wsgi.application'
 
 
 
-AUTH_USER_MODEL = 'website.User'
+# AUTH_USER_MODEL = 'website.User'
+AUTH_PROFILE_MODULE = 'website.Profile'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
@@ -15,8 +16,8 @@ from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
 
-from .models import listing, User, Comments, Images, Contact
-from .forms import listingForm, listingGetRequestForm
+from .models import listing, Comments, Images, Contact
+from .forms import listingForm, listingGetRequestForm, UserUpdateForm, ProfileUpdateForm
 
 
 # Create your views here.
@@ -178,6 +179,7 @@ def contact (request):
 def about_us (request):
     return render(request, 'website/about-us.html')
 
+
 def contact_us_page (request):
     if request.user.is_staff and request.user.is_authenticated:
         contacts = Contact.objects.all()
@@ -187,21 +189,41 @@ def contact_us_page (request):
         })
     return render(request, 'website/contactUs.html')
 
+
 def agents (request):
     agents = User.objects.all()
     return render(request, 'website/agents.html', {
         'agents': agents
     })
 
+
 @staff_member_required
 def profile (request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile') # Redirect back to profile page
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
     try:
         posts = listing.objects.filter(creator=request.user)
         posts = posts.order_by("-time_created").all()
     except listing.DoesNotExist:
         posts = "Empty!! No listing found"
+
     return render(request, 'website/profile.html',{
-        'posts': posts
+        'posts': posts,
+        'u_form': u_form,
+        'p_form': p_form
     })
 
 @staff_member_required
