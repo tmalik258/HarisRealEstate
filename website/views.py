@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
 
-from .models import listing, Comments, Images, Contact, Profile
+from .models import Listing, Comment, Image, Contact, Profile
 from .forms import listingForm, listingGetRequestForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -32,8 +32,8 @@ def index (request):
 
 
 class PropertiesListView (ListView):
-    model = listing
-    queryset = listing.objects.filter(active=True).order_by("-time_created").all()
+    model = Listing
+    queryset = Listing.objects.filter(active=True).order_by("-time_created").all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/properties.html"
 
@@ -44,7 +44,7 @@ class PropertiesListView (ListView):
 
 
 class PropertiesCategoryListView (ListView):
-    model = listing
+    model = Listing
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/properties.html"
 
@@ -59,14 +59,14 @@ class PropertiesCategoryListView (ListView):
 
 
 def single_property (request, item):
-    post = listing.objects.get(id=item)
+    post = Listing.objects.get(id=item)
     return render(request, 'website/singleProperty.html', {
         'post': post
     })
 
 
 class FilteredPropertiesListView (ListView):
-    model = listing
+    model = Listing
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/properties.html"
 
@@ -200,7 +200,7 @@ def agents (request):
 @staff_member_required
 def profile (request):
     try:
-        posts = listing.objects.filter(creator=request.user)
+        posts = Listing.objects.filter(creator=request.user)
         posts = posts.order_by("-time_created").all()
     except listing.DoesNotExist:
         posts = "Empty!! No listing found"
@@ -264,7 +264,7 @@ def createListing (request):
             listing_obj.save()
 
             for img in images:
-                Images.objects.create(listing=listing_obj, images=img)
+                Image.objects.create(listing=listing_obj, image=img)
 
             messages.success(request, "Yeew, check it out on the home page!")
             return HttpResponseRedirect("/createListing")

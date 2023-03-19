@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 
-from .models import listing, Comments, Images, Profile
+from .models import Listing, Comment, Image, Profile
 
 
 # Create a UserUpdateForm to update a username and email
@@ -26,7 +26,7 @@ class ProfileUpdateForm(forms.ModelForm):
 
 class listingForm (ModelForm):
 	class Meta:
-		model = listing
+		model = Listing
 		fields = ('__all__')
 
 		exclude = ('creator', 'time_created','active')
@@ -94,7 +94,7 @@ class listingGetRequestForm (ModelForm):
 	}), label='', required=False)
 
 	class Meta:
-		model = listing
+		model = Listing
 		fields = ('__all__')
 
 		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price', 'purpose', 'city')

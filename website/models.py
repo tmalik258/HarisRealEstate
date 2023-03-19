@@ -27,13 +27,13 @@ class Profile (models.Model):
 				output_size = (300, 300)
 				img.thumbnail(output_size) # resize image
 				img.save(self.profile_image.path) # save it again and override the larger image
-		force_insert=True
+		# force_insert=True
 
 	def __str__(self):
 		return ""
 
 
-class listing (models.Model):
+class Listing (models.Model):
 	AREA_SIZE_CHOICES = (
 		('SFt', 'Sq. Ft.'),
 		('SM', 'Sq. M.'),
@@ -128,10 +128,10 @@ class listing (models.Model):
 		return f"Listing: {self.id} | {self.title} | ({self.creator}, {time}) | {listing}"
 
 
-class Comments (models.Model):
+class Comment (models.Model):
 	fname = models.CharField(max_length=24)
 	lname = models.CharField(max_length=24)
-	listing = models.ForeignKey(listing, on_delete=models.CASCADE, related_name="comments")
+	listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
 	comment = models.TextField(max_length=255)
 	date_created = models.DateTimeField(auto_now_add=True)
 
@@ -140,12 +140,12 @@ class Comments (models.Model):
 		return f"{self.creator} | {self.auction_list.title} | {time}"
 
 
-class Images (models.Model):
+class Image (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
 		return 'images/user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)
-	images = models.ImageField(upload_to = user_directory_path, blank=True)
-	listing = models.ForeignKey(listing, on_delete= models.CASCADE, related_name='img')
+	image = models.ImageField(upload_to = user_directory_path, blank=True)
+	listing = models.ForeignKey(Listing, on_delete= models.CASCADE, related_name='img')
 
 	def __str__(self):
 		return f"{self.listing}"
@@ -156,6 +156,17 @@ class Images (models.Model):
 		else:
 			return 'No image found'
 	image_tag.short_description = 'Image'
+
+	def save (self):
+		super().save()
+		if self.image:
+			img = Image.open(self.image.path) # open image
+
+			# resize image
+			if img.height > 300 or img.width > 300:
+				output_size = (300, 300)
+				img.thumbnail(output_size) # resize image
+				img.save(self.image.path) # save it again and override the larger image
 
 
 class Contact (models.Model):

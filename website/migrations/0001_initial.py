@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
             name='Images',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('images', models.ImageField(blank=True, upload_to=website.models.Images.user_directory_path)),
+                ('images', models.ImageField(blank=True, upload_to=website.models.Image.user_directory_path)),
                 ('listing', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='img', to='website.listing')),
             ],
         ),
