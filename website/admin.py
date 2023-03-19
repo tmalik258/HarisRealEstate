@@ -21,19 +21,6 @@ from .models import listing, User, Comments, Images, Contact
 
 
 # User Model
-class UserProfileInline (admin.TabularInline):
-	model = User
-	fk_name = 'user'
-	max_num = 1
-	can_delete = False
-	verbose_name_plural = _('profile')
-
-
-
-class UserAdmin (UserAdmin):
-	inlines = (UserProfileInline,)
-
-admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
 # Listing Model
