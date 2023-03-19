@@ -12,11 +12,10 @@ class Profile (models.Model):
 		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	url = models.URLField("Website", blank=True)
 	bio_info = models.CharField(max_length=500)
 	estate_name = models.CharField(max_length=256, default='Haris Real Estate')
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
-	phone_number = PhoneNumberField(blank=True)
+	phone_number = PhoneNumberField()
 
 	def save (self):
 		super().save()
@@ -28,6 +27,7 @@ class Profile (models.Model):
 				output_size = (300, 300)
 				img.thumbnail(output_size) # resize image
 				img.save(self.profile_image.path) # save it again and override the larger image
+		force_insert=True
 
 	def __str__(self):
 		return ""

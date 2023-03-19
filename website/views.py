@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
 
-from .models import listing, Comments, Images, Contact
+from .models import listing, Comments, Images, Contact, Profile
 from .forms import listingForm, listingGetRequestForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -199,6 +199,19 @@ def agents (request):
 
 @staff_member_required
 def profile (request):
+    try:
+        posts = listing.objects.filter(creator=request.user)
+        posts = posts.order_by("-time_created").all()
+    except listing.DoesNotExist:
+        posts = "Empty!! No listing found"
+
+    return render(request, 'website/profile.html',{
+        'posts': posts
+    })
+
+
+@staff_member_required
+def profileUpdate (request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -213,18 +226,12 @@ def profile (request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-
-    try:
-        posts = listing.objects.filter(creator=request.user)
-        posts = posts.order_by("-time_created").all()
-    except listing.DoesNotExist:
-        posts = "Empty!! No listing found"
-
-    return render(request, 'website/profile.html',{
-        'posts': posts,
+    
+    return render(request, 'website/profile-update.html',{
         'u_form': u_form,
         'p_form': p_form
     })
+
 
 @staff_member_required
 def createListing (request):
@@ -272,6 +279,9 @@ def createListing (request):
     })
         
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+
     if request.method == "POST":
 
         # Attempt to sign user in
@@ -289,7 +299,7 @@ def login_view(request):
             })
         elif not user.is_staff:
             return render(request, "website/login.html", {
-                "error_message": "Sorry! You are not a staff member. If you are trying to log in as staff member, please contact admin. Sorry for inconvenience."
+                "error_message": "Sorry! You are not a staff member. Sorry for inconvenience, please contact admin for assistance."
             })
     else:
         return render(request, "website/login.html")
@@ -308,6 +318,7 @@ def register(request):
         last_name = request.POST["lname"]
         username = request.POST["username"]
         email = request.POST["email"]
+        phone_number = request.POST["tel"]
         estate_name = request.POST["estate_name"]
         bio_info = request.POST["bio_info"]
         profile_image = request.FILES.get("profile_image")
@@ -334,11 +345,15 @@ def register(request):
 
         # Attempt to create new user
         try:
-            if profile_image:
-                user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name, bio_info = bio_info, profile_image = profile_image)
-            else:
-                user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name, bio_info = bio_info)
+            user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name, bio_info = bio_info, profile_image = profile_image)
             user.save()
+            profile = Profile(user=user)
+            profile.bio_info = bio_info
+            profile.estate_name = estate_name
+            profile.phone_number = phone_number
+            if profile_image:
+                profile.profile_image = profile_image
+            profile.save()
         except IntegrityError:
             return render(request, "website/register.html", {
                 "username_error_message": "Username already taken.",

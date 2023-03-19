@@ -7,11 +7,13 @@ from .models import listing, Comments, Images, Profile
 
 # Create a UserUpdateForm to update a username and email
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+	email = forms.EmailField()
 
-    class Meta:
-        model = User
-        fields = ['username', 'email']
+	class Meta:
+		model = User
+		fields = ['username', 'first_name', 'last_name', 'email']
+		# exclude = ('password', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_joined')
+
 
 
 # Create a ProfileUpdateForm to update image.
