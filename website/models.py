@@ -1,19 +1,36 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
 from django.utils.safestring import mark_safe
+from PIL import Image
 
 # Create your models here.
-
-class User (AbstractUser):
+class Profile (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
 		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
+
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	url = models.URLField("Website", blank=True)
 	bio_info = models.CharField(max_length=500)
-	estate_name = models.TextField(max_length=256, default='Haris Real Estate')
+	estate_name = models.CharField(max_length=256, default='Haris Real Estate')
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 	phone_number = PhoneNumberField(blank=True)
+
+	def save (self):
+		super().save()
+		if self.profile_image:
+			img = Image.open(self.profile_image.path) # open image
+
+			# resize image
+			if img.height > 300 or img.width > 300:
+				output_size = (300, 300)
+				img.thumbnail(output_size) # resize image
+				img.save(self.profile_image.path) # save it again and override the larger image
+
+	def __str__(self):
+		return ""
 
 
 class listing (models.Model):

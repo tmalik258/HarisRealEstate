@@ -1,27 +1,32 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from django.contrib import messages
+from django.utils.translation import gettext as _
 
-from .models import listing, User, Comments, Images, Contact
+from .models import listing, Comments, Images, Contact, Profile
 
 # Register your models here.
 
 
-# Admin Site Customization
-# class MyAdminSite (admin.AdminSite):
-# 	# Text to put at the end of each page's <title>.
-#     site_title = ugettext_lazy('My site admin')
-
-#     # Text to put in each page's <h1> (and above login form).
-#     site_header = ugettext_lazy('Haris Real Estate administration')
-
-#     # Text to put at the top of the admin index page.
-#     index_title = ugettext_lazy('Site administration | Haris Real Estate Site Administration')
-# admin_site = MyAdminSite()
-
-
 # User Model
+class UserProfileInline (admin.TabularInline):
+	model = Profile
+	fk_name = 'user'
+	max_num = 1
+	can_delete = False
+	verbose_name_plural = _('profile')
+
+
+
+class UserAdmin (UserAdmin):
+	inlines = (UserProfileInline,)
+
+
+admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+# admin.site.register(Profile)
+
 
 # Listing Model
 class ListingAdmin (admin.ModelAdmin):
