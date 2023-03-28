@@ -430,6 +430,7 @@ main
 	height: 30px;
 	width: 30px;
 	margin: auto 20px;
+	/* background: wheat; */
 	border: 1px solid wheat;
 	transform: rotate(45deg);
 	transition: 0.5s;
@@ -479,9 +480,10 @@ main
 }
 
 /* //////////////////////////////////////////	CATEGORIES	/////////////////////////////////////////// */
-.top-categories, .agents
+.top-categories, .agents, .index_properties .properties
 {
 	background: rgb(167, 147, 124);
+	box-shadow: 0px 0px 15px wheat, 0px 0px 60px wheat inset;
 }
 
 .top-categories, .about-us, .agents, .contact-us, .properties, .singleProperty, .create_listing
@@ -489,6 +491,7 @@ main
 	margin: 50px 10px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 15px wheat;
+
 	overflow: hidden;
 	position: relative;
 }
@@ -502,7 +505,7 @@ main
 	color: black;
 }
 
-.top-categories h1::before, .agents .agent-title .card-title::before
+.top-categories h1::before, .agents .agent-title .card-title::before, .index_properties .properties h1::before
 {
 	content: '';
 	display: inline-block;
@@ -510,18 +513,18 @@ main
 	width: 35%;
 	height: 2px;
 	left: 0;
-	top: 25px;
+	top: 23px;
 	background: black;
 }
 
-.top-categories h1::after, .agents .agent-title .card-title::after
+.top-categories h1::after, .agents .agent-title .card-title::after, .index_properties .properties h1::after
 {
 	content: '';
 	display: inline-block;
 	position: absolute;
 	width: 35%;
 	height: 2px;
-	top: 25px;
+	top: 23px;
 	background: black;
 	right: 0;
 }
@@ -533,11 +536,11 @@ main
 	height: 10px;
 	position: relative;
 	margin: auto 10px;
-	top: -8px;
+	top: -10px;
 	border: none;
 }
 
-.top-categories .row
+/* .top-categories .row
 {
 	align-items: flex-end;
 	height: 70%;
@@ -629,7 +632,7 @@ main
 	transform: rotate(-45deg);
 	background: wheat;
 	border: none;
-}
+} */
 
 /* //////////////////////////////////////////	ABOUT US	/////////////////////////////////////////// */
 .about-us .card
@@ -815,9 +818,7 @@ main
 /* //////////////////////////////////////////	PROPERTIES	/////////////////////////////////////////// */
 .properties
 {
-	/* height: 50em; */
 	padding: 20px 20px;
-	margin-top: 80px;
 	overflow: auto;
 	position: relative;
 }
@@ -833,8 +834,7 @@ main
 {
 	text-align: center;
 	color: wheat;
-	position: sticky;
-	top: 0;
+	position: relative;
 }
 
 .properties .emptyProperty
@@ -863,69 +863,156 @@ main
 .properties .card
 {
 	margin: auto;
-	background: wheat;
+	background: black;
 	border: none;
-	box-shadow: 8px 8px 6px black;
+	border-radius: 20px;
+	box-shadow: 0px 0px 60px #141414 inset;
+	transition: 0.4s;
 }
 
 .properties .card .card-body
 {
+	color: white;
 	line-height: 20px;
+}
+
+.properties .card img
+{
+	border-radius: 20px;
+	z-index: 2;
+}
+
+.properties .card:hover
+{
+	box-shadow: 0px 0px 60px #141414 inset, 0px 0px 15px wheat;
 }
 
 .properties .card .card-body .email
 {
-	color: black;
+	color: wheat;
 	position: relative;
 }
 
 .properties .card .card-body .email
 {
-	border: black solid 1px;
+	border: wheat solid 1px;
 	transition: 0.25s;
 }
 
 .properties .card .card-body .email:hover
 {
-	color: wheat;
-	background: black;
+	color: black;
+	background: wheat;
 	transform: scaleX(1.1);
 }
 
-.properties .card .card-body .email:is(:hover)::before
+.index_properties .properties h1
+{
+	color: #141414;
+}
+
+.index_properties .properties h1 .seperator
+{
+	background: #141414;
+	margin: auto;
+}
+
+.index_properties .properties h1 .seperator:nth-child(1)
+{
+	margin-right: 8px;
+	top: -10px;
+}
+
+.index_properties .properties h1 .seperator:nth-child(2)
+{
+	margin-left: 8px;
+	top: -10px;
+}
+
+.index_properties .properties .card
+{
+	border-radius: 20px;
+	border: none;
+	box-shadow: 0px 0px 60px #2e2e2e inset;
+	max-width: 300px;
+}
+
+.index_properties .properties .card:hover
+{
+	box-shadow: 0px 0px 60px #2e2e2e inset, 0px 0px 10px #141414;
+
+}
+
+.index_properties .properties .mySwiper.swiper
+{
+	padding: 10px 45px 65px 5px;
+}
+
+.index_properties .properties .mySwiper .swiper-button-prev::after,
+.index_properties .properties .mySwiper .swiper-button-next::after,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev::after,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next::after
 {
 	content: '';
-	width: 8px;
-	height: 8px;
-	background: black;
-	display: inline-block;
-	position: absolute;
-	top: 12px;
-	left: 85px;
-	transform: rotate(45deg);
 }
 
-.properties .card .card-body .email:is(:hover)::after
+.index_properties .properties .mySwiper .swiper-button-next,
+.index_properties .properties .mySwiper .swiper-button-prev,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next
 {
-	content: '';
-	position: absolute;
-	width: 130px;
-	height: 2px;
-	background: black;
-	top: 15px;
-	left: 105px;
-	display: inline-block;
+	width: initial;
+	height: initial;
+	margin: 0 auto;
+	font-size: 40px;
+	color: white;
+	border-radius: 7px;
+	transition: .4s;
 }
 
-.properties .card .card-body .email.more:is(:hover)::before
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next
 {
-	left: 155px;
+	color: wheat;
 }
 
-.properties .card .card-body .email.more:is(:hover)::after
+.index_properties .properties .mySwiper .swiper-button-next
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next
 {
-	left: 175px;
+	right: 0;
 }
+.index_properties .properties .mySwiper .swiper-button-prev,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev
+{
+	left: 0;
+}
+
+.index_properties .properties .mySwiper .swiper-button-next:hover,
+.index_properties .properties .mySwiper .swiper-button-prev:hover,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev:hover,
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next:hover
+{
+	background: rgb(167, 147, 124);
+	color: #141414;
+}
+
+.properties.singleProperty .swiper.singlePropertyImageSwiper {
+	width: 100%;
+	padding-top: 10px;
+}
+
+  .properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-slide {
+	background-position: center;
+	background-size: cover;
+	width: 300px;
+	height: 300px;
+  }
+
+  .properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+  }
+
 
 /* ////////////////////////////////////////	PAGINATION	///////////////////////////////////////// */
 .pagination .page-item a
@@ -967,6 +1054,7 @@ main
 /* //////////////////////////////////////////	SINGLE PROPERTY	/////////////////////////////////////////// */
 .properties.singleProperty
 {
+	color: white;
 	height: 100%;
 }
 
@@ -977,7 +1065,7 @@ main
 
 .properties.singleProperty .card .card-body
 {
-	color: black;
+	color: white;
 }
 
 /* //////////////////////////////////////////	about_us_main	/////////////////////////////////////////// */
@@ -1117,7 +1205,22 @@ footer .footer_row .footer_col ul li a:hover .seperator
 
 	.properties.singleProperty .card .col .card-body .container-fluid .row .col:last-child
 	{
-		border-left: 2px black solid;
+		border-left: 2px wheat solid;
+	}
+
+	
+	.index_properties .properties .mySwiper.swiper .swiper-wrapper
+	{
+		margin-left: 45px;
+	}
+
+	.properties.singleProperty .swiper.singlePropertyImageSwiper {
+		padding-top: 30px;
+	}
+
+	.properties.singleProperty #no_image
+	{
+		max-width: 25%;
 	}
 }
 
@@ -1140,11 +1243,6 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-top: 170px;
 	}
 
-	/* .create_listing .login form
-	{
-		width: 100em;
-	} */
-
 	.top-categories h1, .agents .agent-title .card-title
 	{
 		text-decoration: underline;
@@ -1158,6 +1256,59 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	.carousel
 	{
 		width: 100%;
+	}
+
+	.index_properties .properties .card
+	{
+		max-width: 700px;
+	}
+
+	.index_properties .properties .mySwiper .swiper-button-next,
+	.index_properties .properties .mySwiper .swiper-button-prev
+	{
+		top: initial;
+		bottom: 15px;
+		color: #1c1c1c;
+		border-radius: 7px;
+		border: 2px solid #1c1c1c;
+	}
+	
+	.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next,
+	.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev
+	{
+		border: 1px solid wheat;
+		top: initial;
+		bottom: 15px;
+	}
+
+	.index_properties .properties .mySwiper .swiper-button-next,
+	.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next
+	{
+		right: calc(50% - 3rem);
+	}
+	.index_properties .properties .mySwiper .swiper-button-prev,
+	.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev
+	{
+		left: calc(50% - 3rem);
+	}
+
+	.index_properties .properties .mySwiper .swiper-button-next:hover,
+	.index_properties .properties .mySwiper .swiper-button-prev:hover,
+	.properties.singleProperty .swiper.singlePropertyImageSwiper .sw
+	{
+		background: #1c1c1c;
+		color: rgb(167, 147, 124);
+	}
+
+	.properties.singleProperty .swiper.singlePropertyImageSwiper
+	{
+		max-width: 300px;
+		max-height: 300px;
+	}
+
+	.properties.singleProperty #no_image
+	{
+		max-width: 60%;
 	}
 
 	.agents .row

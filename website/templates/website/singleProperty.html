@@ -3,67 +3,62 @@
 {% load custom_tags %}
 
 {% block body %}
-	<article class="properties singleProperty">
-		<h1>{{ post.title }}</h1>
-		<div class="card mb-3">
-			{% if post.img.first %}
-				<div id="carouselExample" class="carousel slide">
-					<div class="carousel-inner">
-						{% for image in post.img.all %}
-							{% if forloop.first %}
-								<div class="carousel-item active">
-									<img src="{{ image.images.url }}" class="d-block w-100" alt="..." height="750px">
+	<section class="main_section">
+		<article class="properties singleProperty">
+			<h1>{{ post.title }}</h1>
+			<div class="card mb-3">
+				{% if post.img.first %}
+					<div class="swiper singlePropertyImageSwiper">
+						<div class="swiper-wrapper">
+							{% for image in post.img.all %}
+								<div class="swiper-slide">
+									<img src="{{ image.image.url }}" class="d-block" alt="image.image" >
 								</div>
-							{% else %}
-								<div class="carousel-item">
-								<img src="{{ image.images.url }}" class="d-block w-100" alt="..." height="750px">
-								</div>
-							{% endif %}
-						{% endfor %}
+							{% endfor %}
+						</div>
+						<div class="swiper-button-next">
+							<ion-icon name="caret-forward-outline"></ion-icon>
+						</div>
+						<div class="swiper-button-prev">
+							<ion-icon name="caret-back-outline"></ion-icon>
+						</div>
+						<!-- <div class="swiper-scrollbar" style="background: wheat;"></div> -->
+						<!-- <div class="swiper-pagination" style="background: wheat; border-radius: 20px;"></div> -->
 					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="visually-hidden">Next</span>
-					</button>
-				</div>
-				<!-- <img src="{{ post.img.first.images.url }}" class="img-fluid rounded-start" alt="..." max-height="300px" max-width="300px"> -->
-			{% else %}
-				<img loading="lazy" src="\media\images\No_image\no-image.png"  class="card-img-top d-block m-auto w-50" alt="No Image Uploaded">
-			{% endif %}
-			<div class="col">
-				<div class="card-body">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col">
-								<h5 class="card-title">Price: </h5>
-								<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
-								<h5 class="card-title">Purpose: </h5>
-								<p class="card-text ms-3">{{ post.get_purpose_display }}</p>
-								<h5 class="card-title">Category: </h5>
-								<p class="card-text ms-3">{{ post.get_category_display }}</p>
-								<h5 class="card-title">Size: </h5>
-								<p class="card-text ms-3">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
-							</div>
-							<div class="col">
-								<h5 class="card-title">Location: </h5>
-								<p class="card-text ms-3">{{ post.address }}</p>
-								<h5 class="card-title">Description: </h5>
-								<p class="card-text ms-3">{{ post.description }}</p>
+				{% else %}
+					<img loading="lazy" src="\media\images\No_image\no-image.png"  class="card-img-top d-block m-auto" id="no_image" alt="No Image Uploaded">
+				{% endif %}
+				<div class="col">
+					<div class="card-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title">Price: </h5>
+									<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
+									<h5 class="card-title">Purpose: </h5>
+									<p class="card-text ms-3">{{ post.get_purpose_display }}</p>
+									<h5 class="card-title">Category: </h5>
+									<p class="card-text ms-3">{{ post.get_category_display }}</p>
+									<h5 class="card-title">Size: </h5>
+									<p class="card-text ms-3">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
+								</div>
+								<div class="col">
+									<h5 class="card-title">Location: </h5>
+									<p class="card-text ms-3">{{ post.address }}</p>
+									<h5 class="card-title">Description: </h5>
+									<p class="card-text ms-3">{{ post.description }}</p>
+								</div>
 							</div>
 						</div>
-					</div>
-						<p class="card-text text-center"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
-						{% if post.creator.phone_number %}
-						<a href="tel:+{{ post.creator.phone_number }}"  class="btn btn-outline-secondary email more">Call</a>
-						{% endif %}
-						<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email ms-3">Email</a>
+							<p class="card-text text-center"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+							{% if post.creator.profile.phone_number %}
+								<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
+							{% endif %}
+							<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		  </div>
-	</article>
+			  </div>
+		</article>
+	</section>
 {% endblock %}

@@ -2,16 +2,17 @@ import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from django.db import IntegrityError
 from django.db.models import Max
 from django.forms import modelformset_factory
-from django.contrib import messages
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
@@ -20,14 +21,22 @@ from .models import Listing, Comment, Image, Contact, Profile
 from .forms import listingForm, listingGetRequestForm, UserUpdateForm, ProfileUpdateForm
 
 
+# Create your own mixins
+class StaffMemberRequiredMixin(object):
+    @method_decorator(staff_member_required)
+    def as_view(self, *args, **kwargs):
+        return super(StaffMemberRequiredMixin, self).as_view(*args, **kwargs)
+
+
 # Create your views here.
 def index (request):
     agents = User.objects.filter(is_staff=True, is_active=True)
+    posts = Listing.objects.filter(active=True).order_by("-time_created")[0:10]
     listing_form = listingGetRequestForm()
-    # print("hello")
     return render(request, 'website/index.html', {
         'agents': agents,
-        'listing_form': listing_form
+        'listing_form': listing_form,
+        'posts': posts
     })
 
 
@@ -37,21 +46,6 @@ class PropertiesListView (ListView):
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/properties.html"
 
-    def get_context_data (self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = listingGetRequestForm()
-        return context
-
-
-class PropertiesCategoryListView (ListView):
-    model = Listing
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
-
-    def get_queryset(self, **kwargs):
-       qs = super().get_queryset(**kwargs)
-       return qs.filter(category=self.kwargs['category'], active=True).order_by("-time_created").all()
-       
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = listingGetRequestForm()
@@ -72,7 +66,6 @@ class FilteredPropertiesListView (ListView):
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
-    #    category=self.kwargs['category'], 
         qs = qs.filter(
                 category=self.request.GET['category'],
                 purpose=self.request.GET['purpose'],
@@ -123,10 +116,8 @@ class FilteredPropertiesListView (ListView):
 
 @csrf_exempt
 def contact (request):
-    # print('contact view is called')
     # Composing a new message must be via POST
     if request.method != "POST":
-        # print('contact_view is not post')
         return JsonResponse({"error": "POST request required."}, status=400)
 
     # Check sender email
@@ -140,25 +131,21 @@ def contact (request):
     message = data.get("message", "")
 
     if fname == "":
-        # print('fname error')
         return JsonResponse({
             "error": "First Name is required."
         }, status=400)
 
     if phone_number == "":
-        # print('fname error')
         return JsonResponse({
             "error": "Phone number is required."
         }, status=400)
 
     if email == "":
-        # print('email error')
         return JsonResponse({
             "error": "Email is required."
         }, status=400)
 
     if message == "":
-        # print('message error')
         return JsonResponse({
             "error": "Message is required."
         })
@@ -172,7 +159,6 @@ def contact (request):
         message = message
     )
     contact.save()
-    # print('contact saved')
     return JsonResponse({"message": "Thankyou for contacting us."}, status=201)
 
 
@@ -197,17 +183,18 @@ def agents (request):
     })
 
 
-@staff_member_required
-def profile (request):
-    try:
-        posts = Listing.objects.filter(creator=request.user)
-        posts = posts.order_by("-time_created").all()
-    except listing.DoesNotExist:
-        posts = "Empty!! No listing found"
+class profileWithPropertiesListView(ListView, StaffMemberRequiredMixin):
+    model = Listing
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/profile.html"
 
-    return render(request, 'website/profile.html',{
-        'posts': posts
-    })
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+        qs = qs.filter(
+                creator=self.request.user,
+                active=True
+            ).order_by("-time_created").all()
+        return qs
 
 
 @staff_member_required
@@ -243,8 +230,8 @@ def createListing (request):
         images = request.FILES.getlist('images')
         bedroom = request.POST['bedroom']
         bathroom = request.POST.get('bathroom', None)
-        # image_form = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
         category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+
         if listing_form.is_valid():
             listing_obj = listing_form.save(commit=False)
             listing_obj.creator = request.user
@@ -263,8 +250,9 @@ def createListing (request):
             listing_obj.active = True
             listing_obj.save()
 
-            for img in images:
-                Image.objects.create(listing=listing_obj, image=img)
+            for image_file in images:
+                img = Image(listing=listing_obj, image=image_file)
+                img.save()
 
             messages.success(request, "Yeew, check it out on the home page!")
             return HttpResponseRedirect("/createListing")
@@ -345,7 +333,7 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name, bio_info = bio_info, profile_image = profile_image)
+            user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name)
             user.save()
             profile = Profile(user=user)
             profile.bio_info = bio_info

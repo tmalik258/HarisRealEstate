@@ -1,21 +1,40 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
+
 from . import views
 
 urlpatterns = [
+	# home page
 	path('', views.index, name = 'index'),
-	# path('contact_message', views.contact, name = 'contact'),
+	# properties page
 	path('properties', views.PropertiesListView.as_view(), name = 'properties'),
-	path('properties/<str:category>', views.PropertiesCategoryListView.as_view(), name = 'properties_category'),
+	# single property url
 	path('properties/property/<str:item>', views.single_property, name = 'single_property'),
+	# filtered properties display
     path('filtered_properties', views.FilteredPropertiesListView.as_view(), name = 'get_property'),
+	# about us page
 	path('about_us', views.about_us, name = 'about_us'),
+	# agents page
 	path('agents', views.agents, name = 'agents'),
+	# contact us page
 	path('contact_us', views.contact_us_page, name = 'contact_us_page'),
+	# contact us submission view
 	path('contact', views.contact, name = 'contact_us'),
+	# create listing
 	path('createListing', views.createListing, name = 'createListing'),
-	path('profile', views.profile, name = 'profile'),
+	# profile page
+	path('profile', views.profileWithPropertiesListView.as_view(), name='profile'),
+	# profile update page
 	path('profile-update', views.profileUpdate, name = 'profile-update'),
+	# password changer form
+	path('change-password', auth_views.PasswordChangeView.as_view(
+		template_name='website/change-password.html',
+		success_url='/profile'
+	), name='change-password'),
+	# login page
 	path("login", views.login_view, name="login"),
+	# logout url
     path("logout", views.logout_view, name="logout"),
+	# register page
     path("register", views.register, name="register"),
 ]

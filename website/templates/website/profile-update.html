@@ -8,16 +8,11 @@
 				<h2 class="text-center">Update Profile Info</h2><hr><br>
 				<form method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
-					<!-- <fieldset class="form-group">
-					<legend class="border-bottom mb-4"></legend> -->
+
 					{{ u_form.as_p }}
-					<!-- User form -->
 					{{ p_form.as_p }}
-					<!-- Profile form -->
-					<!-- </fieldset> -->
-					<div class="form-group">
-					<button class="btn btn-outline-info" type="submit">Update</button>
-					</div>
+					
+					<input class="btn btn-primary" type="submit" value="Update">
 				</form>
 			</section>
 		</div>

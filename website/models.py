@@ -3,31 +3,30 @@ from django.contrib.auth.models import User, AbstractUser, Group, Permission
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
 from django.utils.safestring import mark_safe
-from PIL import Image
+from PIL import Image as PillowImage
 
 # Create your models here.
 class Profile (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-		return 'images/user_{0}/profile_image/{1}'.format(instance.username, filename)
+		return 'images/user_{0}/profile_image/{1}'.format(instance.user.username, filename)
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	bio_info = models.CharField(max_length=500)
+	bio_info = models.TextField(max_length=1000)
 	estate_name = models.CharField(max_length=256, default='Haris Real Estate')
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 	phone_number = PhoneNumberField()
 
-	def save (self):
-		super().save()
+	def save (self, *args, **kwargs):
+		super().save(*args, **kwargs)
 		if self.profile_image:
-			img = Image.open(self.profile_image.path) # open image
+			img = PillowImage.open(self.profile_image.path) # open image
 
 			# resize image
 			if img.height > 300 or img.width > 300:
 				output_size = (300, 300)
 				img.thumbnail(output_size) # resize image
 				img.save(self.profile_image.path) # save it again and override the larger image
-		# force_insert=True
 
 	def __str__(self):
 		return ""
@@ -115,7 +114,7 @@ class Listing (models.Model):
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=250)
-	description = models.TextField(max_length=600)
+	description = models.TextField(max_length=700)
 	time_created = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
 
@@ -157,14 +156,14 @@ class Image (models.Model):
 			return 'No image found'
 	image_tag.short_description = 'Image'
 
-	def save (self):
-		super().save()
+	def save (self, *args, **kwargs):
+		super().save(*args, **kwargs)
 		if self.image:
-			img = Image.open(self.image.path) # open image
+			img = PillowImage.open(self.image.path) # open image
 
 			# resize image
-			if img.height > 300 or img.width > 300:
-				output_size = (300, 300)
+			if img.height > 400 or img.width > 400:
+				output_size = (400, 400)
 				img.thumbnail(output_size) # resize image
 				img.save(self.image.path) # save it again and override the larger image
 

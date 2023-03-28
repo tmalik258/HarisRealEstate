@@ -1,5 +1,6 @@
 {% extends 'website/layout.html' %}
 {% load static %}
+{% load custom_tags %}
 
 {% block head %}
 	<link rel="preload" href="{% static 'website/img/crousal/city.jpg' %}" as="image">
@@ -18,10 +19,10 @@
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
 		<div class="carousel-inner">
 		  <div class="carousel-item active">
-			<img loading="eager" src="{% static 'website/img/crousal/city.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
+			<img loading="eager" src="{% static 'website/img/crousal/building2.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
 			<div class="carousel-caption d-none d-md-block">
-				<h5>Haris Real Estate</h5>
-				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
+				<!-- <h5 style="color: #141414;">Haris Real Estate</h5>
+				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p> -->
 				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
 					<div class="col-5">
 						<input type="radio" class="btn-check" name="purpose" id="form1_option1" autocomplete="off" value="S" checked>
@@ -59,10 +60,10 @@
 			</div>
 		  </div>
 		  <div class="carousel-item">
-			<img loading="eager" src="{% static 'website/img/crousal/buildings.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
+			<img loading="eager" src="{% static 'website/img/crousal/construction.jpg' %}" class="d-block w-100" width="100%" height="100%" alt="...">
 			<div class="carousel-caption d-none d-md-block">
-				<h5 style="color: #141414">Haris Real Estate & Builders</h5>
-				<p style="color: #141414">We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
+				<h5>Haris Real Estate & Builders</h5>
+				<p>We have Experienced Professional Staff Always Available to Fullfill your Property Needs.</p>
 				<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
 					<div class="col-5">
 						<input type="radio" class="btn-check" name="purpose" id="form1_option1" autocomplete="off" value="S" checked>
@@ -150,6 +151,74 @@
 		  <span class="visually-hidden">Next</span>
 		</button>
 	  </div>
+</section>
+<section class="index_properties">
+	<article class="properties">
+		<h1 class="mb-4"><div class="seperator"></div>Top Properties<div class="seperator"></div></h1>
+		<div class="mySwiper swiper">
+			<div class="swiper-wrapper">
+				{% for post in posts %}
+					<div class="swiper-slide">
+						<div class="card">
+							<div class="row g-0">
+								{% if post.img.first %}
+								<div class="col-md-12">
+									<a href="{% url 'single_property' post.id %}">
+										<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
+									</a>
+								</div>
+								{% else %}
+								<a href="{% url 'single_property' post.id %}">
+								<div class="col-md-9 m-auto">
+										<img loading="lazy" src="{% static 'website\img\icons\Dark theme logo (Haris real estate).png' %}" class="card-img-top" alt="No Image Uploaded" style="background: #141414;" title="No Image Uploaded">
+									</div>
+								</a>
+									{% endif %}
+								<div class="col-md-15">
+									<a href="{% url 'single_property' post.id %}" style="color: wheat; text-decoration: none;">
+										<div class="card-body">
+											<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
+											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
+											<p class="card-text">{{ post.address | truncatechars:33 }}</p>
+											<p class="card-text"><span style="color: rgb(174, 115, 229);;">{{ post.get_category_display }}</span> for <span style="color: rgb(174, 115, 229);">{{ post.get_purpose_display }}</span></p>
+											<p class="card-text">
+												<span style="color: rgb(174, 115, 229);">{{ post.area_size }} </span>
+												{{ post.get_area_size_unit_display }}
+											</p>
+											{% if post.bedroom and post.bathroom %}
+												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom_display }}</strong> Baths</p>
+											{% elif post.bedroom %}
+												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds</p>
+											{% endif %}
+											<p class="card-text mt-3">
+												<a href="{% url 'single_property' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
+												<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+												{% if post.creator.profile.phone_number %}
+													<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
+												{% endif %}
+											</p>
+											<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<div class="emptyProperty">
+						<h2>Sorry! No Property Found !!</h2>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="swiper-button-next">
+				<ion-icon name="caret-forward-outline"></ion-icon>
+			</div>
+			<div class="swiper-button-prev">
+				<ion-icon name="caret-back-outline"></ion-icon>
+			</div>
+			<div class="swiper-scrollbar"></div>
+		</div>
+	</article>
 </section>
 {% comment %}
 <!-- <section>
