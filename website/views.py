@@ -287,7 +287,7 @@ def login_view(request):
             })
         elif not user.is_staff:
             return render(request, "website/login.html", {
-                "error_message": "Sorry! You are not a staff member. Sorry for inconvenience, please contact admin for assistance."
+                "error_message": "Sorry! You are not a staff member. Please contact admin for assistance."
             })
     else:
         return render(request, "website/login.html")
