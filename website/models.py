@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser, Group, Permission
+from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
 from django.utils.safestring import mark_safe

@@ -45,7 +45,7 @@ class ListingAdmin (admin.ModelAdmin):
 		if request.user.is_superuser:
 			return qs
 
-		return Listing.objects.filter(created_by=request.user) or qs.none()
+		return Listing.objects.filter(creator=request.user) or qs.none()
 	
 	@admin.action
 	def make_active (self, request, queryset):

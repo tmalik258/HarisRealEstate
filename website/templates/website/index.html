@@ -177,8 +177,8 @@
 								<div class="col-md-15">
 									<a href="{% url 'single_property' post.id %}" style="color: wheat; text-decoration: none;">
 										<div class="card-body">
-											<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
-											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
+											<h6 class="card-title text-center">{{ post.title | upper }}</h6><hr>
+											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 16px;">{{ post.price | int_word }}</span></p>
 											<p class="card-text">{{ post.address | truncatechars:33 }}</p>
 											<p class="card-text"><span style="color: rgb(174, 115, 229);;">{{ post.get_category_display }}</span> for <span style="color: rgb(174, 115, 229);">{{ post.get_purpose_display }}</span></p>
 											<p class="card-text">
