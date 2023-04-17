@@ -31,8 +31,8 @@
 	
 	
 	<!-----------------------	Fav Icon	-------------------------- -->
-	<link rel="preload" href="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" type="image/x-icon" as="image">
-	<link rel="shortcut icon" href="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" type="image/x-icon">
+	<link rel="preload" href="{% static 'website/img/logo/HARIS-LOGO77.png' %}" type="image/x-icon" as="image">
+	<link rel="shortcut icon" href="{% static 'website/img/logo/HARIS-LOGO77.png' %}" type="image/x-icon">
 
 	<!-----------------------	JavaScript Preload Link	-------------------------- -->
 	<link rel="preload" href="{% static 'website/js/index.js' %}" as="script">
@@ -64,7 +64,7 @@
 			<div class="container-fluid">
 				<span class="navbar-brand">
 					<a href="{% url 'index' %}">
-						<img loading="eager" class="logo" src="{% static 'website/img/icons/Dark theme logo(withouttext).png' %}" alt="Haris Real Estate LOGO" width="90" height="85">
+						<img loading="eager" class="logo" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
 					</a>
 					<a class="HRE" href="{% url 'index' %}">Haris<br><span style="font-size: 13px;">Real Estate</span></a>
 				</span>
@@ -150,7 +150,7 @@
 	<footer>
 		<div class="footer_row">
 			<div class="footer_col">
-				<img loading="lazy" src="{% static 'website/img/icons/Dark theme logo (Haris real estate).png' %}" class="img-fluid rounded-start" alt="..." width="50%" height="auto" class="logo">
+				<img loading="lazy" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="img-fluid rounded-start" alt="logo" width="70%" height="auto">
 			</div>
 			<div class="footer_col">
 				<ul class="footer_list">
@@ -203,6 +203,36 @@
 					</li>
 				</ul>
 			</div>
+			<!-- <div class="footer_col">
+				<ul class="footer_list">
+					<th class="th-group-item"><h3><div class="seperator" style="background: wheat; top: -6px;"></div>SOCIAL<div class="seperator" style="background: wheat; top: -6px;"></div></h3></th>
+					<li>
+						<a href="{% url 'index' %}">
+							<div class="seperator"></div>Instagram<div class="seperator"></div>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'properties' %}">
+							<div class="seperator"></div>FaceBook<div class="seperator"></div>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'about_us' %}">
+							<div class="seperator"></div>Whatsapp<div class="seperator"></div>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'agents' %}">
+							<div class="seperator"></div>Youtube<div class="seperator"></div>
+						</a>
+					</li> -->
+					<!-- <li>
+						<a href="{% url 'contact_us' %}">
+							<div class="seperator"></div>Contact Us<div class="seperator"></div>
+						</a>
+					</li> -->
+				<!-- </ul>
+			</div> -->
 		</div>
 	</footer>
 	{% endblock %}
