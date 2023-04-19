@@ -203,11 +203,11 @@ main
 .HRE
 {
 	display: inline-block;
-	line-height: 15px;
+	line-height: 17px;
 	font-size: 27px;
 	padding-bottom: 0;
 	padding-top: 0;
-	color: white;
+	color: wheat;
 	text-decoration: none;
 	margin-left: 6px;
 	margin-right: 150px;
@@ -266,7 +266,7 @@ main
 	position: relative;
 	width: 8px;
 	height: 8px;
-	top: -2px;
+	top: -3px;
 	border: 1px solid wheat;
 	margin-right: 5px;
 	transform: rotate(45deg);
@@ -326,6 +326,38 @@ main
 .navbar-toggler[aria-expanded="true"]::before{	transform: rotate(45deg);	}
 
 .navbar-toggler[aria-expanded="true"]::after{	transform: rotate(-45deg);	}
+
+/* ////////////////////////////////////////	SCROLL UP	///////////////////////////////////////// */
+.scrollup
+{
+	position: fixed;
+	right: 1rem;
+	bottom: -30%;
+	color: wheat;
+	display: inline-flex;
+	border-radius: 6px;
+	margin: 0;
+	/* height: 50px; */
+	padding: .1rem;
+	font-size: 40px;
+	background-color: #1c1c1c;
+	box-shadow: 0 4px 10px black;
+	z-index: 10;
+	transition: .3s;
+}
+
+.scrollup:hover
+{
+	transform: translateY(.25rem);
+	color: wheat;
+	box-shadow: none;
+}
+
+.show-scroll
+{
+	bottom: 1rem;
+}
+
 
 /* //////////////////////////////////////////	LOGIN	/////////////////////////////////////////// */
 .login{

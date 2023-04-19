@@ -75,7 +75,7 @@
 						<li class="nav-item">
 							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="home"><div class="seperator"></div>HOME</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item propertynav">
 							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties" ><div class="seperator"></div>PROPERTIES</a>
 						</li>
 						{% if not user.is_authenticated %}
@@ -142,6 +142,10 @@
 	<main>
 		{% block body %}
 		{% endblock %}
+		<!----------------------- SCROLL UP ---------------------------->
+		<a href="#" class="scrollup" id="scroll-up">
+			<ion-icon name="caret-up-outline"></ion-icon>
+		</a>
 	</main>
 	<!--------------------------	Body ends  -------------------------------- -->
 	

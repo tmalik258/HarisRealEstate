@@ -102,8 +102,21 @@ window.onload = function(){
 		  prevEl: ".swiper-button-prev",
 		},
 	  });
-};
 
+
+
+	};
+	
+	/* //////////////////////////////////////	SHOW SCROLL UP	/////////////////////////////////////// */
+	function scrollUp() {
+		const scrollUp = $('#scroll-up');
+		if (this.scrollY >= 350) {
+			scrollUp.addClass('show-scroll');
+		}
+		else
+			scrollUp.removeClass('show-scroll');
+	}
+	window.addEventListener('scroll', scrollUp)
 
 function load_contact_form () {
 	$('.contact-us').html(`
