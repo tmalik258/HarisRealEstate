@@ -66,7 +66,7 @@
 					<a href="{% url 'index' %}">
 						<img loading="eager" class="logo" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
 					</a>
-					<a class="HRE" href="{% url 'index' %}">Haris<br><span style="font-size: 13px;">Real Estate</span></a>
+					<a href="{% url 'index' %}" {% if not user.is_authenticated %} class="HRE margin-right" {% else %} class="HRE" {% endif %}>Haris<br><span style="font-size: 13px;">Real Estate</span></a>
 				</span>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				</button>

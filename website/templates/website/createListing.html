@@ -18,11 +18,13 @@
 			</div>
 			<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto">
 				{% csrf_token %}
-				<div class="col mb-3">{{ listing_form.title.label }}{{ listing_form.title }}</div>
-				<!-- <div class="row"> -->
-				<div class="col mb-3">
-					{{ listing_form.price.label }}{{ listing_form.price }}
-					<div class="form-text" id="price_int_word"></div>
+				<div class="row">
+					<div class="col-md-8 mb-3">{{ listing_form.title.label }}{{ listing_form.title }}</div>
+					<!-- <div class="row"> -->
+					<div class="col mb-3">
+						{{ listing_form.price.label }}{{ listing_form.price }}
+						<div class="form-text" id="price_int_word"></div>
+					</div>
 				</div>
 				<!-- </div> -->
 				<!-- <div class="row mb-2"> -->
@@ -37,65 +39,52 @@
 							<label class="btn btn-primary form-select ms-2" for="purpose_option2">Rent Out</label>
 						</div>
 					</div>
-				<div class="col my-3">{{ listing_form.category.label }}{{ listing_form.category }}</div>
-				<div class="col-md-8 my-3" id="bedroom">
-					{{ listing_form.bedroom.label }} <br>
-					<div class="ms-4">
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option0" autocomplete="off" value="S" checked>
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option0">Studio</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option1" autocomplete="off" value="1">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option1">1</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option2" autocomplete="off" value="2">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option2">2</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option3" autocomplete="off" value="3">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option3">3</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option4" autocomplete="off" value="4">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option4">4</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option5" autocomplete="off" value="5">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option5">5</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option6" autocomplete="off" value="6">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option6">6</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option7" autocomplete="off" value="7">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option7">7</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option8" autocomplete="off" value="8">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option8">8</label>
-
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option9" autocomplete="off" value="9">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option9">9</label>
-						
-						<input type="radio" class="btn-check" name="bedroom" id="bedroom_option10" autocomplete="off" value="10">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option10">10</label>
+				<div class="col w-100 my-3">{{ listing_form.category.label }}{{ listing_form.category }}</div>
+				<div class="row">
+					<div class="col-md-6 my-3" id="bedroom">
+						{{ listing_form.bedroom.label }} <br>
+						<div class="ms-4">
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option0" autocomplete="off" value="S" checked>
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option0">Studio</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option1" autocomplete="off" value="1">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option1">1</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option2" autocomplete="off" value="2">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option2">2</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option3" autocomplete="off" value="3">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option3">3</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option4" autocomplete="off" value="4">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option4">4</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option5" autocomplete="off" value="5">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option5">5</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option6" autocomplete="off" value="6">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option6">6</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option7" autocomplete="off" value="7">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option7">7</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option8" autocomplete="off" value="8">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option8">8</label>
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option9" autocomplete="off" value="9">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option9">9</label>
+					
+							<input type="radio" class="btn-check" name="bedroom" id="bedroom_option10" autocomplete="off" value="10">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bedroom_option10">10</label>
+						</div>
 					</div>
-				</div>
-
-				<div class="col-md-8 my-3" id="bathroom">
-					{{ listing_form.bathroom.label }} <br>
-					<div class="ms-4">
-						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option1" autocomplete="off" value="1">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option1">1</label>
-
-						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option2" autocomplete="off" value="2">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option2">2</label>
-
-						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option3" autocomplete="off" value="3">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option3">3</label>
-
-						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option4" autocomplete="off" value="4">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option4">4</label>
-
-						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option5" autocomplete="off" value="5">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option5">5</label>
-
-						<input type="radio" class="btn-check" name="bathroom" id="bathroom_option6" autocomplete="off" value="6">
-						<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option6">6</label>
+					<div class="col-md-6 my-3" id="bathroom">
+						{{ listing_form.bathroom.label }} <br>
+						<div class="ms-4">
+							<input type="radio" class="btn-check" name="bathroom" id="bathroom_option1" autocomplete="off" value="1">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option1">1</label>
+							<input type="radio" class="btn-check" name="bathroom" id="bathroom_option2" autocomplete="off" value="2">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option2">2</label>
+							<input type="radio" class="btn-check" name="bathroom" id="bathroom_option3" autocomplete="off" value="3">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option3">3</label>
+							<input type="radio" class="btn-check" name="bathroom" id="bathroom_option4" autocomplete="off" value="4">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option4">4</label>
+							<input type="radio" class="btn-check" name="bathroom" id="bathroom_option5" autocomplete="off" value="5">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option5">5</label>
+							<input type="radio" class="btn-check" name="bathroom" id="bathroom_option6" autocomplete="off" value="6">
+							<label class="btn btn-primary form-select my-2 ms-2" for="bathroom_option6">6</label>
+						</div>
 					</div>
 				</div>
 				<!-- </div> -->

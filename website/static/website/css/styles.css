@@ -210,7 +210,7 @@ main
 	color: wheat;
 	text-decoration: none;
 	margin-left: 6px;
-	margin-right: 150px;
+	/* margin-right: 150px; */
 	vertical-align: bottom;
 }
 
@@ -1213,6 +1213,11 @@ footer .footer_row .footer_col ul li a:hover .seperator
 }
 
 @media screen and (min-width:1185px) {
+	.HRE.margin-right
+	{
+		margin-right: 150px;
+	}
+
 	.login.register
 	{
 		height: auto;
