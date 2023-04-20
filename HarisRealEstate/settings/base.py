@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     # External PACKAGES
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
+    'storages',
     # Internal APPS
     'website',
 ]
