@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     # External PACKAGES
     'phonenumber_field',
+    'django_cleanup.apps.CleanupConfig',
     # Internal APPS
     'website',
 ]

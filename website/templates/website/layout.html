@@ -96,7 +96,7 @@
 								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>PROFILE</a>
+								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="profile-link"><div class="seperator"></div>PROFILE</a>
 							</li>
 							<li class="nav-item">
 								<a href="{% url 'admin:index' %}" {% if "/admin" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>ADMIN</a>
@@ -116,14 +116,21 @@
 							</li>
 						{% endif %}
 					</ul>
-					<!-- {% if not user.is_authenticated and not user.is_staff %} -->
-					<!-- <div class="text-center"> -->
+					<div class="text-center">
+						{% if not user.is_authenticated and not user.is_staff %}
 						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
 						<!-- <a href="mailto:harisrealestate@yahoo.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@yahoo.com</a> -->
-						<!-- <a href="tel:+92 3004882031" class="nav-link contact_number" style="color: wheat;"><div class="seperator seperator-home"></div>03004882031</a>
-						<hr> -->
-					<!-- </div> -->
-					<!-- {% endif %} -->
+						<a href="tel:+92 3004882031" class="nav-link contact_number">CALL</a>
+						{% else %}
+							<a href="{% url 'profile' %}" class="nav-link profile">
+								{% if user.profile.profile_image %}
+									<div class="profile_image"><img src="{{ user.profile.profile_image.url }}" alt="Front image" width="100%" height="100%" ></div>
+								{% else %}
+									<div class="profile_image"><img src="media/images/No_image/No_image_available.png" alt="Front image" width="100%" height="100%" ></div>
+								{% endif %}
+							</a>
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -260,30 +267,5 @@
 	
 	<!-------------------------		JavaScript 	-------------------------- -->
 	<script src="{% static 'website/js/index.js' %}"></script>
-
-	<script>
-		// setTimeout(function () {
-			// Not complete. Document hasn't finished loading.
-		// 	if (document.readyState !== 'complete') {
-		// 		let loader = document.querySelector('.loader');
-		// 		// let div = document.createElement('div');
-		// 		loader.innerHTML = "Connection timed out. Please Refresh the page or Check Your Internet Connection";
-		// 		// loader.append(div);
-		// 	}
-		// }, 20000);
-		document.onreadystatechange = function (e) {
-			if (document.readyState === 'complete') {
-				// $('.loader').css('transform', 'translateY(-100%)');
-				// $('header').css('display', 'initial');
-				// $('main').css({display: 'block'});
-				// $('footer').css({display: 'block'});
-				
-				if (window.innerWidth > 990)
-				{
-					$('.carousel-inner').height(window.innerHeight);
-				}
-			}
-		}
-	</script>
 </body>
 </html>
