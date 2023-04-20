@@ -1,3 +1,21 @@
+document.onreadystatechange = function (e) {
+	if (document.readyState === 'complete') {
+		if (window.innerWidth > 990)
+		{
+			$('.carousel-inner').height(window.innerHeight);
+		}
+	}
+}
+
+window.onresize = function () {
+	if (window.innerWidth < 990)
+	{
+		$('.carousel-inner').height("initial");
+	}
+	else
+		$('.carousel-inner').height(window.innerHeight);
+}
+
 window.onload = function(){
 	//	load contact form virtually
 	if (!$('.contact-us').html()) {
@@ -47,25 +65,30 @@ window.onload = function(){
 		}
 	});
 	
-	slidesView = 4;
-	
-	if (window.innerWidth < 990)
-	{
-		slidesView = 1;
-	}
 	
 	// SWIPER SLIDE SCROLLER
 	var swiperPopular = new Swiper(".mySwiper", {
+		// default parameters
 		spaceBetween: 20,
 		grapCursor: true,
 		autoplay: {
 			delay: 3000,
 			disableOnInteraction: false,
 		},
-		slidesPerView: slidesView,
-		// loop: true,
-		// swiperSlideSize: 'auto',
+		slidesPerView: 1,
 	
+		// Responsive breakpoints
+		breakpoints: {
+			// when window width is less than 990
+			450: {
+				slidesPerView: 2
+			},
+
+			990: {
+				slidesPerView: 4
+			}
+		},
+
 		scrollbar: {
 			el: ".swiper-scrollbar",
 		},
@@ -107,16 +130,16 @@ window.onload = function(){
 
 	};
 	
-	/* //////////////////////////////////////	SHOW SCROLL UP	/////////////////////////////////////// */
-	function scrollUp() {
-		const scrollUp = $('#scroll-up');
-		if (this.scrollY >= 350) {
-			scrollUp.addClass('show-scroll');
-		}
-		else
-			scrollUp.removeClass('show-scroll');
+/* //////////////////////////////////////	SHOW SCROLL UP	/////////////////////////////////////// */
+function scrollUp() {
+	const scrollUp = $('#scroll-up');
+	if (this.scrollY >= 350) {
+		scrollUp.addClass('show-scroll');
 	}
-	window.addEventListener('scroll', scrollUp)
+	else
+		scrollUp.removeClass('show-scroll');
+}
+window.addEventListener('scroll', scrollUp)
 
 function load_contact_form () {
 	$('.contact-us').html(`
