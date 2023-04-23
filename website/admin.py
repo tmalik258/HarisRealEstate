@@ -69,15 +69,15 @@ admin.site.register(Contact)
 admin.site.register(Comment)
 
 
-# Image Model
-class ImageAdmin (admin.ModelAdmin):
-	list_display = ('listing', 'image_tag')
+# # Image Model
+# class ImageAdmin (admin.ModelAdmin):
+# 	list_display = ('listing', 'image_tag')
 
-	def get_queryset(self, request):
-		qs = super().get_queryset(request)
-		if request.user.is_superuser:
-			return qs
+# 	def get_queryset(self, request):
+# 		qs = super().get_queryset(request)
+# 		if request.user.is_superuser:
+# 			return qs
 
-		return Image.objects.filter(created_by=request.user) or qs.none()
+# 		return Image.objects.filter(created_by=request.user) or qs.none()
 
-admin.site.register(Image, ImageAdmin)
+# admin.site.register(Image, ImageAdmin)

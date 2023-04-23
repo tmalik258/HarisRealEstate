@@ -149,12 +149,12 @@ class Image (models.Model):
 	def __str__(self):
 		return f"{self.listing}"
 
-	def image_tag (self):
-		if self.image:
-			return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
-		else:
-			return 'No image found'
-	image_tag.short_description = 'Image'
+	# def image_tag (self):
+	# 	if self.image:
+	# 		return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
+	# 	else:
+	# 		return 'No image found'
+	# image_tag.short_description = 'Image'
 
 	def save (self, *args, **kwargs):
 		super().save(*args, **kwargs)
