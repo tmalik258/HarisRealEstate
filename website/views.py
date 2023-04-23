@@ -114,6 +114,33 @@ class FilteredPropertiesListView (ListView):
         return context
 
 
+class CategoryListView (ListView):
+    model = Listing
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+
+        if self.kwargs['type'] == 'Homes':
+            subcategories = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+        elif self.kwargs['type'] == 'Plots':
+            subcategories = ['rp', 'cp', 'al', 'il', 'pfile', 'pform']
+        elif self.kwargs['type'] == 'Commercial':
+            subcategories = ['off', 'shop', 'wh', 'fact', 'buil']
+
+        qs = qs.filter(
+            category__in=subcategories,
+            active=True
+        ).order_by('-time_created').all()
+        return qs
+        
+    def get_context_data (self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = listingGetRequestForm()
+        return context
+
+
 @csrf_exempt
 def contact (request):
     # Composing a new message must be via POST

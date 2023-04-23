@@ -12,8 +12,8 @@ class Profile (models.Model):
 		return 'images/user_{0}/profile_image/{1}'.format(instance.user.username, filename)
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	bio_info = models.TextField(max_length=1000)
-	estate_name = models.CharField(max_length=256, default='Haris Real Estate')
+	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
+	estate_name = models.CharField(max_length=256, null=True, blank=True, help_text="Optional")
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 	phone_number = PhoneNumberField()
 

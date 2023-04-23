@@ -26,10 +26,54 @@ header
 	transition: 0.2s;
 }
 
-main
+
+/* ////////////////////////////////	SCROLLING ANIMATION	/////////////////////////////////////// */
+.hidden
 {
-	/* display: none; */
-	transition: 0.2s;
+	opacity: 0;
+	filter: blur(5px);
+	transform: translateX(-100%);
+	transition: all 1s;
+}
+
+.show
+{
+	opacity: 1;
+	filter: blur(0);
+	transform: translateX(0);
+}
+
+.top-categories .row .col:nth-child(2)
+{
+	transition-delay: 200ms;
+}
+
+.top-categories .row .col:nth-child(3)
+{
+	transition-delay: 400ms;
+}
+
+.top-categories .row .col:nth-child(4)
+{
+	transition-delay: 600ms;
+}
+
+.agents .agent-title .card-text:nth-child(2)
+{
+	transition-delay: 200ms;
+}
+
+.agents .agent-title .card-text:nth-child(3)
+{
+	transition-delay: 400ms;
+}
+
+@media(prefers-reduced-motion)
+{
+	.hidden
+	{
+		transition: none;
+	}
 }
 
 /* //////////////////////////////////	SCROLL BAR	////////////////////////////////////////////// */
@@ -488,6 +532,7 @@ main
 }
 .carousel-item.active img
 {
+	image-rendering: -webkit-optimize-contrast;
 	image-rendering: crisp-edges;
 	transition: 10s;
 	transform: scale(1.5);
@@ -548,29 +593,32 @@ main
 }
 
 /* //////////////////////////////////////////	CATEGORIES	/////////////////////////////////////////// */
-.top-categories, .agents, .index_properties .properties
+/* .agents
 {
 	background: rgb(167, 147, 124);
 	box-shadow: 0px 0px 15px wheat, 0px 0px 60px wheat inset;
-}
+} */
 
 .top-categories, .about-us, .agents, .contact-us, .properties, .singleProperty, .create_listing
 {
-	margin: 50px 10px;
+	margin: 40px 10px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 15px wheat;
-
 	overflow: hidden;
 	position: relative;
 }
 
+.top-categories
+{
+	box-shadow: none;
+}
 .top-categories h1
 {
+	color: wheat;
 	position: relative;
 	text-align: center;
 	margin-top: 20px;
 	margin-bottom: 30px;
-	color: black;
 }
 
 .top-categories h1::before, .agents .agent-title .card-title::before, .index_properties .properties h1::before
@@ -582,7 +630,7 @@ main
 	height: 2px;
 	left: 0;
 	top: 23px;
-	background: black;
+	background: wheat;
 }
 
 .top-categories h1::after, .agents .agent-title .card-title::after, .index_properties .properties h1::after
@@ -593,13 +641,13 @@ main
 	width: 35%;
 	height: 2px;
 	top: 23px;
-	background: black;
+	background: wheat;
 	right: 0;
 }
 
 .top-categories h1 .seperator, .agents .agent-title .card-title .seperator, .properties h1 .seperator
 {
-	background: black;
+	background: wheat;
 	width: 10px;
 	height: 10px;
 	position: relative;
@@ -608,12 +656,12 @@ main
 	border: none;
 }
 
-/* .top-categories .row
+.top-categories .row
 {
 	align-items: flex-end;
 	height: 70%;
 	margin: auto;
-	color: black;
+	color: wheat;
 	margin-bottom: 20px;
 }
 
@@ -630,7 +678,7 @@ main
 	z-index: 2;
 }
 
-.top-categories .row .col_1
+.top-categories .row .col:nth-child(1)
 {
 	align-self: flex-start;
 }
@@ -648,6 +696,11 @@ main
 	top: 50%;
 }
 
+.top-categories .col:nth-child(2) .card-img-overlay
+{
+	background: rgba(0, 0, 0, 0.237);
+}
+
 .top-categories .card:hover .card-img-overlay
 {
 	background: rgba(0, 0, 0, 0.425);
@@ -655,6 +708,7 @@ main
 
 .top-categories .card img
 {
+	image-rendering: -webkit-optimize-contrast;
 	image-rendering: crisp-edges;
 	border-bottom-left-radius: 50px;
 	border-top-right-radius: 50px;
@@ -666,7 +720,7 @@ main
 	transform: scale(1.5);
 }
 
-.top-categories .card .img2
+.top-categories .col:nth-child(2) .card img
 {
 	border-bottom-left-radius: 0;
 	border-top-right-radius: 0;
@@ -683,7 +737,7 @@ main
 	width: 8px;
 	height: 8px;
 	top: -5px;
-	border: 1px solid black;
+	border: 1px solid wheat;
 	margin: auto 5px;
 	transform: rotate(45deg);
 	transition: 0.2s ease-in-out;
@@ -700,7 +754,7 @@ main
 	transform: rotate(-45deg);
 	background: wheat;
 	border: none;
-} */
+}
 
 /* //////////////////////////////////////////	ABOUT US	/////////////////////////////////////////// */
 .about-us .card
@@ -761,22 +815,37 @@ main
 }
 
 /* //////////////////////////////////////////	AGENTS	/////////////////////////////////////////// */
+.agents
+{
+	box-shadow: none;
+	color: wheat;
+}
+
 .agents .row
 {
 	margin-left: 0;
-	margin-bottom: 15px;
+	margin-top: 20px;
 }
 
 .agents .agent-title
 {
 	margin: auto;
-	color: #141414;
+	/* color: #141414; */
 }
 
 .agents .row .card
 {
-	background: rgb(24, 22, 17);
+	background: rgba(245, 222, 179, 0.091);
+	box-shadow: 2px 2px 12px wheat;
 	border: none;
+	border-bottom-left-radius: 50px;
+	border-bottom-right-radius: 60px;
+	transition: .3s;
+}
+.agents .row .card:hover
+{
+	transform: translateY(.2rem);
+	box-shadow: none;
 }
 
 .agents .row .card img
@@ -784,25 +853,19 @@ main
 	width: 250px;
 	height: 250px;
 	border-radius: 50%;
+	image-rendering: -webkit-optimize-contrast;
 	image-rendering: crisp-edges;
+	box-shadow: 1px 1px 10px #141414;
 	transition: 0.5s all ease-in-out;
-}
-
-.agents .row .card
-{
-	border-bottom-left-radius: 50px;
-	border-bottom-right-radius: 60px;
 }
 
 .agents .row .col:nth-of-type(odd) .card
 {
-	background: #141414;
 	border-top-right-radius: 50%;
 }
 
 .agents .row .col:nth-of-type(even) .card
 {
-	background: #141414;
 	border-top-left-radius: 50%;
 }
 
@@ -811,11 +874,6 @@ main
 	margin: auto;
 	position: absolute;
 	top: 50%;
-}
-
-.agents .row .card
-{
-	box-shadow: 12px 12px 12px rgb(15, 15, 15);
 }
 
 .agents .row .card a
@@ -959,34 +1017,59 @@ main
 {
 	color: wheat;
 	position: relative;
+	border: wheat solid 1px;
+	overflow: hidden;
+	transition: 0.3s;
 }
 
-.properties .card .card-body .email
+.properties .card .card-body .email::before
 {
-	border: wheat solid 1px;
-	transition: 0.25s;
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 0%;
+	height: 0%;
+	background-color: wheat;
+	border-radius: 0 0 100% 25%;
+	z-index: -1;
+	transition: .7s;
+}
+
+.properties .card .card-body .email:hover::before
+{
+	width: 200%;
+	height: 200%;
 }
 
 .properties .card .card-body .email:hover
 {
 	color: black;
-	background: wheat;
+	background: none;
+	/* background: wheat; */
 	transform: scaleX(1.1);
 }
 
+/* .index_properties */
+/* { */
+	/* background: whitesmoke; */
+/* } */
 .index_properties .properties
 {
+	box-shadow: none;
 	font-size: 15px;
 }
 
-.index_properties .properties h1
+.index_properties .properties h1::before, .index_properties .properties h1::after
 {
-	color: #141414;
+	background: wheat;
+	width: 27%;
+	/* color: #141414; */
 }
 
 .index_properties .properties h1 .seperator
 {
-	background: #141414;
+	background: wheat;
 	margin: auto;
 }
 
@@ -998,6 +1081,7 @@ main
 
 .index_properties .properties h1 .seperator:nth-child(2)
 {
+	z-index: 2;
 	margin-left: 8px;
 	top: -10px;
 }
@@ -1007,13 +1091,13 @@ main
 	border-radius: 20px;
 	border: none;
 	font-size: 12px;
-	box-shadow: 0px 0px 60px #2e2e2e inset;
+	box-shadow: none;
 	max-width: 300px;
 }
 
 .index_properties .properties .card:hover
 {
-	box-shadow: 0px 0px 60px #2e2e2e inset, 0px 0px 10px #141414;
+	box-shadow: 0px 0px 40px #2e2e2e inset, 0px 0px 12px wheat;
 
 }
 
@@ -1082,10 +1166,19 @@ main
 	height: 300px;
 }
 
-  .properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-slide img {
+.properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-slide img {
 	display: block;
 	width: 100%;
-  }
+}
+
+.index_properties .properties .mySwiper .swiper-scrollbar
+{
+	background: black;
+}
+.index_properties .properties .mySwiper .swiper-scrollbar-drag
+{
+	background: wheat;
+}
 
 
 /* ////////////////////////////////////////	PAGINATION	///////////////////////////////////////// */
@@ -1254,21 +1347,42 @@ footer .footer_row .footer_col ul li a:hover .seperator
 
 	.collapse .contact_number
 	{
+		display: inline-block;
 		position: absolute;
 		right: 25px;
 		top: 11px;
 		padding: 2px 7px;
 		color: wheat;
+		/* background-color: #141414; */
 		border: 1px solid wheat;
 		border-radius: 5px;
-		display: inline-block;
 		transition: .3s;
+		overflow: hidden;
 	}
 
+	.collapse .contact_number::before
+	{
+		content: '';
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 0%;
+		height: 0%;
+		background-color: wheat;
+		border-radius: 0 0 100% 25%;
+		z-index: -1;
+		transition: .5s;
+	}
+	
 	.collapse .contact_number:hover
 	{
-		background: wheat;
 		color: #141414;
+	}
+
+	.collapse .contact_number:hover::before
+	{
+		width: 200%;
+		height: 200%;
 	}
 
 	/*------- REGISTER-FORM ------*/
@@ -1332,6 +1446,11 @@ footer .footer_row .footer_col ul li a:hover .seperator
 }
 
 @media screen and (max-width: 990px) {
+	.collapse .contact_number
+	{
+		display: none;
+	}
+	
 	.navbar
 	{
 		top: 0;

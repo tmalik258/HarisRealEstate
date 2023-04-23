@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#F5DEB3">
-
 	<meta name="description" content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates.">
 
 	<title>{% block title %}Haris Real Estate{% endblock %}</title>
@@ -35,7 +35,7 @@
 	<link rel="shortcut icon" href="{% static 'website/img/logo/HARIS-LOGO77.png' %}" type="image/x-icon">
 
 	<!-----------------------	JavaScript Preload Link	-------------------------- -->
-	<link rel="preload" href="{% static 'website/js/index.js' %}" as="script">
+	<link rel="preload" href="{% static 'website/js/index.js' %}" as="script" charset="utf-8">
 
 	<!-----------------------	Jquery Preload Link	-------------------------- -->
 	<link rel="preload" href="https://code.jquery.com/jquery-3.6.3.slim.min.js" as="script"
@@ -44,14 +44,12 @@
 
 	<!-----------------------	Icons JavaScript Preload Link 	-------------------------- -->
 	<link rel="preload" href="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js" as="script" crossorigin>
-	<link rel="preload" href="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js" as="script" crossorigin>
 
 	<!-----------------------	SWIPER  CSS	-------------------------- -->
 	<link
 	rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
 	/>
-	<!-- <link rel="stylesheet" href="{% static 'website/css/scrollbar.min.css' %}" /> -->
 
 	{% block head %}
 	{% endblock %}
@@ -118,7 +116,6 @@
 					</ul>
 					<div class="text-center">
 						{% if not user.is_authenticated and not user.is_staff %}
-						<!-- <p class="headline-1 nav-title">VISIT US</p> -->
 						<!-- <a href="mailto:harisrealestate@yahoo.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@yahoo.com</a> -->
 						<a href="tel:+92 3004882031" class="nav-link contact_number">CALL</a>
 						{% else %}
@@ -171,11 +168,6 @@
 							<div class="seperator"></div>+92 300-4882031<div class="seperator"></div>
 						</a>
 					</li>
-					<!-- <li>
-						<a href="tel:+92 3214882031">
-							<div class="seperator"></div>+92 321-4882031<div class="seperator"></div>
-						</a>
-					</li> -->
 					<li>
 						<a href="mail:harisrealestate@yahoo.com">
 							<div class="seperator"></div>harisrealestate@yahoo.com<div class="seperator"></div>
@@ -254,11 +246,10 @@
 	
 	<!-------------------------		SWIPER JavaScript 	-------------------------- -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-	<!-- <script src="{% static 'website/js/swiper-bundle.min.js' %}"></script> -->
 
 	<!-------------------------		Icons JavaScript 	-------------------------- -->
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<!-- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
 	
 	<!-------------------------		JQuery 	-------------------------- -->
 	<script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
@@ -266,6 +257,6 @@
 	crossorigin="anonymous"></script>
 	
 	<!-------------------------		JavaScript 	-------------------------- -->
-	<script src="{% static 'website/js/index.js' %}"></script>
+	<script defer src="{% static 'website/js/index.js' %}" charset="utf-8"></script>
 </body>
 </html>

@@ -42,17 +42,55 @@ class listingForm (ModelForm):
 		}
 
 		widgets = {
-			'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
-			'price': forms.NumberInput(attrs={'class': 'form-control', 'id': 'price_input', 'placeholder': 'Enter Price', 'min': 0}),
-            'category': forms.Select(attrs={'class': 'form-select', 'id': 'category_input'}),
-            'city': forms.Select(attrs={'class': 'form-select'}),
-            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write a description about your property'}),
-			'purpose': forms.RadioSelect(attrs={'class': 'form-radio-inline'}),
-			'bedroom': forms.RadioSelect(attrs={'id': 'bedroom_input'}),
-			'bathroom': forms.RadioSelect(attrs={'id': 'bathroom_input'}),
-			'area_size': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Area Size', 'min': 0}),
-            'area_size_unit': forms.Select(attrs={'class': 'form-select'}),
+			'title': forms.TextInput(attrs={
+				'class': 'form-control',
+				'placeholder': 'Title',
+				'id': ''
+			}),
+			'price': forms.NumberInput(attrs={
+				'class': 'form-control',
+				'id': 'price_input',
+				'placeholder': 'Enter Price',
+				'min': 0
+			}),
+            'category': forms.Select(attrs={
+				'class': 'form-select',
+				'id': 'category_input'
+			}),
+            'city': forms.Select(attrs={
+				'class': 'form-select',
+				'id': ''
+			}),
+            'address': forms.TextInput(attrs={
+				'class': 'form-control',
+				'placeholder': 'Address',
+				'id': ''
+			}),
+            'description': forms.Textarea(attrs={
+				'class': 'form-control',
+				'placeholder': 'Write a description about your property',
+				'id': ''
+			}),
+			'purpose': forms.RadioSelect(attrs={
+				'class': 'form-radio-inline',
+				'id': ''
+			}),
+			'bedroom': forms.RadioSelect(attrs={
+				'id': 'bedroom_input'
+			}),
+			'bathroom': forms.RadioSelect(attrs={
+				'id': 'bathroom_input'
+			}),
+			'area_size': forms.NumberInput(attrs={
+				'class': 'form-control',
+				'placeholder': 'Enter Area Size',
+				'min': 0,
+				'id': ''
+			}),
+            'area_size_unit': forms.Select(attrs={
+				'class': 'form-select',
+				'id': ''
+			}),
 		}
 
 
@@ -67,29 +105,30 @@ CITY_CHOICES = (
 class listingGetRequestForm (ModelForm):
 	city = forms.CharField(widget=forms.Select(attrs={
 		'class': 'form-select',
-		'title': 'Select Category'
+		'title': 'Select Category',
+		'id': ''
 	}, choices=CITY_CHOICES), required=False)
 	location = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Search by Location',
-		# 'title': 'Temporarily Disabled'
+		'id': ''
 	}), label='', required=False)
 	min_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Enter Min Price',
 		'min': 10000,
-		# 'title': 'Temporarily Disabled'
+		'id': ''
 	}), label='', required=False, min_length=4)
 	max_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Enter Max Price',
 		'min': 10000,
-		# 'title': 'Temporarily Disabled'
+		'id': ''
 	}), label='', required=False, min_length=4)
 	area_size = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Area Size',
-		# 'title': 'Temporarily Disabled',
+		'id': '',
 		'min': 0
 	}), label='', required=False)
 
@@ -114,7 +153,8 @@ class listingGetRequestForm (ModelForm):
 			# }),
             'category': forms.Select(attrs={
 				'class': 'form-select',
-				'title': 'Select Category'
+				'title': 'Select Category',
+				'id': ''
 			}),
 			# 'purpose': forms.Select(attrs={
 			# 	'class': 'form-select',
@@ -132,7 +172,8 @@ class listingGetRequestForm (ModelForm):
 			}),
 			'area_size_unit': forms.Select(attrs={
 				'class': 'form-select',
-				'title': 'Specify Unit for Area Size'
+				'title': 'Specify Unit for Area Size',
+				'id': ''
 			}),
 		}
 

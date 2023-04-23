@@ -1,22 +1,34 @@
-document.onreadystatechange = function (e) {
-	if (document.readyState === 'complete') {
+// document.onreadystatechange = function (e) {
+	// if (document.readyState === 'complete') {
 		if (window.innerWidth > 990)
 		{
 			$('.carousel-inner').height(window.innerHeight);
 		}
-	}
-}
+	// }
+// }
 
-window.onresize = function () {
-	if (window.innerWidth < 990)
-	{
-		$('.carousel-inner').height("initial");
-	}
-	else
-		$('.carousel-inner').height(window.innerHeight);
-}
 
-window.onload = function(){
+/* /////////////////////////////////	FADE SCROLL VISUAL	////////////////////////////////// */
+const observer = new IntersectionObserver((entries) => {
+	entries.forEach((entry) => {
+		// console.log(entry)
+		if (entry.isIntersecting)
+		{
+			entry.target.classList.add('show');
+		}
+		else
+		{
+			entry.target.classList.remove('show');
+		}
+	})
+})
+
+const hiddenElements = document.querySelectorAll('.hidden');
+hiddenElements.forEach((el) => observer.observe(el));
+// $('.hidden').each((el) => observer.observe(el));
+
+
+// window.onload = function(){
 	//	load contact form virtually
 	if (!$('.contact-us').html()) {
 		load_contact_form();
@@ -65,8 +77,8 @@ window.onload = function(){
 		}
 	});
 	
-	
-	// SWIPER SLIDE SCROLLER
+
+/* /////////////////////////////////	SWIPER SLIDE SCROLLER	////////////////////////////////// */
 	var swiperPopular = new Swiper(".mySwiper", {
 		// default parameters
 		spaceBetween: 20,
@@ -75,11 +87,15 @@ window.onload = function(){
 			delay: 3000,
 			disableOnInteraction: false,
 		},
-		slidesPerView: 1,
+		slidesPerView: 4,
 	
 		// Responsive breakpoints
 		breakpoints: {
 			// when window width is less than 990
+			0: {
+				slidesPerView: 1,
+			},
+
 			450: {
 				slidesPerView: 2
 			},
@@ -89,9 +105,9 @@ window.onload = function(){
 			}
 		},
 
-		scrollbar: {
-			el: ".swiper-scrollbar",
-		},
+		// scrollbar: {
+		// 	el: ".swiper-scrollbar",
+		// },
 		
 		navigation: {
 		  nextEl: ".swiper-button-next",
@@ -125,11 +141,20 @@ window.onload = function(){
 		  prevEl: ".swiper-button-prev",
 		},
 	  });
+// };
 
 
+/* ////////////////////////////////	On Resize for Responsiveness	/////////////////////////////// */
+window.onresize = function () {
+	if (window.innerWidth < 990)
+	{
+		$('.carousel-inner').height("initial");
+	}
+	else
+		$('.carousel-inner').height(window.innerHeight);
+}
 
-	};
-	
+
 /* //////////////////////////////////////	SHOW SCROLL UP	/////////////////////////////////////// */
 function scrollUp() {
 	const scrollUp = $('#scroll-up');
@@ -141,6 +166,7 @@ function scrollUp() {
 }
 window.addEventListener('scroll', scrollUp)
 
+
 function load_contact_form () {
 	$('.contact-us').html(`
 		<section class="login">
@@ -150,23 +176,23 @@ function load_contact_form () {
 			</div>
 			<form id="contact-us">
 				<div class="form-floating">
-					<input class="form-control first_name" type="text" id="floatingInput" placeholder="*First Name" aria-id=1 required>
+					<input class="form-control first_name" type="text" placeholder="*First Name" aria-label="First Name" required>
 					<label for="floatingInput">What is your First Name?</label>
 				</div><br>
 				<div class="form-floating">
-					<input class="form-control last_name" type="text" id="floatingInput" placeholder="Last Name" aria-id=2>
+					<input class="form-control last_name" type="text" placeholder="Last Name" aria-label="Last Name">
 					<label for="floatingInput">What is your Last Name?</label>
 				</div><br>
 				<div class="form-floating">
-					<input class="form-control tel_n" pattern="+[0-9]{2}-[0-9]{3}-[0-9]{7}" type="tel" id="floatingInput" placeholder="*Phone Number" aria-id=3 required>
+					<input class="form-control tel_n" pattern="+[0-9]{2}-[0-9]{3}-[0-9]{7}" type="tel" placeholder="*Phone Number" aria-label="Phone Number" required>
 					<label for="floatingInput">What is your Phone Number?  (+92-312-3456789)</label>
 				</div><br>
 				<div class="form-floating">
-					<input class="form-control email" type="email" id="floatingInput" placeholder="*Email" aria-id=4 required>
+					<input class="form-control email" type="email" placeholder="*Email" aria-label="Email" required>
 					<label for="floatingInput">What is your Email? (name@example.com)</label>
 				</div><br>
 				<div class="form-floating">
-					<textarea class="form-control message" placeholder="Leave a message here" aria-id=5 id="floatingTextarea2" style="height: 150px" required></textarea>
+					<textarea class="form-control message" placeholder="Leave a message here" aria-label="Enter Message" id="floatingTextarea2" style="height: 150px" required></textarea>
 					<label for="floatingTextarea2">What is your Message?</label>
 				</div>
 				<p class="form_message"></p>
@@ -175,6 +201,7 @@ function load_contact_form () {
 		</section>
 	`)
 }
+
 
 function send_message() {
 	console.log("Send message called");
