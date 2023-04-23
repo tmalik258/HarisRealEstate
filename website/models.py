@@ -150,8 +150,8 @@ class Image (models.Model):
 		return f"{self.listing}"
 
 	def image_tag (self):
-		if self.images:
-			return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.images.url)
+		if self.image:
+			return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
 		else:
 			return 'No image found'
 	image_tag.short_description = 'Image'
