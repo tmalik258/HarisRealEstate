@@ -53,7 +53,10 @@ class PropertiesListView (ListView):
 
 
 def single_property (request, item):
-    post = Listing.objects.get(id=item)
+    try:
+        post = Listing.objects.get(id=item)
+    except Listing.DoesNotExist:
+        post = ""
     return render(request, 'website/singleProperty.html', {
         'post': post
     })
