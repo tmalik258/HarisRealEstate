@@ -63,10 +63,10 @@ header
 	transition-delay: 200ms;
 } */
 
-.agents .agent-title .card-text:nth-child(3)
+/* .agents .agent-title .card-text:nth-child(3)
 {
 	transition-delay: 400ms;
-}
+} */
 
 @media(prefers-reduced-motion)
 {
