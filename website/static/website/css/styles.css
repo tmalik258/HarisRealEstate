@@ -14,8 +14,9 @@ html
 body
 {
 	margin: auto;
-	background-color: rgb(24, 22, 17);
-	color: whitesmoke;
+	background: white;
+	/* background-color: rgb(24, 22, 17); */
+	/* color: blue; */
 	font-family: 'unbounded', 'Sigmar One', 'Rubik 80s Fade', Times, serif;
 	scroll-behavior: smooth;
 }
@@ -32,7 +33,7 @@ header
 {
 	opacity: 0;
 	filter: blur(5px);
-	transform: translateX(-100%);
+	/* transform: translateY(100%); */
 	transition: all 1s;
 }
 
@@ -40,7 +41,7 @@ header
 {
 	opacity: 1;
 	filter: blur(0);
-	transform: translateX(0);
+	/* transform: translateX(0); */
 }
 
 .top-categories .row .col:nth-child(2)
@@ -251,7 +252,7 @@ header
 	font-size: 27px;
 	padding-bottom: 0;
 	padding-top: 0;
-	color: wheat;
+	color: rgb(9, 9, 91);
 	text-decoration: none;
 	margin-left: 6px;
 	/* margin-right: 150px; */
@@ -271,7 +272,7 @@ header
 	top: 0;
 	left: 0;
 	z-index: 4;
-	font-size: 20px;
+	font-size: 18px;
 	width: 100%;
 	transition: 0.1s;
 	/* background: rgba(24, 24, 24, 0.3); */
@@ -348,11 +349,67 @@ header
 	transform: rotate(-45deg);
 }
 
-.nav-item:hover .nav-link, .mail:hover{	text-decoration: solid line-through wheat;	}
+.contact_number, .whatsapp, .login-nav
+{
+	display: inline-block;
+	position: absolute;
+	right: 90px;
+	top: 11px;
+	padding: 2px 7px;
+	color: rgb(246, 0, 0);
+	/* background-color: #141414; */
+	border: 1px solid rgb(246, 0, 0);
+	border-radius: 5px;
+	transition: .3s;
+	overflow: hidden;
+}
+
+ .whatsapp
+{
+	
+	right: 125px;
+}
+
+.login-nav
+{
+	right: 0;
+}
+
+ .contact_number::before, .whatsapp::before, .login-nav::before
+{
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 0%;
+	height: 0%;
+	background-color: rgb(246, 0, 0);
+	border-radius: 0 0 100% 25%;
+	z-index: -1;
+	transition: .5s;
+}
+.contact_number:hover, .whatsapp:hover, .login-nav:hover
+{
+	color: white;
+}
+ .contact_number:hover::before, .whatsapp:hover::before, .login-nav:hover::before
+{
+	width: 200%;
+	height: 200%;
+}
+
+/* .nav-item:hover .nav-link, .mail:hover{	text-decoration: solid line-through wheat;	} */
 
 .nav-link.active .seperator{	background: wheat;	}
 
-.nav-item .nav-link.active{	color: wheat;	}
+.nav-item .nav-link
+{
+	color: #616161;
+}
+
+
+
+.nav-item .nav-link.active, .nav-item .nav-link:hover{	color: rgb(9, 9, 91);	}
 
 .navbar-toggler
 {
@@ -502,6 +559,11 @@ header
 	color: rgb(136, 133, 133);
 }
 
+.login .contact-us #contact_us .form-floating label
+{
+	font-size: 10px;
+}
+
 @keyframes toggler {
 	0%{
 		background-color: transparent;
@@ -611,17 +673,19 @@ header
 .top-categories
 {
 	box-shadow: none;
+	overflow: hidden;
 }
 .top-categories h1
 {
-	color: wheat;
+	color: rgb(9, 9, 91);
 	position: relative;
 	text-align: center;
 	margin-top: 20px;
+	font-size: 27px;
 	margin-bottom: 30px;
 }
 
-.top-categories h1::before, .agents .agent-title .card-title::before, .index_properties .properties h1::before
+/* .top-categories h1::before, .agents .agent-title .card-title::before, .index_properties .properties h1::before
 {
 	content: '';
 	display: inline-block;
@@ -654,7 +718,7 @@ header
 	margin: auto 10px;
 	top: -10px;
 	border: none;
-}
+} */
 
 .top-categories .row
 {
@@ -696,10 +760,10 @@ header
 	top: 50%;
 }
 
-.top-categories .col:nth-child(2) .card-img-overlay
+/* .top-categories .col:nth-child(2) .card-img-overlay
 {
 	background: rgba(0, 0, 0, 0.237);
-}
+} */
 
 .top-categories .card:hover .card-img-overlay
 {
@@ -729,7 +793,7 @@ header
 	background: white;
 }
 
-.top-categories .card .card-title::before, .top-categories .card .card-title::after
+/* .top-categories .card .card-title::before, .top-categories .card .card-title::after
 {
 	content: '';
 	display: inline-flex;
@@ -741,12 +805,17 @@ header
 	margin: auto 5px;
 	transform: rotate(45deg);
 	transition: 0.2s ease-in-out;
+} */
+
+.top-categories .card .card-title
+{
+	color: rgb(9, 9, 91);
 }
 
 .top-categories .card:hover .card-title
 {
-	text-decoration: line-through;
-	color: wheat;
+	/* text-decoration: line-through; */
+	color: white;
 }
 
 .top-categories .card:hover .card-title::before, .top-categories .card:hover .card-title::after
@@ -818,7 +887,7 @@ header
 .agents
 {
 	box-shadow: none;
-	color: wheat;
+	color: rgb(9, 9, 91);
 }
 
 .agents .row
@@ -835,8 +904,9 @@ header
 
 .agents .row .card
 {
-	background: rgba(245, 222, 179, 0.091);
-	box-shadow: 2px 2px 12px wheat;
+	background: rgb(9, 9, 91);
+	/* background: rgba(245, 222, 179, 0.091); */
+	box-shadow: 2px 2px 12px black;
 	border: none;
 	border-bottom-left-radius: 50px;
 	border-bottom-right-radius: 60px;
@@ -959,7 +1029,8 @@ header
 .properties h1
 {
 	text-align: center;
-	color: wheat;
+	font-size: 27px;
+	color: rgb(9, 9, 91);
 	position: relative;
 }
 
@@ -999,13 +1070,18 @@ header
 .properties .card .card-body
 {
 	color: white;
-	line-height: 20px;
+	line-height: 11px;
 }
 
 .properties .card img
 {
+	/* margin-top: 20px; */
 	border-radius: 20px;
 	z-index: 2;
+	width: 265px;
+	background: white;
+	margin: auto;
+	height: 225px;
 }
 
 .properties .card:hover
@@ -1345,46 +1421,6 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		display: inline-block;
 	}
 
-	.collapse .contact_number
-	{
-		display: inline-block;
-		position: absolute;
-		right: 25px;
-		top: 11px;
-		padding: 2px 7px;
-		color: wheat;
-		/* background-color: #141414; */
-		border: 1px solid wheat;
-		border-radius: 5px;
-		transition: .3s;
-		overflow: hidden;
-	}
-
-	.collapse .contact_number::before
-	{
-		content: '';
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		width: 0%;
-		height: 0%;
-		background-color: wheat;
-		border-radius: 0 0 100% 25%;
-		z-index: -1;
-		transition: .5s;
-	}
-	
-	.collapse .contact_number:hover
-	{
-		color: #141414;
-	}
-
-	.collapse .contact_number:hover::before
-	{
-		width: 200%;
-		height: 200%;
-	}
-
 	/*------- REGISTER-FORM ------*/
 	.login.register
 	{
@@ -1446,9 +1482,26 @@ footer .footer_row .footer_col ul li a:hover .seperator
 }
 
 @media screen and (max-width: 990px) {
-	.collapse .contact_number
+	/* .contact_number
 	{
 		display: none;
+	} */
+
+	/* .whatsapp
+	{
+		position: fixed;
+		top: 0;
+		bottom: 0;
+	} */
+
+	.contact_number
+	{
+		right: 65px;
+	}
+
+	.whatsapp
+	{
+		right: 105px;
 	}
 	
 	.navbar

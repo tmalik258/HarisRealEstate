@@ -109,6 +109,7 @@ class Listing (models.Model):
 	purpose = models.CharField( max_length=2, choices=PURPOSE_CHOICES, default='S')
 	category = models.CharField( max_length=5, choices=CATEGORY_CHOICES, default='')
 	bedroom = models.CharField(max_length=6, choices=BEDROOM_CHOICES, null=True, blank=True)
+	custom_bedroom = models.CharField(max_length=3, null=True, blank=True)
 	bathroom = models.CharField(max_length=1, choices=BATHROOM_CHOICES, null=True, blank=True)
 	area_size = models.IntegerField()
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
@@ -162,8 +163,8 @@ class Image (models.Model):
 			img = PillowImage.open(self.image.path) # open image
 
 			# resize image
-			if img.height > 400 or img.width > 400:
-				output_size = (400, 400)
+			if img.height > 500 or img.width > 500:
+				output_size = (500, 500)
 				img.thumbnail(output_size) # resize image
 				img.save(self.image.path) # save it again and override the larger image
 

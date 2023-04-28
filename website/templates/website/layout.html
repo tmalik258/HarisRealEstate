@@ -75,53 +75,52 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav" style="color: white;">
 						<li class="nav-item">
-							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="home"><div class="seperator"></div>HOME</a>
+							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="home">HOME</a>
 						</li>
 						<li class="nav-item propertynav">
-							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties" ><div class="seperator"></div>PROPERTIES</a>
+							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="properties" >PROPERTIES</a>
 						</li>
 						{% if not user.is_authenticated %}
 							<!-- <li class="nav-item">
-								<a href="{% url 'about_us' %}" {% if "/about-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="about-us"><div class="seperator"></div>ABOUT US</a>
+								<a href="{% url 'about_us' %}" {% if "/about-us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="about-us">ABOUT US</a>
 							</li> -->
 							<!-- <li class="nav-item">
-								<a href="{% url 'agents' %}" {% if "/agents" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="agents"><div class="seperator"></div>AGENTS</a>
+								<a href="{% url 'agents' %}" {% if "/agents" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="agents">AGENTS</a>
 							</li> -->
 						{% endif %}
 						{% comment %}
 						<!-- <li class="nav-item">
-							<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
+							<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CONTACT US</a>
 						</li> -->
 						{% endcomment %}
 						{% if user.is_authenticated and user.is_staff %}
 							<li class="nav-item">
-								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CONTACT US</a>
+								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CONTACT US</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="profile-link"><div class="seperator"></div>PROFILE</a>
+								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="profile-link">PROFILE</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'admin:index' %}" {% if "/admin" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>ADMIN</a>
+								<a href="{% url 'admin:index' %}" {% if "/admin" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">ADMIN</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>CREATE LISTING</a>
+								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CREATE LISTING</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'logout' %}" {% if "/logout" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center"><div class="seperator"></div>LOGOUT</a>
+								<a href="{% url 'logout' %}" {% if "/logout" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">LOGOUT</a>
 							</li>
 						{% else %}
 							<li class="nav-item">
-								<a href="{% url 'login' %}" class="nav-link text-center"><div class="seperator"></div>LOGIN</a>
+								<a href="{% url 'login' %}" class="nav-link text-center login-nav">LOGIN</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'register' %}" class="nav-link text-center"><div class="seperator"></div>REGISTER</a>
+								<a href="{% url 'register' %}" class="nav-link text-center">REGISTER</a>
 							</li>
 						{% endif %}
 					</ul>
 					<div class="text-center">
 						{% if not user.is_authenticated and not user.is_staff %}
 						<!-- <a href="mailto:harisrealestate@yahoo.com" class="nav-link mail" style="color: wheat;"><div class="seperator seperator-home"></div>harisrealestate@yahoo.com</a> -->
-						<a href="tel:+92 3004882031" class="nav-link contact_number">CALL</a>
 						{% else %}
 							<a href="{% url 'profile' %}" class="nav-link profile">
 								{% if user.profile.profile_image %}
@@ -133,6 +132,8 @@
 						{% endif %}
 					</div>
 				</div>
+				<a href="tel:+92 3004882031" class="nav-link contact_number"><ion-icon name="call-outline"></ion-icon></a>
+				<a href="https://wa.me/message/4KG4PPKO5BJBI1" target="_blank" class="nav-link whatsapp"><ion-icon name="logo-whatsapp"></ion-icon></a>
 			</div>
 		</nav>
 		<!--------------------------	 Navigation Ends	 -------------------------- -->

@@ -76,6 +76,10 @@ hiddenElements.forEach((el) => observer.observe(el));
 			$('#price_int_word').text("");
 		}
 	});
+
+	$('#area_size_unit').on('change', function (e) {
+		$('#area_size').val('15');
+	})
 	
 
 /* /////////////////////////////////	SWIPER SLIDE SCROLLER	////////////////////////////////// */

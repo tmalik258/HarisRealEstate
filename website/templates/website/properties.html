@@ -5,7 +5,7 @@
 {% block body %}
 	<section class="main_section">
 		<article class="properties">
-			<h1><div class="seperator"></div>Properties<div class="seperator"></div></h1>
+			<h1>Properties</h1>
 			<form class="search row g-3 m-auto ms-3" method="GET" action="{% url 'get_property' %}">
 				<div class="col-md-6">
 					<input type="radio" class="btn-check" name="purpose" id="form1_option1" autocomplete="off" value="S" checked>
@@ -47,9 +47,9 @@
 						<div class="card my-2" style="max-width: 700px;">
 							<div class="row g-0">
 								<div class="col-md-5">
-									<a href="{% url 'single_property' post.id %}">
+									<a href="{% url 'single_property' post.id %}" class="image_property">
 										{% if post.img.first %}
-											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" height="100%" alt="{{ post.img.first.images }}">
+											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
 										{% else %}
 											<img loading="lazy" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 										{% endif %}
@@ -78,7 +78,7 @@
 													<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email more">Call</a>
 												{% endif %}
 											</p>
-											<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
+											<p class="card-text" style="line-height: 14px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
 											<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
 										</div>
 									</a>
