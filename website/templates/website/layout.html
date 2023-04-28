@@ -94,14 +94,16 @@
 						</li> -->
 						{% endcomment %}
 						{% if user.is_authenticated and user.is_staff %}
+							{% if user.is_staff %}
 							<li class="nav-item">
 								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CONTACT US</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="profile-link">PROFILE</a>
-							</li>
-							<li class="nav-item">
 								<a href="{% url 'admin:index' %}" {% if "/admin" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">ADMIN</a>
+							</li>
+							{% endif %}
+							<li class="nav-item">
+								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="profile-link">PROFILE</a>
 							</li>
 							<li class="nav-item">
 								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CREATE LISTING</a>

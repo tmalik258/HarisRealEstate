@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -213,7 +214,7 @@ def agents (request):
     })
 
 
-class profileWithPropertiesListView(ListView, StaffMemberRequiredMixin):
+class profileWithPropertiesListView(ListView, LoginRequiredMixin):
     model = Listing
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/profile.html"
@@ -227,7 +228,7 @@ class profileWithPropertiesListView(ListView, StaffMemberRequiredMixin):
         return qs
 
 
-@staff_member_required
+@login_required
 def profileUpdate (request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -250,7 +251,7 @@ def profileUpdate (request):
     })
 
 
-@staff_member_required
+@login_required
 def createListing (request):
     # ImageFormSet = modelformset_factory(Images, form=imageForm, extra=5)
      #'extra' means the number of photos that you can upload
@@ -308,17 +309,13 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
 
         # Check if authentication successful
-        if user is not None and user.is_staff:
-            login(request, user)
-            return HttpResponseRedirect(reverse('profile'))
-        elif user is None:
+        if user is None:
             return render(request, "website/login.html", {
                 "error_message": "Invalid username and/or password."
             })
-        elif not user.is_staff:
-            return render(request, "website/login.html", {
-                "error_message": "Sorry! You are not a staff member. Please contact admin for assistance."
-            })
+        else:
+            login(request, user)
+            return render(request, "website/login.html")
     else:
         return render(request, "website/login.html")
 
@@ -377,10 +374,10 @@ def register(request):
                 "username_error_message": "Username already taken.",
                 'username_error': True
             })
-        # messages.success(request, "Hurray! Your account has been activated. Contact admin in order to login as staff/agent")
-        # login(request, user)
+        messages.success(request, "Hurray! Your account has been activated.")
+        login(request, user)
         return render(request, "website/login.html", {
-            "message": "Hurray! Your account has been successfully created.<br>Contact admin in order to become a staff/agent"
+            "message": "Hurray! Your account has been successfully created."
         })
     else:
         return render(request, "website/register.html")
