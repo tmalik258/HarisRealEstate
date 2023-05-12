@@ -289,8 +289,13 @@ def createListing (request):
             return HttpResponseRedirect("/createListing")
         
         else:
-            messages.error(request, "Form is invalid. Please recheck the fields or fields\' values")
-            print(listingForm.errors)
+            for field in listing_form:
+                for error in field.errors:
+                    messages.error(request, f"{field.name}: {error}")
+            print(listing_form.errors)
+            return render(request, 'website/createListing.html', {
+                'listing_form': listing_form,
+            })
 
     listing_form = listingForm
     return render(request, 'website/createListing.html', {
