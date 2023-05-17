@@ -17,7 +17,7 @@ Log In to your Account
         {% if error_message %}
             <div class="text-danger">{{ error_message }}</div>
         {% endif %}
-        <div class="mb-2 ml-2">Only For Authorized Staff Member</div>
+        <!-- <div class="mb-2 ml-2">Only For Authorized Staff Member</div> -->
         
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
@@ -31,7 +31,7 @@ Log In to your Account
             </div><br>
             <input class="btn btn-primary" type="submit" value="Login">
         </form>
-        <p class="mt-3">Go back to <a href="{% url 'index' %}" class="link-info">Home</a>.</p>
+        <p class="mt-3">Go back to <a href="{% url 'index' %}">Home</a>.</p>
     </div>
 
 {% endblock %}

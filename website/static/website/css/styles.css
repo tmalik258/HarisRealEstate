@@ -275,6 +275,7 @@ header
 	font-size: 18px;
 	width: 100%;
 	transition: 0.1s;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)
 	/* background: rgba(24, 24, 24, 0.3); */
 }
 
@@ -511,14 +512,21 @@ header
 .contact-us .login .btn,
 .search input, .search input:focus, .search .form-select
 {
-	background: rgb(9, 9, 91);
+	/* background: black; */
 	border: none;
 	outline: none;
-	border-radius: 11px;
+	border-radius: 8px;
 	padding: 12px 20px;
-	color: #fff;
-	box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
-	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
+	/* color: #fff; */
+	/* box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
+	inset 5px 5px 15px rgba(0, 0, 0, 0.5); */
+}
+
+.search input, .search input:focus, .search .form-select
+{
+	background: #edf1f4;
+	box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+	color: #000;
 }
 
 .form-select
@@ -529,8 +537,10 @@ header
 .login input[type="submit"], 
 .contact-us .login .btn
 {
-	color: rgb(136, 133, 133);
+	color: white;
 	background: rgb(9, 9, 91);
+	box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
+	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .search input[type="submit"]
@@ -668,7 +678,9 @@ header
 {
 	margin: 40px 10px;
 	border-radius: 10px;
-	box-shadow: 0px 0px 15px wheat;
+	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.2),
+    -15px -15px 20px rgba(0, 0, 0, 0.05);
+    background-color: #edf1f4;
 	overflow: hidden;
 	position: relative;
 }
@@ -1322,7 +1334,7 @@ header
 /* //////////////////////////////////////////	about_us_main	/////////////////////////////////////////// */
 .main_section
 {
-	margin-top: 80px;
+	margin-top: 100px;
 }
 
 /* //////////////////////////////////////////	PROFILE	/////////////////////////////////////////// */
@@ -1442,7 +1454,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	.carousel.slide.carousel-fade
 	{
 		margin: auto;
-		margin-top: 75px;
+		margin-top: 90px;
 		border-radius: 50px;
 		width: 90%;
 		overflow: hidden;
