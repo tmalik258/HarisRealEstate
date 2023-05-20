@@ -4,10 +4,8 @@
 Register New Account
 {% endblock %}
 
-{% comment %}
 {% block nav %}
 {% endblock %}
-{% endcomment %}
 
 {% block body %}
     <div class="login register">
@@ -19,24 +17,36 @@ Register New Account
         {% endcomment %}
         <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-floating mb-3">
-                <input class="form-control" autofocus type="text" id="floatingInputForFirstName" name="fname" placeholder="First Name">
-                <label for="floatingInputForFirstName" >First Name</label>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" autofocus type="text" id="floatingInputForFirstName" name="fname" placeholder="First Name">
+                        <label for="floatingInputForFirstName" >First Name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputForLastName" type="text" name="lname" placeholder="Last Name">
+                        <label for="floatingInputForLastName" >Last Name</label>
+                    </div>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInputForLastName" type="text" name="lname" placeholder="Last Name">
-                <label for="floatingInputForLastName" >Last Name</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input {% if username_error %} class="form-control border border-danger" {% else %} class="form-control" {% endif %} id="floatingInputForUsername" type="text" name="username" placeholder="Username">
-                <label for="floatingInputForUsername" >Username</label>
-                {% if username_error_message %}
-                    <div class="text-danger">{{ username_error_message }}</div>
-                {% endif %}
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" id="floatingInputForEstateName" type="text" name="estate_name" placeholder="Estate Name">
-                <label for="floatingInputForEstateName">Estate Name</label>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input {% if username_error %} class="form-control border border-danger" {% else %} class="form-control" {% endif %} id="floatingInputForUsername" type="text" name="username" placeholder="Username">
+                        <label for="floatingInputForUsername" >Username</label>
+                        {% if username_error_message %}
+                            <div class="text-danger">{{ username_error_message }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputForEstateName" type="text" name="estate_name" placeholder="Estate Name">
+                        <label for="floatingInputForEstateName">Estate Name</label>
+                    </div>
+                </div>
             </div>
             <div class="form-floating mb-3">
                 <input class="form-control" id="floatingInputForEmail" type="email" name="email" placeholder="Email Address">
@@ -74,11 +84,10 @@ Register New Account
             </div>
             <input class="btn btn-primary" type="submit" value="Register">
         </form>
-        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+        Go back to <a href="{% url 'index' %}">Home</a><br>
+        Already have an account? <a href="{% url 'login' %}">Log In here</a>
     </div>
 {% endblock %}
 
-{% comment %}
 {% block footer %}
 {% endblock %}
-{% endcomment %}

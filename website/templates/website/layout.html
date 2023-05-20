@@ -68,7 +68,7 @@
 					<a href="{% url 'index' %}">
 						<img loading="eager" class="logo" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
 					</a>
-					<a href="{% url 'index' %}" {% if not user.is_authenticated %} class="HRE margin-right" {% else %} class="HRE" {% endif %}>Haris<br><span style="font-size: 13px;">Real Estate</span></a>
+					<a href="{% url 'index' %}" class="HRE">Haris<br><span style="font-size: 13px;">Real Estate</span></a>
 				</span>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				</button>
@@ -93,7 +93,7 @@
 							<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CONTACT US</a>
 						</li> -->
 						{% endcomment %}
-						{% if user.is_authenticated and user.is_staff %}
+						{% if user.is_authenticated %}
 							{% if user.is_staff %}
 							<li class="nav-item">
 								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CONTACT US</a>
@@ -116,7 +116,7 @@
 								<a href="{% url 'login' %}" class="nav-link text-center login-nav">LOGIN</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'register' %}" class="nav-link text-center">REGISTER</a>
+								<a href="{% url 'register' %}" {% if "/register" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">REGISTER</a>
 							</li>
 						{% endif %}
 					</ul>

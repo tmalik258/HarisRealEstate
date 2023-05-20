@@ -192,7 +192,7 @@
 		  </div>
 	</div>
 </section>
-
+<hr width="80%" class="m-auto">
 <section class="index_properties hidden">
 	<article class="properties">
 		<h1 class="mb-4">RECENT PROPERTIES</h1>
@@ -202,21 +202,20 @@
 					<div class="swiper-slide">
 						<div class="card">
 							<div class="row g-0">
+								<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}" style="color: wheat; text-decoration: none;">
+
 								{% if post.img.first %}
 								<div class="col-md-12">
-									<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}">
+									<!-- <a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}"> -->
 										<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
-									</a>
+									<!-- </a> -->
 								</div>
 								{% else %}
-								<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}">
-								<div class="col-md-9 m-auto">
-										<img loading="eager" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" style="background: #141414;" title="No Image Uploaded">
-									</div>
-								</a>
-									{% endif %}
-								<div class="col-md-15">
-									<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}" style="color: wheat; text-decoration: none;">
+								<div class="col-md-12" class="w-100">
+									<img loading="eager" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" width="500px" height="100%" style="background: #141414;" title="No Image Uploaded">
+								</div>
+								{% endif %}
+								<div class="col-md-12">
 										<div class="card-body">
 											<h6 class="card-title text-center">{{ post.title | upper }}</h6><hr>
 											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 16px;">{{ post.price | int_word }}</span></p>
@@ -240,9 +239,9 @@
 											</p>
 											<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
 										</div>
-									</a>
+									</div>
 								</div>
-							</div>
+							</a>
 						</div>
 					</div>
 				{% empty %}
@@ -261,6 +260,7 @@
 		</div>
 	</article>
 </section>
+<hr width="80%" class="m-auto">
 
 <!-- <section>
 	<div class="about-us">
@@ -326,6 +326,7 @@
 		</div>
 	</div>
 </section>
+<hr width="80%" class="m-auto">
 
 <section>
 	<div class="contact-us hidden"></div>

@@ -320,7 +320,7 @@ def login_view(request):
             })
         else:
             login(request, user)
-            return render(request, "website/login.html")
+            return redirect("index")
     else:
         return render(request, "website/login.html")
 
@@ -381,8 +381,6 @@ def register(request):
             })
         messages.success(request, "Hurray! Your account has been activated.")
         login(request, user)
-        return render(request, "website/login.html", {
-            "message": "Hurray! Your account has been successfully created."
-        })
+        return redirect("index")
     else:
         return render(request, "website/register.html")
