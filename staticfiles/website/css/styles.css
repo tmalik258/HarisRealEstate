@@ -674,7 +674,7 @@ header
 	box-shadow: 0px 0px 15px wheat, 0px 0px 60px wheat inset;
 } */
 
-.top-categories, .about-us, .agents, .properties, .singleProperty
+.top-categories, .about-us, .agents, .properties
 {
 	margin: 40px 10px;
 	border-radius: 10px;
@@ -1193,7 +1193,7 @@ header
 
 .index_properties .properties .card img
 {
-	width: 300px;
+	width: 100%;
 }
 
 .index_properties .properties .card:hover
@@ -1303,16 +1303,16 @@ header
 }
 
 /* //////////////////////////////////////////	SINGLE PROPERTY	/////////////////////////////////////////// */
-.properties.singleProperty
+/* .properties.singleProperty
 {
 	color: white;
 	height: 100%;
-}
+} */
 
-.properties.singleProperty .card .card-body
+/* .properties.singleProperty .card .card-body
 {
 	color: white;
-}
+} */
 
 .properties.singleProperty .swiper.singlePropertyImageSwiper {
 	width: 100%;
