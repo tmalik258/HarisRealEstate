@@ -116,7 +116,7 @@ DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'website/static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
