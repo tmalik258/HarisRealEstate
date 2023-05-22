@@ -106,14 +106,14 @@
 								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center" id="profile-link">PROFILE</a>
 							</li>
 							<li class="nav-item">
-								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">CREATE LISTING</a>
+								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">ADD PROPERTY</a>
 							</li>
 							<li class="nav-item">
 								<a href="{% url 'logout' %}" {% if "/logout" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">LOGOUT</a>
 							</li>
 						{% else %}
 							<li class="nav-item">
-								<a href="{% url 'login' %}" class="nav-link text-center login-nav">LOGIN</a>
+								<a href="{% url 'login' %}" class="nav-link text-center">LOGIN</a>
 							</li>
 							<li class="nav-item">
 								<a href="{% url 'register' %}" {% if "/register" in request.path %}class="nav-link active text-center"{% endif %} class="nav-link text-center">REGISTER</a>

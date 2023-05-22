@@ -1429,6 +1429,14 @@ footer .footer_row .footer_col ul li a:hover .seperator
 
 @media screen and (min-width:1185px) {
 	/*-------- NAV-BAR --------*/
+	.contact_number
+	{
+		right: 3px;
+	}
+	.whatsapp
+	{
+		right: 40px;
+	}
 	.HRE
 	{
 		margin-right: 150px;
