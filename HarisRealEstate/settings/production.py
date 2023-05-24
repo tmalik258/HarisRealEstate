@@ -56,7 +56,6 @@ AWS_LOCATION = 'static'
 AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
 AWS_S3_SIGNATURE_NAME = config('AWS_S3_SIGNATURE_NAME')
 AWS_S3_FILE_OVERWRITE = True
-AWS_S3_ENDPOINT_URL = 'https://sts.ap-northeast-1.amazonaws.com'
 
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
