@@ -1,6 +1,13 @@
 				/* UNBOUNDED, RUBIK Font */
 @import url('https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Sigmar+One&family=Unbounded:wght@200;300;400&display=swap');
 
+
+:root{
+	--primarycolor: #0c294a;
+	--secondarycolor: #c00000;
+}
+
+
 *
 {
 	box-sizing: border-box;
@@ -87,7 +94,7 @@ header
 
 ::-webkit-scrollbar-thumb
 {
-	background: wheat;
+	background: var(--secondarycolor);
 }
 
 /* //////////////////////////////////	PRE-LOADER ANIMATION PAGE	//////////////////////////////////////////////////////// */
@@ -252,7 +259,7 @@ header
 	font-size: 27px;
 	padding-bottom: 0;
 	padding-top: 0;
-	color: rgb(9, 9, 91);
+	color: var(--primarycolor);
 	text-decoration: none;
 	margin-left: 6px;
 	/* margin-right: 150px; */
@@ -261,16 +268,15 @@ header
 
 .HRE:hover
 {
-	color: rgb(205, 199, 190);
+	color: rgb(0, 0, 0);
 }
 
 .navbar
 {
 	height: 70px;
-	position: absolute;
-	/* top: 25px; */
-	top: 0;
-	left: 0;
+	position: relative;
+	/* top: 0;
+	left: 0; */
 	z-index: 4;
 	font-size: 18px;
 	width: 100%;
@@ -354,26 +360,12 @@ header
 {
 	display: inline-block;
 	position: absolute;
-	right: 90px;
-	top: 11px;
 	padding: 2px 7px;
-	color: rgb(246, 0, 0);
-	/* background-color: #141414; */
-	border: 1px solid rgb(246, 0, 0);
-	border-radius: 5px;
+	color: var(--secondarycolor);
+	border-radius: 50%;
 	transition: .3s;
+	font-size: 20px;
 	overflow: hidden;
-}
-
- .whatsapp
-{
-	
-	right: 125px;
-}
-
-.login-nav
-{
-	right: 0;
 }
 
  .contact_number::before, .whatsapp::before, .login-nav::before
@@ -384,7 +376,7 @@ header
 	left: 0px;
 	width: 0%;
 	height: 0%;
-	background-color: rgb(246, 0, 0);
+	background-color: var(--secondarycolor);
 	border-radius: 0 0 100% 25%;
 	z-index: -1;
 	transition: .5s;
@@ -399,18 +391,14 @@ header
 	height: 200%;
 }
 
-/* .nav-item:hover .nav-link, .mail:hover{	text-decoration: solid line-through wheat;	} */
-
-.nav-link.active .seperator{	background: wheat;	}
-
 .nav-item .nav-link
 {
 	color: #616161;
 }
 
-
-
-.nav-item .nav-link.active, .nav-item .nav-link:hover{	color: rgb(9, 9, 91);	}
+.nav-item .nav-link.active, .nav-item .nav-link:hover{
+	color: var(--primarycolor);
+}
 
 .navbar-toggler
 {
@@ -431,7 +419,7 @@ header
 	content: '';
 	width: 30px;
 	height: 3px;
-	background-color: wheat;
+	background-color: var(--secondarycolor);
 	position: relative;
 	transform: translateY(-7px);
 	transition: 0.2s;
@@ -442,7 +430,7 @@ header
 	content: '';
 	width: 30px;
 	height: 3px;
-	background-color: wheat;
+	background-color: var(--secondarycolor);
 	position: absolute;
 	transform: translateY(7px);
 	transition: 0.2s;
@@ -453,6 +441,24 @@ header
 .navbar-toggler[aria-expanded="true"]::before{	transform: rotate(45deg);	}
 
 .navbar-toggler[aria-expanded="true"]::after{	transform: rotate(-45deg);	}
+
+@keyframes toggler {
+	0%{
+		background-color: transparent;
+		height: 0px;
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(90deg);
+	}
+	75%{
+		transform: rotate(180deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+}
+
 
 /* ////////////////////////////////////////	SCROLL UP	///////////////////////////////////////// */
 .scrollup
@@ -488,7 +494,7 @@ header
 
 /* //////////////////////////////////////////	LOGIN	/////////////////////////////////////////// */
 .login{
-	color: rgb(9, 9, 91);
+	color: var(--primarycolor);
 	display: block;
 	align-items: center;
 	justify-content: center;
@@ -538,7 +544,7 @@ header
 .contact-us .login .btn
 {
 	color: white;
-	background: rgb(9, 9, 91);
+	background: var(--primarycolor);
 	box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
@@ -577,22 +583,6 @@ header
 	font-size: 10px;
 }
 
-@keyframes toggler {
-	0%{
-		background-color: transparent;
-		height: 0px;
-		transform: rotate(0deg);
-	}
-	25%{
-		transform: rotate(90deg);
-	}
-	75%{
-		transform: rotate(180deg);
-	}
-	100%{
-		transform: rotate(360deg);
-	}
-}
 
 /* //////////////////////////////////////////	CAROUSEL	/////////////////////////////////////////// */
 .carousel
@@ -619,20 +609,21 @@ header
 	width: 30px;
 	margin: auto 20px;
 	/* background: wheat; */
-	border: 1px solid wheat;
+	border: 1px solid var(--secondarycolor);
 	transform: rotate(45deg);
 	transition: 0.5s;
 }
 
 .carousel-control-prev-icon, .carousel-control-next-icon
 {
+	color: purple;
 	transform: rotate(-45deg) scale(0.5);
 	margin: 0 auto;
 }
 
 .carousel button:hover
 {
-	background: wheat;
+	background: var(--secondarycolor);
 }
 
 .carousel-control-prev:hover
@@ -687,12 +678,12 @@ header
 
 .top-categories
 {
-	box-shadow: none;
+	/* box-shadow: none; */
 	overflow: hidden;
 }
 .top-categories h1
 {
-	color: rgb(9, 9, 91);
+	color: var(--primarycolor);
 	position: relative;
 	text-align: center;
 	margin-top: 20px;
@@ -740,7 +731,6 @@ header
 	align-items: flex-end;
 	height: 70%;
 	margin: auto;
-	color: wheat;
 	margin-bottom: 20px;
 }
 
@@ -808,37 +798,16 @@ header
 	background: white;
 }
 
-/* .top-categories .card .card-title::before, .top-categories .card .card-title::after
-{
-	content: '';
-	display: inline-flex;
-	position: relative;
-	width: 8px;
-	height: 8px;
-	top: -5px;
-	border: 1px solid wheat;
-	margin: auto 5px;
-	transform: rotate(45deg);
-	transition: 0.2s ease-in-out;
-} */
-
 .top-categories .card .card-title
 {
-	color: rgb(9, 9, 91);
+	color: var(--primarycolor);
 }
 
 .top-categories .card:hover .card-title
 {
-	/* text-decoration: line-through; */
 	color: white;
 }
 
-.top-categories .card:hover .card-title::before, .top-categories .card:hover .card-title::after
-{
-	transform: rotate(-45deg);
-	background: wheat;
-	border: none;
-}
 
 /* //////////////////////////////////////////	ABOUT US	/////////////////////////////////////////// */
 .about-us .card
@@ -856,53 +825,16 @@ header
 
 .about-us .card .card-body, .about-us .card .card-body .btn
 {
-	color: rgb(209, 196, 173);
+	color: var(--primarycolor);
 	position: relative;
 }
 
-.about-us .card .card-body .btn
-{
-	border: wheat solid 1px;
-	transition: 0.1s;
-}
-
-.about-us .card .card-body .btn:hover
-{
-	color: black;
-	background: wheat;
-	transform: scaleX(1.1);
-}
-
-.about-us .card .card-body .btn:is(:hover)::before
-{
-	content: '';
-	width: 8px;
-	height: 8px;
-	background: wheat;
-	display: inline-block;
-	position: absolute;
-	top: 12px;
-	left: 135px;
-	transform: rotate(45deg);
-}
-
-.about-us .card .card-body .btn:is(:hover)::after
-{
-	content: '';
-	position: absolute;
-	width: 500px;
-	height: 2px;
-	background: wheat;
-	top: 15px;
-	left: 150px;
-	display: inline-block;
-}
 
 /* //////////////////////////////////////////	AGENTS	/////////////////////////////////////////// */
 .agents
 {
-	box-shadow: none;
-	color: rgb(9, 9, 91);
+	/* box-shadow: none; */
+	color: var(--primarycolor);
 }
 
 .agents .row
@@ -914,12 +846,11 @@ header
 .agents .agent-title
 {
 	margin: auto;
-	/* color: #141414; */
 }
 
 .agents .row .card
 {
-	background: rgb(9, 9, 91);
+	background:  var(--primarycolor);
 	/* background: rgba(245, 222, 179, 0.091); */
 	box-shadow: 2px 2px 12px black;
 	border: none;
@@ -1050,7 +981,7 @@ header
 {
 	text-align: center;
 	font-size: 27px;
-	color: rgb(9, 9, 91);
+	color: var(--primarycolor);
 	position: relative;
 }
 
@@ -1066,30 +997,21 @@ header
 	text-align: center;
 }
 
-.properties h1 .seperator
-{
-	background: wheat;
-	width: 10px;
-	height: 10px;
-	position: relative;
-	margin: auto 10px;
-	top: -8px;
-	border: none;
-}
-
 .properties .card
 {
 	margin: auto;
-	background: black;
+	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.5),
+    -5px -5px 10px #1c1c1c;
+    background-color: black;
 	border: none;
 	border-radius: 20px;
-	box-shadow: 0px 0px 60px #141414 inset;
+	/* box-shadow: 0px 0px 60px #141414 inset; */
 	transition: 0.4s;
 }
 
 .properties .card .card-body
 {
-	color: white;
+	/* color: white; */
 	line-height: 11px;
 }
 
@@ -1104,10 +1026,10 @@ header
 	height: 225px;
 }
 
-.properties .card:hover
+/* .properties .card:hover
 {
 	box-shadow: 0px 0px 60px #141414 inset, 0px 0px 15px wheat;
-}
+} */
 
 .properties .card .card-body .email
 {
@@ -1152,15 +1074,8 @@ header
 /* } */
 .index_properties .properties
 {
-	box-shadow: none;
+	/* box-shadow: none; */
 	font-size: 15px;
-}
-
-.index_properties .properties h1::before, .index_properties .properties h1::after
-{
-	background: wheat;
-	width: 27%;
-	/* color: #141414; */
 }
 
 .index_properties .properties h1 .seperator
@@ -1331,10 +1246,10 @@ header
 	width: 100%;
 }
 
-/* //////////////////////////////////////////	about_us_main	/////////////////////////////////////////// */
+/* //////////////////////////////////////////	main_section	/////////////////////////////////////////// */
 .main_section
 {
-	margin-top: 100px;
+	margin-top: 30px;
 }
 
 /* //////////////////////////////////////////	PROFILE	/////////////////////////////////////////// */
@@ -1391,7 +1306,7 @@ footer .footer_row .footer_col ul
 {
 	line-height: 30px;
 	list-style: none;
-	color: wheat;
+	color: #c00000;
 	text-align: center;
 	margin: auto;
 	padding: 0;
@@ -1418,7 +1333,7 @@ footer .footer_row .footer_col .footer_list .seperator
 footer .footer_row .footer_col ul li a:hover
 {
 	color: rgb(211, 211, 211);
-	text-decoration: 2px line-through wheat;
+	/* text-decoration: 2px line-through wheat; */
 }
 
 footer .footer_row .footer_col ul li a:hover .seperator
@@ -1431,7 +1346,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	/*-------- NAV-BAR --------*/
 	.contact_number
 	{
-		right: 3px;
+		right: 15px;
 	}
 	.whatsapp
 	{
@@ -1462,7 +1377,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	.carousel.slide.carousel-fade
 	{
 		margin: auto;
-		margin-top: 90px;
+		margin-top: 40px;
 		border-radius: 50px;
 		width: 90%;
 		overflow: hidden;
@@ -1511,25 +1426,15 @@ footer .footer_row .footer_col ul li a:hover .seperator
 }
 
 @media screen and (max-width: 990px) {
-	/* .contact_number
-	{
-		display: none;
-	} */
-
-	/* .whatsapp
-	{
-		position: fixed;
-		top: 0;
-		bottom: 0;
-	} */
-
 	.contact_number
 	{
+		top: 12px;
 		right: 65px;
 	}
 
 	.whatsapp
 	{
+		top: 12px;
 		right: 105px;
 	}
 	
@@ -1537,8 +1442,8 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	{
 		top: 0;
 		height: initial;
-		background: rgb(24, 24, 24);
-		box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438);
+		/* background: rgb(24, 24, 24); */
+		/* box-shadow: 0px 0px 16px rgba(245, 222, 179, 0.438); */
 	}
 
 	#profile-link
@@ -1558,7 +1463,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 
 
 	main{
-		margin-top: 110px;
+		margin-top: 35px;
 	}
 
 	.top-categories h1, .agents .agent-title .card-title, .index_properties .properties h1

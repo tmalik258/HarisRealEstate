@@ -253,8 +253,6 @@ def profileUpdate (request):
 
 @login_required
 def createListing (request):
-    # ImageFormSet = modelformset_factory(Images, form=imageForm, extra=5)
-     #'extra' means the number of photos that you can upload
 
     if request.method == "POST":
         listing_form = listingForm (request.POST)
