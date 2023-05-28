@@ -6,13 +6,13 @@
 	<section class="main_section">
 		<article class="properties singleProperty">
 			<h1>{{ post.title }}</h1>
-			<div class="card mb-3">
+			<!-- <div class="card mb-3"> -->
 				{% if post.img.first %}
 					<div class="swiper singlePropertyImageSwiper">
 						<div class="swiper-wrapper">
 							{% for image in post.img.all %}
 								<div class="swiper-slide">
-									<img src="{{ image.image.url }}" class="d-block" alt="image.image" >
+									<a href="{{ image.image.url }}"><img src="{{ image.image.url }}" class="d-block" alt="image.image" ></a>
 								</div>
 							{% endfor %}
 						</div>
@@ -58,7 +58,7 @@
 						</div>
 					</div>
 				</div>
-			  </div>
+			  <!-- </div> -->
 		</article>
 	</section>
 {% endblock %}
