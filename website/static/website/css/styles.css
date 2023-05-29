@@ -5,6 +5,9 @@
 :root{
 	--primarycolor: #0c294a;
 	--secondarycolor: #c00000;
+	--maincolor: #edf1f4;
+	--box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.2),
+    -15px -15px 20px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -21,7 +24,7 @@ html
 body
 {
 	margin: auto;
-    background: #edf1f4;
+    background: var(--maincolor);
 	/* background-color: rgb(24, 22, 17); */
 	/* color: blue; */
 	font-family: 'unbounded', 'Sigmar One', 'Rubik 80s Fade', Times, serif;
@@ -466,7 +469,7 @@ header
 	position: fixed;
 	right: 1rem;
 	bottom: -30%;
-	color: #edf1f4;
+	color: var(--maincolor);
 	display: inline-flex;
 	border-radius: 6px;
 	margin: 0;
@@ -502,7 +505,7 @@ header
 	height: 70vh;
 	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1),
     -15px -15px 20px #fffb;
-    background-color: #edf1f4;
+    background-color: var(--maincolor);
 	/* box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 	background-color: #141414; */
@@ -517,6 +520,7 @@ header
 .login input, .login input:focus, .login textarea, .login textarea:focus, .login .form-select, 
 .contact-us .login .btn,
 .search input, .search input:focus, .search .form-select
+/* .main_section .properties .card input, .main_section .properties .card input:focus, .main_section .properties .card .form-select */
 {
 	/* background: black; */
 	border: none;
@@ -528,23 +532,6 @@ header
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5); */
 }
 
-.login .form-select
-{
-	background: white;
-	/* color: #fff; */
-}
-
-.search input, .search input:focus, .search .form-select
-{
-	background: #edf1f4;
-	box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.35);
-	color: #000;
-}
-
-.form-select
-{
-	cursor: pointer;
-}
 
 .login input[type="submit"], 
 .contact-us .login .btn
@@ -553,17 +540,6 @@ header
 	background: var(--primarycolor);
 	box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
-}
-
-.search input[type="submit"]
-{
-	background: wheat;
-	color: #2e2e2e;
-}
-
-.search input[type="submit"]:hover
-{
-	color: rgb(136, 133, 133);
 }
 
 .login input[type="submit"]:hover, 
@@ -590,7 +566,58 @@ header
 }
 
 
-/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
+/* //////////////////////////////////////////	SEARCH FILTER INDEX	/////////////////////////////////////////// */
+form.search
+{
+	position: absolute;
+	background: var(--maincolor);
+	/* padding-top: 5px; */
+	padding: 2px 20px 20px 20px;
+	border-radius: 10px;
+	margin: auto;
+	width: 80%;
+	top: 90%;
+	right: calc(50% - 34rem);
+	box-shadow: var(--box-shadow);
+	z-index: 10;
+}
+
+.search input, .search input:focus, .search .form-select
+/* .main_section .properties .card input, .main_section .properties .card input:focus, .main_section .properties .card .form-select */
+{
+	background: var(--maincolor);
+	box-shadow: none;
+	color: #000;
+	border-bottom: #2e2e2e 1px solid;
+	border-radius: 0;
+}
+
+.search .purpose
+{
+	/* border: #969696 1px solid; */
+	border-bottom: 0;
+	box-shadow: none;
+	border-radius: 5px 5px 0 0;
+}
+
+.search input[type="submit"]
+{
+	background: var(--secondarycolor);
+	color: #fff;
+}
+
+.search input[type="submit"]:hover
+{
+	color: rgb(136, 133, 133);
+}
+
+.form-select
+{
+	cursor: pointer;
+}
+
+
+/* //////////////////////////////////////////	SEARCH BY TITLE AND FILTER	/////////////////////////////////////////// */
 .main_section .properties #searchByT
 {
 	border: none;
@@ -626,6 +653,14 @@ header
 	padding: 5px;
 	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.05);
 	border-radius: 5px;
+}
+
+.main_section .properties .card form
+{
+	position: relative;
+	right: 20px;
+	box-shadow: none;
+	width: 100%;
 }
 
 /* //////////////////////////////////////////	CAROUSEL	/////////////////////////////////////////// */
@@ -694,11 +729,14 @@ header
 {
 	opacity: 0;
 	top: 45%;
+	/* left: 0; */
+	text-align: left;
 	transition: 2.7s;
 }
 .carousel-item.active .carousel-caption
 {
 	top: 25%;
+	/* left: 0; */
 	opacity: 1;
 }
 
@@ -711,7 +749,7 @@ header
 
 .top-categories, .about-us, .agents, .properties
 {
-	margin: 40px 10px;
+	margin: 50px 10px;
 	border-radius: 10px;
 	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.2),
     -15px -15px 20px rgba(0, 0, 0, 0.05);
@@ -722,6 +760,7 @@ header
 
 .top-categories
 {
+	margin-top: 100px;
 	/* box-shadow: none; */
 	overflow: hidden;
 }
@@ -1014,12 +1053,12 @@ header
 	position: relative;
 }
 
-.properties .search input[type="text"], .properties .search input[type="number"],
+/* .properties .search input[type="text"], .properties .search input[type="number"],
 .properties .search select
 {
 	color: black;
 	background: rgb(226, 226, 226);
-}
+} */
 
 .properties h1
 {
@@ -1498,9 +1537,15 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		top: 70px;
 	}
 
+
 	.main_section .properties h1
 	{
 		margin-bottom: 60px;
+	}
+
+	form.search
+	{
+		right: calc(50% - 27rem);
 	}
 }
 @media screen and (max-width: 990px) {
@@ -1544,26 +1589,21 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-top: 35px;
 	}
 
-	.top-categories h1, .agents .agent-title .card-title, .index_properties .properties h1
+	.top-categories
 	{
-		text-decoration: underline;
-	}
-
-	.top-categories h1::before, .top-categories h1::after, .agents .agent-title .card-title::before, .agents .agent-title .card-title::after, .index_properties .properties h1::after, .index_properties .properties h1::before
-	{
-		display: none;
+		margin-top: 50px;
 	}
 
 	.carousel
 	{
-		width: 100%;
+		display: none;
 	}
 
 	/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
 	.main_section .properties #searchByT
 	{
 		top: 70px;
-		width: 250px;
+		width: 300px;
 	}
 
 	.main_section .properties p a #searchIcon
@@ -1571,9 +1611,23 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		top: 70px;
 	}
 
+	
+	.main_section .properties p a[aria-expanded="true"] #searchIcon, .main_section .properties p a #searchIcon:hover
+	{
+		top: 67px;
+	}
+
 	.main_section .properties h1
 	{
 		margin-bottom: 60px;
+	}
+
+	form.search
+	{
+		position: relative;
+		/* top: 20rem; */
+		width: 100%;
+		right: 0;
 	}
 
 	.properties .card img
