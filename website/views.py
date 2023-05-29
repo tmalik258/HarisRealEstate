@@ -258,9 +258,7 @@ def createListing (request):
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')
         bedroom = request.POST['bedroom']
-        custom_bdroom = request.POST['custom_bedroom_input']
         bathroom = request.POST.get('bathroom', None)
-        custom_bthroom = request.POST['custom_bathroom_input']
         category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
 
         if listing_form.is_valid():
@@ -269,16 +267,15 @@ def createListing (request):
             listing_obj.purpose = request.POST['purpose']
 
             if listing_obj.category in category_list:
-                if custom_bdroom:
+                if listing_obj.custom_bdroom:
                     listing_obj.bedroom = ''
-                    # listing_obj.custom_bedroom = custom_bdroom
-                # elif bedroom:
-                #     listing_obj.bedroom = bedroom
+                elif bedroom:
+                    listing_obj.bedroom = bedroom
 
-                if (bedroom or custom_bdroom) and custom_bthroom:
-                    listing_obj.bathroom = bathroom
-                else:
+                if (bedroom or listing_obj.custom_bdroom) and listing_obj.custom_bthroom:
                     listing_obj.bathroom = ''
+                elif (bedroom or listing_obj.custom_bdroom) and bathroom:
+                    listing_obj.bathroom = bathroom
             else:
                 listing_obj.bedroom = ''
                 listing_obj.bathroom = ''

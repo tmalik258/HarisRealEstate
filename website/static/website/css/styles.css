@@ -528,6 +528,12 @@ header
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5); */
 }
 
+.login .form-select
+{
+	background: white;
+	/* color: #fff; */
+}
+
 .search input, .search input:focus, .search .form-select
 {
 	background: #edf1f4;
@@ -583,6 +589,27 @@ header
 	font-size: 10px;
 }
 
+
+/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
+.main_section .properties #searchByT
+{
+	border: none;
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	width: 400px;
+	transition: .3s;
+}
+
+.main_section .properties p a #searchIcon
+{
+	position: absolute;
+	top: 21px;
+	right: 12px;
+	font-size: 2rem;
+	color: var(--primarycolor);
+	transition: .3s;
+}
 
 /* //////////////////////////////////////////	CAROUSEL	/////////////////////////////////////////// */
 .carousel
@@ -1021,7 +1048,8 @@ header
 	margin-left: 7px;
 	border-radius: 20px;
 	z-index: 2;
-	width: 265px;
+	width: 100%;
+	/* width: 265px; */
 	background: white;
 	height: 255px;
 	/* position: absolute; */
@@ -1355,6 +1383,19 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	{
 		right: 40px;
 	}
+
+	.contact_number.loggedin
+	{
+		right: 80px;
+		font-size: 1.5rem;
+	}
+	
+	.whatsapp.loggedin
+	{
+		font-size: 1.5rem;
+		right: 115px;
+	}
+
 	.HRE
 	{
 		margin-right: 150px;
@@ -1428,6 +1469,23 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	}
 }
 
+@media screen and (max-width:1185px) and (min-width: 990px) {
+	/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
+	.main_section .properties #searchByT
+	{
+		top: 70px;
+	}
+
+	.main_section .properties p a #searchIcon
+	{
+		top: 70px;
+	}
+
+	.main_section .properties h1
+	{
+		margin-bottom: 60px;
+	}
+}
 @media screen and (max-width: 990px) {
 	.contact_number
 	{
@@ -1454,7 +1512,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		display: inherit;
 	}
 
-	.collapse .profile
+	.navbar .profile
 	{
 		display: none;
 	}
@@ -1482,6 +1540,28 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	.carousel
 	{
 		width: 100%;
+	}
+
+	/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
+	.main_section .properties #searchByT
+	{
+		top: 70px;
+		width: 250px;
+	}
+
+	.main_section .properties p a #searchIcon
+	{
+		top: 70px;
+	}
+
+	.main_section .properties h1
+	{
+		margin-bottom: 60px;
+	}
+
+	.properties .card img
+	{
+		margin: 0;
 	}
 
 	.index_properties .properties .card

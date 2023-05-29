@@ -120,6 +120,22 @@ class Listing (models.Model):
 	time_created = models.DateTimeField(auto_now_add=True)
 	active = models.BooleanField(default=True)
 
+	def get_bedroom(self):
+		if self.custom_bedroom:
+			return self.custom_bedroom
+		elif self.bedroom:
+			return self.bedroom
+		else:
+			return False
+
+	def get_bathroom(self):
+		if self.custom_bthroom:
+			return self.custom_bthroom
+		elif self.bathroom:
+			return self.bathroom
+		else:
+			return False
+
 	def __str__(self) -> str:
 		if self.active:
 			listing = 'Listing is Active'

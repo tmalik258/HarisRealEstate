@@ -77,8 +77,92 @@ hiddenElements.forEach((el) => observer.observe(el));
 		}
 	});
 
+	let previous_unit = 'M';
 	$('#area_size_unit').on('change', function (e) {
-		$('#area_size').val('15');
+		let a_size = $('#area_size').val();
+		let current_unit = $('#area_size_unit').val();
+
+		// From Marla to Other Unit Conversions
+		if (previous_unit === 'M') {
+			if (current_unit === 'K') {
+				$('#area_size').val(a_size * 0.05);
+			}
+			else if (current_unit === 'SFt') {
+				$('#area_size').val(a_size * 225);
+			}
+			else if (current_unit === 'SM') {
+				$('#area_size').val(a_size * 20.9);
+			}
+			else if (current_unit === 'SYd') {
+				$('#area_size').val(a_size * 25);
+			}
+		}
+
+		// From Kanal to Other Unit Conversions
+		if (previous_unit === 'K') {
+			if (current_unit === 'M') {
+				$('#area_size').val(a_size * 20);
+			}
+			else if (current_unit === 'SFt') {
+				$('#area_size').val(a_size * 5445);
+			}
+			else if (current_unit === 'SM') {
+				$('#area_size').val(a_size * 505.857);
+			}
+			else if (current_unit === 'SYd') {
+				$('#area_size').val(a_size * 605.625);
+			}
+		}
+		
+		// From SqFt to Other Unit Conversions
+		if (previous_unit === 'SFt') {
+			if (current_unit === 'K') {
+				$('#area_size').val(a_size * 0.0000229568);
+			}
+			else if (current_unit === 'M') {
+				$('#area_size').val(a_size * 0.00367657);
+			}
+			else if (current_unit === 'SM') {
+				$('#area_size').val(a_size * 0.092903);
+			}
+			else if (current_unit === 'SYd') {
+				$('#area_size').val(a_size * 0.111111);
+			}
+		}
+		
+		// From SqM to Other Unit Conversions
+		if (previous_unit === 'SM') {
+			if (current_unit === 'K') {
+				$('#area_size').val(a_size * 0.0002517);
+			}
+			else if (current_unit === 'SFt') {
+				$('#area_size').val(a_size * 10.764);
+			}
+			else if (current_unit === 'M') {
+				$('#area_size').val(a_size * 0.027222);
+			}
+			else if (current_unit === 'SYd') {
+				$('#area_size').val(a_size * 1.196);
+			}
+		}
+		
+		// From SYd to Other Unit Conversions
+		if (previous_unit === 'SYd') {
+			if (current_unit === 'K') {
+				$('#area_size').val(a_size * 0.0016528926);
+			}
+			else if (current_unit === 'SFt') {
+				$('#area_size').val(a_size * 9);
+			}
+			else if (current_unit === 'SM') {
+				$('#area_size').val(a_size * 0.83612736);
+			}
+			else if (current_unit === 'M') {
+				$('#area_size').val(a_size * 0.0826446281);
+			}
+		}
+		
+		previous_unit = current_unit;
 	})
 	
 
