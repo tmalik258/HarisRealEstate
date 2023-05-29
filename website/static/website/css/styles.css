@@ -608,7 +608,24 @@ header
 	right: 12px;
 	font-size: 2rem;
 	color: var(--primarycolor);
-	transition: .3s;
+	transition: .2s;
+}
+
+.main_section .properties p a #searchIcon:hover
+{
+	right: 5px;
+	top: 18px;
+	padding: 5px;
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+}
+
+.main_section .properties p a[aria-expanded="true"] #searchIcon{
+	right: 5px;
+	top: 18px;
+	padding: 5px;
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
 }
 
 /* //////////////////////////////////////////	CAROUSEL	/////////////////////////////////////////// */
