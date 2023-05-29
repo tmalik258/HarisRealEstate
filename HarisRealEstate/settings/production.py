@@ -5,7 +5,7 @@ from .base import *
 
 
 ## ALLOWED HOSTS
-ALLOWED_HOSTS = ['13.231.223.105', '127.0.0.1', '.harisrealestate.com']
+ALLOWED_HOSTS = ['54.250.82.44', '.harisrealestate.com']
 
 ## CSRF TOKEN CLEARANCE
 CSRF_COOKIE_SECURE = True

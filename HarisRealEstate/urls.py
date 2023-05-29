@@ -25,6 +25,7 @@ admin.site.empty_value_display = '(Empty)'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include('website.urls')),
 ]
 

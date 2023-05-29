@@ -9,13 +9,14 @@
 	<meta name="theme-color" content="#F5DEB3">
 	<meta name="description" content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates.">
 
-	<title>{% block title %}Haris Real Estate{% endblock %}</title>
+	<title>{% block title %}Haris Real Estate: Get Your Own Property{% endblock %}</title>
 
 	
 	<!-----------------------	Open Graph Tags	-------------------------- -->
 	<meta property="og:title" content="Haris Real Estate & Builders">
 	<meta property="og:description" content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates.">
 	<meta property="og:image" content="{% static 'website/img/logo/HARIS-LOGO77.png' %}">
+	<link itemprop="logo" href="{% static 'website/img/logo/HARIS-LOGO77.png' %}" rel="image_src">
 
 
 	<!-----------------------	Bootstrap CSS	-------------------------- -->
@@ -178,7 +179,7 @@
 							harisrealestate@yahoo.com
 						</a>
 					</li>
-					<li>Johartown, Lahore, Punjab, Pakistan
+					<li>10 Block-L Johar Town, Lahore, Punjab, Pakistan
 				</ul>
 			</div>
 			<div class="footer_col">
@@ -207,6 +208,11 @@
 					<li>
 						<a href="{% url 'contact_us' %}">
 							Contact Us
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'privacy-policy' %}">
+							Public Privacy Policy
 						</a>
 					</li>
 				</ul>

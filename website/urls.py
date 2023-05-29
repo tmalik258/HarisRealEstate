@@ -41,4 +41,6 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
 	# register page
     path("register", views.register, name="register"),
+	# register page
+    path("public-privacy-policy", views.privacyPolicy, name="privacy-policy"),
 ]

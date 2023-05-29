@@ -403,3 +403,6 @@ def register(request):
         return redirect("index")
     else:
         return render(request, "website/register.html")
+
+def privacyPolicy(request):
+    return render(request, 'website/privacy-policy.html')
