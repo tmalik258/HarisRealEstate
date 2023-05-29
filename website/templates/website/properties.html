@@ -6,7 +6,9 @@
 	<section class="main_section">
 		<article class="properties">
 			<h1>Properties</h1>
-			<input type="search" class="form-control" id="searchByT" placeholder="Search by Title">
+			<form action="{% url 'get_property_by_search' %}" method="GET">
+				<input type="search" name="searchByTitle" class="form-control" id="searchByT" placeholder="Search by Title">
+			</form>
 			<p>
 				<a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 					<ion-icon name="options-outline" id="searchIcon"></ion-icon>

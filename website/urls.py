@@ -10,6 +10,8 @@ urlpatterns = [
 	path('properties', views.PropertiesListView.as_view(), name = 'properties'),
 	# single property url
 	path('properties/property/<str:item>', views.single_property, name = 'single_property'),
+	# searched properties display
+    path('filtered_properties?', views.SearchedPropertiesListView.as_view(), name = 'get_property_by_search'),
 	# filtered properties display
     path('filtered_properties', views.FilteredPropertiesListView.as_view(), name = 'get_property'),
 	# filtered properties display

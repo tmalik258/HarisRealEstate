@@ -62,6 +62,24 @@ def single_property (request, item):
         'post': post
     })
 
+class SearchedPropertiesListView (ListView):
+    model = Listing
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "website/properties.html"
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+        qs = qs.filter(
+                title__icontains=self.request.GET['searchByTitle'],
+                active=True
+            ).order_by("-time_created").all()
+        return qs
+        
+    def get_context_data (self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = listingGetRequestForm()
+        return context
+
 
 class FilteredPropertiesListView (ListView):
     model = Listing
