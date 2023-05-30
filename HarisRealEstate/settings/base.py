@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
     'storages',
-    'allauth',
+    # 'allauth',
     # Internal APPS
     'website',
 ]
