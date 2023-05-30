@@ -17,6 +17,7 @@ from django.forms import modelformset_factory
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
+from allauth.account.decorators import verified_email_required
 
 from .models import Listing, Comment, Image, Contact, Profile
 from .forms import listingForm, listingGetRequestForm, UserUpdateForm, ProfileUpdateForm
@@ -269,6 +270,7 @@ def profileUpdate (request):
     })
 
 
+@verified_email_required
 @login_required
 def createListing (request):
 
@@ -285,14 +287,14 @@ def createListing (request):
             listing_obj.purpose = request.POST['purpose']
 
             if listing_obj.category in category_list:
-                if listing_obj.custom_bdroom:
+                if listing_obj.custom_bedroom:
                     listing_obj.bedroom = ''
                 elif bedroom:
                     listing_obj.bedroom = bedroom
 
-                if (bedroom or listing_obj.custom_bdroom) and listing_obj.custom_bthroom:
+                if (bedroom or listing_obj.custom_bedroom) and listing_obj.custom_bathroom:
                     listing_obj.bathroom = ''
-                elif (bedroom or listing_obj.custom_bdroom) and bathroom:
+                elif (bedroom or listing_obj.custom_bedroom) and bathroom:
                     listing_obj.bathroom = bathroom
             else:
                 listing_obj.bedroom = ''
@@ -334,14 +336,14 @@ def login_view(request):
 
         # Check if authentication successful
         if user is None:
-            return render(request, "website/login.html", {
+            return render(request, "account/login.html", {
                 "error_message": "Invalid username and/or password."
             })
         else:
             login(request, user)
-            return redirect("index")
+            return redirect("profile")
     else:
-        return render(request, "website/login.html")
+        return render(request, "account/login.html")
 
 def logout_view(request):
     logout(request)
@@ -366,17 +368,17 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "website/register.html", {
+            return render(request, "account/signup.html", {
                 "pass_error_message": "Passwords must match.",
                 'pass_error': True
             })
         elif password in username:
-            return render(request, "website/register.html", {
+            return render(request, "account/signup.html", {
                 "pass_error_message": "Your password can't be similar to username.",
                 'pass_error': True
             })
         elif password in email:
-            return render(request, "website/register.html", {
+            return render(request, "account/signup.html", {
                 "pass_error_message": "Your password can't be similar to email.",
                 'pass_error': True
             })
@@ -394,15 +396,15 @@ def register(request):
                 profile.profile_image = profile_image
             profile.save()
         except IntegrityError:
-            return render(request, "website/register.html", {
+            return render(request, "account/signup.html", {
                 "username_error_message": "Username already taken.",
                 'username_error': True
             })
         messages.success(request, "Hurray! Your account has been activated.")
         login(request, user)
-        return redirect("index")
+        return redirect("profile")
     else:
-        return render(request, "website/register.html")
+        return render(request, "account/signup.html")
 
 def privacyPolicy(request):
     return render(request, 'website/privacy-policy.html')

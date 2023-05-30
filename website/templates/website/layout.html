@@ -62,8 +62,16 @@
 <body>
 	{% block nav %}
 	<header>
+		{% if messages %}
+			{% for message in messages %}
+				<div {% if message.tags %} {% if message.tags == 'error' %} class="alert alert-danger alert-dismissible fade show text-center" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" {% endif %} {% endif %} role="alert">
+					{{ message }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endfor %}
+		{% endif %}
 		<!-----------------------	Navigation menu	 ------------------------ -->
-		<nav class="navbar navbar-dark navbar-expand-lg">
+		<nav class="navbar navbar-dark navbar-expand-lg sticky-top">
 			<div class="container-fluid">
 				<span class="navbar-brand">
 					<a href="{% url 'index' %}">
@@ -125,9 +133,13 @@
 						{% if user.is_authenticated %}
 							<a href="{% url 'profile' %}" class="nav-link profile">
 								{% if user.profile.profile_image %}
-									<div class="profile_image"><img src="{{ user.profile.profile_image.url }}" alt="Front image" width="100%" height="100%" ></div>
+									<div class="profile_image"><img src="{{ user.profile.profile_image.url }}" alt="Profile image" width="100%" height="100%" ></div>
 								{% else %}
-									<div class="profile_image"><img src="media/images/No_image/No_image_available.png" alt="Front image" width="100%" height="100%" ></div>
+									{% if user.socialaccount_set.all.0.get_avatar_url %}
+										<div class="profile_image"><img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="Profile image" width="100%" height="100%" ></div>
+									{% else %}
+										<div class="profile_image"><img src="media/images/No_image/No_image_available.png" alt="Profile image" width="100%" height="100%" ></div>
+									{% endif %}
 								{% endif %}
 							</a>
 						{% endif %}

@@ -3,14 +3,6 @@
 
 {% block body %}
 <section class="main_section">
-	{% if messages %}
-		{% for message in messages %}
-			<div {% if message.tags %} {% if message.tags == 'error' %} class="alert alert-danger alert-dismissible fade show text-center" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" {% endif %} {% endif %} role="alert">
-				{{ message }}
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		{% endfor %}
-	{% endif %}
 	<div class="create_listing">
 		<section class="login">
 			<div class="login-body">

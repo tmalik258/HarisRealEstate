@@ -81,7 +81,8 @@ class listingForm (ModelForm):
 			'custom_bedroom': forms.NumberInput(attrs={
 				'id': 'custom_bedroom_input',
 				'placeholder': 'Input Custom Rooms',
-				'style': '{\'width\':\'100px\'}'
+				'style': '{\'width\':\'100px\'}',
+				'min': 11
 			}),
 			'bathroom': forms.RadioSelect(attrs={
 				'id': 'bathroom_input'
@@ -89,7 +90,8 @@ class listingForm (ModelForm):
 			'custom_bathroom': forms.NumberInput(attrs={
 				'id': 'custom_bathroom_input',
 				'placeholder': 'Input Custom Baths',
-				'style': '{\'width\':\'100px\'}'
+				'style': '{\'width\':\'100px\'}',
+				'min': 7
 			}),
 			'area_size': forms.NumberInput(attrs={
 				'class': 'form-control',

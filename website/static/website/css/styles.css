@@ -502,7 +502,7 @@ header
 	align-items: center;
 	justify-content: center;
 	width: 50%;
-	height: 70vh;
+	/* height: 77vh; */
 	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1),
     -15px -15px 20px #fffb;
     background-color: var(--maincolor);
@@ -519,8 +519,8 @@ header
 
 .login input, .login input:focus, .login textarea, .login textarea:focus, .login .form-select, 
 .contact-us .login .btn,
-.search input, .search input:focus, .search .form-select
-/* .main_section .properties .card input, .main_section .properties .card input:focus, .main_section .properties .card .form-select */
+.search input, .search input:focus, .search .form-select, 
+.profile .btn, .login.register .btn.btn-outline-secondary
 {
 	/* background: black; */
 	border: none;
@@ -534,6 +534,7 @@ header
 
 
 .login input[type="submit"], 
+.profile .btn.btn-primary,
 .contact-us .login .btn
 {
 	color: white;
@@ -544,9 +545,16 @@ header
 
 .login input[type="submit"]:hover, 
 .contact-us .login .btn:hover, 
-.search input[type="submit"]:hover
+.search input[type="submit"]:hover,
+.profile .btn.btn-primary:hover
 {
-	background: #141414;
+	--primarycolor: #061627;
+	background: var(--primarycolor);
+}
+
+.login.register .btn.btn-outline-secondary:hover
+{
+	background: var(--primarycolor);
 }
 
 .login.register input[type="submit"]
@@ -662,6 +670,42 @@ form.search
 	box-shadow: none;
 	width: 100%;
 }
+
+.google-sign-in-button {
+  display: inline-flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #757575;
+  text-decoration: none;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.google-sign-in-button:hover {
+	color: #757575;
+	background-color: #f1f1f1;
+}
+
+.google-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  /* background-image: url("{% static 'website/img/icons/google.jpg'%}"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.button-text {
+  font-size: 14px;
+}
+  
 
 /* //////////////////////////////////////////	CAROUSEL	/////////////////////////////////////////// */
 .carousel
@@ -1082,7 +1126,7 @@ form.search
 
 .properties .card
 {
-	margin: auto;
+	/* margin: auto; */
 	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.5),
     -5px -5px 10px #1c1c1c;
     background-color: black;
@@ -1100,14 +1144,14 @@ form.search
 
 .properties .card img
 {
-	margin-top: 18px;
-	margin-left: 7px;
-	border-radius: 20px;
+	/* margin-top: 18px; */
+	/* margin-left: 7px; */
+	border-radius: 10px;
 	z-index: 2;
 	width: 100%;
 	/* width: 265px; */
 	background: white;
-	height: 255px;
+	/* height: 255px; */
 	/* position: absolute; */
 	/* margin: auto; */
 }
@@ -1343,6 +1387,11 @@ form.search
 .profile
 {
 	margin-top: 5%;
+}
+
+.profile .btn.btn-outline-danger:hover
+{
+	background: var(--secondarycolor);
 }
 
 /* //////////////////////////////////////////	CREATELISTING	/////////////////////////////////////////// */
