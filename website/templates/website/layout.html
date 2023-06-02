@@ -185,8 +185,15 @@
 							</li>
 						{% endif %}
 					</ul> -->
-					{% if not user.is_authenticated %}
 					<ul class="navbar-nav text-center m-0 p-0 ">
+						{% if user.is_authenticated %}
+						<li class="nav-item">
+							<a href="{% url 'account_logout' %}" class="btn btn-outline-dark rounded-pill">LOGOUT</a>
+						</li>
+						<li class="nav-item">
+							<a href="{% url 'profile' %}" class="btn btn-outline-dark rounded-pill"><ion-icon name="person-outline"></ion-icon></a>
+						</li>
+						{% else %}
 						<li class="nav-item">
 							<a href="{% url 'account_login' %}" class="btn btn-outline-dark rounded-pill">LOGIN</a>
 						</li>
