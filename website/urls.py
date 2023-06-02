@@ -36,7 +36,7 @@ urlpatterns = [
 		success_url='/profile'
 	), name='change-password'),
 	# login page
-	path("accounts/login", views.login_view, name="login"),
+	path("login", views.login_view, name="login"),
 	# logout url
     path("logout", views.logout_view, name="logout"),
 	# register page
