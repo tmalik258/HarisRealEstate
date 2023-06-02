@@ -49,40 +49,42 @@
 		  <span class="visually-hidden">Next</span>
 		</button>
 	</div>
-	<form class="search row g-3" method="GET" action="{% url 'get_property' %}">
-		<ul class="nav nav-tabs">
+	<!-- <form class="search row g-3" method="GET" action="{% url 'get_property' %}">
+		<ul class="nav nav-tabs p-0 m-0">
 			<li class="nav-item">
 				<input type="radio" class="btn-check" name="purpose" id="form3_option1" autocomplete="off" value="S" checked>
-				<label class="btn btn-primary form-select purpose" for="form3_option1">For Sale</label>
+				<label class="btn form-select purpose" for="form3_option1">Buy</label>
 			</li>
 			<li class="nav-item">
 				<input type="radio" class="btn-check" name="purpose" id="form3_option2" autocomplete="off" value="R">
-				<label class="btn btn-primary form-select purpose" for="form3_option2">Rent Out</label>
+				<label class="btn form-select purpose"  for="form3_option2">Rent</label>
 			</li>
 			<li class="nav-item"><input type="submit" class="btn btn-primary purpose" value="SEARCH"></li>
 		</ul>
-		<div class="col-md-3">
-			{{ listing_form.city }}
+		<div class="row container m-0 p-3 pb-4">
+			<div class="col-md-3">
+				{{ listing_form.city }}
+			</div>
+			<div class="col-md-6">
+				{{ listing_form.location }}
+			</div>
+			<div class="col-md-3">
+				{{ listing_form.category }}
+			</div>
+			<div class="col-md-3">
+				{{ listing_form.min_price }}
+			</div>
+			<div class="col-md-3">
+				{{ listing_form.max_price }}
+			</div>
+			<div class="col-md-3">
+				{{ listing_form.area_size }}
+			</div>
+			<div class="col-md-3">
+				{{ listing_form.area_size_unit }}
+			</div>
 		</div>
-		<div class="col-md-6">
-			{{ listing_form.location }}
-		</div>
-		<div class="col-md-3">
-			{{ listing_form.category }}
-		</div>
-		<div class="col-md-3">
-			{{ listing_form.min_price }}
-		</div>
-		<div class="col-md-3">
-			{{ listing_form.max_price }}
-		</div>
-		<div class="col-md-3">
-			{{ listing_form.area_size }}
-		</div>
-		<div class="col-md-3">
-			{{ listing_form.area_size_unit }}
-		</div>
-	</form>
+	</form> -->
 </section>
 
 <section>
@@ -135,7 +137,7 @@
 						<div class="card">
 							<div class="row g-0">
 								<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}" style="color: wheat; text-decoration: none;">
-									<div class="col-md-12">
+									<div class="col-md-12 mb-md-0 p-md-3">
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
 										{% else %}

@@ -32,8 +32,12 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
     'storages',
-    # 'allauth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     # Internal APPS
+    'django.contrib.sites',
     'website',
 ]
 
@@ -53,7 +57,7 @@ ROOT_URLCONF = 'HarisRealEstate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['website\\templates\\'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,38 +125,65 @@ STATICFILES_DIRS = [
 
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/login'
+# LOGIN_URL = '/login'
 
 
 
 # Google Authentication
 
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',
-#     'allauth.account.auth_backends.AuthenticationBackend'
-# ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
 
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     }
-# }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '664287600741-k6qskf8eim32811hqa7ahs7m1csvdba0.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        },
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'INIT_PARAMS': {'cookie_policy': 'single_host_origin'},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'phone_number',
+            'timezone',
+            'locale',
+            'bio_info',
+            'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        # 'LOCALE_FUNC': 'path.to.your.locale.method',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v1',
+        'DISPLAY_NAME': 'Google',
+        'PROVIDER_NAME': 'Google',
+        'LOGIN_TEMPLATE': 'accounts/login.html',  # Specify the custom template here
+    }
+}
 
-# SITE_ID = 2
 
-# LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = '/'
+SITE_ID = 1
+
+LOGIN_REDIRECT_URL = '/profile'
+LOGOUT_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True

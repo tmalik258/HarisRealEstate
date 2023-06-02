@@ -1,4 +1,6 @@
 {% extends "website/layout.html" %}
+{% load socialaccount %}
+{% load static %}
 
 {% block title %}
 Log In to your Account
@@ -10,7 +12,7 @@ Log In to your Account
 {% block body %}
 
     <div class="login">
-        <h2 class="text-center">Login</h2><hr>
+        <h1 class="text-center fs-2">Login</h1><hr>
         {% if message %}
             <div>{{ message }}</div>
         {% endif %}
@@ -30,7 +32,17 @@ Log In to your Account
             </div><br>
             <input class="btn btn-primary" type="submit" value="Login">
         </form>
-        <p class="mt-3">Go back to <a href="{% url 'index' %}">Home</a><br>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+        <h2 class="text-center fs-4">Or</h2>
+        <hr>
+        <a class="google-sign-in-button" href="{% provider_login_url 'google' %}">
+            <span class="google-icon" style="background-image: url('{% static 'website/img/icons/google.jpg' %}')"></span>
+            <span class="button-text">Sign in with Google</span>
+        </a>
+          
+        <p class="mt-3">
+            Go back to <a href="{% url 'index' %}">Home</a><br>
+            Don't have an account? <a href="{% url 'register' %}">Register here</a>
+        </p>
     </div>
 
 {% endblock %}
