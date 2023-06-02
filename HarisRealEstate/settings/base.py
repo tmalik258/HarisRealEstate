@@ -145,8 +145,8 @@ AUTHENTICATION_BACKENDS = [
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '664287600741-k6qskf8eim32811hqa7ahs7m1csvdba0.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': os.getenv('CLIENT_ID'),
+            'secret': os.getenv('SECRET'),
             'key': ''
         },
         'SCOPE': ['profile', 'email'],
@@ -189,3 +189,15 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET= True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+
+# settings.py
+
+# Email Backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# SMTP Configuration for Gmail
+EMAIL_HOST = 'smtp.gmail.com'  # or the SMTP server provided by your email service
+EMAIL_PORT = 587  # or the appropriate port for your email service
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # your Gmail or email service username
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # your Gmail or email service password
+EMAIL_USE_TLS = True  # or False if your email service does not support TLS/SSL

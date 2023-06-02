@@ -2,7 +2,7 @@
 	// if (document.readyState === 'complete') {
 		if (window.innerWidth > 990)
 		{
-			$('.carousel-inner').height(window.innerHeight);
+			$('.carousel-inner').height(window.innerHeight - 170);
 		}
 
 		 // Toggle for navigation

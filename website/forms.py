@@ -107,7 +107,7 @@ class listingForm (ModelForm):
 
 
 CITY_CHOICES = (
-		('', 'Choose City'),
+		('', 'City'),
 		('lhr', 'Lahore'),
 		('khi', 'Karachi'),
 		('isl', 'Islamabad')
@@ -117,7 +117,7 @@ CITY_CHOICES = (
 class listingGetRequestForm (ModelForm):
 	city = forms.CharField(widget=forms.Select(attrs={
 		'class': 'form-select',
-		'title': 'Select Category',
+		'title': 'Select City',
 		'id': ''
 	}, choices=CITY_CHOICES), required=False)
 	location = forms.CharField(widget=forms.TextInput(attrs={
@@ -127,13 +127,13 @@ class listingGetRequestForm (ModelForm):
 	}), label='', required=False)
 	min_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
-		'placeholder': 'Enter Min Price',
+		'placeholder': 'Min Price',
 		'min': 10000,
 		'id': ''
 	}), label='', required=False, min_length=4)
 	max_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
-		'placeholder': 'Enter Max Price',
+		'placeholder': 'Max Price',
 		'min': 10000,
 		'id': ''
 	}), label='', required=False, min_length=4)
@@ -152,17 +152,12 @@ class listingGetRequestForm (ModelForm):
 
 		labels = {
 			# 'price': 'Price',
-			'category': 'Category',
+			'category': '',
 			'address': '',
-			'area_size': 'Area Size'
+			'area_size': ''
 		}
 
 		widgets = {
-			# 'price': forms.NumberInput(attrs={
-			# 	'class': 'form-control',
-			# 	'placeholder': 'Enter Max Price',
-			# 	'min': 10000
-			# }),
             'category': forms.Select(attrs={
 				'class': 'form-select',
 				'title': 'Select Category',
@@ -178,10 +173,10 @@ class listingGetRequestForm (ModelForm):
 			# 	'min': 0,
 			# 	'placeholder': 'Area Size'
 			# }, required=False),
-			'city': forms.Select(attrs={
-				'class': 'form-select',
-				'title': 'Select City'
-			}),
+			# 'city': forms.Select(attrs={
+			# 	'class': 'form-select',
+			# 	'title': 'Select City'
+			# }),
 			'area_size_unit': forms.Select(attrs={
 				'class': 'form-select',
 				'title': 'Specify Unit for Area Size',

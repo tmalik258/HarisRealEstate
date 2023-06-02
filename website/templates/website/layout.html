@@ -114,7 +114,7 @@
 						</form>
 						<!-- <p> -->
 						<a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-							<ion-icon name="options-outline" id="searchIcon"></ion-icon>
+							<ion-icon name="options-outline" class="loggedIn" {% if user.is_authenticated %}  id="searchIcon" {% endif %}></ion-icon>
 						</a>
 						<!-- </p> -->
 						<div class="collapse" id="collapseExample">
@@ -158,40 +158,15 @@
 							</div>
 						  </div>
 					</div>
-					<!-- <ul class="navbar-nav m-auto text-center">
-						<li class="nav-item">
-							<a href="{% url 'index' %}" {% if request.path == "/" %}class="nav-link active "{% endif %} class="nav-link " id="home">HOME</a>
-						</li>
-						<li class="nav-item propertynav">
-							<a href="{% url 'properties' %}" {% if "/properties" in request.path %}class="nav-link active "{% endif %} class="nav-link " id="properties" >PROPERTIES</a>
-						</li>
-						{% if user.is_authenticated %}
-							{% if user.is_staff %}
-							<li class="nav-item">
-								<a href="{% url 'contact_us_page' %}" {% if "/contact_us" in request.path %}class="nav-link active "{% endif %} class="nav-link ">CONTACT US</a>
-							</li>
-							<li class="nav-item">
-								<a href="{% url 'admin:index' %}" {% if "/admin" in request.path %}class="nav-link active "{% endif %} class="nav-link ">ADMIN</a>
-							</li>
-							{% endif %}
-							<li class="nav-item">
-								<a href="{% url 'profile' %}" {% if "/profile" in request.path %}class="nav-link active "{% endif %} class="nav-link " id="profile-link">PROFILE</a>
-							</li>
-							<li class="nav-item">
-								<a href="{% url 'createListing' %}" {% if "/createListing" in request.path %}class="nav-link active "{% endif %} class="nav-link ">ADD PROPERTY</a>
-							</li>
-							<li class="nav-item">
-								<a href="{% url 'logout' %}" {% if "/logout" in request.path %}class="nav-link active "{% endif %} class="nav-link ">LOGOUT</a>
-							</li>
-						{% endif %}
-					</ul> -->
-					<ul class="navbar-nav text-center m-0 p-0 ">
+					<ul class="navbar-nav text-center m-0 p-0">
 						{% if user.is_authenticated %}
 						<li class="nav-item">
 							<a href="{% url 'account_logout' %}" class="btn btn-outline-dark rounded-pill">LOGOUT</a>
 						</li>
 						<li class="nav-item">
-							<a href="{% url 'profile' %}" class="nav-link"><ion-icon name="person-outline"></ion-icon></a>
+							<a href="{% url 'profile' %}" class="nav-link"><span class="profile-nav">
+								<ion-icon name="person-outline" aria-label="Profile"></ion-icon>
+							</span></a>
 						</li>
 						{% else %}
 						<li class="nav-item">
@@ -202,76 +177,76 @@
 						</li>
 					</ul>
 					{% endif %}
-					
-					<!-- <div class="text-center">
-						{% if user.is_authenticated %}
-							<a href="{% url 'profile' %}" class="nav-link profile">
-								{% if user.profile.profile_image %}
-									<div class="profile_image"><img src="{{ user.profile.profile_image.url }}" alt="Profile image" width="100%" height="100%" ></div>
-								{% else %}
-									{% if user.socialaccount_set.all.0.get_avatar_url %}
-										<div class="profile_image"><img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="Profile image" width="100%" height="100%" ></div>
-									{% else %}
-									<span class="profile_image">
-										<ion-icon name="person-outline"></ion-icon>
-									</span>
-									{% endif %}
-								{% endif %}
-							</a>
-						{% endif %}
-					</div> -->
-				<!-- </div> -->
 			</div>
 		</nav>
 
-		<!-- <div class="navigation">
+		<div class="navigation">
 			<div class="menu">
 				<span class="menuToggle"></span>
 				<span class="menuText">Menu</span>
 			</div>
 			<ul>
-				<li class="list active" id="inbox" style="--clr: #f00">
-					<span class="section">
+				<li {% if request.path == '/' %} class="list active "{% endif %} class="list" style="--clr: #f00">
+					<a class="section nav-link" href="{% url 'index' %}">
 						<span class="icon">
-							<ion-icon name="mail-outline"></ion-icon>
+							<ion-icon name="planet-outline"></ion-icon>
 						</span>
-						<span class="text">Inbox</span>
-					</span>
+						<span class="text">Welcome</span>
+					</a>
 				</li>
-				<li class="list" id="compose" style="--clr: #b145e9">
-					<span class="section">
+				<li {% if "/createListing" in request.path %} class="list active "{% endif %} class="list" style="--clr: #707">
+					<a class="section nav-link" href="{% url 'createListing' %}">
 						<span class="icon">
 							<ion-icon name="create-outline"></ion-icon>
 						</span>
-						<span class="text">Compose</span>
-					</span>
-				</li>
-				<li class="list" id="sent" style="--clr: #2196f3">
-					<span class="section">
-						<span class="icon">
-							<ion-icon name="send-outline"></ion-icon>
-						</span>
-						<span class="text">Sent</span>
-					</span>
-				</li>
-				<li class="list" id="archive" style="--clr: #0fc70f">
-					<span class="section">
-						<span class="icon">
-							<ion-icon name="archive-outline"></ion-icon>
-						</span>
-						<span class="text">Archived</span>
-					</span>
-				</li>
-				<li class="list" id="logout" style="--clr: #000000">
-					<a href="{% url 'logout' %}" class="section">
-						<span class="icon">
-							<ion-icon name="log-out-outline"></ion-icon>
-						</span>
-						<span class="text">Log Out</span>
+						<span class="text">Sell</span>
 					</a>
 				</li>
+				<li {% if "/properties" in request.path %} class="list active "{% endif %} class="list" style="--clr: #099">
+					<a class="section nav-link" href="{% url 'properties' %}">
+						<span class="icon">
+							<ion-icon name="card-outline"></ion-icon>
+						</span>
+						<span class="text">Buy/Listings</span>
+					</a>
+				</li>
+				{% if user.is_authenticated and user.is_staff %}
+				<li class="list" style="--clr: #000">
+					<a class="section nav-link" href="{% url 'admin:index' %}>
+						<span class="icon">
+							<ion-icon name="people-outline"></ion-icon>
+						</span>
+						<span class="text">Admin</span>
+					</a>
+				</li>
+				{% else %}
+				<li class="list" style="--clr: #2196f3">
+					<a class="section nav-link" href="{% url 'get_category' type='Homes' %}">
+						<span class="icon">
+							<ion-icon name="home-outline"></ion-icon>
+						</span>
+						<span class="text">Homes</span>
+					</a>
+				</li>
+				<li class="list" style="--clr: #0fc70f">
+					<a class="section nav-link" href="{% url 'get_category' type='Plots' %}">
+						<span class="icon">
+							<ion-icon name="footsteps-outline"></ion-icon>
+						</span>
+						<span class="text">Land/Plots</span>
+					</a>
+				</li>
+				<li class="list" style="--clr: #000">
+					<a class="section nav-link" href="{% url 'get_category' type='Commercial' %}">
+						<span class="icon">
+							<ion-icon name="business-outline"></ion-icon>
+						</span>
+						<span class="text">Commercials</span>
+					</a>
+				</li>
+				{% endif %}
 			</ul>
-		</div> -->
+		</div>
 		<!--------------------------	 Navigation Ends	 -------------------------- -->
 	</header>
 	{% endblock %}
@@ -284,7 +259,7 @@
 	{% endcomment %}
 
 	<!--------------------------	Body Starts	 ------------------------------ -->
-	<main>
+	<main class="ms-5 mt-3 ps-5">
 		{% block body %}
 		{% endblock %}
 		<!----------------------- SCROLL UP ---------------------------->

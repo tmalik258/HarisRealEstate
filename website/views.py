@@ -215,10 +215,12 @@ def contact (request):
 
 
 def about_us (request):
+    filter_form = listingGetRequestForm()
     return render(request, 'website/about-us.html')
 
 
 def contact_us_page (request):
+    filter_form = listingGetRequestForm()
     if request.user.is_staff and request.user.is_authenticated:
         contacts = Contact.objects.all()
         contacts = contacts.order_by("-date_created").all()
@@ -229,6 +231,7 @@ def contact_us_page (request):
 
 
 def agents (request):
+    filter_form = listingGetRequestForm()
     agents = User.objects.all()
     return render(request, 'website/agents.html', {
         'agents': agents
@@ -248,9 +251,15 @@ class profileWithPropertiesListView(ListView, LoginRequiredMixin):
             ).order_by("-time_created").all()
         return qs
 
+    def get_context_data (self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = listingGetRequestForm()
+        return context
+
 
 @login_required
 def profileUpdate (request):
+    filter_form = listingGetRequestForm()
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -272,9 +281,10 @@ def profileUpdate (request):
     })
 
 
-@verified_email_required
+# @verified_email_required
 @login_required
 def createListing (request):
+    filter_form = listingGetRequestForm()
     if request.method == "POST":
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')

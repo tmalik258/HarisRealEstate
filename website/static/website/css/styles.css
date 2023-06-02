@@ -229,9 +229,8 @@ body
 /* //////////////////////////////////////////	NAV MENU /////////////////////////////////////////// */
 .navigation{
 	position: fixed;
-	inset: 170px 50% 20px 50%;
-	/* inset: 170px 0 20px 22px; */
-	width: 500px;
+	inset: 140px 0 20px 20px;
+	width: 60px;
 	background-color: #edf1f4;
 	display: flex;
 	justify-content: center;
@@ -243,7 +242,7 @@ body
 }
 
 .navigation.active{
-	width: 200px;
+	width: 250px;
 }
 
 .navigation::selection{
@@ -326,11 +325,16 @@ body
 	transition: 0.5s;
 }
 
+.navigation .menu .menuText::selection
+{
+	background: none;
+}
+
 					/* Navigation List */
 .navigation ul{
 	display: flex;
-	flex-direction: row;
-	/* gap: 5px; */
+	flex-direction: column;
+	gap: 5px;
 	width: 100%;
 	transform: translateX(-25px) translateY(25px);
 }
@@ -341,10 +345,6 @@ body
 	height: 60px;
 	cursor: pointer;
 	transition: 1s;
-}
-
-.navigation.active ul li{
-	width: 150px;
 }
 
 .navigation ul li .section{
@@ -375,18 +375,18 @@ body
 	border-radius: 10px;
 	color: black;
 	font-size: 1.5em;
-	line-height: 60px;
+	line-height: 55px;
 	transition: 0.5s;
 }
 
-.navigation ul li.active .icon, .navigation ul li.active .icon{
+.navigation ul li.active .icon, .navigation ul li:hover .icon{
 	background: var(--clr);
 	color: white;
 	transform: translateX(25px);
 	transition: 0.5s;
 }
 
-.navigation.active ul li.active .icon{
+.navigation.active ul li.active .icon, .navigation.active ul li:hover .icon{
 	transform: translateX(10px);
 	transition: 0.5s;
 }
@@ -404,7 +404,7 @@ body
 	transition: 0.5s;
 }
 
-.navigation ul li.active .icon::before{
+.navigation ul li.active .icon::before, .navigation ul li:hover .icon::before{
 	opacity: 1;
 }
 
@@ -425,7 +425,7 @@ body
 	transition: 0.5s;
 }
 
-.navigation ul li.active .text{
+.navigation ul li.active .text, .navigation ul li:hover .text{
 	transition: 1s;
 	color: var(--clr);
 	z-index: -1;
@@ -473,6 +473,13 @@ body
 
 .nav-item .nav-link.active, .nav-item .nav-link:hover{
 	color: var(--primarycolor);
+}
+
+.navbar .container-fluid .navbar-nav .nav-item .profile-nav
+{
+	font-size: larger;
+	position: absolute;
+	top: 22px;
 }
 
 .navbar-toggler
@@ -748,17 +755,17 @@ form.search
 {
 	position: absolute;
 	top: 17px;
-	right: calc(50% - 14rem);
+	right: calc(50% - 16.3rem);
 	font-size: 2rem;
 	color: var(--primarycolor);
 	transition: .2s;
 }
 
-.main_section .properties p a #searchIcon
+.navbar .container-fluid .navbar-text a .loggedIn
 {
 	position: absolute;
-	top: 21px;
-	right: 12px;
+	top: 17px;
+	right: calc(50% - 14rem);
 	font-size: 2rem;
 	color: var(--primarycolor);
 	transition: .2s;
@@ -766,47 +773,49 @@ form.search
 
 .navbar .container-fluid .navbar-text a #searchIcon:hover, .navbar .container-fluid .navbar-text a[aria-expanded="true"] #searchIcon
 {
-	/* right: 5px; */
+	right: calc(50% - 16.5rem);
+}
+
+.navbar .container-fluid .navbar-text a .loggedIn:hover, .navbar .container-fluid .navbar-text a[aria-expanded="true"] .loggedIn
+{
+	right: calc(50% - 14.5rem);
 	top: 14px;
 	padding: 5px;
 	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.05);
 	border-radius: 5px;
 }
 
-.main_section .properties p a #searchIcon:hover, .main_section .properties p a[aria-expanded="true"] #searchIcon
-{
-	right: 5px;
-	top: 18px;
-	padding: 5px;
-	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(0, 0, 0, 0.05);
-	border-radius: 5px;
-}
-
-.navbar .container-fluid .navbar-text .card, .navbar .container-fluid  .collapse .card, .navbar .container-fluid .navbar-text a[aria-expanded="false"] + .collapse > .card
+.navbar .container-fluid .navbar-text .collapse .card,
+.navbar .container-fluid .navbar-text .card
 {
 	background: none;
-	padding: 0px;
+	/* padding: 0px; */
 	padding-top: 10px;
 	position: absolute;
 	max-width: 50rem;
 	width: max-content;
-	right: calc(50% - 30rem);
 	border: none;
-	/* left: -7rem; */
-	/* transition: 1s; */
+	right: calc(50% - 28rem);
 }
 
-.navbar .container-fluid .navbar-text .collapse .card form
+.navbar .container-fluid .navbar-text .collapse .card
+{
+	opacity: 1;
+	visibility: visible;
+}
+
+.navbar .container-fluid .navbar-text .card
+{
+	opacity: 0;
+	visibility: hidden;
+	transition: .2s ease-in-out;
+	/* right: calc(50% - 27.8rem); */
+}
+
+.navbar .container-fluid .navbar-text .collapse .card form,
+.navbar .container-fluid .navbar-text .card form
 {
 	transition: .33s;
-	width: 100%;
-}
-
-.main_section .properties .card form
-{
-	position: relative;
-	right: 20px;
-	box-shadow: none;
 	width: 100%;
 }
 
@@ -918,7 +927,7 @@ form.search
 }
 .carousel-item.active .carousel-caption
 {
-	top: 25%;
+	top: 17%;
 	/* left: 0; */
 	opacity: 1;
 }

@@ -70,12 +70,14 @@ class Listing (models.Model):
 	)
 
 	CITY_CHOICES = (
+		('', 'City'),
 		('lhr', 'Lahore'),
 		('khi', 'Karachi'),
 		('isl', 'Islamabad')
 	)
 
 	CATEGORY_CHOICES = [
+		('', 'Category'),
 		('Homes', (
 			('house', 'House'),
 			('flat', 'Flat'),
