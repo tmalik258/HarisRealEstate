@@ -9,7 +9,7 @@ from PIL import Image as PillowImage
 class Profile (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-		return '/images/user_{0}/profile_image/{1}'.format(instance.user.username, filename)
+		return 'images/user_{0}/profile_image/{1}'.format(instance.user.username, filename)
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
