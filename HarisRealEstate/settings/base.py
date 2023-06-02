@@ -15,7 +15,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Application definition
@@ -181,8 +181,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
-SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/profile'
 LOGOUT_REDIRECT_URL = '/'

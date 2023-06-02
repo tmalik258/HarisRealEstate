@@ -1,0 +1,33 @@
+{% extends "website/layout.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block body %}
+<div class="login">
+    {% if process == "connect" %}
+    <h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>
+    
+    <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
+    {% else %}
+    <h1>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h1>
+    
+    <p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider }}.{% endblocktrans %}</p>
+    {% endif %}
+    
+    <form method="post">
+      {% csrf_token %}
+      <div class="vstack gap-2">
+          <input type="submit" value="{% trans 'Continue' %}">
+        <!-- <input class="btn btn-primary mb-0" type="submit" value="Update"> -->
+        <a type="button" class="btn btn-outline-secondary" href="{% url 'account_login' %}">Go Back</a>
+    </div>
+    </form>
+
+    <!-- <a href="{% url 'account_login' %}" class="btn btn-primary">Go Back</a> -->
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

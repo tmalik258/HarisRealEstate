@@ -57,3 +57,5 @@ DEFAULT_FILE_STORAGE = 'HarisRealEstate.storages.MediaStore'
 # Static Configuration S3
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+
+SITE_ID = 2

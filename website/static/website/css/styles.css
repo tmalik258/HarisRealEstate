@@ -466,31 +466,6 @@ body
 	/* background: rgba(24, 24, 24, 0.3); */
 }
 
-#profile-link
-{
-	display: none;
-}
-
-.collapse .profile_image
-{
-	position: absolute;
-	right: 17px;
-	top: 1px;
-	display: inline-block;
-	border-radius: 50%;
-	overflow: hidden;
-	box-shadow: 2px 2px 5px black;
-	width: 50px;
-	height: 50px;
-	transition: .3s;
-}
-
-.collapse .profile_image:hover
-{
-	transform: translateY(.12rem);
-	box-shadow: none;
-}
-
 .nav-item .nav-link
 {
 	color: #616161;
@@ -617,16 +592,12 @@ body
 .login input, .login input:focus, .login textarea, .login textarea:focus, .login .form-select, 
 .contact-us .login .btn,
 .search input, .search input:focus, .search .form-select, 
-.profile .btn, .login.register .btn.btn-outline-secondary
+.profile .btn, .login .btn.btn-outline-secondary
 {
-	/* background: black; */
 	border: none;
 	outline: none;
 	border-radius: 8px;
 	padding: 12px 20px;
-	/* color: #fff; */
-	/* box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
-	inset 5px 5px 15px rgba(0, 0, 0, 0.5); */
 }
 
 
@@ -649,7 +620,7 @@ body
 	background: var(--primarycolor);
 }
 
-.login.register .btn.btn-outline-secondary:hover
+.login .btn.btn-outline-secondary:hover
 {
 	background: var(--primarycolor);
 }

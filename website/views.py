@@ -34,10 +34,10 @@ class StaffMemberRequiredMixin(object):
 def index (request):
     agents = User.objects.filter(is_staff=True, is_active=True)
     posts = Listing.objects.filter(active=True).order_by("-time_created")[0:10]
-    listing_form = listingGetRequestForm()
+    filter_form = listingGetRequestForm()
     return render(request, 'website/index.html', {
         'agents': agents,
-        'listing_form': listing_form,
+        'filter_form': filter_form,
         'posts': posts
     })
 
@@ -50,18 +50,18 @@ class PropertiesListView (ListView):
 
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['listing_form'] = listingGetRequestForm()
+        context['filter_form'] = listingGetRequestForm()
         return context
 
 
 def single_property (request, item):
-    listing_form = listingGetRequestForm()
+    filter_form = listingGetRequestForm()
     try:
         post = Listing.objects.get(id=item)
     except Listing.DoesNotExist:
         post = ""
     return render(request, 'website/singleProperty.html', {
-        'listing_form': listing_form,
+        'filter_form': filter_form,
         'post': post
     })
 
@@ -80,7 +80,7 @@ class SearchedPropertiesListView (ListView):
         
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['listing_form'] = listingGetRequestForm()
+        context['filter_form'] = listingGetRequestForm()
         return context
 
 
@@ -135,7 +135,7 @@ class FilteredPropertiesListView (ListView):
         
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['listing_form'] = listingGetRequestForm()
+        context['filter_form'] = listingGetRequestForm()
         return context
 
 
@@ -162,7 +162,7 @@ class CategoryListView (ListView):
         
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['listing_form'] = listingGetRequestForm()
+        context['filter_form'] = listingGetRequestForm()
         return context
 
 
@@ -275,7 +275,6 @@ def profileUpdate (request):
 @verified_email_required
 @login_required
 def createListing (request):
-
     if request.method == "POST":
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')
