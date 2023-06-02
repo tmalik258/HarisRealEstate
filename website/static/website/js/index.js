@@ -335,28 +335,13 @@ function send_message() {
 	return false;
 }
 
-// window.onscroll = function () {
-// 	if (window.scrollY >= 50)
-// 	{
-// 		$('.navbar').addClass('active');
-// 		hideHeader();
-// 	}
-// 	else
-// 	{
-// 		$('.navbar').removeClass('active');
-// 	}
-// }
-
-// let lastScrollPos = 0;
-
-// const hideHeader = function () {
-// 	const isScrollButton = lastScrollPos < window.scrollY;
-// 	if (isScrollButton){
-// 		$('.navbar').addClass('hide');
-// 		// $('.navbar').width('100%');
-// 	}
-// 	else
-// 		$('.navbar').removeClass('hide');
-
-// 	lastScrollPos = window.scrollY;
-// }
+window.onscroll = function () {
+	if (window.scrollY >= 90)
+	{
+		$('.navigation').css('inset', '20px 0 20px 20px');
+	}
+	else
+	{
+		$('.navigation').css('inset', '140px 0 20px 20px');
+	}
+}
