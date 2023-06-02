@@ -15,8 +15,8 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG = False
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Application definition
 
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'HarisRealEstate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(BASE_DIR, 'website/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -173,7 +173,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v1',
         'DISPLAY_NAME': 'Google',
         'PROVIDER_NAME': 'Google',
-        'LOGIN_TEMPLATE': 'accounts/login.html',  # Specify the custom template here
+        'LOGIN_TEMPLATE': 'account/login.html',  # Specify the custom template here
     }
 }
 
