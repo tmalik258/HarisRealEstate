@@ -4,6 +4,9 @@
 		{
 			$('.carousel-inner').height(window.innerHeight);
 		}
+
+		 // Toggle for navigation
+		 $('.menuToggle').click(() => $('.navigation').toggleClass('active'));
 	// }
 // }
 

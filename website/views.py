@@ -50,16 +50,18 @@ class PropertiesListView (ListView):
 
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = listingGetRequestForm()
+        context['listing_form'] = listingGetRequestForm()
         return context
 
 
 def single_property (request, item):
+    listing_form = listingGetRequestForm()
     try:
         post = Listing.objects.get(id=item)
     except Listing.DoesNotExist:
         post = ""
     return render(request, 'website/singleProperty.html', {
+        'listing_form': listing_form,
         'post': post
     })
 
@@ -78,7 +80,7 @@ class SearchedPropertiesListView (ListView):
         
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = listingGetRequestForm()
+        context['listing_form'] = listingGetRequestForm()
         return context
 
 
@@ -133,7 +135,7 @@ class FilteredPropertiesListView (ListView):
         
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = listingGetRequestForm()
+        context['listing_form'] = listingGetRequestForm()
         return context
 
 
@@ -160,7 +162,7 @@ class CategoryListView (ListView):
         
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = listingGetRequestForm()
+        context['listing_form'] = listingGetRequestForm()
         return context
 
 
