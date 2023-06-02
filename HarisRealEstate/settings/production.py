@@ -52,7 +52,7 @@ AWS_DEFAULT_ACL = 'public-read-write'
 AWS_LOCATION = 'static'
 
 # Media
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'HarisRealEstate.storages.MediaStore'
 
 # Static Configuration S3
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
