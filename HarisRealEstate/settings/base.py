@@ -174,6 +174,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'DISPLAY_NAME': 'Google',
         'PROVIDER_NAME': 'Google',
         'LOGIN_TEMPLATE': 'account/login.html',  # Specify the custom template here
+        'LOGIN_URL': '/accounts/google/login/',
+        'AUTHORIZATION_URL': 'https://accounts.google.com/o/oauth2/auth',
+        'ACCESS_TOKEN_URL': 'https://accounts.google.com/o/oauth2/token',
+        'USERINFO_URL': 'https://www.googleapis.com/oauth2/v1/userinfo',
     }
 }
 
