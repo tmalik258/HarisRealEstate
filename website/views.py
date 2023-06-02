@@ -338,14 +338,14 @@ def login_view(request):
 
         # Check if authentication successful
         if user is None:
-            return render(request, "website/login.html", {
+            return render(request, "account/login.html", {
                 "error_message": "Invalid username and/or password."
             })
         else:
             login(request, user)
             return redirect("profile")
     else:
-        return render(request, "website/login.html")
+        return render(request, "account/login.html")
 
 def logout_view(request):
     logout(request)
@@ -370,17 +370,17 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "website/signup.html", {
+            return render(request, "account/signup.html", {
                 "pass_error_message": "Passwords must match.",
                 'pass_error': True
             })
         elif password in username:
-            return render(request, "website/signup.html", {
+            return render(request, "account/signup.html", {
                 "pass_error_message": "Your password can't be similar to username.",
                 'pass_error': True
             })
         elif password in email:
-            return render(request, "website/signup.html", {
+            return render(request, "account/signup.html", {
                 "pass_error_message": "Your password can't be similar to email.",
                 'pass_error': True
             })
@@ -398,7 +398,7 @@ def register(request):
                 profile.profile_image = profile_image
             profile.save()
         except IntegrityError:
-            return render(request, "website/signup.html", {
+            return render(request, "account/signup.html", {
                 "username_error_message": "Username already taken.",
                 'username_error': True
             })
@@ -406,7 +406,7 @@ def register(request):
         login(request, user)
         return redirect("profile")
     else:
-        return render(request, "website/signup.html")
+        return render(request, "account/signup.html")
 
 def privacyPolicy(request):
     return render(request, 'website/privacy-policy.html')
