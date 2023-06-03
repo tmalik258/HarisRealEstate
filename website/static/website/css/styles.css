@@ -943,7 +943,7 @@ form.search
 
 .top-categories
 {
-	margin-top: 100px;
+	/* margin-top: 60px; */
 	/* box-shadow: none; */
 	overflow: hidden;
 }
@@ -952,9 +952,9 @@ form.search
 	color: var(--primarycolor);
 	position: relative;
 	text-align: center;
-	margin-top: 20px;
-	font-size: 27px;
-	margin-bottom: 30px;
+	margin-top: 40px;
+	font-size: 30px;
+	margin-bottom: 40px;
 }
 
 .top-categories .row
@@ -1207,6 +1207,7 @@ form.search
 	font-size: 30px;
 	color: var(--primarycolor);
 	position: relative;
+	margin-top: 20px;
 }
 
 .properties .emptyProperty
@@ -1293,23 +1294,9 @@ form.search
 	font-size: 15px;
 }
 
-.index_properties .properties h1 .seperator
+.index_properties .properties h1
 {
-	background: wheat;
-	margin: auto;
-}
-
-.index_properties .properties h1 .seperator:nth-child(1)
-{
-	margin-right: 8px;
-	top: -10px;
-}
-
-.index_properties .properties h1 .seperator:nth-child(2)
-{
-	z-index: 2;
-	margin-left: 8px;
-	top: -10px;
+	/* font-size: 50px; */
 }
 
 .index_properties .properties .card
