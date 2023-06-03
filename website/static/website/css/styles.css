@@ -1240,6 +1240,13 @@ form.search
 	transition: 0.4s;
 }
 
+.properties .card:hover
+{
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+    -5px -5px 10px rgba(0, 0, 0, 0.05);
+	transform: translateY(3px);
+}
+
 .properties .card a
 {
 	text-decoration: none;
@@ -1274,38 +1281,19 @@ form.search
 
 .properties .card .card-body .email
 {
-	color: wheat;
-	position: relative;
-	border: wheat solid 1px;
-	overflow: hidden;
+	color: var(--secondarycolor);
+	/* position: relative; */
+	border: var(--secondarycolor) solid 1px;
+	/* overflow: hidden; */
 	transition: 0.3s;
-}
-
-.properties .card .card-body .email::before
-{
-	content: '';
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 0%;
-	height: 0%;
-	background-color: wheat;
-	border-radius: 0 0 100% 25%;
-	z-index: -1;
-	transition: .7s;
-}
-
-.properties .card .card-body .email:hover::before
-{
-	width: 200%;
-	height: 200%;
 }
 
 .properties .card .card-body .email:hover
 {
-	color: black;
-	background: none;
-	/* background: wheat; */
+	color: var(--maincolor);
+	/* background: none; */
+	background: var(--secondarycolor);
+	box-shadow: 0 0 15px var(--secondarycolor);
 	transform: scaleX(1.1);
 }
 
@@ -1335,23 +1323,29 @@ form.search
 
 .index_properties .properties .card
 {
+	box-shadow: -15px -15px 20px black inset, 10px 10px 15px black;
+	background: #141414;
 	border-radius: 20px;
 	border: none;
 	font-size: 12px;
-	box-shadow: none;
 	max-width: 300px;
+}
+
+.index_properties .properties .card a
+{
+	color: var(--maincolor);
 }
 
 .index_properties .properties .card img
 {
-	margin: 0px;
+	/* margin: 0px; */
 	width: 100%;
 }
 
 .index_properties .properties .card:hover
 {
-	box-shadow: 0px 0px 40px #2e2e2e inset, 0px 0px 12px wheat;
-
+	box-shadow: -15px -15px 20px black inset, 5px 5px 15px black;
+	transform: translateY(2px);
 }
 
 .index_properties .properties .mySwiper.swiper

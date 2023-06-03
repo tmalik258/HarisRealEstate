@@ -136,12 +136,12 @@
 					<div class="swiper-slide">
 						<div class="card">
 							<div class="row g-0">
-								<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}" style="color: wheat; text-decoration: none;">
+								<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}">
 									<div class="col-md-12 mb-md-0 p-md-3">
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
 										{% else %}
-											<img loading="eager" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" style="background: #141414;" title="No Image Uploaded">
+											<img loading="eager" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" title="No Image Uploaded">
 										{% endif %}
 									</div>
 									<div class="col-md-12">
