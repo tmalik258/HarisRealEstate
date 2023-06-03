@@ -237,12 +237,13 @@ hiddenElements.forEach((el) => observer.observe(el));
 
 /* ////////////////////////////////	On Resize for Responsiveness	/////////////////////////////// */
 window.onresize = function () {
-	if (window.innerWidth < 990)
+	if (window.innerWidth < 1400)
 	{
 		$('.carousel-inner').height("initial");
 	}
 	else
-		$('.carousel-inner').height(window.innerHeight);
+		$('.carousel-inner').height(window.innerHeight - 170);
+			// $('.carousel-inner').height(window.innerHeight );
 }
 
 
@@ -336,12 +337,15 @@ function send_message() {
 }
 
 window.onscroll = function () {
-	if (window.scrollY >= 90)
+	if (window.innerWidth > 990)
 	{
-		$('.navigation').css('inset', '20px 0 20px 20px');
-	}
-	else
-	{
-		$('.navigation').css('inset', '140px 0 20px 20px');
+		if (window.scrollY >= 90)
+		{
+			$('.navigation').css('inset', '20px 0 20px 20px');
+		}
+		else
+		{
+			$('.navigation').css('inset', '140px 0 20px 20px');
+		}
 	}
 }

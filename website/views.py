@@ -92,10 +92,16 @@ class FilteredPropertiesListView (ListView):
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
         qs = qs.filter(
-                category=self.request.GET['category'],
                 purpose=self.request.GET['purpose'],
                 active=True
             ).order_by("-time_created").all()
+
+        # SEARCH BY CATEGORY
+        if self.request.GET['category']:
+            if self.request.GET['category'] != 'any':
+                qs = qs.filter(
+                    category=self.request.GET['category']
+                )
         # SEARCH BY LOCATION
         if self.request.GET['location']:
             qs = qs.filter(

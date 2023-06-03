@@ -4,6 +4,17 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from PIL import Image as PillowImage
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+
+# to validate if image is less than 1 mb or not
+def validate_image_size(value):
+    limit_mb = 1
+    limit_bytes = limit_mb * 1024 * 1024
+    if value.size > limit_bytes:
+        raise ValidationError(_("Maximum file size allowed is %(limit_mb)sMB.") % {'limit_mb': limit_mb})
+
 
 # Create your models here.
 class Profile (models.Model):
@@ -14,7 +25,7 @@ class Profile (models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
 	estate_name = models.CharField(max_length=256, null=True, blank=True, help_text="Optional")
-	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
+	profile_image = models.ImageField(upload_to = user_directory_path, blank=True, validators=[validate_image_size])
 	phone_number = PhoneNumberField()
 
 	def save (self, *args, **kwargs):
@@ -26,7 +37,7 @@ class Profile (models.Model):
 			if img.height > 300 or img.width > 300:
 				output_size = (300, 300)
 				img.thumbnail(output_size) # resize image
-				img.save(self.profile_image.file) # save it again and override the larger image
+				img.save(self.profile_image.path) # save it again and override the larger image
 
 	def __str__(self):
 		return ""
@@ -71,9 +82,76 @@ class Listing (models.Model):
 
 	CITY_CHOICES = (
 		('', 'City'),
-		('lhr', 'Lahore'),
+		('abd', 'Attock'),
+		('abt', 'Abbottabad'),
+		('bhr', 'Bahawalnagar'),
+		('bwn', 'Bhawana'),
+		('bhk', 'Bhakkar'),
+		('bwp', 'Bahawalpur'),
+		('cwp', 'Chishtian'),
+		('dgh', 'Dera Ghazi Khan'),
+		('dnb', 'Dinawali'),
+		('dip', 'Dipalpur'),
+		('fdr', 'Fateh Jhang'),
+		('fsl', 'Faisalabad'),
+		('ghk', 'Gujar Khan'),
+		('gjr', 'Gujranwala'),
+		('grk', 'Gwadar'),
+		('grw', 'Gujranwala'),
+		('gjr', 'Gujrat'),
+		('hyd', 'Hyderabad'),
+		('isl', 'Islamabad'),
+		('jlm', 'Jalalpur'),
+		('jwn', 'Jaranwala'),
+		('jwp', 'Jhelum'),
+		('khr', 'Khairpur'),
 		('khi', 'Karachi'),
-		('isl', 'Islamabad')
+		('khr', 'Khanewal'),
+		('ktt', 'Kotli'),
+		('kwb', 'Kot Adu'),
+		('lai', 'Lalamusa'),
+		('lhr', 'Lahore'),
+		('ldr', 'Lodhran'),
+		('lrd', 'Larkana'),
+		('ltr', 'Layyah'),
+		('mll', 'Mian Channu'),
+		('mlk', 'Malakwal'),
+		('mlt', 'Mardan'),
+		('mrd', 'Multan'),
+		('mnt', 'Mansehra'),
+		('mgw', 'Mandi Bahauddin'),
+		('mwm', 'Mianwali'),
+		('mtr', 'Multan'),
+		('mzt', 'Murree'),
+		('mzw', 'Muzaffargarh'),
+		('ngt', 'Narowal'),
+		('nwn', 'Nankana Sahib'),
+		('pwp', 'Peshawar'),
+		('phl', 'Pattoki'),
+		('qta', 'Quetta'),
+		('qrb', 'Quetta Residency'),
+		('rch', 'Rajanpur'),
+		('rnw', 'Rawalpindi'),
+		('rkn', 'Rahim Yar Khan'),
+		('rwp', 'Rawalpindi'),
+		('sgr', 'Sargodha'),
+		('skt', 'Sialkot'),
+		('shw', 'Sheikhupura'),
+		('swn', 'Swat'),
+		('sak', 'Sargodha'),
+		('sbq', 'Sahiwal'),
+		('ska', 'Sakrand'),
+		('skz', 'Sukheki'),
+		('stw', 'Sialkot'),
+		('suk', 'Sukkur'),
+		('swl', 'Sahiwal'),
+		('sgr', 'Sargodha'),
+		('swl', 'Sialkot'),
+		('saw', 'Sawat'),
+		('ttn', 'Toba Tek Singh'),
+		('vhn', 'Vehari'),
+		('wah', 'Wah Cantt'),
+		('wln', 'Wazirabad'),
 	)
 
 	CATEGORY_CHOICES = [
@@ -163,7 +241,7 @@ class Image (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
 		return 'user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)
-	image = models.ImageField(upload_to = user_directory_path, blank=True)
+	image = models.ImageField(upload_to = user_directory_path, blank=True, validators=[validate_image_size])
 	listing = models.ForeignKey(Listing, on_delete= models.CASCADE, related_name='img')
 
 	def __str__(self):

@@ -100,15 +100,10 @@
 		<nav class="navbar navbar-expand-lg px-3">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="{% url 'index' %}">
-					<!-- <a > -->
-						<img loading="eager" class="logo" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
-					<!-- </a> -->
+					<img loading="eager" class="logo" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
 					<span class="HRE">Haris<br><span style="font-size: 13px;">Real Estate</span></span>
 				</a>
-				<!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-				<!-- </button> -->
-				<!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
-					<div class="navbar-text m-auto">
+					<div class="navbar-text m-md-auto">
 						<form action="{% url 'get_property_by_search' %}" method="GET">
 							<input type="search" name="searchByTitle" class="form-control" id="searchByT" placeholder="Search by Title">
 						</form>
@@ -158,7 +153,7 @@
 							</div>
 						  </div>
 					</div>
-					<ul class="navbar-nav text-center m-0 p-0">
+					<ul class="navbar-nav text-center m-0 p-0 system">
 						{% if user.is_authenticated %}
 						<li class="nav-item">
 							<a href="{% url 'account_logout' %}" class="btn btn-outline-dark rounded-pill">LOGOUT</a>
@@ -202,7 +197,7 @@
 						<span class="text">Sell</span>
 					</a>
 				</li>
-				<li {% if "/properties" in request.path %} class="list active "{% endif %} class="list" style="--clr: #099">
+				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #099">
 					<a class="section nav-link" href="{% url 'properties' %}">
 						<span class="icon">
 							<ion-icon name="card-outline"></ion-icon>
@@ -210,8 +205,16 @@
 						<span class="text">Buy/Listings</span>
 					</a>
 				</li>
+				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #099">
+					<a class="section nav-link" href="{% url 'properties' %}">
+						<span class="icon">
+							<ion-icon name="business-outline"></ion-icon>
+						</span>
+						<span class="text">Buy/Listings</span>
+					</a>
+				</li>
 				{% if user.is_authenticated and user.is_staff %}
-				<li class="list" style="--clr: #000">
+				<li class="list system" style="--clr: #000">
 					<a class="section nav-link" href="{% url 'admin:index' %}">
 						<span class="icon">
 							<ion-icon name="people-outline"></ion-icon>
@@ -220,7 +223,7 @@
 					</a>
 				</li>
 				{% else %}
-				<li class="list" style="--clr: #2196f3">
+				<li {% if "/properties?category=Homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
 					<a class="section nav-link" href="{% url 'get_category' type='Homes' %}">
 						<span class="icon">
 							<ion-icon name="home-outline"></ion-icon>
@@ -228,7 +231,7 @@
 						<span class="text">Homes</span>
 					</a>
 				</li>
-				<li class="list" style="--clr: #0fc70f">
+				<li {% if "/properties?category=Plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
 					<a class="section nav-link" href="{% url 'get_category' type='Plots' %}">
 						<span class="icon">
 							<ion-icon name="footsteps-outline"></ion-icon>
@@ -236,7 +239,7 @@
 						<span class="text">Land/Plots</span>
 					</a>
 				</li>
-				<li class="list" style="--clr: #000">
+				<li {% if "/properties?category=Commercial" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
 					<a class="section nav-link" href="{% url 'get_category' type='Commercial' %}">
 						<span class="icon">
 							<ion-icon name="business-outline"></ion-icon>
@@ -245,6 +248,33 @@
 					</a>
 				</li>
 				{% endif %}
+				{% if user.is_authenticated %}
+					<li {% if "/profile" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #2196f3">
+						<a class="section nav-link" href="{% url 'profile' %}">
+							<span class="icon">
+								<ion-icon name="person-outline"></ion-icon>
+							</span>
+							<span class="text">Profile</span>
+						</a>
+					</li>
+					<li class="list mobile" style="--clr: #0fc70f">
+						<a class="section nav-link" href="{% url 'account_logout' %}">
+							<span class="icon">
+								<ion-icon name="log-out-outline"></ion-icon>
+							</span>
+							<span class="text">Logout</span>
+						</a>
+					</li>
+					{% else %}
+						<li class="list mobile" style="--clr: #000">
+							<a class="section nav-link" href="{% url 'account_login' %}">
+								<span class="icon">
+									<ion-icon name="log-in-outline"></ion-icon>
+								</span>
+								<span class="text">Login</span>
+							</a>
+						</li>
+					{% endif %}
 			</ul>
 		</div>
 		<!--------------------------	 Navigation Ends	 -------------------------- -->
@@ -259,7 +289,7 @@
 	{% endcomment %}
 
 	<!--------------------------	Body Starts	 ------------------------------ -->
-	<main class="ms-5 mt-3 ps-5">
+	<main class="ms-md-5 mt-3 ps-md-5">
 		{% block body %}
 		{% endblock %}
 		<!----------------------- SCROLL UP ---------------------------->

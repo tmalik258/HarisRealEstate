@@ -649,6 +649,14 @@ body
 }
 
 
+/* //////////////////////////////////////////	PROFILE UPDATE	/////////////////////////////////////////// */
+.main_section .login.register.profile_update form li
+{
+	list-style: none;
+	color: red;
+}
+
+
 /* //////////////////////////////////////////	SEARCH FILTER INDEX	/////////////////////////////////////////// */
 form.search
 {
@@ -741,17 +749,8 @@ form.search
 	box-shadow: var(--box-shadow);
 }
 
-.main_section .properties #searchByT
-{
-	border: none;
-	position: absolute;
-	top: 20px;
-	right: 50px;
-	width: 400px;
-	transition: .3s;
-}
-
-.navbar .container-fluid .navbar-text a #searchIcon
+.navbar .container-fluid .navbar-text a #searchIcon,
+.navbar .container-fluid .navbar-text a .loggedIn
 {
 	position: absolute;
 	top: 17px;
@@ -763,12 +762,7 @@ form.search
 
 .navbar .container-fluid .navbar-text a .loggedIn
 {
-	position: absolute;
-	top: 17px;
 	right: calc(50% - 14rem);
-	font-size: 2rem;
-	color: var(--primarycolor);
-	transition: .2s;
 }
 
 .navbar .container-fluid .navbar-text a #searchIcon:hover, .navbar .container-fluid .navbar-text a[aria-expanded="true"] #searchIcon
@@ -785,31 +779,13 @@ form.search
 	border-radius: 5px;
 }
 
-.navbar .container-fluid .navbar-text .collapse .card,
 .navbar .container-fluid .navbar-text .card
 {
-	background: none;
-	/* padding: 0px; */
 	padding-top: 10px;
-	position: absolute;
-	max-width: 50rem;
-	width: max-content;
+	max-width: 22.3rem;
 	border: none;
-	right: calc(50% - 28rem);
-}
-
-.navbar .container-fluid .navbar-text .collapse .card
-{
-	opacity: 1;
-	visibility: visible;
-}
-
-.navbar .container-fluid .navbar-text .card
-{
-	opacity: 0;
-	visibility: hidden;
-	transition: .2s ease-in-out;
-	/* right: calc(50% - 27.8rem); */
+	width: max-content;
+	background: none;
 }
 
 .navbar .container-fluid .navbar-text .collapse .card form,
@@ -860,6 +836,21 @@ form.search
 {
 	box-shadow: 0px 1px 20px #141414;
 	transition: 0.2s;
+}
+
+/*------ INDEX-CROUSAL -------*/
+.carousel.slide.carousel-fade
+{
+	margin: auto;
+	/* margin-top: 40px; */
+	border-radius: 50px;
+	width: 90%;
+	overflow: hidden;
+}
+
+.carousel.slide.carousel-fade .carousel-inner
+{
+	height: 50%;
 }
 
 .carousel-item
@@ -1323,7 +1314,7 @@ form.search
 
 .index_properties .properties .card
 {
-	box-shadow: -15px -15px 20px black inset, 10px 10px 15px black;
+	box-shadow: -15px -15px 20px black inset, 8px 8px 15px black;
 	background: #141414;
 	border-radius: 20px;
 	border: none;
@@ -1579,35 +1570,12 @@ footer .footer_row .footer_col ul li a:hover .seperator
 }
 
 @media screen and (min-width:1185px) {
-	/*-------- NAV-BAR --------*/
-
-	/* .HRE
-	{
-		margin-right: 150px;
-	} */
-
-
 	/*------- REGISTER-FORM ------*/
 	.login.register
 	{
 		height: auto;
 		margin-top: 3%;
 		margin-bottom: 5%;
-	}
-
-	/*------ INDEX-CROUSAL -------*/
-	.carousel.slide.carousel-fade
-	{
-		margin: auto;
-		/* margin-top: 40px; */
-		border-radius: 50px;
-		width: 90%;
-		overflow: hidden;
-	}
-	
-	.carousel.slide.carousel-fade .carousel-inner
-	{
-		height: 50%;
 	}
 
 	/*------ CREATE-LISTING-FORM ------*/
@@ -1621,6 +1589,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		width: 25%;
 	}
 
+	/*------ PROPERTY-LISTING ------*/
 	.properties .emptyProperty h2
 	{
 		line-height: 150px;
@@ -1631,7 +1600,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		border-left: 2px wheat solid;
 	}
 
-	
+	/*------ INDEX-PROPERTY-LISTING ------*/
 	.index_properties .properties .mySwiper.swiper .swiper-wrapper
 	{
 		margin-left: 45px;
@@ -1647,48 +1616,120 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	}
 }
 
-@media screen and (max-width:1185px) and (min-width: 990px) {
-	/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
-	.main_section .properties #searchByT
+@media screen and (min-width: 990px) {
+	/*-------- SEARCH --------*/
+	.navbar .container-fluid .navbar-text .card
 	{
-		top: 70px;
+		/* background: none; */
+		/* padding: 0px; */
+		position: absolute;
+		max-width: 50rem;
+		right: calc(50% - 28rem);
 	}
 
-	.main_section .properties p a #searchIcon
+	.navbar .container-fluid .navbar-text .collapse .card
 	{
-		top: 70px;
+		opacity: 1;
+		visibility: visible;
 	}
 
-
-	.main_section .properties h1
+	.navbar .container-fluid .navbar-text .card
 	{
-		margin-bottom: 60px;
+		opacity: 0;
+		visibility: hidden;
+		transition: .2s ease-in-out;
 	}
 
-	form.search
+	.mobile
 	{
-		right: calc(50% - 27rem);
+		display: none;
 	}
+
 }
 @media screen and (max-width: 990px) {
-	#profile-link
-	{
-		display: inherit;
-	}
-
-	.navbar .profile
+	.carousel button
 	{
 		display: none;
 	}
 
-	.mail .seperator, .contact_number .seperator
+	/*-------- NAV-BAR --------*/
+	.system
 	{
 		display: none;
 	}
 
+	.navbar .container-fluid .navbar-brand
+	{
+		display: none;
+	}
 
-	main{
-		margin-top: 35px;
+	/*-------- NAVIGATION-MENU --------*/
+	.navigation{
+		/* left: 5%; */
+		/* top: 88%; */
+		inset: auto 10px 10px 10px;
+		width: auto;
+		/* height: 100px; */
+		height: auto;
+	}
+
+	.navigation .menu .menuToggle, .navigation .menu .menuText, .navigation ul li .text
+	{
+		display: none;
+	}
+
+	.navigation ul
+	{
+		margin-top: 0;
+		margin-bottom: 25px;
+		/* margin: auto; */
+		width: auto;
+		flex-direction: row;
+		gap: 30px;
+		/* margin-bottom: 50px; */
+	}
+
+	.navigation ul li
+	{
+		height: auto;
+	}
+	
+	.navigation ul li .icon
+	{
+		font-size: 2.7em;
+		transform: translateY(-10px);
+	}
+
+	.navigation ul li.active .icon, .navigation ul li:hover .icon
+	{
+		background: var(--clr);
+		transform: translateY(-25px);
+	}
+
+	/*-------- SEARCH --------*/
+	.navbar .container-fluid .navbar-text #searchByT
+	{
+		margin: 0;
+		width: 20rem;
+		height: 3.1rem;
+	}
+
+	.navbar .container-fluid .navbar-text.m-auto
+	{margin: 0;}
+
+	.navbar .container-fluid .navbar-text .card
+	{
+		padding: 0;
+		padding-top: 10px;
+	}
+
+	.navbar .container-fluid .navbar-text a .loggedIn,
+	.navbar .container-fluid .navbar-text a #searchIcon,
+	.navbar .container-fluid .navbar-text a #searchIcon:hover, .navbar .container-fluid .navbar-text a[aria-expanded="true"] #searchIcon,
+	.navbar .container-fluid .navbar-text a .loggedIn:hover, .navbar .container-fluid .navbar-text a[aria-expanded="true"] .loggedIn
+	{
+		right: calc(50% - 12.25rem);
+		font-size: 2.7rem;
 	}
 
 	.top-categories
@@ -1696,51 +1737,6 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-top: 50px;
 	}
 
-	.carousel
-	{
-		display: none;
-	}
-
-	/* //////////////////////////////////////////	SEARCH	/////////////////////////////////////////// */
-	.main_section .properties #searchByT
-	{
-		top: 70px;
-		width: 300px;
-	}
-
-	.main_section .properties p a #searchIcon
-	{
-		top: 70px;
-	}
-
-	
-	.main_section .properties p a[aria-expanded="true"] #searchIcon, .main_section .properties p a #searchIcon:hover
-	{
-		top: 67px;
-	}
-
-	.main_section .properties h1
-	{
-		margin-bottom: 60px;
-	}
-
-	form.search
-	{
-		position: relative;
-		/* top: 20rem; */
-		width: 100%;
-		right: 0;
-	}
-
-	.properties .card img
-	{
-		margin: 0;
-	}
-
-	.index_properties .properties .card
-	{
-		max-width: 700px;
-	}
 
 	.index_properties .properties .mySwiper .swiper-button-next,
 	.index_properties .properties .mySwiper .swiper-button-prev
