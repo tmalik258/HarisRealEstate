@@ -28,16 +28,16 @@ class Profile (models.Model):
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True, validators=[validate_image_size])
 	phone_number = PhoneNumberField()
 
-	def save (self, *args, **kwargs):
-		super().save(*args, **kwargs)
-		if self.profile_image:
-			img = PillowImage.open(self.profile_image.file) # open image
+	# def save (self, *args, **kwargs):
+	# 	if self.profile_image:
+	# 		img = PillowImage.open(self.profile_image.file) # open image
 
-			# resize image
-			if img.height > 300 or img.width > 300:
-				output_size = (300, 300)
-				img.thumbnail(output_size) # resize image
-				img.save(self.profile_image.path) # save it again and override the larger image
+	# 		# resize image
+	# 		if img.height > 300 or img.width > 300:
+	# 			output_size = (300, 300)
+	# 			img.thumbnail(output_size) # resize image
+	# 			img.save(self.profile_image.file) # save it again and override the larger image
+	# 	super().save(*args, **kwargs)
 
 	def __str__(self):
 		return ""
@@ -254,16 +254,16 @@ class Image (models.Model):
 	# 		return 'No image found'
 	# image_tag.short_description = 'Image'
 
-	def save (self, *args, **kwargs):
-		super().save(*args, **kwargs)
-		if self.image:
-			img = PillowImage.open(self.image.file) # open image
+	# def save (self, *args, **kwargs):
+	# 	super().save(*args, **kwargs)
+	# 	if self.image:
+	# 		img = PillowImage.open(self.image.file) # open image
 
-			# resize image
-			if img.height > 500 or img.width > 500:
-				output_size = (500, 500)
-				img.thumbnail(output_size) # resize image
-				img.save(self.image.file) # save it again and override the larger image
+	# 		# resize image
+	# 		if img.height > 500 or img.width > 500:
+	# 			output_size = (500, 500)
+	# 			img.thumbnail(output_size) # resize image
+	# 			img.save(self.image.file) # save it again and override the larger image
 
 
 class Contact (models.Model):
