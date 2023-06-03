@@ -966,41 +966,6 @@ form.search
 	margin-bottom: 30px;
 }
 
-/* .top-categories h1::before, .agents .agent-title .card-title::before, .index_properties .properties h1::before
-{
-	content: '';
-	display: inline-block;
-	position: absolute;
-	width: 35%;
-	height: 2px;
-	left: 0;
-	top: 23px;
-	background: wheat;
-}
-
-.top-categories h1::after, .agents .agent-title .card-title::after, .index_properties .properties h1::after
-{
-	content: '';
-	display: inline-block;
-	position: absolute;
-	width: 35%;
-	height: 2px;
-	top: 23px;
-	background: wheat;
-	right: 0;
-}
-
-.top-categories h1 .seperator, .agents .agent-title .card-title .seperator, .properties h1 .seperator
-{
-	background: wheat;
-	width: 10px;
-	height: 10px;
-	position: relative;
-	margin: auto 10px;
-	top: -10px;
-	border: none;
-} */
-
 .top-categories .row
 {
 	align-items: flex-end;
@@ -1245,13 +1210,6 @@ form.search
 	position: relative;
 }
 
-/* .properties .search input[type="text"], .properties .search input[type="number"],
-.properties .search select
-{
-	color: black;
-	background: rgb(226, 226, 226);
-} */
-
 .properties h1
 {
 	text-align: center;
@@ -1274,40 +1232,45 @@ form.search
 
 .properties .card
 {
-	/* margin: auto; */
-	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.5),
-    -5px -5px 10px #1c1c1c;
-    background-color: black;
+	box-shadow: var(--box-shadow);
+	/* box-shadow: 7px 7px 15px #1c1c1c; */
+    background-color: var(--maincolor);
 	border: none;
 	border-radius: 20px;
-	/* box-shadow: 0px 0px 60px #141414 inset; */
 	transition: 0.4s;
+}
+
+.properties .card a
+{
+	text-decoration: none;
+	color: var(--primarycolor);
 }
 
 .properties .card .card-body
 {
-	/* color: white; */
 	line-height: 11px;
 }
 
 .properties .card img
 {
-	/* margin-top: 18px; */
-	/* margin-left: 7px; */
 	border-radius: 10px;
 	z-index: 2;
 	width: 100%;
-	/* width: 265px; */
 	background: white;
-	/* height: 255px; */
-	/* position: absolute; */
-	/* margin: auto; */
+	max-height: 300px;
 }
 
-/* .properties .card:hover
+.properties .card .row .card-body .bedicon
 {
-	box-shadow: 0px 0px 60px #141414 inset, 0px 0px 15px wheat;
-} */
+	font-size: 25px;
+	margin-right: 10px;
+}
+
+.properties .card .row .card-body .bedicon ion-icon
+{
+	margin-top: -4px;
+	margin-bottom: -6px;
+}
 
 .properties .card .card-body .email
 {
@@ -1346,13 +1309,8 @@ form.search
 	transform: scaleX(1.1);
 }
 
-/* .index_properties */
-/* { */
-	/* background: whitesmoke; */
-/* } */
 .index_properties .properties
 {
-	/* box-shadow: none; */
 	font-size: 15px;
 }
 

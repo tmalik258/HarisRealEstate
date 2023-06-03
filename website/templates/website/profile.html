@@ -30,12 +30,12 @@
 				<div class="col">
 					<div class="card my-2" style="max-width: 700px;">
 						<div class="row g-0">
-							<div class="col-md-5">
+							<div class="col-md-5 mb-md-0 p-md-3">
 								<a href="{% url 'single_property' post.id %}">
 									{% if post.img.first %}
-										<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" height="100%" alt="{{ post.img.first.images }}">
+										<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
 									{% else %}
-										<img loading="lazy" src="{% static 'website\img\icons\Dark theme logo (Haris real estate).png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+										<img loading="lazy" src="{% static 'website/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 									{% endif %}
 								</a>
 							</div>
@@ -51,7 +51,9 @@
 											{{ post.get_area_size_unit_display }}
 										</p>
 										{% if post.bedroom and post.bathroom %}
-											<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom_display }}</strong> Baths</p>
+											<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> <span class="bedicon">
+												<ion-icon name="bed-outline"></ion-icon>
+											</span> <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom_display }}</strong> Baths</p>
 										{% elif post.bedroom %}
 											<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds</p>
 										{% endif %}

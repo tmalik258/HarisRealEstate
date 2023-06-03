@@ -9,7 +9,7 @@ from PIL import Image as PillowImage
 class Profile (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-		return '/user_{0}/profile_pictures/{1}'.format(instance.user.username, filename)
+		return 'user_{0}/profile_pictures/{1}'.format(instance.user.username, filename)
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
@@ -20,13 +20,13 @@ class Profile (models.Model):
 	def save (self, *args, **kwargs):
 		super().save(*args, **kwargs)
 		if self.profile_image:
-			img = PillowImage.open(self.profile_image.path) # open image
+			img = PillowImage.open(self.profile_image.file) # open image
 
 			# resize image
 			if img.height > 300 or img.width > 300:
 				output_size = (300, 300)
 				img.thumbnail(output_size) # resize image
-				img.save(self.profile_image.path) # save it again and override the larger image
+				img.save(self.profile_image.file) # save it again and override the larger image
 
 	def __str__(self):
 		return ""
@@ -131,8 +131,8 @@ class Listing (models.Model):
 			return False
 
 	def get_bathroom(self):
-		if self.custom_bthroom:
-			return self.custom_bthroom
+		if self.custom_bathroom:
+			return self.custom_bathroom
 		elif self.bathroom:
 			return self.bathroom
 		else:
@@ -162,7 +162,7 @@ class Comment (models.Model):
 class Image (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
-		return '/user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)
+		return 'user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)
 	image = models.ImageField(upload_to = user_directory_path, blank=True)
 	listing = models.ForeignKey(Listing, on_delete= models.CASCADE, related_name='img')
 
@@ -179,13 +179,13 @@ class Image (models.Model):
 	def save (self, *args, **kwargs):
 		super().save(*args, **kwargs)
 		if self.image:
-			img = PillowImage.open(self.image.path) # open image
+			img = PillowImage.open(self.image.file) # open image
 
 			# resize image
 			if img.height > 500 or img.width > 500:
 				output_size = (500, 500)
 				img.thumbnail(output_size) # resize image
-				img.save(self.image.path) # save it again and override the larger image
+				img.save(self.image.file) # save it again and override the larger image
 
 
 class Contact (models.Model):

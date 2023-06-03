@@ -121,9 +121,6 @@ DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'website/static')
 ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type
@@ -132,7 +129,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login'
-
 
 
 # Google Authentication
