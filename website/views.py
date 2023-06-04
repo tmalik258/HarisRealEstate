@@ -432,9 +432,6 @@ def register(request):
         # Authenticate the user with the provided credentials
         user = authenticate(request, username=username, password=password)
         
-        # Set the backend attribute on the user
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
-
         login(request, user)
         return redirect("profile")
     else:

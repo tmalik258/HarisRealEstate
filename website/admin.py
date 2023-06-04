@@ -21,6 +21,8 @@ class UserProfileInline (admin.StackedInline):
 class UserAdmin (UserAdmin):
 	inlines = [UserProfileInline]
 
+	list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'date_joined')
+
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
