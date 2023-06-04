@@ -181,7 +181,7 @@
 				<span class="menuText">Menu</span>
 			</div>
 			<ul>
-				<li {% if request.path == '/' %} class="list active "{% endif %} class="list" style="--clr: #f00">
+				<li {% if request.path == '/' %} class="list active system"{% endif %} class="list system" style="--clr: #f00">
 					<a class="section nav-link" href="{% url 'index' %}">
 						<span class="icon">
 							<ion-icon name="planet-outline"></ion-icon>
@@ -189,10 +189,18 @@
 						<span class="text">Welcome</span>
 					</a>
 				</li>
-				<li {% if "/createListing" in request.path %} class="list active "{% endif %} class="list" style="--clr: #707">
+				<li {% if request.path == '/' %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #f00">
+					<a class="section nav-link" href="{% url 'index' %}">
+						<span class="icon">
+							<ion-icon name="home-outline" aria-label="Home"></ion-icon>
+						</span>
+						<span class="text">Welcome</span>
+					</a>
+				</li>
+				<li {% if "/createListing" in request.path %} class="list active"{% endif %} class="list" style="--clr: #707">
 					<a class="section nav-link" href="{% url 'createListing' %}">
 						<span class="icon">
-							<ion-icon name="create-outline"></ion-icon>
+							<ion-icon name="create-outline" aria-label="Sell"></ion-icon>
 						</span>
 						<span class="text">Sell</span>
 					</a>
@@ -208,7 +216,7 @@
 				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #099">
 					<a class="section nav-link" href="{% url 'properties' %}">
 						<span class="icon">
-							<ion-icon name="business-outline"></ion-icon>
+							<ion-icon name="business-outline" aria-label="Buy"></ion-icon>
 						</span>
 						<span class="text">Buy/Listings</span>
 					</a>
@@ -252,7 +260,7 @@
 					<li {% if "/profile" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #2196f3">
 						<a class="section nav-link" href="{% url 'profile' %}">
 							<span class="icon">
-								<ion-icon name="person-outline"></ion-icon>
+								<ion-icon name="person-outline" aria-label="Profile"></ion-icon>
 							</span>
 							<span class="text">Profile</span>
 						</a>
@@ -260,7 +268,7 @@
 					<li class="list mobile" style="--clr: #0fc70f">
 						<a class="section nav-link" href="{% url 'account_logout' %}">
 							<span class="icon">
-								<ion-icon name="log-out-outline"></ion-icon>
+								<ion-icon name="log-out-outline" aria-label="Logout"></ion-icon>
 							</span>
 							<span class="text">Logout</span>
 						</a>
@@ -269,7 +277,7 @@
 						<li class="list mobile" style="--clr: #000">
 							<a class="section nav-link" href="{% url 'account_login' %}">
 								<span class="icon">
-									<ion-icon name="log-in-outline"></ion-icon>
+									<ion-icon name="log-in-outline" aria-label="Login"></ion-icon>
 								</span>
 								<span class="text">Login</span>
 							</a>
@@ -350,44 +358,25 @@
 							Contact Us
 						</a>
 					</li>
-					<li>
-						<a href="{% url 'privacy-policy' %}">
-							Public Privacy Policy
-						</a>
-					</li>
 				</ul>
 			</div>
-			<!-- <div class="footer_col">
-				<ul class="footer_list">
-					<th class="th-group-item"><h3><div class="seperator" style="background: wheat; top: -6px;"></div>SOCIAL<div class="seperator" style="background: wheat; top: -6px;"></div></h3></th>
-					<li>
-						<a href="{% url 'index' %}">
-							Instagram
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'properties' %}">
-							FaceBook
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'about_us' %}">
-							Whatsapp
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'agents' %}">
-							Youtube
-						</a>
-					</li> -->
-					<!-- <li>
-						<a href="{% url 'contact_us' %}">
-							Contact Us
-						</a>
-					</li> -->
-				<!-- </ul>
-			</div> -->
 		</div>
+		<ul class="nav justify-content-center fw-light m-0 p-0" style="font-size: 13px;">
+			<li class="nav-item">
+				<a class="nav-link disabled">Copyright &copy; 2023 </a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://wa.me/qr/OMSZI67F3FZSC1" target="_blank">K.T. Developers</a>
+			</li>
+			<li class="nav-item">
+				  <a class="nav-link" href="{% url 'privacy-policy' %}">
+				Privacy Policy
+				</a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="{% url 'terms' %}">Terms of Use</a>
+			</li>
+		  </ul>
 	</footer>
 	{% endblock %}
 	<!--------------------------	FOOTER Ends  -------------------------------- -->

@@ -385,16 +385,19 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
+            print("Password Must Match")
             return render(request, "account/signup.html", {
                 "pass_error_message": "Passwords must match.",
                 'pass_error': True
             })
         elif password in username:
+            print("Password can't be similar to username")
             return render(request, "account/signup.html", {
                 "pass_error_message": "Your password can't be similar to username.",
                 'pass_error': True
             })
         elif password in email:
+            print("Your password can't be similar to email.")
             return render(request, "account/signup.html", {
                 "pass_error_message": "Your password can't be similar to email.",
                 'pass_error': True
@@ -405,23 +408,42 @@ def register(request):
         try:
             user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name)
             user.save()
-            profile = Profile(user=user)
-            profile.bio_info = bio_info
-            profile.estate_name = estate_name
-            profile.phone_number = phone_number
-            if profile_image:
-                profile.profile_image = profile_image
-            profile.save()
+            print("User Account Created")
         except IntegrityError:
+            print(IntegrityError)
             return render(request, "account/signup.html", {
                 "username_error_message": "Username already taken.",
                 'username_error': True
             })
+         # Check if profile already exists for the user
+        profile, created = Profile.objects.get_or_create(user=user)
+        # if created:
+        profile.bio_info = bio_info
+        profile.estate_name = estate_name
+        profile.phone_number = phone_number
+        if profile_image:
+            profile.profile_image = profile_image
+            print("Profile picture saved")
+        profile.save()
+        print("Profile Added")
+        
         messages.success(request, "Hurray! Your account has been activated.")
+
+        # Authenticate the user with the provided credentials
+        user = authenticate(request, username=username, password=password)
+        
+        # Set the backend attribute on the user
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+
         login(request, user)
         return redirect("profile")
     else:
         return render(request, "account/signup.html")
 
+
 def privacyPolicy(request):
     return render(request, 'website/privacy-policy.html')
+
+
+def termsView(request):
+    return render(request, 'website/terms.html')
