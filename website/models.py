@@ -198,6 +198,7 @@ class Listing (models.Model):
 	address = models.TextField(max_length=250)
 	description = models.TextField(max_length=700)
 	time_created = models.DateTimeField(auto_now_add=True)
+	updated = models.DateTimeField(auto_now=True)
 	active = models.BooleanField(default=True)
 
 	def get_bedroom(self):

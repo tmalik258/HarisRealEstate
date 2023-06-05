@@ -56,13 +56,22 @@ class PropertiesListView (ListView):
 
 def single_property (request, item):
     filter_form = listingGetRequestForm()
+
+    active = False
+
     try:
         post = Listing.objects.get(id=item)
+
+        if request.user.is_authenticated:
+            if request.user.username == post.creator.username:
+                active = True
+
     except Listing.DoesNotExist:
         post = ""
     return render(request, 'website/singleProperty.html', {
         'filter_form': filter_form,
-        'post': post
+        'post': post,
+        'active': active
     })
 
 class SearchedPropertiesListView (ListView):
@@ -291,6 +300,10 @@ def profileUpdate (request):
 @login_required
 def createListing (request):
     filter_form = listingGetRequestForm()
+
+    heading = 'Sell Your Own Property'
+    submit = 'Post'
+
     if request.method == "POST":
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')
@@ -333,12 +346,92 @@ def createListing (request):
             print(listing_form.errors)
             return render(request, 'website/createListing.html', {
                 'listing_form': listing_form,
+                'heading': heading,
+                'submit': submit,
+                'create': True,
             })
 
     listing_form = listingForm
     return render(request, 'website/createListing.html', {
         'listing_form': listing_form,
+        'heading': heading,
+        'submit': submit,
+        'create': True,
     })
+
+# Update Form Incomplete ## image ## bedroom and bathroom errors
+@login_required
+def updateListing (request, item_id):
+    filter_form = listingGetRequestForm()
+
+    heading = 'Update Listing'
+    submit = 'Save'
+    listing = Listing.objects.get(id=item_id)
+
+    if request.method == "POST":
+        listing_form = listingForm (request.POST, instance=listing)
+        images = request.FILES.getlist('images')
+        bedroom = request.POST['bedroom']
+        bathroom = request.POST.get('bathroom', None)
+        category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+
+        if listing_form.is_valid():
+            listing_obj = listing_form.save(commit=False)
+            listing_obj.creator = request.user
+            listing_obj.purpose = request.POST['purpose']
+
+            if listing_obj.category in category_list:
+                if listing_obj.custom_bedroom:
+                    listing_obj.bedroom = ''
+                elif bedroom:
+                    listing_obj.bedroom = bedroom
+
+                if (bedroom or listing_obj.custom_bedroom) and listing_obj.custom_bathroom:
+                    listing_obj.bathroom = ''
+                elif (bedroom or listing_obj.custom_bedroom) and bathroom:
+                    listing_obj.bathroom = bathroom
+            else:
+                listing_obj.bedroom = ''
+                listing_obj.bathroom = ''
+            listing_obj.active = True
+            listing_obj.save()
+
+            # No Image Update Option
+            # for image_file in images:
+            #     img = Image(listing=listing_obj, image=image_file)
+            #     img.save()
+
+            messages.success(request, "Listing has been updated!")
+            return HttpResponseRedirect("/createListing")
+        
+        else:
+            for field in listing_form:
+                for error in field.errors:
+                    messages.error(request, f"{field.name}: {error}")
+            print(listing_form.errors)
+            return render(request, 'website/createListing.html', {
+                'listing_form': listing_form,
+                'heading': heading,
+                'submit': submit,
+            })
+
+    listing_form = listingForm(instance=listing)
+    return render(request, 'website/createListing.html', {
+        'listing_form': listing_form,
+        'heading': heading,
+        'submit': submit,
+    })
+
+@login_required
+def deleteListing (request, item_id):
+    listing = Listing.objects.get(id = item_id)
+    listing.delete()
+
+    messages.success(request, "Listing Has Been Deleted!")
+
+    return redirect('/')
+
+
         
 def login_view(request):
     if request.user.is_authenticated:

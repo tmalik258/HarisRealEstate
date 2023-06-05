@@ -6,8 +6,8 @@
 	--primarycolor: #0c294a;
 	--secondarycolor: #c00000;
 	--maincolor: #edf1f4;
-	--box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.2),
-    -15px -15px 20px rgba(0, 0, 0, 0.05);
+	--box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2),
+    -10px -10px 15px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -296,7 +296,6 @@ body
 .navigation.active .menu .menuToggle{
 	width: 23px;
 	height: 18px;
-	/* background: black; */
 }
 
 .navigation.active .menu .menuToggle::before{
@@ -585,8 +584,9 @@ body
 	justify-content: center;
 	width: 50%;
 	/* height: 77vh; */
-	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1),
-    -15px -15px 20px #fffb;
+	/* box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1),
+    -15px -15px 20px #fffb; */
+	box-shadow: var(--box-shadow);
     background-color: var(--maincolor);
 	/* box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
@@ -601,6 +601,7 @@ body
 
 .login input, .login input:focus, .login textarea, .login textarea:focus, .login .form-select, 
 .contact-us .login .btn,
+.create_listing.login input, .create_listing.login input:focus, .create_listing.login .form-select,
 .search input, .search input:focus, .search .form-select, 
 .profile .btn, .login .btn.btn-outline-secondary
 {
@@ -663,10 +664,6 @@ body
 /* //////////////////////////////////////////	SEARCH FILTER INDEX	/////////////////////////////////////////// */
 form.search
 {
-	/* position: absolute; */
-	/* background: var(--maincolor); */
-	/* padding-top: 5px; */
-	/* padding: 2px 20px 20px 20px; */
 	border-radius: 10px;
 	margin: auto;
 	width: 80%;
@@ -937,8 +934,7 @@ form.search
 {
 	margin: 50px 10px;
 	border-radius: 10px;
-	box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.2),
-    -15px -15px 20px rgba(0, 0, 0, 0.05);
+	box-shadow: var(--box-shadow);
     background-color: #edf1f4;
 	overflow: hidden;
 	position: relative;
@@ -1153,16 +1149,16 @@ form.search
 	box-shadow: none;
 	background: none;
 }
-.contact-us .login, .create_listing .login
+.contact-us .login, .create_listing.login
 {
-	width: 98%;
+	width: 95%;
 	height: 98%;
 	margin: 1% auto;
 }
 
-.contact-us .login h1, .create_listing .login h1
+.contact-us .login h1, .create_listing.login h1
 {
-	font-size: 70px;
+	font-size: 30px;
 }
 
 .contact-us .login .login-body
@@ -1274,16 +1270,14 @@ form.search
 	margin-bottom: -6px;
 }
 
-.properties .card .card-body .email
+.properties .card-body .email
 {
 	color: var(--secondarycolor);
-	/* position: relative; */
 	border: var(--secondarycolor) solid 1px;
-	/* overflow: hidden; */
 	transition: 0.3s;
 }
 
-.properties .card .card-body .email:hover
+.properties .card-body .email:hover
 {
 	color: var(--maincolor);
 	/* background: none; */
@@ -1354,7 +1348,7 @@ form.search
 .properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-prev,
 .properties.singleProperty .swiper.singlePropertyImageSwiper .swiper-button-next
 {
-	color: wheat;
+	color: var(--primarycolor);
 }
 
 .index_properties .properties .mySwiper .swiper-button-next
@@ -1477,6 +1471,39 @@ form.search
 	width: 30%;
 }
 
+.create_listing.login
+{
+	overflow: hidden;
+}
+
+.create_listing.login .form-select
+{
+	background: white;
+}
+
+.create_listing.login input:focus, .create_listing.login textarea:focus, .create_listing.login .form-select:focus
+{
+	--box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+	box-shadow: var(--box-shadow);
+}
+
+.create_listing.login .form-select.choice
+{
+	width: 100%;
+}
+
+.create_listing.login .purpose
+{
+	background: black;
+	border-bottom: 0;
+	color: #fff;
+}
+
+.create_listing.login .purpose:checked, .create_listing.login .purpose:hover, .create_listing.login input:checked + .purpose
+{
+	background: #0c294a;
+}
+
 /* //////////////////////////////////////////	FOOTER	/////////////////////////////////////////// */
 footer
 {
@@ -1564,14 +1591,9 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	}
 
 	/*------ CREATE-LISTING-FORM ------*/
-	.create_listing .login form
+	.create_listing.login form
 	{
 		width: 75%;
-	}
-
-	.create_listing .login form .form-select
-	{
-		width: 25%;
 	}
 
 	/*------ PROPERTY-LISTING ------*/
@@ -1684,6 +1706,11 @@ footer .footer_row .footer_col ul li a:hover .seperator
 
 	.navigation ul li.active .icon ion-icon{
 		content: 'filled';
+	}
+
+	.navigation ul li .section
+	{
+		border: none;
 	}
 
 	/*-------- SEARCH --------*/

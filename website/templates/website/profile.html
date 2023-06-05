@@ -40,7 +40,7 @@
 								</a>
 							</div>
 							<div class="col-md-7">
-								<a href="{% url 'single_property' post.id %}" style="color: wheat; text-decoration: none;">
+								<a href="{% url 'single_property' post.id %}">
 									<div class="card-body">
 										<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
 										<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 20px;">{{ post.price | int_word }}</span></p>

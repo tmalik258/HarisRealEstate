@@ -91,11 +91,11 @@ class listingForm (ModelForm):
 				'min': 0
 			}),
             'category': forms.Select(attrs={
-				'class': 'form-select',
+				'class': 'form-select choice',
 				'id': 'category_input'
 			}),
             'city': forms.Select(attrs={
-				'class': 'form-select',
+				'class': 'form-select choice',
 				'id': ''
 			}),
             'address': forms.TextInput(attrs={
@@ -118,7 +118,6 @@ class listingForm (ModelForm):
 			'custom_bedroom': forms.NumberInput(attrs={
 				'id': 'custom_bedroom_input',
 				'placeholder': 'Input Custom Rooms',
-				'style': '{\'width\':\'100px\'}',
 				'min': 11
 			}),
 			'bathroom': forms.RadioSelect(attrs={
@@ -137,7 +136,7 @@ class listingForm (ModelForm):
 				'id': 'area_size'
 			}),
             'area_size_unit': forms.Select(attrs={
-				'class': 'form-select',
+				'class': 'form-select choice',
 				'id': 'area_size_unit'
 			}),
 		}

@@ -6,7 +6,6 @@
 	<section class="main_section">
 		<article class="properties singleProperty">
 			<h1>{{ post.title }}</h1>
-			<!-- <div class="card mb-3"> -->
 				{% if post.img.first %}
 					<div class="swiper singlePropertyImageSwiper">
 						<div class="swiper-wrapper">
@@ -49,16 +48,22 @@
 									<p class="card-text ms-3" style="line-height: 25px;">{{ post.description | linebreaksbr }}</p>
 								</div>
 							</div>
-						</div>
-							<p class="card-text text-center"><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
-							{% if post.creator.profile.phone_number %}
-								<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
-							{% endif %}
-							<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+							<div class="card-text mt-3">
+								{% if post.creator.profile.phone_number %}
+									<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
+								{% endif %}
+								<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+								{% if active %}
+									{% comment %}
+									<!-- <a href="{% url 'update-listing' post.id %}"  class="btn btn-outline-secondary email">Update</a> -->
+									{% endcomment %}
+									<a href="{% url 'delete-listing' post.id %}"  class="btn btn-outline-secondary email">Delete</a>
+								{% endif %}
+								<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated | timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+							</div>
 						</div>
 					</div>
 				</div>
-			  <!-- </div> -->
 		</article>
 	</section>
 {% endblock %}
