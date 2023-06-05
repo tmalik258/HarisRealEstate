@@ -611,6 +611,11 @@ body
 	padding: 12px 20px;
 }
 
+.login input:focus, .login textarea:focus, .login .form-select:focus
+{
+	--box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
+	box-shadow: var(--box-shadow);
+}
 
 .login input[type="submit"], 
 .profile .btn.btn-primary,
@@ -1479,12 +1484,6 @@ form.search
 .create_listing.login .form-select
 {
 	background: white;
-}
-
-.create_listing.login input:focus, .create_listing.login textarea:focus, .create_listing.login .form-select:focus
-{
-	--box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
-	box-shadow: var(--box-shadow);
 }
 
 .create_listing.login .form-select.choice
