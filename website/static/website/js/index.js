@@ -3,6 +3,25 @@
 		if (window.innerWidth > 990)
 		{
 			$('.carousel-inner').height(window.innerHeight - 170);
+
+			
+			/* /////////////////////////////////	FADE SCROLL VISUAL	////////////////////////////////// */
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					// console.log(entry)
+					if (entry.isIntersecting)
+					{
+						entry.target.classList.add('show');
+					}
+					else
+					{
+						entry.target.classList.remove('show');
+					}
+				})
+			})
+
+			const hiddenElements = document.querySelectorAll('.hidden');
+			hiddenElements.forEach((el) => observer.observe(el));
 		}
 
 		 // Toggle for navigation
@@ -10,25 +29,6 @@
 	// }
 // }
 
-
-/* /////////////////////////////////	FADE SCROLL VISUAL	////////////////////////////////// */
-const observer = new IntersectionObserver((entries) => {
-	entries.forEach((entry) => {
-		// console.log(entry)
-		if (entry.isIntersecting)
-		{
-			entry.target.classList.add('show');
-		}
-		else
-		{
-			entry.target.classList.remove('show');
-		}
-	})
-})
-
-const hiddenElements = document.querySelectorAll('.hidden');
-hiddenElements.forEach((el) => observer.observe(el));
-// $('.hidden').each((el) => observer.observe(el));
 
 
 // window.onload = function(){
