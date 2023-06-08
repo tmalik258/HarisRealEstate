@@ -20,7 +20,7 @@ from django.views.generic import ListView, View
 from allauth.account.decorators import verified_email_required
 
 from .models import Listing, Comment, Image, Contact, Profile
-from .forms import listingForm, listingGetRequestForm, UserUpdateForm, ProfileUpdateForm
+from .forms import listingForm, UserUpdateForm, ProfileUpdateForm
 
 
 # Create your own mixins
@@ -34,10 +34,8 @@ class StaffMemberRequiredMixin(object):
 def index (request):
     agents = User.objects.filter(is_staff=True, is_active=True)
     posts = Listing.objects.filter(active=True).order_by("-time_created")[0:10]
-    filter_form = listingGetRequestForm()
     return render(request, 'website/index.html', {
         'agents': agents,
-        'filter_form': filter_form,
         'posts': posts
     })
 
@@ -48,28 +46,19 @@ class PropertiesListView (ListView):
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "website/properties.html"
 
-    def get_context_data (self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter_form'] = listingGetRequestForm()
-        return context
-
 
 def single_property (request, item):
-    filter_form = listingGetRequestForm()
-
     active = False
 
     try:
         post = Listing.objects.get(id=item)
 
-        if request.user.is_authenticated:
-            if request.user.username == post.creator.username:
-                active = True
+        if request.user.is_authenticated and request.user.username == post.creator.username:
+            active = True
 
     except Listing.DoesNotExist:
         post = ""
     return render(request, 'website/singleProperty.html', {
-        'filter_form': filter_form,
         'post': post,
         'active': active
     })
@@ -86,11 +75,6 @@ class SearchedPropertiesListView (ListView):
                 active=True
             ).order_by("-time_created").all()
         return qs
-        
-    def get_context_data (self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter_form'] = listingGetRequestForm()
-        return context
 
 
 class FilteredPropertiesListView (ListView):
@@ -147,11 +131,6 @@ class FilteredPropertiesListView (ListView):
                 area_size_unit=self.request.GET['area_size_unit']
             )
         return qs
-        
-    def get_context_data (self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter_form'] = listingGetRequestForm()
-        return context
 
 
 class CategoryListView (ListView):
@@ -175,11 +154,6 @@ class CategoryListView (ListView):
         ).order_by('-time_created').all()
         return qs
         
-    def get_context_data (self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter_form'] = listingGetRequestForm()
-        return context
-
 
 @csrf_exempt
 def contact (request):
@@ -230,12 +204,10 @@ def contact (request):
 
 
 def about_us (request):
-    filter_form = listingGetRequestForm()
     return render(request, 'website/about-us.html')
 
 
 def contact_us_page (request):
-    filter_form = listingGetRequestForm()
     if request.user.is_staff and request.user.is_authenticated:
         contacts = Contact.objects.all()
         contacts = contacts.order_by("-date_created").all()
@@ -246,7 +218,6 @@ def contact_us_page (request):
 
 
 def agents (request):
-    filter_form = listingGetRequestForm()
     agents = User.objects.all()
     return render(request, 'website/agents.html', {
         'agents': agents
@@ -266,15 +237,9 @@ class profileWithPropertiesListView(ListView, LoginRequiredMixin):
             ).order_by("-time_created").all()
         return qs
 
-    def get_context_data (self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter_form'] = listingGetRequestForm()
-        return context
-
 
 @login_required
 def profileUpdate (request):
-    filter_form = listingGetRequestForm()
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -299,8 +264,6 @@ def profileUpdate (request):
 # @verified_email_required
 @login_required
 def createListing (request):
-    filter_form = listingGetRequestForm()
-
     heading = 'Sell Your Own Property'
     submit = 'Post'
 
@@ -362,8 +325,6 @@ def createListing (request):
 # Update Form Incomplete ## image ## bedroom and bathroom errors
 @login_required
 def updateListing (request, item_id):
-    filter_form = listingGetRequestForm()
-
     heading = 'Update Listing'
     submit = 'Save'
     listing = Listing.objects.get(id=item_id)
@@ -425,11 +386,16 @@ def updateListing (request, item_id):
 @login_required
 def deleteListing (request, item_id):
     listing = Listing.objects.get(id = item_id)
-    listing.delete()
-
-    messages.success(request, "Listing Has Been Deleted!")
-
-    return redirect('/')
+    if request.user == listing.creator:
+        listing.delete()
+        messages.success(request, "Listing Has Been Deleted!")
+        return redirect('/')
+    else:
+        message.error(request, "You don't have authority to delete this post.")
+        return render(request, 'website/singleProperty.html', {
+        'post': listing,
+        'active': False
+    })
 
 
         

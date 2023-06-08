@@ -257,7 +257,7 @@ class listingGetRequestForm (ModelForm):
 		'class': 'form-select',
 		'title': 'Select Category',
 		'id': ''
-	}, choices=CATEGORY_CHOICES), required=False)
+	}, choices=CATEGORY_CHOICES))
 	location = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Search by Location',

@@ -19,7 +19,7 @@
 		<h5 class="text-muted">{{ user.email }}<br>{{ user.profile.phone_number }}</h5>
 		{% if user.is_authenticated %}
 			<a href="{% url 'profile-update' %}" class="btn btn-primary" type="button">Update Profile</a>
-			<a href="{% url 'change-password' %}" class="btn btn-outline-danger" type="button">Update Password</a>
+			<a href="{% url 'change-password' %}" class="btn btn-outline-danger changepassword" type="button">Update Password</a>
 		{% endif %}
 	</section><hr>
 
