@@ -57,6 +57,8 @@
 	
 	{% block head %}
 	{% endblock %}
+	{% block style %}
+	{% endblock %}
 </head>
 <body>
 	{% block nav %}
@@ -401,5 +403,8 @@
 	
 	<!-------------------------		JavaScript 	-------------------------- -->
 	<script defer src="{% static 'website/js/index.js' %}"></script>
+
+	{% block script %}
+	{% endblock %}
 </body>
 </html>

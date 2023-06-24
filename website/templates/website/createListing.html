@@ -1,6 +1,10 @@
 {% extends 'website/layout.html' %}
 {% load static %}
 
+{% block style %}
+	<link rel="stylesheet" href="{% static '/website/css/draganddrop.css' %}" type="text/css" />
+{% endblock %}
+
 {% block body %}
 <section class="main_section">
 	<div class="create_listing login">
@@ -134,14 +138,18 @@
 			<div class="col my-3">{{ listing_form.description.label }}{{ listing_form.description }}</div>
 			<!-- {{ listing_form.as_p }} -->
 			{% if create %}
-			<div class="form-group">
-				<label for="listing-image">Images</label>
-				<input type="file" accept="image/" name="images" class="form-control-file" id="listing-image" multiple>
-				<div class="form-text ms-5">Select upto 15 images for the property to upload.</div>
+			<div id="dropzone" class="form-group mb-3">
+				<label for="listing-image" style="color: #0c294a;">Click to upload Images or Drag and Drop Here <span class="text-muted small"><br>(Select upto 15 images for the property to upload.)</span></label>
+				<input type="file" accept="image/" name="images" id="listing-image" multiple />
 			</div>
+			<div id="image-preview" class="col m-auto"></div> <!-- Container for displaying uploaded images -->
 			{% endif %}
 			<input type="submit" value="{{ submit }}" class="btn btn-dark mt-3 float-end">
 		</form>
 	</div>
 </section>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'website/js/draganddrop.js' %}"></script>
 {% endblock %}

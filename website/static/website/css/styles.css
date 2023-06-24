@@ -27,8 +27,6 @@ body
 	--maincolor:#f1f6fc;
 	margin: auto;
     background: var(--maincolor);
-	/* background-color: rgb(24, 22, 17); */
-	/* color: blue; */
 	font-family: 'unbounded', 'Sigmar One', 'Rubik 80s Fade', Times, serif;
 	scroll-behavior: smooth;
 }
