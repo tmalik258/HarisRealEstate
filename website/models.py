@@ -2,18 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
-from django.utils.safestring import mark_safe
+
+# Image Resize and Upload
+from io import BytesIO
+from django.core.files.base import ContentFile
 from PIL import Image as PillowImage
-from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-
-
-# to validate if image is less than 1 mb or not
-def validate_image_size(value):
-    limit_mb = 1
-    limit_bytes = limit_mb * 1024 * 1024
-    if value.size > limit_bytes:
-        raise ValidationError(_("Maximum file size allowed is %(limit_mb)sMB.") % {'limit_mb': limit_mb})
 
 
 # Create your models here.
@@ -25,19 +18,27 @@ class Profile (models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
 	estate_name = models.CharField(max_length=256, null=True, blank=True, help_text="Optional")
-	profile_image = models.ImageField(upload_to = user_directory_path, blank=True, validators=[validate_image_size])
+	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
 	phone_number = PhoneNumberField()
 
-	# def save (self, *args, **kwargs):
-	# 	if self.profile_image:
-	# 		img = PillowImage.open(self.profile_image.file) # open image
+	def save(self, *args, **kwargs):
+		if self.image:
+			img = PillowImage.open(self.image)
 
-	# 		# resize image
-	# 		if img.height > 300 or img.width > 300:
-	# 			output_size = (300, 300)
-	# 			img.thumbnail(output_size) # resize image
-	# 			img.save(self.profile_image.file) # save it again and override the larger image
-	# 	super().save(*args, **kwargs)
+			# Resize image
+			if img.height > 500 or img.width > 500:
+				output_size = (500, 500)
+				img.thumbnail(output_size)
+
+				# Save the resized image to a BytesIO buffer
+				output_buffer = BytesIO()
+				img.save(output_buffer, format='JPEG')
+				output_buffer.seek(0)
+
+				# Save the buffer content to the image field
+				self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
+
+		super().save(*args, **kwargs)
 
 	def __str__(self):
 		return ""
@@ -248,23 +249,24 @@ class Image (models.Model):
 	def __str__(self):
 		return f"{self.listing}"
 
-	# def image_tag (self):
-	# 	if self.image:
-	# 		return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
-	# 	else:
-	# 		return 'No image found'
-	# image_tag.short_description = 'Image'
+	def save(self, *args, **kwargs):
+		if self.image:
+			img = PillowImage.open(self.image)
 
-	# def save (self, *args, **kwargs):
-	# 	super().save(*args, **kwargs)
-	# 	if self.image:
-	# 		img = PillowImage.open(self.image.file) # open image
+			# Resize image
+			if img.height > 500 or img.width > 500:
+				output_size = (500, 500)
+				img.thumbnail(output_size)
 
-	# 		# resize image
-	# 		if img.height > 500 or img.width > 500:
-	# 			output_size = (500, 500)
-	# 			img.thumbnail(output_size) # resize image
-	# 			img.save(self.image.file) # save it again and override the larger image
+				# Save the resized image to a BytesIO buffer
+				output_buffer = BytesIO()
+				img.save(output_buffer, format='JPEG')
+				output_buffer.seek(0)
+
+				# Save the buffer content to the image field
+				self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
+
+		super().save(*args, **kwargs)
 
 
 class Contact (models.Model):
