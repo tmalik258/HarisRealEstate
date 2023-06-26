@@ -543,18 +543,12 @@ body
 	align-items: center;
 	justify-content: center;
 	width: 50%;
-	/* height: 77vh; */
-	/* box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.1),
-    -15px -15px 20px #fffb; */
 	box-shadow: var(--box-shadow);
     background-color: var(--maincolor);
-	/* box-shadow: inset -5px -5px 10px rgba(255, 255, 255, 0.05),
-	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
-	background-color: #141414; */
 	border-radius: 20px;
-	padding: 25px 20px;
+	/* padding: 25px 20px; */
 	margin: auto;
-	margin-top: 5%;
+	/* margin-top: 5%; */
 	box-sizing: border-box;
 	overflow: auto;
 }
@@ -565,7 +559,7 @@ body
 .search input, .search input:focus, .search .form-select, 
 .profile .btn, .login .btn.btn-outline-secondary
 {
-	border: none;
+	border: 1px solid rgba(128, 128, 128, 0.11);
 	outline: none;
 	border-radius: 8px;
 	padding: 12px 20px;
@@ -1117,8 +1111,6 @@ form.search
 .contact-us .login, .create_listing.login
 {
 	width: 95%;
-	height: 98%;
-	margin: 1% auto;
 }
 
 .contact-us .login h1, .create_listing.login h1

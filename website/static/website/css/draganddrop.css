@@ -42,6 +42,18 @@ padding: 3rem 2rem;
 	display: block;
 	margin-top: 5px;
 	cursor: pointer;
+	color: #c00000;
+	border: #c00000 solid 1px;
+	transition: 0.3s;
+  }
+
+  .delete-button:hover
+  {
+	color: #edf1f4;
+	/* background: none; */
+	background: #c00000;
+	box-shadow: 0 0 10px #c00000;
+	transform: scaleX(1.1);
   }
   
 .image-preview-container {

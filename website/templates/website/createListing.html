@@ -2,17 +2,19 @@
 {% load static %}
 
 {% block style %}
-	<link rel="stylesheet" href="{% static '/website/css/draganddrop.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'website/css/draganddrop.css' %}" type="text/css" />
 {% endblock %}
 
 {% block body %}
-<section class="main_section">
-	<div class="create_listing login">
-		<div class="login-body">
-			<h1 class="card-text text-center">{{ heading }}</h1><hr>
-		</div>
-		<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto">
+<div class="container-fluid">
+	<div class="d-flex align-items-center py-4 pb-5">
+		<div class="container">
+			<div class="row">
+				<div class="create_listing login col-12 col-lg-8 mx-auto">
+		<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto p-4 col-lg-10">
 			{% csrf_token %}
+			<h1 class="h3 text-center">{{ heading }}</h1><hr>
+
 			<div class="row">
 				<div class="col-md-8 mb-3">{{ listing_form.title.label }}{{ listing_form.title }}</div>
 				<div class="col mb-3">
@@ -147,7 +149,10 @@
 			<input type="submit" value="{{ submit }}" class="btn btn-dark mt-3 float-end">
 		</form>
 	</div>
-</section>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block script %}

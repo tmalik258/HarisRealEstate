@@ -10,8 +10,11 @@ Log In to your Account
 {% endblock %}
 
 {% block body %}
-
-    <div class="login">
+<div class="container-fluid">
+	<div class="d-flex align-items-center py-4 pb-5">
+		<div class="container">
+			<div class="row">
+				<div class="login col-12 col-lg-8 mx-auto p-3">
         <h1 class="text-center fs-2">Login</h1><hr>
         {% if message %}
             <div>{{ message }}</div>
@@ -20,7 +23,7 @@ Log In to your Account
             <div class="text-danger mb-3">{{ error_message }}</div>
         {% endif %}
         
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'login' %}" method="post" class="p-4 col">
             {% csrf_token %}
             <div class="form-floating">
                 <input class="form-control" type="text" id="floatingInput" autofocus name="username" placeholder="Username">
@@ -43,8 +46,11 @@ Log In to your Account
             Go back to <a href="{% url 'index' %}">Home</a><br>
             Don't have an account? <a href="{% url 'register' %}">Register here</a>
         </p>
-    </div>
-
+</div>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
 
 {% block footer %}

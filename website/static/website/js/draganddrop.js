@@ -75,7 +75,7 @@ function createImagePreview(file) {
     image.src = e.target.result;
 
     var deleteButton = document.createElement('button');
-    deleteButton.classList.add('delete-button', 'btn', 'btn-sm', 'btn-danger', 'mx-auto', 'mt-2');
+    deleteButton.classList.add('delete-button', 'btn', 'btn-sm', 'mx-auto', 'mt-2');
     deleteButton.textContent = 'Remove';
     deleteButton.addEventListener('click', function() {
       var inputFile = document.getElementById('listing-image');
