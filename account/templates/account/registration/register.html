@@ -1,0 +1,62 @@
+{% extends 'store/layout.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row no-gutter">
+		<div class="col-md-12">
+			<div class="d-flex align-items-center py-4 pb-5">
+				<div class="container">
+					<div class="row">
+						<div class="auth_form col-12 col-lg-7 mx-auto">
+							<form action="" class="rounded mx-auto p-4 col-lg-10" method="post">
+								{% csrf_token %}
+								<h3 class="mb-2">Create an Account</h3>
+								<p class="mb-4 text-muted">It's free and only takes a minute.</p>
+
+								{% if form.errors %}
+								<p class="text-danger">Please correct the following errors:</p>
+								{% for field in form %}
+								{% if field.errors %}
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									{{ field.label }}: {{ field.errors | striptags }}
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+								{% endif %}
+								{% endfor %}
+								{% endif %}
+
+								<label for="id_username">{{ form.username.label }} <span class="text-muted small">(Required)</span></label>
+								{{ form.username }}
+
+								<div class="row">
+									<div class="col">
+										<label for="id_first_name">{{ form.first_name.label }} <span class="text-muted small">(Required)</span></label>
+										{{ form.first_name }}
+									</div>
+									<div class="col">
+										<label for="id_last_name">{{ form.last_name.label }} <span class="text-muted small">(Required)</span></label>
+										{{ form.last_name }}
+									</div>
+								</div>
+
+								<label for="id_email">{{ form.email.label }} <span class="text-muted small">(Required)</span></label>
+								{{ form.email }}
+								<label for="id_password">{{ form.password.label }}
+								<small class="form-text text-muted mb-4 small">({{ form.password.help_text }})</small></label>
+								{{ form.password }}
+								<label for="id_password2">{{ form.password2.label }} <span class="text-muted small">(Required)</span></label>
+								{{ form.password2 }}
+								<input class="btn w-100" type="submit" value="Register">
+								<p class="text-center">Already have an account? <a href="{% url 'account:login' %}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign in</a></p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

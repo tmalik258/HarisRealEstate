@@ -15,7 +15,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Application definition
@@ -31,19 +31,13 @@ INSTALLED_APPS = [
     # External PACKAGES
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
-    'storages',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     # Internal APPS
-    'django.contrib.sites',
+    'account',
     'website',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-#    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,7 +51,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'website/templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,65 +123,14 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/login'
+# Account App Configuration
+LOGIN_REDIRECT_URL = reverse_lazy('store:index')
+AUTH_USER_MODEL = 'account.User'
+LOGIN_URL = '/account/login'
+
+PASSWORD_RESET_TIMEOUT_DAYS = 2
 
 
-# Google Authentication
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
-]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'APP': {
-            'client_id': os.getenv('CLIENT_ID'),
-            'secret': os.getenv('SECRET'),
-            'key': ''
-        },
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        },
-        'INIT_PARAMS': {'cookie_policy': 'single_host_origin'},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'phone_number',
-            'timezone',
-            'locale',
-            'bio_info',
-            'updated_time',
-        ],
-        'EXCHANGE_TOKEN': True,
-        # 'LOCALE_FUNC': 'path.to.your.locale.method',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v1',
-        'DISPLAY_NAME': 'Google',
-        'PROVIDER_NAME': 'Google',
-        'LOGIN_TEMPLATE': 'account/login.html',  # Specify the custom template here
-        # 'LOGIN_URL': '/accounts/google/login/',
-        # 'AUTHORIZATION_URL': 'https://accounts.google.com/o/oauth2/auth',
-        # 'ACCESS_TOKEN_URL': 'https://accounts.google.com/o/oauth2/token',
-        # 'USERINFO_URL': 'https://www.googleapis.com/oauth2/v1/userinfo',
-    }
-}
-
-
-LOGIN_REDIRECT_URL = '/profile'
-LOGOUT_REDIRECT_URL = '/'
-
-SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_LOGOUT_ON_GET= True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_REQUIRED = True
-
-# settings.py
 
 # Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

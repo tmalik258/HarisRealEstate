@@ -10,40 +10,6 @@ from PIL import Image as PillowImage
 
 
 # Create your models here.
-class Profile (models.Model):
-	def user_directory_path(instance, filename):
-        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-		return 'user_{0}/profile_pictures/{1}'.format(instance.user.username, filename)
-
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
-	estate_name = models.CharField(max_length=256, null=True, blank=True, help_text="Optional")
-	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
-	phone_number = PhoneNumberField()
-
-	def save(self, *args, **kwargs):
-		if self.image:
-			img = PillowImage.open(self.image)
-
-			# Resize image
-			if img.height > 500 or img.width > 500:
-				output_size = (500, 500)
-				img.thumbnail(output_size)
-
-				# Save the resized image to a BytesIO buffer
-				output_buffer = BytesIO()
-				img.save(output_buffer, format='JPEG')
-				output_buffer.seek(0)
-
-				# Save the buffer content to the image field
-				self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
-
-		super().save(*args, **kwargs)
-
-	def __str__(self):
-		return ""
-
-
 class Listing (models.Model):
 	AREA_SIZE_CHOICES = (
 		('SFt', 'Sq. Ft.'),

@@ -5,7 +5,7 @@ from .base import *
 
 
 ## ALLOWED HOSTS
-ALLOWED_HOSTS = ['54.250.82.44', '.harisrealestate.com']
+ALLOWED_HOSTS = ['127.0.0.1', '54.250.82.44', '.harisrealestate.com']
 
 ## CSRF TOKEN CLEARANCE
 CSRF_COOKIE_SECURE = True
@@ -58,5 +58,3 @@ DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
 # Static Configuration S3
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-
-SITE_ID = 2
