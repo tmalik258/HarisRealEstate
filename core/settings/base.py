@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     # Internal APPS
     'account',
-    'website',
+    'listing',
 ]
 
 MIDDLEWARE = [

@@ -18,7 +18,7 @@ from .forms import (RegistrationForm, ProfileEditForm)
 from .token import account_activation_token
 
 # Store App
-from store.models import Product
+from website.models import Product
 
 # Order App
 from order.views import Orders_history

@@ -1,0 +1,38 @@
+{% extends 'listing/layout.html' %}
+{% load static %}
+
+{% block body %}
+<section class="main_section">
+	<div class="agents">
+		<div class="agent-title text-center">
+			<h1 class="card-title"><div class="seperator"></div>MEET OUR TEAM<div class="seperator"></div></h1>
+			<h6 class="card-text">A COLLECTIVE, THAT MAKES DREAMS COME TRUE</h6>
+			<p class="card-text">Our strength lies in our individuality. Set up by Esther Bryce, Presson's team strives to bring in the best talent in various fields, from architecture to interior design and sales. </p>
+		</div>
+		<div class="row row-cols-2 row-cols-md-5">
+			{% for agent in agents %}
+				{% if not agent.username == 'talha' %}
+					<div class="col">
+						<div class="card">
+							<a href="">
+								<!-- <div class="imageContainer"> -->
+									{% if agent.profile_image %}
+										<img src="{{ agent.profile_image.url }}" class="card-img" alt="...">
+									{% else %}
+										<img src="media/image_not_found/No_image_available.png" class="card-img" alt="...">
+									{% endif %}
+								<!-- </div> -->
+								<div class="card-body text-center">
+								<h5 class="card-title">{{ agent.first_name | title }} {{ agent.last_name | title }}</h5>
+								<!-- <p class="card-text">{{ agent.bio_info }}</p> -->
+								<!-- <a href="#" class="btn btn-primary">More Info</a> -->
+								</div>
+							</a>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock %}

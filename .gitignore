@@ -6,3 +6,4 @@ virtual/
 media/
 .vscode
 staticfiles/
+_documentation/

@@ -166,3 +166,59 @@ class ProfileEditForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 		self.fields['username'].required = True
 		self.fields['email'].required = True
+
+
+# Create a UserUpdateForm to update a username and email
+class UserUpdateForm(forms.ModelForm):
+	# email = forms.EmailField()
+
+	class Meta:
+		model = User
+		fields = ['username', 'first_name', 'last_name', 'email']
+
+		# labels = {
+		# 	'username': '',
+		# 	'first_name': '',
+		# 	'last_name': '',
+			# 'email': '',
+		# }
+
+		widgets = {
+			'username': forms.TextInput(attrs={
+				'placeholder': 'Username',
+				'class': 'form-control'
+			}),
+			'first_name': forms.TextInput(attrs={
+				'placeholder': 'First Name',
+				'class': 'form-control'
+			}),
+			'last_name': forms.TextInput(attrs={
+				'placeholder': 'Last Name',
+				'class': 'form-control'
+			}),
+			'email': forms.EmailInput(attrs={
+				'placeholder': 'Your Email',
+				'class': 'form-control'
+			}),
+		}
+		# exclude = ('password', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_joined')
+
+
+
+# Create a ProfileUpdateForm to update image.
+class ProfileUpdateForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('__all__')
+		exclude = ('user',)
+
+		widgets = {
+			'bio_info': forms.Textarea(attrs={
+				'placeholder': 'Your Bio Info',
+				'class': 'form-control'
+			}),
+			'estate_name': forms.TextInput(attrs={
+				'placeholder': 'Estate Name',
+				'class': 'form-control'
+			}),
+		}
