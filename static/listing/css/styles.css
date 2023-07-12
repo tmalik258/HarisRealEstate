@@ -560,7 +560,6 @@ body
 
 .auth_form input, .auth_form input:focus, .auth_form textarea, .auth_form textarea:focus, .auth_form .form-select, 
 .contact-us .auth_form .btn,
-.create_listing.auth_form input, .create_listing.auth_form input:focus, .create_listing.auth_form .form-select,
 .search input, .search input:focus, .search .form-select, 
 .profile .btn, .auth_form .btn.btn-outline-secondary
 {
@@ -568,6 +567,7 @@ body
 	outline: none;
 	border-radius: 8px;
 	padding: 12px 20px;
+	background: white;
 }
 
 .search input, .search input:focus, .search .form-select
@@ -1118,17 +1118,13 @@ form.search
 	box-shadow: none;
 	background: none;
 }
-.contact-us .auth_form, .create_listing.auth_form
-{
-	width: 95%;
-}
 
-.contact-us .auth_form h1, .create_listing.auth_form h1
+.contact-us .auth_form h1
 {
 	font-size: 30px;
 }
 
-.contact-us .auth_form .login-body
+/* .contact-us .auth_form .login-body
 {
 	width: 40%;
 	text-align: justify;
@@ -1136,7 +1132,7 @@ form.search
 	position: relative;
 	display: inline-block;
 	transition: 0.2s ease-in-out;
-}
+} */
 
 .contact-us .auth_form form, .contact-us .auth_form .form_message
 {
@@ -1431,36 +1427,19 @@ form.search
 	background: var(--secondarycolor);
 }
 
-/* //////////////////////////////////////////	CREATELISTING	/////////////////////////////////////////// */
 .main_section.create_listing .contact-us .auth_form .login-body
 {
 	margin: 10% auto auto 10%;
 	width: 30%;
 }
 
-.create_listing.auth_form
-{
-	overflow: hidden;
-}
-
-.create_listing.auth_form .form-select
-{
-	background: white;
-}
-
-.create_listing.auth_form .form-select.choice
-{
-	width: 100%;
-}
-
-.create_listing.auth_form .purpose
+.auth_form .form-select.purpose
 {
 	background: black;
-	border-bottom: 0;
 	color: #fff;
 }
 
-.create_listing.auth_form .purpose:checked, .create_listing.auth_form .purpose:hover, .create_listing.auth_form input:checked + .purpose
+.auth_form .purpose:checked, .auth_form .purpose:hover, .auth_form input:checked + .purpose
 {
 	background: #0c294a;
 }
@@ -1549,12 +1528,6 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		height: auto;
 		margin-top: 3%;
 		margin-bottom: 5%;
-	}
-
-	/*------ CREATE-LISTING-FORM ------*/
-	.create_listing.auth_form form
-	{
-		width: 75%;
 	}
 
 	/*------ PROPERTY-LISTING ------*/

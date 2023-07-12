@@ -30,10 +30,10 @@ class PropertiesListView (ListView):
     model = Listing
     queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/properties.html"
+    template_name = "listing/property_list.html"
 
 
-def single_property (request, item):
+def property_detail (request, item):
     active = False
 
     try:
@@ -44,7 +44,7 @@ def single_property (request, item):
 
     except Listing.DoesNotExist:
         post = ""
-    return render(request, 'listing/singleProperty.html', {
+    return render(request, 'listing/property_detail.html', {
         'post': post,
         'active': active
     })
@@ -53,7 +53,7 @@ class SearchedPropertiesListView (ListView):
     model = Listing
     queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/properties.html"
+    template_name = "listing/property_list.html"
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
@@ -67,7 +67,7 @@ class FilteredPropertiesListView (ListView):
     model = Listing
     queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/properties.html"
+    template_name = "listing/property_list.html"
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
@@ -123,7 +123,7 @@ class CategoryListView (ListView):
     model = Listing
     queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/properties.html"
+    template_name = "listing/property_list.html"
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
@@ -212,13 +212,10 @@ def agents (request):
 
 @login_required
 def createListing (request):
-    heading = 'Sell Your Own Property'
-    submit = 'Post'
-
     if request.method == "POST":
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')
-        bedroom = request.POST['bedroom']
+        bedroom = request.POST.get('bedroom', None)
         bathroom = request.POST.get('bathroom', None)
         category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
 
@@ -247,46 +244,33 @@ def createListing (request):
                 img = ListingImage(listing=listing_obj, image=image_file)
                 img.save()
 
-            messages.success(request, "Yeew, check it out on the home page!")
-            return HttpResponseRedirect("/createListing")
+            messages.success(request, "Ad has been posted successfully!")
+            return redirect('account:profile')
         
         else:
-            for field in listing_form:
-                for error in field.errors:
-                    messages.error(request, f"{field.name}: {error}")
-            print(listing_form.errors)
             return render(request, 'listing/createListing.html', {
-                'listing_form': listing_form,
-                'heading': heading,
-                'submit': submit,
-                'create': True,
+                'form': listing_form,
             })
 
     listing_form = listingForm
     return render(request, 'listing/createListing.html', {
-        'listing_form': listing_form,
-        'heading': heading,
-        'submit': submit,
-        'create': True,
+        'form': listing_form,
     })
 
 # Update Form Incomplete ## image ## bedroom and bathroom errors
 @login_required
 def updateListing (request, item_id):
-    heading = 'Update Listing'
-    submit = 'Save'
-    listing = Listing.posts.get(id=item_id)
+    listing = Listing.posts.get(pk=item_id)
 
     if request.method == "POST":
         listing_form = listingForm (request.POST, instance=listing)
-        images = request.FILES.getlist('images')
-        bedroom = request.POST['bedroom']
+        # images = request.FILES.getlist('images')
+        bedroom = request.POST.get('bedroom', None)
         bathroom = request.POST.get('bathroom', None)
         category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
 
         if listing_form.is_valid():
             listing_obj = listing_form.save(commit=False)
-            listing_obj.creator = request.user
             listing_obj.purpose = request.POST['purpose']
 
             if listing_obj.category in category_list:
@@ -302,6 +286,8 @@ def updateListing (request, item_id):
             else:
                 listing_obj.bedroom = ''
                 listing_obj.bathroom = ''
+                listing_obj.custom_bedroom = ''
+                listing_obj.custom_bathroom = ''
             listing_obj.save()
 
             # No Image Update Option
@@ -309,38 +295,39 @@ def updateListing (request, item_id):
             #     img = Image(listing=listing_obj, image=image_file)
             #     img.save()
 
-            messages.success(request, "Listing has been updated!")
-            return HttpResponseRedirect("/createListing")
-        
+            messages.success(request, "Ad has been Updated!")
+            return redirect('account:profile')
+
         else:
-            print(listing_form.errors)
-            return render(request, 'listing/createListing.html', {
-                'listing_form': listing_form,
-                'heading': heading,
-                'submit': submit,
+            return render(request, 'listing/edit_listing.html', {
+                'form': listing_form,
+                'purpose': listing.purpose,
             })
 
     listing_form = listingForm(instance=listing)
-    return render(request, 'listing/createListing.html', {
-        'listing_form': listing_form,
-        'heading': heading,
-        'submit': submit,
+    return render(request, 'listing/edit_listing.html', {
+        'form': listing_form,
+        'purpose': listing.purpose,
+        'bedroom': listing.bedroom,
+        'custom_bedroom': listing.custom_bedroom,
+        'bathroom': listing.bathroom,
+        'custom_bathroom': listing.custom_bathroom,
     })
 
 @login_required
 def deleteListing (request, item_id):
-    listing = Listing.posts.get(id = item_id)
+    listing = Listing.posts.get(pk=item_id)
     if request.user == listing.creator:
         listing.is_active = False
         listing.save()
-        messages.success(request, "Listing Has Been Deleted!")
-        return redirect('/')
+        messages.success(request, "Ad Has Been Deleted!")
+        return redirect('account:profile')
     else:
-        message.error(request, "You don't have authority to delete this post.")
-        return render(request, 'listing/singleProperty.html', {
-        'post': listing,
-        'active': False
-    })
+        message.error(request, "Sorry! You don't have privilege to delete this ad.")
+        return render(request, 'listing/property_detail.html', {
+            'post': listing,
+            'active': False
+        })
 
         
 def privacyPolicy(request):

@@ -9,7 +9,7 @@ class listingForm (ModelForm):
 		model = Listing
 		fields = ('__all__')
 
-		exclude = ('creator', 'time_created','active')
+		exclude = ('creator', 'time_created', 'is_active', 'bedroom', 'bathroom')
 
 		labels = {
 			'title': 'Property Title',
@@ -23,63 +23,56 @@ class listingForm (ModelForm):
 
 		widgets = {
 			'title': forms.TextInput(attrs={
-				'class': 'form-control',
+				'class': 'form-control mt-2',
 				'placeholder': 'Title',
 				'id': ''
 			}),
 			'price': forms.NumberInput(attrs={
-				'class': 'form-control',
+				'class': 'form-control mt-2',
 				'id': 'price_input',
 				'placeholder': 'Enter Price',
 				'min': 0
 			}),
             'category': forms.Select(attrs={
-				'class': 'form-select choice',
+				'class': 'form-select mt-2',
 				'id': 'category_input'
 			}),
             'city': forms.Select(attrs={
-				'class': 'form-select choice',
+				'class': 'form-select mt-2',
 				'id': ''
 			}),
             'address': forms.TextInput(attrs={
-				'class': 'form-control',
+				'class': 'form-control mt-2',
 				'placeholder': 'Address',
 				'id': ''
 			}),
             'description': forms.Textarea(attrs={
-				'class': 'form-control',
+				'class': 'form-control mt-2',
 				'placeholder': 'Write a description about your property',
-				'id': ''
+				'id': '',
 			}),
 			'purpose': forms.RadioSelect(attrs={
 				'class': 'form-radio-inline',
 				'id': ''
 			}),
-			'bedroom': forms.RadioSelect(attrs={
-				'id': 'bedroom_input'
-			}),
 			'custom_bedroom': forms.NumberInput(attrs={
-				'id': 'custom_bedroom_input',
-				'placeholder': 'Input Custom Rooms',
-				'min': 11
-			}),
-			'bathroom': forms.RadioSelect(attrs={
-				'id': 'bathroom_input'
+				'placeholder': 'Custom Rooms',
+				'min': 11,
+				'class': 'w-100'
 			}),
 			'custom_bathroom': forms.NumberInput(attrs={
-				'id': 'custom_bathroom_input',
-				'placeholder': 'Input Custom Baths',
-				'style': '{\'width\':\'100px\'}',
-				'min': 7
+				'placeholder': 'Custom Baths',
+				'min': 7,
+				'class': 'w-100'
 			}),
 			'area_size': forms.NumberInput(attrs={
-				'class': 'form-control',
+				'class': 'form-control mt-2',
 				'placeholder': 'Enter Area Size',
 				'min': 0,
 				'id': 'area_size'
 			}),
             'area_size_unit': forms.Select(attrs={
-				'class': 'form-select choice',
+				'class': 'form-select mt-2',
 				'id': 'area_size_unit'
 			}),
 		}

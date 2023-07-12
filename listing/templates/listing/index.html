@@ -136,7 +136,7 @@
 					<div class="swiper-slide">
 						<div class="card">
 							<div class="row g-0">
-								<a href="{% url 'listing:single_property' post.id %}" title="listing: {{ post.title }}">
+								<a href="{% url 'listing:property-detail' post.id %}" title="listing: {{ post.title }}">
 									<div class="col-md-12 mb-md-0 p-md-3">
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
@@ -160,7 +160,7 @@
 												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds</p>
 											{% endif %}
 											<p class="card-text mt-3">
-												<a href="{% url 'listing:single_property' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
+												<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
 												<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
 												{% if post.creator.profile.phone_number %}
 													<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>

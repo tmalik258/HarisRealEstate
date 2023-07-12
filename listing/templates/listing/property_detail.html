@@ -55,6 +55,7 @@
 								<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
 								{% if active %}
 									<a href="{% url 'listing:delete-listing' post.id %}"  class="btn btn-outline-secondary email">Delete</a>
+									<a href="{% url 'listing:update-listing' post.id %}"  class="btn btn-outline-secondary email">Update/Edit</a>
 								{% endif %}
 								<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated | timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
 							</div>

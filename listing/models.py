@@ -186,7 +186,10 @@ class Listing (models.Model):
 		if self.custom_bedroom:
 			return self.custom_bedroom
 		elif self.bedroom:
-			return self.bedroom
+			if self.bedroom == 'S':
+				return 'Studio'
+			else:
+				return self.bedroom
 		else:
 			return False
 

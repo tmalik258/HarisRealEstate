@@ -221,17 +221,19 @@
 				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #099">
 					<a class="section nav-link" href="{% url 'listing:properties' %}">
 						<span class="icon">
-							<ion-icon name="card-outline"></ion-icon>
+							<!-- <ion-icon name="business-outline" aria-label="Buy"></ion-icon> -->
+							<ion-icon name="list-outline"></ion-icon>
 						</span>
-						<span class="text">Buy/Listings</span>
+						<span class="text">Listings</span>
 					</a>
 				</li>
 				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #099">
 					<a class="section nav-link" href="{% url 'listing:properties' %}">
 						<span class="icon">
-							<ion-icon name="business-outline" aria-label="Buy"></ion-icon>
+							<!-- <ion-icon name="business-outline" aria-label="Buy"></ion-icon> -->
+							<ion-icon name="list-outline"></ion-icon>
 						</span>
-						<span class="text">Buy/Listings</span>
+						<span class="text">Listings</span>
 					</a>
 				</li>
 				<li {% if "/properties?category=Homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
