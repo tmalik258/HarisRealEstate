@@ -37,7 +37,7 @@ def single_property (request, item):
     active = False
 
     try:
-        post = Listing.objects.get(id=item)
+        post = Listing.objects.get(pk=item)
 
         if request.user.is_authenticated and request.user.username == post.creator.username:
             active = True
