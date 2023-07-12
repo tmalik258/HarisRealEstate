@@ -3,6 +3,7 @@ var dropzone = document.getElementById('dropzone');
 
 // Get the file input element and the image preview container
 var fileInput = document.getElementById('listing-image');
+var fileInput_pfp = document.getElementById('id_profile_image');
 var imagePreview = document.getElementById('image-preview');
 
 dropzone.addEventListener('dragenter', handleDragEnter, false);
@@ -32,39 +33,59 @@ function handleDragLeave(e) {
 }
 
 function handleDrop(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    // Remove any visual effects when the dragged element is dropped
-    // dropzone.classList.remove('drag-over');
-    // Handle the dropped files
-    var files = e.dataTransfer.files;
-	// Clear the image preview container
-	imagePreview.innerHTML = '';
-    // Process the files as per your requirements, such as saving them to the database or storing them on the server
-    for (var i = 0; i < files.length; i++) {
-		var file = files[i];
-    createImagePreview(file);
-    }
-	dropzone.classList.remove('drag-over');
-  }
-
-
-// Add an event listener to the file input element
-fileInput.addEventListener('change', function() {
+  e.preventDefault();
+  e.stopPropagation();
+  // Remove any visual effects when the dragged element is dropped
+  // dropzone.classList.remove('drag-over');
+  // Handle the dropped files
+  var files = e.dataTransfer.files;
   // Clear the image preview container
   imagePreview.innerHTML = '';
-
-  // Get the selected files
-  var files = fileInput.files;
-
-  // Iterate over the selected files
+  // Process the files as per your requirements, such as saving them to the database or storing them on the server
   for (var i = 0; i < files.length; i++) {
-    var file = files[i];
-    createImagePreview(file);
+  var file = files[i];
+  createImagePreview(file);
   }
-});
+  dropzone.classList.remove('drag-over');
+}
 
-function createImagePreview(file) {
+if (fileInput) {
+  // Add an event listener to the file input element
+  fileInput.addEventListener('change', function() {
+    // Clear the image preview container
+    imagePreview.innerHTML = '';
+  
+    // Get the selected files
+    var files = fileInput.files;
+  
+    // Iterate over the selected files
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var inputFile = document.getElementById('listing-image');
+      createImagePreview(file, inputFile);
+    }
+  });
+}
+
+if (fileInput_pfp) {
+  // Add an event listener to the file input element
+  fileInput_pfp.addEventListener('change', function() {
+    // Clear the image preview container
+    imagePreview.innerHTML = '';
+
+    // Get the selected files
+    var files = fileInput_pfp.files;
+
+    // Iterate over the selected files
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var inputFile = document.getElementById('id_profile_image');
+      createImagePreview(file, inputFile);
+    }
+  });
+}
+
+function createImagePreview(file, inputFile) {
   var reader = new FileReader();
 
   reader.readAsDataURL(file);
@@ -78,7 +99,6 @@ function createImagePreview(file) {
     deleteButton.classList.add('delete-button', 'btn', 'btn-sm', 'mx-auto', 'mt-2');
     deleteButton.textContent = 'Remove';
     deleteButton.addEventListener('click', function() {
-      var inputFile = document.getElementById('listing-image');
       var imageFile = inputFile.files[Array.from(imagePreview.children).indexOf(previewContainer)];
       var dt = new DataTransfer();
       Array.from(inputFile.files).forEach(function (file) {

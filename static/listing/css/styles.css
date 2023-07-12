@@ -536,13 +536,13 @@ body
 }
 
 
-/* //////////////////////////////////////////	LOGIN	/////////////////////////////////////////// */
-.login{
+/* //////////////////////////////////////////	Auth Form	/////////////////////////////////////////// */
+.auth_form{
 	color: var(--primarycolor);
 	display: block;
 	align-items: center;
 	justify-content: center;
-	width: 50%;
+	/* width: 50%; */
 	box-shadow: var(--box-shadow);
     background-color: var(--maincolor);
 	border-radius: 20px;
@@ -553,11 +553,11 @@ body
 	overflow: auto;
 }
 
-.login input, .login input:focus, .login textarea, .login textarea:focus, .login .form-select, 
-.contact-us .login .btn,
-.create_listing.login input, .create_listing.login input:focus, .create_listing.login .form-select,
+.auth_form input, .auth_form input:focus, .auth_form textarea, .auth_form textarea:focus, .auth_form .form-select, 
+.contact-us .auth_form .btn,
+.create_listing.auth_form input, .create_listing.auth_form input:focus, .create_listing.auth_form .form-select,
 .search input, .search input:focus, .search .form-select, 
-.profile .btn, .login .btn.btn-outline-secondary
+.profile .btn, .auth_form .btn.btn-outline-secondary
 {
 	border: 1px solid rgba(128, 128, 128, 0.11);
 	outline: none;
@@ -565,15 +565,15 @@ body
 	padding: 12px 20px;
 }
 
-.login input:focus, .login textarea:focus, .login .form-select:focus
+.auth_form input:focus, .auth_form textarea:focus, .auth_form .form-select:focus
 {
 	--box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
 	box-shadow: var(--box-shadow);
 }
 
-.login input[type="submit"], 
+.auth_form input[type="submit"], 
 .profile .btn.btn-primary,
-.contact-us .login .btn
+.contact-us .auth_form .btn
 {
 	color: white;
 	background: var(--primarycolor);
@@ -581,8 +581,8 @@ body
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.login input[type="submit"]:hover, 
-.contact-us .login .btn:hover, 
+.auth_form input[type="submit"]:hover, 
+.contact-us .auth_form .btn:hover, 
 .search input[type="submit"]:hover,
 .profile .btn.btn-primary:hover
 {
@@ -590,30 +590,30 @@ body
 	background: var(--primarycolor);
 }
 
-.login .btn.btn-outline-secondary:hover
+.auth_form .btn.btn-outline-secondary:hover
 {
 	background: var(--primarycolor);
 }
 
-.login.register input[type="submit"]
+.auth_form.register input[type="submit"]
 {
 	width: 100%;
 	margin-bottom: 20px;
 }
 
-.login .form-floating label
+.auth_form .form-floating label
 {
 	color: rgb(136, 133, 133);
 }
 
-.login .contact-us #contact_us .form-floating label
+.auth_form .contact-us #contact_us .form-floating label
 {
 	font-size: 10px;
 }
 
 
 /* //////////////////////////////////////////	PROFILE UPDATE	/////////////////////////////////////////// */
-.main_section .login.register.profile_update form li
+.main_section .auth_form.register.profile_update form li
 {
 	list-style: none;
 	color: red;
@@ -1108,17 +1108,17 @@ form.search
 	box-shadow: none;
 	background: none;
 }
-.contact-us .login, .create_listing.login
+.contact-us .auth_form, .create_listing.auth_form
 {
 	width: 95%;
 }
 
-.contact-us .login h1, .create_listing.login h1
+.contact-us .auth_form h1, .create_listing.auth_form h1
 {
 	font-size: 30px;
 }
 
-.contact-us .login .login-body
+.contact-us .auth_form .login-body
 {
 	width: 40%;
 	text-align: justify;
@@ -1128,23 +1128,23 @@ form.search
 	transition: 0.2s ease-in-out;
 }
 
-.contact-us .login form, .contact-us .login .form_message
+.contact-us .auth_form form, .contact-us .auth_form .form_message
 {
 	margin: 5% 5% 5% auto;
 	float: right;
 }
 
-.contact-us .login .form_message
+.contact-us .auth_form .form_message
 {
 	font-size: 30px;
 }
 
-.contact-us .login form
+.contact-us .auth_form form
 {
 	width: 30em;
 }
 
-.contact-us .login .btn
+.contact-us .auth_form .btn
 {
 	width: 100%;
 }
@@ -1422,35 +1422,35 @@ form.search
 }
 
 /* //////////////////////////////////////////	CREATELISTING	/////////////////////////////////////////// */
-.main_section.create_listing .contact-us .login .login-body
+.main_section.create_listing .contact-us .auth_form .login-body
 {
 	margin: 10% auto auto 10%;
 	width: 30%;
 }
 
-.create_listing.login
+.create_listing.auth_form
 {
 	overflow: hidden;
 }
 
-.create_listing.login .form-select
+.create_listing.auth_form .form-select
 {
 	background: white;
 }
 
-.create_listing.login .form-select.choice
+.create_listing.auth_form .form-select.choice
 {
 	width: 100%;
 }
 
-.create_listing.login .purpose
+.create_listing.auth_form .purpose
 {
 	background: black;
 	border-bottom: 0;
 	color: #fff;
 }
 
-.create_listing.login .purpose:checked, .create_listing.login .purpose:hover, .create_listing.login input:checked + .purpose
+.create_listing.auth_form .purpose:checked, .create_listing.auth_form .purpose:hover, .create_listing.auth_form input:checked + .purpose
 {
 	background: #0c294a;
 }
@@ -1534,7 +1534,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 
 @media screen and (min-width:1185px) {
 	/*------- REGISTER-FORM ------*/
-	.login.register
+	.auth_form.register
 	{
 		height: auto;
 		margin-top: 3%;
@@ -1542,7 +1542,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 	}
 
 	/*------ CREATE-LISTING-FORM ------*/
-	.create_listing.login form
+	.create_listing.auth_form form
 	{
 		width: 75%;
 	}
@@ -1787,18 +1787,18 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-left: 50px;
 	}
 
-	.contact-us .login h1
+	.contact-us .auth_form h1
 	{
 		font-size: 50px;
 	}
 
-	.contact-us .login .login-body
+	.contact-us .auth_form .login-body
 	{
 		width: 100%;
 		margin: auto;
 	}
 
-	.contact-us .login form
+	.contact-us .auth_form form
 	{
 		margin: auto;
 		/* width: 18.5em; */
@@ -1811,7 +1811,7 @@ footer .footer_row .footer_col ul li a:hover .seperator
 		margin-top: 15%;
 	}
 
-	.login
+	.auth_form
 	{
 		height: auto;
 		width: 90%;

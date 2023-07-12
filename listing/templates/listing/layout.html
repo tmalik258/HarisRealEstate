@@ -101,12 +101,12 @@
 		<!-----------------------	Navigation search and profile menu	 ------------------------ -->
 		<nav class="navbar navbar-expand-lg px-3">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="{% url 'index' %}">
+				<a class="navbar-brand" href="{% url 'listing:index' %}">
 					<img loading="eager" class="logo" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
 					<span class="HRE">Haris<br><span style="font-size: 13px;">Real Estate</span></span>
 				</a>
 				<div class="navbar-text m-sm-auto">
-					<form action="{% url 'get_property_by_search' %}" method="GET">
+					<form action="{% url 'listing:get_property_by_search' %}" method="GET">
 						<input type="search" name="searchByTitle" class="form-control" id="searchByT" placeholder="Search by Title">
 					</form>
 					<!-- <p> -->
@@ -116,7 +116,7 @@
 					<!-- </p> -->
 					<div class="collapse" id="collapseExample">
 						<div class="card card-body">
-							<form class="search row g-1 m-auto" method="GET" action="{% url 'get_property' %}">
+							<form class="search row g-1 m-auto" method="GET" action="{% url 'listing:get_property' %}">
 								<ul class="nav nav-tabs p-0 m-0">
 									<li class="nav-item">
 										<input type="radio" class="btn-check" name="purpose" id="form3_option1" autocomplete="off" value="S" checked>
@@ -158,7 +158,7 @@
 				<ul class="navbar-nav text-center m-0 p-0 system">
 					{% if user.is_authenticated %}
 					<li class="nav-item">
-						<a href="{% url 'account_logout' %}" class="btn btn-outline-dark rounded-pill">LOGOUT</a>
+						<a href="{% url 'account:logout' %}" class="btn btn-outline-dark rounded-pill">LOGOUT</a>
 					</li>
 					<li class="nav-item dropstart">
 						<a class="nav-link pt-1 pe-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -167,24 +167,26 @@
 							</span>
 						</a>
 						<ul class="dropdown-menu p-0">
-							<li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-							<li><a class="dropdown-item" href="{% url 'change-password' %}">Change Password</a></li>
+							<li><a class="dropdown-item" href="{% url 'account:profile' %}">Profile</a></li>
+							{% comment %}
+							<li><a class="dropdown-item" href="{% url 'account:change-password' %}">Change Password</a></li>
+							{% endcomment %}
 							{% if user.is_authenticated and user.is_staff %}
 								<li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a></li>
 							{% endif %}
 						</ul>
 					  </li>
 					<!-- <li class="nav-item">
-						<a href="{% url 'profile' %}" class="nav-link"><span class="profile-nav">
+						<a href="{% url 'account:profile' %}" class="nav-link"><span class="profile-nav">
 							<ion-icon name="person-outline" aria-label="Profile"></ion-icon>
 						</span></a>
 					</li> -->
 					{% else %}
 					<li class="nav-item">
-						<a href="{% url 'account_login' %}" class="btn btn-outline-dark rounded-pill">LOGIN</a>
+						<a href="{% url 'account:login' %}" class="btn btn-outline-dark rounded-pill">LOGIN</a>
 					</li>
 					<li class="nav-item">
-						<a href="{% url 'register' %}" {% if "/register" in request.path %}class="nav-link active "{% endif %} class="nav-link">SIGN UP</a>
+						<a href="{% url 'account:register' %}" {% if "/register" in request.path %}class="nav-link active "{% endif %} class="nav-link">SIGN UP</a>
 					</li>
 				</ul>
 				{% endif %}
@@ -198,7 +200,7 @@
 			</div>
 			<ul>
 				<li {% if request.path == '/' %} class="list active system"{% endif %} class="list system" style="--clr: #f00">
-					<a class="section nav-link" href="{% url 'index' %}">
+					<a class="section nav-link" href="{% url 'listing:index' %}">
 						<span class="icon">
 							<ion-icon name="planet-outline"></ion-icon>
 						</span>
@@ -206,7 +208,7 @@
 					</a>
 				</li>
 				<li {% if request.path == '/' %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #f00">
-					<a class="section nav-link" href="{% url 'index' %}">
+					<a class="section nav-link" href="{% url 'listing:index' %}">
 						<span class="icon">
 							<ion-icon name="home-outline" aria-label="Home"></ion-icon>
 						</span>
@@ -214,7 +216,7 @@
 					</a>
 				</li>
 				<li {% if "/createListing" in request.path %} class="list active"{% endif %} class="list" style="--clr: #707">
-					<a class="section nav-link" href="{% url 'createListing' %}">
+					<a class="section nav-link" href="{% url 'listing:createListing' %}">
 						<span class="icon">
 							<ion-icon name="create-outline" aria-label="Sell"></ion-icon>
 						</span>
@@ -222,7 +224,7 @@
 					</a>
 				</li>
 				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #099">
-					<a class="section nav-link" href="{% url 'properties' %}">
+					<a class="section nav-link" href="{% url 'listing:properties' %}">
 						<span class="icon">
 							<ion-icon name="card-outline"></ion-icon>
 						</span>
@@ -230,7 +232,7 @@
 					</a>
 				</li>
 				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #099">
-					<a class="section nav-link" href="{% url 'properties' %}">
+					<a class="section nav-link" href="{% url 'listing:properties' %}">
 						<span class="icon">
 							<ion-icon name="business-outline" aria-label="Buy"></ion-icon>
 						</span>
@@ -238,7 +240,7 @@
 					</a>
 				</li>
 				<li {% if "/properties?category=Homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
-					<a class="section nav-link" href="{% url 'get_category' type='Homes' %}">
+					<a class="section nav-link" href="{% url 'listing:get_category' type='Homes' %}">
 						<span class="icon">
 							<ion-icon name="home-outline"></ion-icon>
 						</span>
@@ -246,7 +248,7 @@
 					</a>
 				</li>
 				<li {% if "/properties?category=Plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
-					<a class="section nav-link" href="{% url 'get_category' type='Plots' %}">
+					<a class="section nav-link" href="{% url 'listing:get_category' type='Plots' %}">
 						<span class="icon">
 							<ion-icon name="footsteps-outline"></ion-icon>
 						</span>
@@ -254,7 +256,7 @@
 					</a>
 				</li>
 				<li {% if "/properties?category=Commercial" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
-					<a class="section nav-link" href="{% url 'get_category' type='Commercial' %}">
+					<a class="section nav-link" href="{% url 'listing:get_category' type='Commercial' %}">
 						<span class="icon">
 							<ion-icon name="business-outline"></ion-icon>
 						</span>
@@ -263,7 +265,7 @@
 				</li>
 				{% if user.is_authenticated %}
 					<li {% if "/profile" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #2196f3">
-						<a class="section nav-link" href="{% url 'profile' %}">
+						<a class="section nav-link" href="{% url 'account:profile' %}">
 							<span class="icon">
 								<ion-icon name="person-outline" aria-label="Profile"></ion-icon>
 							</span>
@@ -271,7 +273,7 @@
 						</a>
 					</li>
 					<li class="list mobile" style="--clr: #0fc70f">
-						<a class="section nav-link" href="{% url 'account_logout' %}">
+						<a class="section nav-link" href="{% url 'account:logout' %}">
 							<span class="icon">
 								<ion-icon name="log-out-outline" aria-label="Logout"></ion-icon>
 							</span>
@@ -280,7 +282,7 @@
 					</li>
 					{% else %}
 						<li class="list mobile" style="--clr: #000">
-							<a class="section nav-link" href="{% url 'account_login' %}">
+							<a class="section nav-link" href="{% url 'account:login' %}">
 								<span class="icon">
 									<ion-icon name="log-in-outline" aria-label="Login"></ion-icon>
 								</span>
@@ -339,27 +341,27 @@
 				<ul class="footer_list">
 					<th class="th-group-item"><h3>LINKS</h3></th>
 					<li>
-						<a href="{% url 'index' %}">
+						<a href="{% url 'listing:index' %}">
 							Home
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'properties' %}">
+						<a href="{% url 'listing:properties' %}">
 							Properties
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'about_us' %}">
+						<a href="{% url 'listing:about_us' %}">
 							About Us
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'agents' %}">
+						<a href="{% url 'listing:agents' %}">
 							Agents
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'contact_us' %}">
+						<a href="{% url 'listing:contact_us' %}">
 							Contact Us
 						</a>
 					</li>
@@ -374,12 +376,12 @@
 				<a class="nav-link" href="https://wa.me/qr/OMSZI67F3FZSC1" target="_blank">K.T. Developers</a>
 			</li>
 			<li class="nav-item">
-				  <a class="nav-link" href="{% url 'privacy-policy' %}">
+				  <a class="nav-link" href="{% url 'listing:privacy-policy' %}">
 				Privacy Policy
 				</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="{% url 'terms' %}">Terms of Use</a>
+			  <a class="nav-link" href="{% url 'listing:terms' %}">Terms of Use</a>
 			</li>
 		  </ul>
 	</footer>

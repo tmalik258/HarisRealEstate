@@ -3,6 +3,8 @@ from django.contrib.auth import views as auth_views
 
 from . import views
 
+app_name = 'listing'
+
 urlpatterns = [
 	# home url
 	path('', views.index, name = 'index'),
@@ -30,21 +32,6 @@ urlpatterns = [
 	# path('update-listing/<str:item_id>', views.updateListing, name = 'update-listing'),
 	# delete listing url
 	path('delete-listing/<str:item_id>', views.deleteListing, name = 'delete-listing'),
-	# profile url
-	path('profile', views.profileWithPropertiesListView.as_view(), name='profile'),
-	# profile update url
-	path('profile-update', views.profileUpdate, name = 'profile-update'),
-	# password changer form
-	path('change-password', auth_views.PasswordChangeView.as_view(
-		template_name='website/change-password.html',
-		success_url='/profile'
-	), name='change-password'),
-	# login url
-	path("login", views.login_view, name="login"),
-	# logout url
-    path("logout", views.logout_view, name="logout"),
-	# register url
-    path("register", views.register, name="register"),
 	# privacy policy url
     path("privacy-policy", views.privacyPolicy, name="privacy-policy"),
 	# terms of use url

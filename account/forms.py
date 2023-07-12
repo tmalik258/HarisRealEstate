@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import (AuthenticationForm, SetPasswordForm, PasswordResetForm)
 
-from .models import User
+from .models import User, Profile
 
 
 class LoginForm(AuthenticationForm):
@@ -22,10 +22,10 @@ class LoginForm(AuthenticationForm):
 	))
 
 
-class RegistrationForm(forms.ModelForm):
+class RegistrationUserForm(forms.ModelForm):
 	username = forms.CharField(label='Username', min_length=4, max_length=50, help_text='Required')
 	email = forms.EmailField(max_length=100, help_text='Required', error_messages={'required': 'Sorry, you will need an email address'})
-	password = forms.CharField(label='Password', widget=forms.PasswordInput(), help_text='At least 8 characters and 1 digit')
+	password = forms.CharField(label='Password', widget=forms.PasswordInput(), help_text='Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.')
 	password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput())
 	class Meta:
 		model = User
@@ -55,21 +55,23 @@ class RegistrationForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+		self.fields['first_name'].widget.attrs.update({
+			'placeholder': 'First Name',
+			'class': 'form-control',
+			'autofocus': 'autofocus'
+		})
+		self.fields['last_name'].widget.attrs.update({
+			'class': 'form-control',
+			'placeholder': 'Last Name'
+		})
 		self.fields['username'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Username',
-			'autofocus': 'autofocus'
 		})
 		self.fields['email'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Email',
 			'name': 'email'
-		})
-		self.fields['first_name'].widget.attrs.update({
-			'placeholder': 'First Name'
-		})
-		self.fields['last_name'].widget.attrs.update({
-			'placeholder': 'Last Name'
 		})
 		self.fields['password'].widget.attrs.update({
 			'class': 'form-control',
@@ -78,6 +80,28 @@ class RegistrationForm(forms.ModelForm):
 		self.fields['password2'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Repeat Password'
+		})
+
+
+class RegisterationProfileForm(forms.ModelForm):
+	class Meta:
+		model = Profile
+		fields = ('__all__')
+		exclude = ('user',)
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		for field_name in self.fields:
+			self.fields[field_name].widget.attrs.update({
+				'class': 'form-control',
+				'placeholder': field_name.replace('_', ' ').title()
+			})
+		# self.fields['estate_name'].widget.attrs.update({
+		# 	'placeholder': 'Estate Name (Optional)'
+		# })
+		self.fields['bio_info'].widget.attrs.update({
+			'rows': 3,
+			'placeholder': 'Write about yourself or your agency ...'
 		})
 
 

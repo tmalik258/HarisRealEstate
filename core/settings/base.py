@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,7 +16,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Application definition
@@ -59,7 +60,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'website.context_processors.searchForm',
+                'listing.context_processors.searchForm',
             ],
         },
     },
@@ -67,14 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-
-
-# AUTH_USER_MODEL = 'website.User'
-AUTH_PROFILE_MODULE = 'website.Profile'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -114,7 +107,7 @@ DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'website/static')
+    os.path.join(BASE_DIR, 'static')
 ]
 
 
@@ -124,8 +117,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Account App Configuration
-LOGIN_REDIRECT_URL = reverse_lazy('store:index')
+LOGIN_REDIRECT_URL = reverse_lazy('listing:index')
 AUTH_USER_MODEL = 'account.User'
+AUTH_PROFILE_MODULE = 'account.Profile'
 LOGIN_URL = '/account/login'
 
 PASSWORD_RESET_TIMEOUT_DAYS = 2

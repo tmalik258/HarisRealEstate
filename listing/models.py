@@ -1,11 +1,19 @@
+import uuid
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 # Image Resize and Upload
 from io import BytesIO
 from django.core.files.base import ContentFile
 from PIL import Image as PillowImage
+
+
+# Model Managers
+class ListingManager(models.Manager):
+	def get_queryset(self):
+		return super(ListingManager, self).get_queryset().filter(is_active=True)
 
 
 # Create your models here.
@@ -149,7 +157,8 @@ class Listing (models.Model):
 		('other', 'Other')
 	]
 
-	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listingUser")
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listing")
 	title = models.CharField(max_length=64)
 	price = models.IntegerField()
 	purpose = models.CharField( max_length=2, choices=PURPOSE_CHOICES, default='S')
@@ -163,9 +172,15 @@ class Listing (models.Model):
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=250)
 	description = models.TextField(max_length=700)
+	user_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_wishlist', blank=True)
 	time_created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
-	active = models.BooleanField(default=True)
+	is_active = models.BooleanField(verbose_name=_("Listing Visibility"), help_text=_("Change Listing Visibility"), default=True)
+	objects = models.Manager()
+	posts = ListingManager()
+
+	class Meta:
+		ordering = (('-updated'),)
 
 	def get_bedroom(self):
 		if self.custom_bedroom:
@@ -192,19 +207,17 @@ class Listing (models.Model):
 		return f"Listing: {self.id} | {self.title} | ({self.creator}, {time}) | {listing}"
 
 
-class Comment (models.Model):
-	fname = models.CharField(max_length=24)
-	lname = models.CharField(max_length=24)
-	listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
-	comment = models.TextField(max_length=255)
-	date_created = models.DateTimeField(auto_now_add=True)
+# class Comment (models.Model):
+# 	listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
+# 	comment = models.TextField(max_length=255)
+# 	date_created = models.DateTimeField(auto_now_add=True)
 
-	def __str__(self):
-		time = self.date_created.strftime("%H:%M | %d-%m-%Y")
-		return f"{self.creator} | {self.auction_list.title} | {time}"
+# 	def __str__(self):
+# 		time = self.date_created.strftime("%H:%M | %d-%m-%Y")
+# 		return f"{self.creator} | {self.auction_list.title} | {time}"
 
 
-class Image (models.Model):
+class ListingImage (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
 		return 'user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)

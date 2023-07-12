@@ -57,14 +57,14 @@ class Profile (models.Model):
 		return 'user_{0}/profile_pictures/{1}'.format(instance.user.username, filename)
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
 	estate_name = models.CharField(max_length=256, null=True, blank=True, help_text="Optional")
+	phone_number = PhoneNumberField(help_text=_('+92-3211234567'))
+	bio_info = models.TextField(max_length=1000, null=True, blank=True, help_text="Optional")
 	profile_image = models.ImageField(upload_to = user_directory_path, blank=True)
-	phone_number = PhoneNumberField()
 
 	def save(self, *args, **kwargs):
-		if self.image:
-			img = PillowImage.open(self.image)
+		if self.profile_image:
+			img = PillowImage.open(self.profile_image)
 
 			# Resize image
 			if img.height > 500 or img.width > 500:
@@ -77,7 +77,7 @@ class Profile (models.Model):
 				output_buffer.seek(0)
 
 				# Save the buffer content to the image field
-				self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
+				self.profile_image.save(self.profile_image.name, ContentFile(output_buffer.read()), save=False)
 
 		super().save(*args, **kwargs)
 

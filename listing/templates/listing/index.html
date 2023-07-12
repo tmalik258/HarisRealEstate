@@ -49,7 +49,7 @@
 		  <span class="visually-hidden">Next</span>
 		</button>
 	</div>
-	<!-- <form class="search row g-3" method="GET" action="{% url 'get_property' %}">
+	<!-- <form class="search row g-3" method="GET" action="{% url 'listing:get_property' %}">
 		<ul class="nav nav-tabs p-0 m-0">
 			<li class="nav-item">
 				<input type="radio" class="btn-check" name="purpose" id="form3_option1" autocomplete="off" value="S" checked>
@@ -92,7 +92,7 @@
 		<h1>CATEGORIES</h1>
 		<div class="row row-cols-1 row-cols-md-3">
 			<div class="col hidden">
-				<a href="{% url 'get_category' type='Homes' %}" class="nav-link">
+				<a href="{% url 'listing:get_category' type='Homes' %}" class="nav-link">
 					<div class="card h-100">
 						<img loading="lazy" src="{% static 'listing/img/categories/home.jpg' %}" class="card-img-top" alt="Home Category Image" width="100%" height="100%">
 						<div class="card-img-overlay"></div>
@@ -103,7 +103,7 @@
 				</a>
 				</div>
 			<div class="col hidden">
-			  <a href="{% url 'get_category' type='Plots' %}" class="nav-link">
+			  <a href="{% url 'listing:get_category' type='Plots' %}" class="nav-link">
 				<div class="card h-100">
 					<img loading="lazy" src="{% static 'listing/img/categories/plots.jpg' %}" class="card-img-top img2" width="100%" height="100%" alt="Plots Category Image">
 					<div class="card-img-overlay">
@@ -113,7 +113,7 @@
 			  </a>
 			</div>
 			<div class="col hidden">
-				<a href="{% url 'get_category' type='Commercial' %}" class="nav-link">
+				<a href="{% url 'listing:get_category' type='Commercial' %}" class="nav-link">
 					<div class="card h-100">
 						<div class="card-body">
 							<h5 class="card-title">COMMERCIAL</h5>
@@ -136,7 +136,7 @@
 					<div class="swiper-slide">
 						<div class="card">
 							<div class="row g-0">
-								<a href="{% url 'single_property' post.id %}" title="listing: {{ post.title }}">
+								<a href="{% url 'listing:single_property' post.id %}" title="listing: {{ post.title }}">
 									<div class="col-md-12 mb-md-0 p-md-3">
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
@@ -160,7 +160,7 @@
 												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds</p>
 											{% endif %}
 											<p class="card-text mt-3">
-												<a href="{% url 'single_property' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
+												<a href="{% url 'listing:single_property' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
 												<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
 												{% if post.creator.profile.phone_number %}
 													<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
@@ -213,7 +213,7 @@
 					<p class="card-text">
 						Our commitment to our clients and our desire to only give them the best. We have been successful in guiding people and winning their loyalty. Customer comfort, ease, and fair prices have always been our top priorities.
 					</p>
-					<a href="{% url 'about_us' %}" class="btn btn-outline-secondary">About Us</a>
+					<a href="{% url 'listing:about_us' %}" class="btn btn-outline-secondary">About Us</a>
 				</div>
 			  </div>
 			</div>

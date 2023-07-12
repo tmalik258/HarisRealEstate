@@ -10,29 +10,27 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.db import IntegrityError
 from django.db.models import Max
-from django.forms import modelformset_factory
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
-from allauth.account.decorators import verified_email_required
 
-from .models import Listing, Comment, Image, Contact, Profile
-from .forms import listingForm, UserUpdateForm, ProfileUpdateForm
+from .models import Listing, ListingImage, Contact
+from .forms import listingForm
 
 
 # Create your views here.
 def index (request):
-    posts = Listing.objects.filter(active=True).order_by("-time_created")[0:10]
-    return render(request, 'website/index.html', {
+    posts = Listing.posts.all()[0:10]
+    return render(request, 'listing/index.html', {
         'posts': posts
     })
 
 
 class PropertiesListView (ListView):
     model = Listing
-    queryset = Listing.objects.filter(active=True).order_by("-time_created").all()
+    queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
+    template_name = "listing/properties.html"
 
 
 def single_property (request, item):
@@ -46,36 +44,36 @@ def single_property (request, item):
 
     except Listing.DoesNotExist:
         post = ""
-    return render(request, 'website/singleProperty.html', {
+    return render(request, 'listing/singleProperty.html', {
         'post': post,
         'active': active
     })
 
 class SearchedPropertiesListView (ListView):
     model = Listing
+    queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
+    template_name = "listing/properties.html"
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
         qs = qs.filter(
                 title__icontains=self.request.GET['searchByTitle'],
-                active=True
-            ).order_by("-time_created").all()
+            )
         return qs
 
 
 class FilteredPropertiesListView (ListView):
     model = Listing
+    queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
+    template_name = "listing/properties.html"
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
         qs = qs.filter(
                 purpose=self.request.GET['purpose'],
-                active=True
-            ).order_by("-time_created").all()
+            )
 
         # SEARCH BY CATEGORY
         if self.request.GET['category']:
@@ -123,8 +121,9 @@ class FilteredPropertiesListView (ListView):
 
 class CategoryListView (ListView):
     model = Listing
+    queryset = Listing.posts.all()
     paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/properties.html"
+    template_name = "listing/properties.html"
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset(**kwargs)
@@ -138,8 +137,7 @@ class CategoryListView (ListView):
 
         qs = qs.filter(
             category__in=subcategories,
-            active=True
-        ).order_by('-time_created').all()
+        )
         return qs
         
 
@@ -192,64 +190,26 @@ def contact (request):
 
 
 def about_us (request):
-    return render(request, 'website/about-us.html')
+    return render(request, 'listing/about-us.html')
 
 
 def contact_us_page (request):
     if request.user.is_staff and request.user.is_authenticated:
         contacts = Contact.objects.all()
         contacts = contacts.order_by("-date_created").all()
-        return render(request, 'website/contactUs.html', {
+        return render(request, 'listing/contactUs.html', {
             'contacts': contacts
         })
-    return render(request, 'website/contactUs.html')
+    return render(request, 'listing/contactUs.html')
 
 
 def agents (request):
     agents = User.objects.all()
-    return render(request, 'website/agents.html', {
+    return render(request, 'listing/agents.html', {
         'agents': agents
     })
 
 
-class profileWithPropertiesListView(ListView, LoginRequiredMixin):
-    model = Listing
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "website/profile.html"
-
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        qs = qs.filter(
-                creator=self.request.user,
-                active=True
-            ).order_by("-time_created").all()
-        return qs
-
-
-@login_required
-def profileUpdate (request):
-    if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(request, f'Your account has been updated!')
-            return redirect('profile') # Redirect back to profile page
-
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
-    
-    return render(request, 'website/profile-update.html',{
-        'u_form': u_form,
-        'p_form': p_form
-    })
-
-
-# @verified_email_required
 @login_required
 def createListing (request):
     heading = 'Sell Your Own Property'
@@ -280,11 +240,11 @@ def createListing (request):
             else:
                 listing_obj.bedroom = ''
                 listing_obj.bathroom = ''
-            listing_obj.active = True
+            listing_obj.is_active = True
             listing_obj.save()
 
             for image_file in images:
-                img = Image(listing=listing_obj, image=image_file)
+                img = ListingImage(listing=listing_obj, image=image_file)
                 img.save()
 
             messages.success(request, "Yeew, check it out on the home page!")
@@ -295,7 +255,7 @@ def createListing (request):
                 for error in field.errors:
                     messages.error(request, f"{field.name}: {error}")
             print(listing_form.errors)
-            return render(request, 'website/createListing.html', {
+            return render(request, 'listing/createListing.html', {
                 'listing_form': listing_form,
                 'heading': heading,
                 'submit': submit,
@@ -303,7 +263,7 @@ def createListing (request):
             })
 
     listing_form = listingForm
-    return render(request, 'website/createListing.html', {
+    return render(request, 'listing/createListing.html', {
         'listing_form': listing_form,
         'heading': heading,
         'submit': submit,
@@ -315,7 +275,7 @@ def createListing (request):
 def updateListing (request, item_id):
     heading = 'Update Listing'
     submit = 'Save'
-    listing = Listing.objects.get(id=item_id)
+    listing = Listing.posts.get(id=item_id)
 
     if request.method == "POST":
         listing_form = listingForm (request.POST, instance=listing)
@@ -342,7 +302,6 @@ def updateListing (request, item_id):
             else:
                 listing_obj.bedroom = ''
                 listing_obj.bathroom = ''
-            listing_obj.active = True
             listing_obj.save()
 
             # No Image Update Option
@@ -354,18 +313,15 @@ def updateListing (request, item_id):
             return HttpResponseRedirect("/createListing")
         
         else:
-            for field in listing_form:
-                for error in field.errors:
-                    messages.error(request, f"{field.name}: {error}")
             print(listing_form.errors)
-            return render(request, 'website/createListing.html', {
+            return render(request, 'listing/createListing.html', {
                 'listing_form': listing_form,
                 'heading': heading,
                 'submit': submit,
             })
 
     listing_form = listingForm(instance=listing)
-    return render(request, 'website/createListing.html', {
+    return render(request, 'listing/createListing.html', {
         'listing_form': listing_form,
         'heading': heading,
         'submit': submit,
@@ -373,93 +329,23 @@ def updateListing (request, item_id):
 
 @login_required
 def deleteListing (request, item_id):
-    listing = Listing.objects.get(id = item_id)
+    listing = Listing.posts.get(id = item_id)
     if request.user == listing.creator:
-        listing.delete()
+        listing.is_active = False
+        listing.save()
         messages.success(request, "Listing Has Been Deleted!")
         return redirect('/')
     else:
         message.error(request, "You don't have authority to delete this post.")
-        return render(request, 'website/singleProperty.html', {
+        return render(request, 'listing/singleProperty.html', {
         'post': listing,
         'active': False
     })
 
         
-def register(request):
-    if request.user.is_authenticated:
-        return redirect("/")
-
-    if request.method == "POST":
-        first_name = request.POST["fname"]
-        last_name = request.POST["lname"]
-        username = request.POST["username"]
-        email = request.POST["email"]
-        phone_number = request.POST["tel"]
-        estate_name = request.POST["estate_name"]
-        bio_info = request.POST["bio_info"]
-        profile_image = request.FILES.get("profile_image")
-
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmation"]
-        if password != confirmation:
-            print("Password Must Match")
-            return render(request, "account/signup.html", {
-                "pass_error_message": "Passwords must match.",
-                'pass_error': True
-            })
-        elif password in username:
-            print("Password can't be similar to username")
-            return render(request, "account/signup.html", {
-                "pass_error_message": "Your password can't be similar to username.",
-                'pass_error': True
-            })
-        elif password in email:
-            print("Your password can't be similar to email.")
-            return render(request, "account/signup.html", {
-                "pass_error_message": "Your password can't be similar to email.",
-                'pass_error': True
-            })
-
-
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(username, email, password, first_name = first_name, last_name = last_name)
-            user.save()
-            print("User Account Created")
-        except IntegrityError:
-            print(IntegrityError)
-            return render(request, "account/signup.html", {
-                "username_error_message": "Username already taken.",
-                'username_error': True
-            })
-         # Check if profile already exists for the user
-        profile, created = Profile.objects.get_or_create(user=user)
-        # if created:
-        profile.bio_info = bio_info
-        profile.estate_name = estate_name
-        profile.phone_number = phone_number
-        if profile_image:
-            profile.profile_image = profile_image
-            print("Profile picture saved")
-        profile.save()
-        print("Profile Added")
-        
-        messages.success(request, "Hurray! Your account has been activated.")
-
-        # Authenticate the user with the provided credentials
-        user = authenticate(request, username=username, password=password)
-        
-        login(request, user)
-        return redirect("profile")
-    else:
-        return render(request, "account/signup.html")
-
-
 def privacyPolicy(request):
-    return render(request, 'website/privacy-policy.html')
+    return render(request, 'listing/privacy-policy.html')
 
 
 def termsView(request):
-    return render(request, 'website/terms.html')
+    return render(request, 'listing/terms.html')

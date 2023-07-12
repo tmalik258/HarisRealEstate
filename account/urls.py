@@ -44,7 +44,6 @@ urlpatterns = [
 		), name='password_reset_complete'),
 
 	# user dashboard
-	path('dashboard/', views.dashboard, name='dashboard'),
 	# profile update
 	path('profile/edit/', views.edit_details, name='edit_details'),
 	# profile delete
@@ -54,4 +53,13 @@ urlpatterns = [
 	# wishlist
 	path('wishlist/', views.WishlistView.as_view(), name="wishlist"),
 	path('wishlist/add_to_wishlist/<slug:slug>', views.Add_to_wishlist_view, name="add-to-wishlist"),
+	# profile url
+	path('profile', views.profileWithPropertiesListView.as_view(), name='profile'),
+	# profile update url
+	path('profile-update', views.profileUpdate, name = 'profile-update'),
+	# password changer form
+	# path('change-password', auth_views.PasswordChangeView.as_view(
+	# 	template_name='website/change-password.html',
+	# 	success_url='/profile'
+	# ), name='change-password'),
 ]

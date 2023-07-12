@@ -1,11 +1,11 @@
-{% extends 'store/layout.html' %}
+{% extends 'listing/layout.html' %}
 {% load static %}
 
 {% block body %}
 <div class="container py-4" style="max-width: 1050px;">
 	<div class="hstack gap-3">
-		<a href="{% url 'store:index' %}" class="link-body-emphasis text-decoration-none">
-			<img src="{% static 'store/imgs/icon/sanwal2.webp' %}" alt="Logo" width="50" height="45">
+		<a href="{% url 'listing:index' %}" class="link-body-emphasis text-decoration-none">
+			<img src="{% static 'listing/imgs/icon/sanwal2.webp' %}" alt="Logo" width="50" height="45">
 		</a><div class="vr me-2"></div>
 		<div class="col">
 			<h1 class="h5 mb-0">Your Wishlist</h1>
@@ -31,7 +31,7 @@
 										</div>
 									</div>
 								{% else %}
-									<img src="{% static 'store\imgs\products\No_image_available.png' %}" class="card-img-top" alt="No Image Available">
+									<img src="{% static 'listing\imgs\products\No_image_available.png' %}" class="card-img-top" alt="No Image Available">
 								{% endif %}
 							</div>
 							<div class="card-body text-center col-12 pt-0 position-relative">

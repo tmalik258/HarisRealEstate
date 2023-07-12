@@ -14,46 +14,35 @@ from django.utils.http import (urlsafe_base64_decode, urlsafe_base64_encode)
 from django.views.generic import ListView
 
 from .models import User
-from .forms import (RegistrationForm, ProfileEditForm)
+from .forms import (RegistrationUserForm, RegisterationProfileForm, ProfileEditForm)
 from .token import account_activation_token
 
-# Store App
-from website.models import Product
-
-# Order App
-from order.views import Orders_history
+# Listing App
+from listing.models import Listing
 
 # Create your views here.
 class WishlistView(LoginRequiredMixin, ListView):
-	model = Product
+	model = Listing
 	template_name = 'account/user/wishlist.html'
 	paginate_by = 12
 
 	def get_queryset(self, *kwargs):
-		return Product.objects.filter(user_wishlist=self.request.user)
+		return Listing.objects.filter(user_wishlist=self.request.user)
 
 
 @login_required
 def Add_to_wishlist_view(request, slug):
 	try:
-		product = Product.products.get(slug=slug)
-		if product.user_wishlist.filter(id=request.user.id).exists():
-			product.user_wishlist.remove(request.user)
+		post = Listing.objects.get(slug=slug)
+		if post.user_wishlist.filter(id=request.user.id).exists():
+			post.user_wishlist.remove(request.user)
 		else:
-			product.user_wishlist.add(request.user)
-			
-	except ObjectDoesNotExist:
-		messages.error(request, 'Product doesn\'t exist.')
-	
-	return redirect(request.META['HTTP_REFERER'])
+			post.user_wishlist.add(request.user)
 
-@login_required
-def dashboard(request):
-	orders = Orders_history(request)
-	return render(request, 'account/user/dashboard.html', {
-		'section': 'profile',
-		'orders': orders
-	})
+	except ObjectDoesNotExist:
+		messages.error(request, 'Listing doesn\'t exist.')
+
+	return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required
@@ -86,7 +75,7 @@ class CustomLoginView(LoginView):
 			if next_url != None:
 				return redirect(next_url)
 			else:
-				return redirect('store:index')
+				return redirect('listing:index')
 		return super().dispatch(request, *args, **kwargs)
 
 	def form_invalid(self, form):
@@ -125,7 +114,7 @@ class CustomLoginView(LoginView):
 		if next_url != None:
 			return next_url
 		else:
-			return reverse('store:index')
+			return reverse('listing:index')
 
 
 def register(request):
@@ -133,14 +122,22 @@ def register(request):
 		return redirect('/')
 
 	if request.method == "POST":
-		registerForm = RegistrationForm(request.POST)
-		if registerForm.is_valid():
-			user = registerForm.save(commit=False)
-			user.email = registerForm.cleaned_data['email']
-			user.set_password(registerForm.cleaned_data['password'])
+		user_form = RegistrationUserForm(request.POST)
+		profile_form = RegisterationProfileForm(request.POST)
+
+		if user_form.is_valid() and profile_form.is_valid():
+			# user setup
+			user = user_form.save(commit=False)
+			user.email = user_form.cleaned_data['email']
+			user.set_password(user_form.cleaned_data['password'])
 			user.is_active = False
 			user.is_verified = False
 			user.save()
+
+			# profile setup
+			profile = profile_form.save(commit=False)
+			profile.user = user
+			profile.save()
 
 			# Setup email
 			current_site = get_current_site(request)
@@ -153,12 +150,18 @@ def register(request):
 			})
 			user.send_verification_email(subject=subject, message=message)
 			messages.success(request, 'Your account has been created successfully. Please check your mail for account verification')
-			return redirect('store:index')
+			return redirect('listing:index')
+		else:
+			return render(request, 'account/registration/register.html', {
+				'form': user_form,
+				'profile_form': profile_form
+			})
 
-	else:
-		registerForm = RegistrationForm()
+	user_form = RegistrationUserForm()
+	profile_form = RegisterationProfileForm()
 	return render(request, 'account/registration/register.html', {
-		'form': registerForm
+		'form': user_form,
+		'profile_form': profile_form
 	})
 
 
@@ -174,7 +177,7 @@ def account_activate(request, uid64, token):
 		user.save()
 		messages.success(request, 'Your account has been verified.')
 		login(request, user)
-		return redirect('account:dashboard')
+		return redirect('account:profile')
 	else:
 		messages.error(request, 'Invalid User/token')
 		return redirect('account:login')
@@ -184,4 +187,41 @@ def account_activate(request, uid64, token):
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have successfully logged out.')
-    return redirect("store:index")
+    return redirect("listing:index")
+
+
+class profileWithPropertiesListView(ListView, LoginRequiredMixin):
+    model = Listing
+    paginate_by = 25 # show 25 posts in reverse chronologial order
+    template_name = "account/user/profile.html"
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+        qs = qs.filter(
+                creator=self.request.user,
+                is_active=True
+            ).order_by("-time_created").all()
+        return qs
+
+
+@login_required
+def profileUpdate (request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('account:profile') # Redirect back to profile page
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    
+    return render(request, 'user/profile-update.html',{
+        'u_form': u_form,
+        'p_form': p_form
+    })
