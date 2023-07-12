@@ -199,7 +199,7 @@ class Listing (models.Model):
 			return False
 
 	def __str__(self) -> str:
-		if self.active:
+		if self.is_active:
 			listing = 'Listing is Active'
 		else:
 			listing = 'Listing is Closed'
