@@ -196,10 +196,6 @@
 			}
 		},
 
-		// scrollbar: {
-		// 	el: ".swiper-scrollbar",
-		// },
-		
 		navigation: {
 		  nextEl: ".swiper-button-next",
 		  prevEl: ".swiper-button-prev",
@@ -223,10 +219,6 @@
 			el: ".swiper-pagination",
 		},
 
-		scrollbar: {
-			el: ".swiper-scrollbar",
-		},
-		
 		navigation: {
 		  nextEl: ".swiper-button-next",
 		  prevEl: ".swiper-button-prev",
@@ -261,7 +253,7 @@ window.addEventListener('scroll', scrollUp)
 
 function load_contact_form () {
 	$('.contact-us').html(`
-		<section class="login">
+		<section class="auth_form">
 			<div class="login-body">
 				<h1 class="card-text">CONTACT US</h1>
 				<p class="text-muted">If you are interested in hearing more about the way we work, have a business proposal, or are interested in making a purchase, we'd love to hear from you.</p>

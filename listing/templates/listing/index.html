@@ -145,28 +145,34 @@
 										{% endif %}
 									</div>
 									<div class="col-md-12">
-										<div class="card-body">
-											<h6 class="card-title text-center">{{ post.title | upper }}</h6><hr>
-											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 16px;">{{ post.price | int_word }}</span></p>
-											<p class="card-text">{{ post.address | truncatechars:33 }}</p>
-											<p class="card-text"><span style="color: rgb(174, 115, 229);;">{{ post.get_category_display }}</span> for <span style="color: rgb(174, 115, 229);">{{ post.get_purpose_display }}</span></p>
-											<p class="card-text">
-												<span style="color: rgb(174, 115, 229);">{{ post.area_size }} </span>
-												{{ post.get_area_size_unit_display }}
-											</p>
-											{% if post.bedroom and post.bathroom %}
-												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom_display }}</strong> Baths</p>
-											{% elif post.bedroom %}
-												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds</p>
-											{% endif %}
-											<p class="card-text mt-3">
-												<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
-												<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
-												{% if post.creator.profile.phone_number %}
-													<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
+										<div class="container">
+											<div class="card-body">
+												<h6 class="card-title text-center">{{ post.title | upper }}</h6><hr>
+												<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 16px;">{{ post.price | int_word }}</span></p>
+												<p class="card-text">{{ post.address | truncatechars:33 | safe }}</p>
+												<p class="card-text">
+													<span style="color: rgb(174, 115, 229);;">{{ post.get_category_display | safe }}</span>
+													<span class="vr"></span>
+													<span style="color: rgb(174, 115, 229);">{{ post.get_purpose_display }}</span>
+													<span class="vr"></span>
+												<!-- <p class="card-text"> -->
+													<span style="color: rgb(174, 115, 229);">{{ post.area_size }} </span>
+													{{ post.get_area_size_unit_display }}
+												</p>
+												{% if post.bedroom and post.bathroom %}
+													<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom_display }}</strong> Baths</p>
+												{% elif post.bedroom %}
+													<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom_display }}</strong> Beds</p>
 												{% endif %}
-											</p>
-											<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
+												<p class="card-text mt-3">
+													<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
+													<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+													{% if post.creator.profile.phone_number %}
+														<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
+													{% endif %}
+												</p>
+												<p class="card-text"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
+											</div>
 										</div>
 									</div>
 								</div>

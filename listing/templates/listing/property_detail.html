@@ -2,57 +2,115 @@
 {% load static %}
 {% load custom_tags %}
 
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
 {% block body %}
-	<section class="main_section">
-		<article class="properties singleProperty">
-			<h1>{{ post.title }}</h1>
-				{% if post.img.first %}
-					<div class="swiper singlePropertyImageSwiper">
-						<div class="swiper-wrapper">
-							{% for image in post.img.all %}
-								<div class="swiper-slide">
-									<a href="{{ image.image.url }}"><img src="{{ image.image.url }}" class="d-block" alt="image.image" ></a>
-								</div>
-							{% endfor %}
-						</div>
-						<div class="swiper-button-next">
-							<ion-icon name="caret-forward-outline"></ion-icon>
-						</div>
-						<div class="swiper-button-prev">
-							<ion-icon name="caret-back-outline"></ion-icon>
-						</div>
-						<!-- <div class="swiper-scrollbar" style="background: wheat;"></div> -->
-						<!-- <div class="swiper-pagination" style="background: wheat; border-radius: 20px;"></div> -->
-					</div>
-				{% else %}
-					<img loading="lazy" src="\media\image_not_found\no-image.png"  class="card-img-top d-block m-auto" id="no_image" alt="No Image Uploaded">
-				{% endif %}
+	<article class="properties property_detail">
+		<div class="container">
+			<div class="row">
+				<h1 class="card-title h5 text-start">{{ post.title | upper }}</h1>
+				<p class="card-title">{{ post.address }}, {{ post.get_city_display }}</p>
 				<div class="col">
+					{% if post.img.first %}
+						<div class="swiper singlePropertyImageSwiper">
+							<div class="swiper-wrapper">
+								{% for image in post.img.all %}
+									<div class="swiper-slide">
+										<a href="{{ image.image.url }}"><img src="{{ image.image.url }}" class="d-block" alt="image.image" ></a>
+									</div>
+								{% endfor %}
+							</div>
+							<div class="swiper-button-next">
+								<ion-icon name="caret-forward-outline"></ion-icon>
+							</div>
+							<div class="swiper-button-prev">
+								<ion-icon name="caret-back-outline"></ion-icon>
+							</div>
+							<!-- <div class="swiper-scrollbar" style="background: wheat;"></div> -->
+							<!-- <div class="swiper-pagination" style="background: wheat; border-radius: 20px;"></div> -->
+						</div>
+					{% else %}
+						<img loading="lazy" src="\media\image_not_found\no-image.png"  class="card-img-top d-block m-auto" id="no_image" alt="No Image Uploaded">
+					{% endif %}
+				</div>
+				<div class="col mt-4">
 					<div class="card-body">
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col">
-									<h5 class="card-title">Price: </h5>
-									<p class="card-text ms-3">PKR <span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
-									<h5 class="card-title">Purpose: </h5>
-									<p class="card-text ms-3">{{ post.get_purpose_display }}</p>
-									<h5 class="card-title">Category: </h5>
-									<p class="card-text ms-3">{{ post.get_category_display }}</p>
-									<h5 class="card-title">Size: </h5>
-									<p class="card-text ms-3">{{ post.area_size }} {{ post.get_area_size_unit_display }}</p>
+						<div class="container">
+							<h2 class="card-title h5 mb-4">What this Place Offers</h2>
+							<div class="container">
+								<div class="row g-3 text-center">
+									<div class="col col-lg-3">
+										<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cash me-lg-2" viewBox="0 0 16 16">
+											<path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+											<path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+										</svg>
+										PKR {{ post.price | int_word }}
+									</div>
+									<div class="col col-lg-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building me-lg-2" viewBox="0 0 16 16">
+											<path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+											<path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
+										  </svg>
+										{{ post.get_purpose_display }}
+									</div>
+									<div class="col col-lg-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-tag me-lg-2" viewBox="0 0 16 16">
+											<path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z"/>
+											<path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z"/>
+											</svg>
+										{{ post.get_category_display | safe }}
+									</div>
+									<div class="col">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-geo me-lg-2" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+										  </svg>
+										{{ post.area_size }} {{ post.get_area_size_unit_display }}
+									</div>
+									{% if post.get_bedroom and post.get_bathroom %}
+										<div class="col col-lg-2">
+											<i class="fa fa-bed me-2" style="font-size: 25px;"></i>
+											{{ post.get_bedroom }} beds
+										</div>
+										<div class="col col-lg-2">
+											<i class="fa fa-bath me-2" style="font-size: 25px;"></i>
+											{{ post.get_bathroom }} Baths
+										</div>
+									{% elif post.get_bedroom %}
+										<div class="col">
+											<i class="fa fa-bed me-2" style="font-size: 25px;"></i>
+											{{ post.get_bedroom }}Beds
+										</div>
+									{% endif %}
 								</div>
-								<div class="col">
-									<h5 class="card-title">Location: </h5>
-									<p class="card-text ms-3">{{ post.address }}</p>
-									<h5 class="card-title">Description: </h5>
-									<p class="card-text ms-3" style="line-height: 25px;">{{ post.description | linebreaksbr }}</p>
+							</div>
+
+							<hr class="w-75 m-auto my-5">
+
+							<h2 class="card-title h5 mt-5 mb-3">About this Place</h2>
+							<div class="container agent p-3">{{ post.description | linebreaksbr | safe }}</div>
+							
+							<hr class="w-75 m-auto my-5">
+
+							<h2 class="h5">Meet your Agent</h2>
+							<div class="container agent py-3">
+								<div class="profile-container">
+									<img src="{{ post.creator.profile.profile_image.url }}" class="profile-img mx-auto" alt="">
+									<h3 class="h5">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
+									<div>{{ post.creator.profile.estate_name }}</div>
+									<div class="p-1">
+										{% if post.creator.profile.phone_number %}
+											<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email fs-4"><ion-icon name="call-outline"></ion-icon></a>
+										{% endif %}
+										<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email fs-4"><ion-icon name="mail-outline"></ion-icon></a>
+									</div>
+								</div>
+								<div class="text-center mt-3">
+									{{ post.creator.profile.bio_info | safe }}
 								</div>
 							</div>
 							<div class="card-text mt-3">
-								{% if post.creator.profile.phone_number %}
-									<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
-								{% endif %}
-								<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
 								{% if active %}
 									<a href="{% url 'listing:delete-listing' post.id %}"  class="btn btn-outline-secondary email">Delete</a>
 									<a href="{% url 'listing:update-listing' post.id %}"  class="btn btn-outline-secondary email">Update/Edit</a>
@@ -62,6 +120,7 @@
 						</div>
 					</div>
 				</div>
-		</article>
-	</section>
+			</div>
+		</div>
+	</article>
 {% endblock %}

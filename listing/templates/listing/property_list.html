@@ -6,12 +6,12 @@
 	<section class="main_section">
 		<article class="properties">
 			<h1>Properties</h1>
-			<div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+			<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
 				{% for post in page_obj %}
 					<div class="col">
-						<div class="card my-2" style="max-width: 700px;">
-							<div class="row g-0">
-								<div class="col-md-5 mb-md-0 p-md-3">
+						<div class="card my-2">
+							<div class="row row-cols-1 g-0">
+								<div class="col mb-md-0 p-md-3">
 									<a href="{% url 'listing:property-detail' post.id %}">
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
@@ -20,35 +20,55 @@
 										{% endif %}
 									</a>
 								</div>
-								<div class="col-md-7">
-									<a href="{% url 'listing:property-detail' post.id %}">
-										<div class="card-body">
-											<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
-											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
-											<p class="card-text" style="line-height: 18px;">{{ post.address | truncatechars:33 }}</p>
-											<p class="card-text"><span style="color: rgb(174, 115, 229);;">{{ post.get_category_display }}</span> for <span style="color: rgb(174, 115, 229);">{{ post.get_purpose_display }}</span></p>
-											<p class="card-text">
-												<span style="color: rgb(174, 115, 229);">{{ post.area_size }} </span>
-												{{ post.get_area_size_unit_display }}
-											</p>
-											{% if post.get_bedroom and post.get_bathroom %}
-												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom }}</strong> <span class="bedicon">
-													<ion-icon name="bed-outline"></ion-icon>
-												</span> <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
-											{% elif post.get_bathroom %}
-												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
-											{% endif %}
-											<p class="card-text mt-3">
-												<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
-												<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
-												{% if post.creator.profile.phone_number %}
-													<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email more">Call</a>
+								<div class="col">
+									<div class="container">
+										<a href="{% url 'listing:property-detail' post.id %}">
+											<div class="card-body">
+												<h2 class="card-title text-center h6">{{ post.title | upper }}</h2><hr class="w-75 mx-auto mt-0">
+
+												<p class="card-text">
+													Rs. {{ post.price | int_word }}
+												</p>
+												
+												<p class="card-text text-muted" style="line-height: 18px;">{{ post.address | truncatechars:33 | safe }}</p>
+												<p class="card-text text-muted">
+													{{ post.get_category_display | safe }}
+													<span class="vr"></span>
+													{{ post.get_purpose_display }}
+													<span class="vr"></span>
+													{{ post.area_size }}
+													{{ post.get_area_size_unit_display }}
+												</p>
+												{% if post.get_bedroom and post.get_bathroom %}
+													<p class="card-text text-muted">{{ post.get_bedroom }}<span class="bedicon">
+														<ion-icon name="bed-outline"></ion-icon>
+													</span>
+													<span class="vr"></span>
+													{{ post.get_bathroom }} Baths</p>
+												{% elif post.get_bathroom %}
+													<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
 												{% endif %}
-											</p>
-											<p class="card-text" style="line-height: 18px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
-											<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
-										</div>
-									</a>
+												<p class="card-text">
+													<div class="hstack gap-1">
+														<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-sm btn-outline-secondary email more">More</a>
+														<!-- <div class="vr"></div> -->
+														<a href="mailto:{{ post.creator.email }}"  class="btn btn-sm btn-outline-secondary email"><span class="bedicon">
+															<ion-icon name="mail-outline"></ion-icon>
+														</span></a>
+														{% if post.creator.profile.phone_number %}
+															<!-- <div class="vr"></div> -->
+															<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-sm btn-outline-secondary email more"><span class="bedicon m-0 p-0">
+																<ion-icon name="call-outline"></ion-icon>
+															</span></a>
+														{% endif %}
+														<!-- <div class="p-2">Third item</div> -->
+													</div>
+												</p>
+												<p class="card-text" style="line-height: 18px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
+												<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
+											</div>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>

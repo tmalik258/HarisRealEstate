@@ -9,6 +9,11 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
+# Image Resize and Upload
+from io import BytesIO
+from django.core.files.base import ContentFile
+from PIL import Image as PillowImage
+
 
 class User(AbstractUser):
 	class Meta:

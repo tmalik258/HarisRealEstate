@@ -27,8 +27,8 @@ class Listing (models.Model):
 	)
 
 	PURPOSE_CHOICES = (
-		('S', 'Sale'),
-		('R', 'Rent Out')
+		('S', 'For Sale'),
+		('R', 'For Rent')
 	)
 
 	BEDROOM_CHOICES = (
@@ -131,7 +131,7 @@ class Listing (models.Model):
 	CATEGORY_CHOICES = [
 		('', 'Category'),
 		('Homes', (
-			('house', 'House'),
+			('house', 'House <span class="bedicon"><ion-icon name="home-outline"></ion-icon></span>'),
 			('flat', 'Flat'),
 			('up', 'Upper Portion'),
 			('lp', 'Lower Portion'),
