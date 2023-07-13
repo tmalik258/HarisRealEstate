@@ -133,7 +133,7 @@ class CategoryListView (ListView):
         elif self.kwargs['type'] == 'Plots':
             subcategories = ['rp', 'cp', 'al', 'il', 'pfile', 'pform']
         elif self.kwargs['type'] == 'Commercial':
-            subcategories = ['off', 'shop', 'wh', 'fact', 'buil']
+            subcategories = ['off', 'shop', 'wh', 'fact', 'buil', 'cp']
 
         qs = qs.filter(
             category__in=subcategories,
