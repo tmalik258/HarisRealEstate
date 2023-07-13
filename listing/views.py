@@ -13,6 +13,7 @@ from django.db.models import Max
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import ListView, View
+from django.db.models import BooleanField, Case, When
 
 from .models import Listing, ListingImage, Contact
 from .forms import listingForm
@@ -32,12 +33,25 @@ class PropertiesListView (ListView):
     paginate_by = 25 # show 25 posts in reverse chronologial order
     template_name = "listing/property_list.html"
 
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset(**kwargs)
+        qs = qs.annotate(is_in_wishlist=Case(
+            When(user_wishlist__id=self.request.user.id, then=True),
+            default=False,
+            output_field=BooleanField(),
+        ))
+        return qs
+
 
 def property_detail (request, item):
     active = False
 
     try:
-        post = Listing.objects.get(pk=item)
+        post = Listing.objects.annotate(is_in_wishlist=Case(
+            When(user_wishlist__id=False if request.user.id == None else request.user.id, then=True),
+            default=False,
+            output_field=BooleanField(),
+        )).get(pk=item)
 
         if request.user.is_authenticated and request.user.username == post.creator.username:
             active = True
@@ -56,10 +70,14 @@ class SearchedPropertiesListView (ListView):
     template_name = "listing/property_list.html"
 
     def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        qs = qs.filter(
+        qs = super().get_queryset(**kwargs).filter(
                 title__icontains=self.request.GET['searchByTitle'],
             )
+        qs = qs.annotate(is_in_wishlist=Case(
+            When(user_wishlist__id=self.request.user.id, then=True),
+            default=False,
+            output_field=BooleanField(),
+        ))
         return qs
 
 
@@ -116,6 +134,13 @@ class FilteredPropertiesListView (ListView):
                 area_size=self.request.GET['area_size'],
                 area_size_unit=self.request.GET['area_size_unit']
             )
+
+        qs = qs.annotate(is_in_wishlist=Case(
+            When(user_wishlist__id=self.request.user.id, then=True),
+            default=False,
+            output_field=BooleanField(),
+        ))
+
         return qs
 
 
@@ -138,6 +163,12 @@ class CategoryListView (ListView):
         qs = qs.filter(
             category__in=subcategories,
         )
+
+        qs = qs.annotate(is_in_wishlist=Case(
+            When(user_wishlist__id=self.request.user.id, then=True),
+            default=False,
+            output_field=BooleanField(),
+        ))
         return qs
         
 

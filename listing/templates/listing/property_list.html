@@ -4,12 +4,27 @@
 
 {% block body %}
 	<article class="properties mt-3">
-		<h1>Properties</h1>
+		<h1>
+			{% if heading %}
+			{{ heading }}
+			{% else %}
+			Properties
+			{% endif %}
+		</h1>
 		<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
 			{% for post in page_obj %}
 				<div class="col">
 					<div class="card my-2">
 						<div class="row row-cols-1 g-0">
+							<div class="position-relative">
+								<a href="{% url 'account:add-to-wishlist' post.id %}" class="position-absolute pt-0 top-0 start-100" style="transform: translateX(-50px) translateY(25px);">
+									{% if post.is_in_wishlist %}
+										<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+									{% else %}
+										<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
+									{% endif %}
+								</a>
+							</div>
 							<div class="col mb-md-0 p-md-3">
 								<a href="{% url 'listing:property-detail' post.id %}">
 									{% if post.img.first %}
@@ -30,7 +45,7 @@
 											</p>
 											
 											<p class="card-text text-muted" style="line-height: 18px;">{{ post.address | truncatechars:33 | safe }}</p>
-											<p class="card-text text-muted">
+											<p class="card-text text-muted" style="line-height: 18px;">
 												{{ post.get_category_display | safe }}
 												<span class="vr"></span>
 												{{ post.get_purpose_display }}

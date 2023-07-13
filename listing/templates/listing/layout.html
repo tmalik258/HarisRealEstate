@@ -171,6 +171,7 @@
 						</a>
 						<ul class="dropdown-menu p-0">
 							<li><a class="dropdown-item" href="{% url 'account:profile' %}">Profile</a></li>
+							<li><a class="dropdown-item" href="{% url 'account:wishlist' %}">Wishlist</a></li>
 							{% comment %}
 							<li><a class="dropdown-item" href="{% url 'account:change-password' %}">Change Password</a></li>
 							{% endcomment %}
@@ -250,7 +251,7 @@
 				<li {% if "/properties?category=Plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
 					<a class="section nav-link" href="{% url 'listing:get_category' type='Plots' %}">
 						<span class="icon">
-							<ion-icon name="footsteps-outline"></ion-icon>
+							<ion-icon name="map-outline"></ion-icon>
 						</span>
 						<span class="text">Land/Plots</span>
 					</a>

@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import (force_bytes, force_str)
 from django.utils.http import (urlsafe_base64_decode, urlsafe_base64_encode)
+from django.db.models import BooleanField, Case, When
 from django.views.generic import ListView
 
 from .models import User
@@ -23,21 +24,34 @@ from listing.models import Listing
 # Create your views here.
 class WishlistView(LoginRequiredMixin, ListView):
 	model = Listing
-	template_name = 'account/user/wishlist.html'
+	template_name = 'listing/property_list.html'
 	paginate_by = 12
 
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['heading'] = 'Your Wishlist'
+		return context
+
 	def get_queryset(self, *kwargs):
-		return Listing.objects.filter(user_wishlist=self.request.user)
+		qs = Listing.posts.filter(user_wishlist=self.request.user)
+		qs = qs.annotate(is_in_wishlist=Case(
+			When(user_wishlist__id=self.request.user.id, then=True),
+			default=False,
+			output_field=BooleanField(),
+		))
+		return qs
 
 
 @login_required
-def Add_to_wishlist_view(request, slug):
+def Add_to_wishlist_view(request, item):
 	try:
-		post = Listing.objects.get(slug=slug)
+		post = Listing.posts.get(pk=item)
 		if post.user_wishlist.filter(id=request.user.id).exists():
 			post.user_wishlist.remove(request.user)
+			print('removed from wishlist')
 		else:
 			post.user_wishlist.add(request.user)
+			print('added to wishlist')
 
 	except ObjectDoesNotExist:
 		messages.error(request, 'Listing doesn\'t exist.')
