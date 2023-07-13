@@ -12,7 +12,7 @@
 			<div class="row">
 				<h1 class="card-title h5 text-start">{{ post.title | upper }}</h1>
 				<p class="card-title">{{ post.address }}, {{ post.get_city_display }}</p>
-				<div class="col-12">
+				<div class="col-12 mt-3">
 					{% if post.img.first %}
 						<div class="container">
 							<div class="row g-0">
@@ -54,7 +54,7 @@
 										  </svg>
 										{{ post.get_purpose_display }}
 									</div>
-									<div class="col col-lg-2">
+									<div class="col" style="min-width: 120px;">
 										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-tag me-lg-2" viewBox="0 0 16 16">
 											<path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z"/>
 											<path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z"/>
@@ -68,7 +68,7 @@
 										{{ post.area_size }} {{ post.get_area_size_unit_display }}
 									</div>
 									{% if post.get_bedroom and post.get_bathroom %}
-										<div class="col col-lg-2">
+										<div class="col" style="min-width: 200px;">
 											<i class="fa fa-bed me-2" style="font-size: 25px;"></i>
 											{{ post.get_bedroom }} beds
 										</div>
@@ -96,9 +96,9 @@
 							<div class="container agent py-3">
 								<div class="profile-container">
 									{% if post.creator.profile.profile_image %}
-									<img src="{{ image }}" class="profile-img mx-auto" alt="">
+									<img src="{{ post.creator.profile.profile_image.url }}" class="profile-img mx-auto" alt="">
 									{% else %}
-									<img src="media/image_not_found/no-image.png" class="profile-img mx-auto" alt="">
+									<img src="media/Image_not_found/no-image.png" class="profile-img mx-auto" alt="">
 									{% endif %}
 									<h3 class="h5">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
 									<div>{{ post.creator.profile.estate_name }}</div>

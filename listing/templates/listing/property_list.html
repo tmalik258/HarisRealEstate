@@ -3,127 +3,125 @@
 {% load custom_tags %}
 
 {% block body %}
-	<section class="main_section">
-		<article class="properties">
-			<h1>Properties</h1>
-			<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
-				{% for post in page_obj %}
-					<div class="col">
-						<div class="card my-2">
-							<div class="row row-cols-1 g-0">
-								<div class="col mb-md-0 p-md-3">
+	<article class="properties mt-3">
+		<h1>Properties</h1>
+		<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+			{% for post in page_obj %}
+				<div class="col">
+					<div class="card my-2">
+						<div class="row row-cols-1 g-0">
+							<div class="col mb-md-0 p-md-3">
+								<a href="{% url 'listing:property-detail' post.id %}">
+									{% if post.img.first %}
+										<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
+									{% else %}
+										<img loading="lazy" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+									{% endif %}
+								</a>
+							</div>
+							<div class="col">
+								<div class="container">
 									<a href="{% url 'listing:property-detail' post.id %}">
-										{% if post.img.first %}
-											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
-										{% else %}
-											<img loading="lazy" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
-										{% endif %}
-									</a>
-								</div>
-								<div class="col">
-									<div class="container">
-										<a href="{% url 'listing:property-detail' post.id %}">
-											<div class="card-body">
-												<h2 class="card-title text-center h6">{{ post.title | upper }}</h2><hr class="w-75 mx-auto mt-0">
+										<div class="card-body">
+											<h2 class="card-title text-center h6">{{ post.title | upper }}</h2><hr class="w-75 mx-auto mt-0">
 
-												<p class="card-text">
-													Rs. {{ post.price | int_word }}
-												</p>
-												
-												<p class="card-text text-muted" style="line-height: 18px;">{{ post.address | truncatechars:33 | safe }}</p>
-												<p class="card-text text-muted">
-													{{ post.get_category_display | safe }}
-													<span class="vr"></span>
-													{{ post.get_purpose_display }}
-													<span class="vr"></span>
-													{{ post.area_size }}
-													{{ post.get_area_size_unit_display }}
-												</p>
-												{% if post.get_bedroom and post.get_bathroom %}
-													<p class="card-text text-muted">{{ post.get_bedroom }}<span class="bedicon">
-														<ion-icon name="bed-outline"></ion-icon>
-													</span>
-													<span class="vr"></span>
-													{{ post.get_bathroom }} Baths</p>
-												{% elif post.get_bathroom %}
-													<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
-												{% endif %}
-												<p class="card-text">
-													<div class="hstack gap-1">
-														<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-sm btn-outline-secondary email more">More</a>
+											<p class="card-text">
+												Rs. {{ post.price | int_word }}
+											</p>
+											
+											<p class="card-text text-muted" style="line-height: 18px;">{{ post.address | truncatechars:33 | safe }}</p>
+											<p class="card-text text-muted">
+												{{ post.get_category_display | safe }}
+												<span class="vr"></span>
+												{{ post.get_purpose_display }}
+												<span class="vr"></span>
+												{{ post.area_size }}
+												{{ post.get_area_size_unit_display }}
+											</p>
+											{% if post.get_bedroom and post.get_bathroom %}
+												<p class="card-text text-muted">{{ post.get_bedroom }}<span class="bedicon">
+													<ion-icon name="bed-outline"></ion-icon>
+												</span>
+												<span class="vr"></span>
+												{{ post.get_bathroom }} Baths</p>
+											{% elif post.get_bathroom %}
+												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
+											{% endif %}
+											<p class="card-text">
+												<div class="hstack gap-1">
+													<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-sm btn-outline-secondary email more">More</a>
+													<!-- <div class="vr"></div> -->
+													<a href="mailto:{{ post.creator.email }}"  class="btn btn-sm btn-outline-secondary email"><span class="bedicon">
+														<ion-icon name="mail-outline"></ion-icon>
+													</span></a>
+													{% if post.creator.profile.phone_number %}
 														<!-- <div class="vr"></div> -->
-														<a href="mailto:{{ post.creator.email }}"  class="btn btn-sm btn-outline-secondary email"><span class="bedicon">
-															<ion-icon name="mail-outline"></ion-icon>
+														<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-sm btn-outline-secondary email more"><span class="bedicon m-0 p-0">
+															<ion-icon name="call-outline"></ion-icon>
 														</span></a>
-														{% if post.creator.profile.phone_number %}
-															<!-- <div class="vr"></div> -->
-															<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-sm btn-outline-secondary email more"><span class="bedicon m-0 p-0">
-																<ion-icon name="call-outline"></ion-icon>
-															</span></a>
-														{% endif %}
-														<!-- <div class="p-2">Third item</div> -->
-													</div>
-												</p>
-												<p class="card-text" style="line-height: 18px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
-												<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
-											</div>
-										</a>
-									</div>
+													{% endif %}
+													<!-- <div class="p-2">Third item</div> -->
+												</div>
+											</p>
+											<p class="card-text" style="line-height: 18px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
+											<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
+										</div>
+									</a>
 								</div>
 							</div>
 						</div>
 					</div>
-				{% empty %}
-					<div class="emptyProperty">
-						<h2>Sorry! No Property Found !!</h2>
-					</div>
-				{% endfor %}
-			</div>
-						<!-- PAGINATION START -->
-			{% if is_paginated %}
-				<nav aria-label="Page Navigation">
-					<ul class="pagination justify-content-center">
-						{% if page_obj.has_previous %}
-							<li class="page-item">
-								<a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-							</li>
+				</div>
+			{% empty %}
+				<div class="emptyProperty">
+					<h2>Sorry! No Property Found !!</h2>
+				</div>
+			{% endfor %}
+		</div>
+					<!-- PAGINATION START -->
+		{% if is_paginated %}
+			<nav aria-label="Page Navigation">
+				<ul class="pagination justify-content-center">
+					{% if page_obj.has_previous %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					{% else %}
+						<li class="page-item disabled">
+							<a class="page-link" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					{% endif %}
+					{% for i in page_obj.paginator.get_elided_page_range %}
+						{% if page_obj.paginator.ELLIPSIS == forloop.counter %}
+							<li class="page-item disabled"><a class="page-link">{{ forloop.counter }}</a></li>
 						{% else %}
-							<li class="page-item disabled">
-								<a class="page-link" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-								</a>
-							</li>
-						{% endif %}
-						{% for i in page_obj.paginator.get_elided_page_range %}
-							{% if page_obj.paginator.ELLIPSIS == forloop.counter %}
-								<li class="page-item disabled"><a class="page-link">{{ forloop.counter }}</a></li>
+							{% if page_obj.number == forloop.counter %}
+								<li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
 							{% else %}
-								{% if page_obj.number == forloop.counter %}
-									<li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-								{% else %}
-									<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
-								{% endif %}
+								<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
 							{% endif %}
-						{% endfor %}
-						{% if page_obj.has_next %}
-							<li class="page-item">
-								<a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-								</a>
-							</li>
-						{% else %}
-							<li class="page-item disabled">
-								<a class="page-link" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-								</a>
-							</li>
 						{% endif %}
-					</ul>
-				</nav>
-			{% endif %}
-								<!-- PAGINATION END -->
-		</article>
-	</section>
+					{% endfor %}
+					{% if page_obj.has_next %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					{% else %}
+						<li class="page-item disabled">
+							<a class="page-link" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</nav>
+		{% endif %}
+							<!-- PAGINATION END -->
+	</article>
 {% endblock %}
