@@ -12,24 +12,23 @@
 			<div class="row">
 				<h1 class="card-title h5 text-start">{{ post.title | upper }}</h1>
 				<p class="card-title">{{ post.address }}, {{ post.get_city_display }}</p>
-				<div class="col">
+				<div class="col-12">
 					{% if post.img.first %}
-						<div class="swiper singlePropertyImageSwiper">
-							<div class="swiper-wrapper">
-								{% for image in post.img.all %}
-									<div class="swiper-slide">
-										<a href="{{ image.image.url }}"><img src="{{ image.image.url }}" class="d-block" alt="image.image" ></a>
+						<div class="container">
+							<div class="row g-0">
+								<div class="col-3 me-0 pe-0">
+									<a href="{{ img.image.url }}"><img src="{{ post.img.first.image.url }}" class="col" alt="img.image" style="max-height: 400px;"></a>
+								</div>
+								<div class="col">
+									<div class="row g-0">
+										{% for img in post.img.all %}
+											{% if not forloop.first %}
+												<div class="col"><a href="{{ img.image.url }}"><img src="{{ img.image.url }}" alt="img.image" width="200px" height="200px"></a></div>
+											{% endif %}
+										{% endfor %}
 									</div>
-								{% endfor %}
+								</div>
 							</div>
-							<div class="swiper-button-next">
-								<ion-icon name="caret-forward-outline"></ion-icon>
-							</div>
-							<div class="swiper-button-prev">
-								<ion-icon name="caret-back-outline"></ion-icon>
-							</div>
-							<!-- <div class="swiper-scrollbar" style="background: wheat;"></div> -->
-							<!-- <div class="swiper-pagination" style="background: wheat; border-radius: 20px;"></div> -->
 						</div>
 					{% else %}
 						<img loading="lazy" src="\media\image_not_found\no-image.png"  class="card-img-top d-block m-auto" id="no_image" alt="No Image Uploaded">
