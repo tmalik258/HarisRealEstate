@@ -95,7 +95,11 @@
 							<h2 class="h5">Meet your Agent</h2>
 							<div class="container agent py-3">
 								<div class="profile-container">
-									<img src="{{ post.creator.profile.profile_image.url }}" class="profile-img mx-auto" alt="">
+									{% if post.creator.profile.profile_image.url %}
+									<img src="{{ image }}" class="profile-img mx-auto" alt="">
+									{% else %}
+									<img src="media/image_not_found/no-image.png" class="profile-img mx-auto" alt="">
+									{% endif %}
 									<h3 class="h5">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
 									<div>{{ post.creator.profile.estate_name }}</div>
 									<div class="p-1">
