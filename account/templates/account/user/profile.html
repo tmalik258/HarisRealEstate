@@ -62,10 +62,10 @@
 											<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
 										{% endif %}
 										<p class="card-text mt-3">
-											<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
-											<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+											<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-sm btn-outline-secondary email more">More</a>
+											<a href="mailto:{{ post.creator.email }}"  class="btn btn-sm btn-outline-secondary email">Email</a>
 											{% if post.creator.profile.phone_number %}
-												<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email more">Call</a>
+												<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-sm btn-outline-secondary email more">Call</a>
 											{% endif %}
 										</p>
 										<p class="card-text" style="line-height: 18px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>

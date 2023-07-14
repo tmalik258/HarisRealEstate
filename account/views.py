@@ -27,19 +27,16 @@ class WishlistView(LoginRequiredMixin, ListView):
 	template_name = 'listing/property_list.html'
 	paginate_by = 12
 
+	def get_queryset(self, **kwargs):
+		qs = Listing.posts.filter(user_wishlist=self.request.user.id)
+		return qs
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+		wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
 		context['heading'] = 'Your Wishlist'
 		return context
-
-	def get_queryset(self, *kwargs):
-		qs = Listing.posts.filter(user_wishlist=self.request.user)
-		qs = qs.annotate(is_in_wishlist=Case(
-			When(user_wishlist__id=self.request.user.id, then=True),
-			default=False,
-			output_field=BooleanField(),
-		))
-		return qs
 
 
 @login_required
@@ -48,10 +45,8 @@ def Add_to_wishlist_view(request, item):
 		post = Listing.posts.get(pk=item)
 		if post.user_wishlist.filter(id=request.user.id).exists():
 			post.user_wishlist.remove(request.user)
-			print('removed from wishlist')
 		else:
 			post.user_wishlist.add(request.user)
-			print('added to wishlist')
 
 	except ObjectDoesNotExist:
 		messages.error(request, 'Listing doesn\'t exist.')
@@ -205,17 +200,17 @@ def logout_view(request):
 
 
 class profileWithPropertiesListView(ListView, LoginRequiredMixin):
-    model = Listing
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "account/user/profile.html"
+	model = Listing
+	queryset = Listing.posts.all()
+	paginate_by = 25 # show 25 posts in reverse chronologial order
+	template_name = "account/user/profile.html"
 
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        qs = qs.filter(
-                creator=self.request.user,
-                is_active=True
-            ).order_by("-time_created").all()
-        return qs
+	def get_queryset(self, **kwargs):
+		qs = super().get_queryset(**kwargs)
+		qs = qs.filter(
+				creator=self.request.user
+			)
+		return qs
 
 
 @login_required

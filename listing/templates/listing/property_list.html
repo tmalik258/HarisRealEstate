@@ -18,7 +18,7 @@
 						<div class="row row-cols-1 g-0">
 							<div class="position-relative">
 								<a href="{% url 'account:add-to-wishlist' post.id %}" class="position-absolute pt-0 top-0 start-100" style="transform: translateX(-50px) translateY(25px);">
-									{% if post.is_in_wishlist %}
+									{% if post in wishlist_listings %}
 										<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
 									{% else %}
 										<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>

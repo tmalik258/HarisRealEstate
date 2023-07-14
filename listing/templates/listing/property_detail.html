@@ -11,36 +11,41 @@
 		<div class="container">
 			<div class="row">
 				<div class="position-relative">
-					<a href="{% url 'account:add-to-wishlist' post.id %}" class="position-absolute pt-0 top-0 start-100" style="transform: translateX(-20px);">
-						{% if post.is_in_wishlist %}
-							<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
-						{% else %}
-							<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
+					<div class="position-absolute pt-0 top-0 start-100 d-flex gap-2" style="transform: translateX(-150px);">
+						{% if active %}
+						<a href="{% url 'listing:delete-listing' post.id %}"><i class="fa-solid fa-trash fa-xl" style="color: #000000;"></i></a>
+						<a href="{% url 'listing:update-listing' post.id %}"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #000000;"></i></a>
 						{% endif %}
-					</a>
+						<a href="{% url 'account:add-to-wishlist' post.id %}">
+							{% if is_added_to_wishlist %}
+								<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+							{% else %}
+								<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
+							{% endif %}
+						</a>
+					</div>
 				</div>
 				<h1 class="card-title h5 text-start">{{ post.title | upper }}</h1>
 				<p class="card-title">{{ post.address }}, {{ post.get_city_display }}</p>
-				<div class="col-12 mt-3">
+				<div class="col-12">
 					{% if post.img.first %}
-						<div class="container">
+						<div class="container py-4">
 							<div class="row row-cols-1 row-cols-md-2 justify-content-center g-1">
 								<div class="col" style="max-width: 400px;">
 									<img src="{{ post.img.first.image.url }}" class="w-100" alt="img.image" style="max-height: 400px; border-radius: 15px;">
 								</div>
 								<div class="col">
-									<!-- <div class="container-lg"> -->
-										<div class="row row-cols-4 g-1">
-											{% for img in post.img.all %}
-												{% if not forloop.first and forloop.counter <= 9 %}
-													<div class="col"><img src="{{ img.image.url }}" alt="img.image" class="w-100"  style="max-height:200px; border-radius: 15px;"></div>
-												{% endif %}
-											{% endfor %}
-										</div>
-									<!-- </div> -->
+									<div class="row row-cols-4 g-1">
+										{% for img in post.img.all %}
+											{% if not forloop.first and forloop.counter <= 9 %}
+												<div class="col"><img src="{{ img.image.url }}" alt="img.image" class="w-100"  style="max-height:200px; border-radius: 15px;"></div>
+											{% endif %}
+										{% endfor %}
+									</div>
 								</div>
 							</div>
 						</div>
+
 					{% else %}
 						<img loading="lazy" src="\media\image_not_found\no-image.png"  class="card-img-top d-block m-auto" id="no_image" alt="No Image Uploaded">
 					{% endif %}
@@ -124,13 +129,7 @@
 									{{ post.creator.profile.bio_info | safe }}
 								</div>
 							</div>
-							<div class="card-text mt-3">
-								{% if active %}
-									<a href="{% url 'listing:delete-listing' post.id %}"  class="btn btn-outline-secondary email">Delete</a>
-									<a href="{% url 'listing:update-listing' post.id %}"  class="btn btn-outline-secondary email">Update/Edit</a>
-								{% endif %}
-								<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated | timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
-							</div>
+							<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated | timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
 						</div>
 					</div>
 				</div>

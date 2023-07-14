@@ -28,148 +28,157 @@ def index (request):
 
 
 class PropertiesListView (ListView):
-    model = Listing
-    queryset = Listing.posts.all()
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/property_list.html"
+	model = Listing
+	queryset = Listing.posts.all()
+	paginate_by = 25 # show 25 posts in reverse chronologial order
+	template_name = "listing/property_list.html"
 
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        qs = qs.annotate(is_in_wishlist=Case(
-            When(user_wishlist__id=self.request.user.id, then=True),
-            default=False,
-            output_field=BooleanField(),
-        ))
-        return qs
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		wishlist_listings = []
+		if self.request.user.is_authenticated:
+			wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
+		return context
 
 
 def property_detail (request, item):
     active = False
 
     try:
-        post = Listing.objects.annotate(is_in_wishlist=Case(
-            When(user_wishlist__id=False if request.user.id == None else request.user.id, then=True),
-            default=False,
-            output_field=BooleanField(),
-        )).get(pk=item)
+        post = Listing.posts.get(pk=item)
 
-        if request.user.is_authenticated and request.user.username == post.creator.username:
-            active = True
+        # Check if the user has added the listing to their wishlist
+        is_added_to_wishlist = False
 
-    except Listing.DoesNotExist:
+        if request.user.is_authenticated:
+            is_added_to_wishlist = post.user_wishlist.filter(id=request.user.id).exists()
+            if request.user.username == post.creator.username:
+                active = True
+
+    except ObjectDoesNotExist:
         post = ""
     return render(request, 'listing/property_detail.html', {
         'post': post,
-        'active': active
+        'active': active,
+        'is_added_to_wishlist': is_added_to_wishlist
     })
 
 class SearchedPropertiesListView (ListView):
-    model = Listing
-    queryset = Listing.posts.all()
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/property_list.html"
+	model = Listing
+	queryset = Listing.posts.all()
+	paginate_by = 25 # show 25 posts in reverse chronologial order
+	template_name = "listing/property_list.html"
 
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs).filter(
-                title__icontains=self.request.GET['searchByTitle'],
-            )
-        qs = qs.annotate(is_in_wishlist=Case(
-            When(user_wishlist__id=self.request.user.id, then=True),
-            default=False,
-            output_field=BooleanField(),
-        ))
-        return qs
+	def get_queryset(self, **kwargs):
+		qs = super().get_queryset(**kwargs).filter(
+				title__icontains=self.request.GET['searchByTitle'],
+			)
+		return qs
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		wishlist_listings = []
+		if self.request.user.is_authenticated:
+			wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
+		return context
 
 
 class FilteredPropertiesListView (ListView):
-    model = Listing
-    queryset = Listing.posts.all()
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/property_list.html"
+	model = Listing
+	queryset = Listing.posts.all()
+	paginate_by = 25 # show 25 posts in reverse chronologial order
+	template_name = "listing/property_list.html"
 
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
-        qs = qs.filter(
-                purpose=self.request.GET['purpose'],
-            )
+	def get_queryset(self, **kwargs):
+		qs = super().get_queryset(**kwargs)
+		qs = qs.filter(
+				purpose=self.request.GET['purpose'],
+			)
 
-        # SEARCH BY CATEGORY
-        if self.request.GET['category']:
-            if self.request.GET['category'] != 'any':
-                qs = qs.filter(
-                    category=self.request.GET['category']
-                )
-        # SEARCH BY LOCATION
-        if self.request.GET['location']:
-            qs = qs.filter(
-                address__icontains=self.request.GET['location']
-            )
+		# SEARCH BY CATEGORY
+		if self.request.GET['category']:
+			if self.request.GET['category'] != 'any':
+				qs = qs.filter(
+					category=self.request.GET['category']
+				)
+		# SEARCH BY LOCATION
+		if self.request.GET['location']:
+			qs = qs.filter(
+				address__icontains=self.request.GET['location']
+			)
 
-        # SEARCH BY CITY
-        if self.request.GET['city'] != '':
-            qs = qs.filter(
-                city=self.request.GET['city']
-            )
+		# SEARCH BY CITY
+		if self.request.GET['city'] != '':
+			qs = qs.filter(
+				city=self.request.GET['city']
+			)
 
-        # SEARCH BY PRICE RANGE
-        if self.request.GET['min_price'] and self.request.GET['max_price']:
-            qs = qs.filter(
-                price__range=(self.request.GET['min_price'], self.request.GET['max_price'])
-            )
-        elif self.request.GET['min_price']:
-            max_price = qs.aggregate(
-                Max('price')
-            )['price__max']
-            qs = qs.filter(
-                price__range=(self.request.GET['min_price'], max_price)
-            )
-        elif self.request.GET['max_price']:
-            qs = qs.filter(
-                price__range=(0, self.request.GET['max_price'])
-            )
-        
-        # SEARCH BY AREA SIZE
-        if self.request.GET['area_size']:
-            qs = qs.filter(
-                area_size=self.request.GET['area_size'],
-                area_size_unit=self.request.GET['area_size_unit']
-            )
+		# SEARCH BY PRICE RANGE
+		if self.request.GET['min_price'] and self.request.GET['max_price']:
+			qs = qs.filter(
+				price__range=(self.request.GET['min_price'], self.request.GET['max_price'])
+			)
+		elif self.request.GET['min_price']:
+			max_price = qs.aggregate(
+				Max('price')
+			)['price__max']
+			qs = qs.filter(
+				price__range=(self.request.GET['min_price'], max_price)
+			)
+		elif self.request.GET['max_price']:
+			qs = qs.filter(
+				price__range=(0, self.request.GET['max_price'])
+			)
+		
+		# SEARCH BY AREA SIZE
+		if self.request.GET['area_size']:
+			qs = qs.filter(
+				area_size=self.request.GET['area_size'],
+				area_size_unit=self.request.GET['area_size_unit']
+			)
 
-        qs = qs.annotate(is_in_wishlist=Case(
-            When(user_wishlist__id=self.request.user.id, then=True),
-            default=False,
-            output_field=BooleanField(),
-        ))
+		return qs
 
-        return qs
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		wishlist_listings = []
+		if self.request.user.is_authenticated:
+			wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
+		return context
 
 
 class CategoryListView (ListView):
-    model = Listing
-    queryset = Listing.posts.all()
-    paginate_by = 25 # show 25 posts in reverse chronologial order
-    template_name = "listing/property_list.html"
+	model = Listing
+	queryset = Listing.posts.all()
+	paginate_by = 25 # show 25 posts in reverse chronologial order
+	template_name = "listing/property_list.html"
 
-    def get_queryset(self, **kwargs):
-        qs = super().get_queryset(**kwargs)
+	def get_queryset(self, **kwargs):
+		qs = super().get_queryset(**kwargs)
 
-        if self.kwargs['type'] == 'Homes':
-            subcategories = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
-        elif self.kwargs['type'] == 'Plots':
-            subcategories = ['rp', 'cp', 'al', 'il', 'pfile', 'pform']
-        elif self.kwargs['type'] == 'Commercial':
-            subcategories = ['off', 'shop', 'wh', 'fact', 'buil', 'cp']
+		if self.kwargs['type'] == 'Homes':
+			subcategories = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+		elif self.kwargs['type'] == 'Plots':
+			subcategories = ['rp', 'cp', 'al', 'il', 'pfile', 'pform']
+		elif self.kwargs['type'] == 'Commercial':
+			subcategories = ['off', 'shop', 'wh', 'fact', 'buil', 'cp']
 
-        qs = qs.filter(
-            category__in=subcategories,
-        )
+		qs = qs.filter(
+			category__in=subcategories,
+		)
 
-        qs = qs.annotate(is_in_wishlist=Case(
-            When(user_wishlist__id=self.request.user.id, then=True),
-            default=False,
-            output_field=BooleanField(),
-        ))
-        return qs
+		return qs
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		wishlist_listings = []
+		if self.request.user.is_authenticated:
+			wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
+		return context
         
 
 @csrf_exempt
