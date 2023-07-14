@@ -762,13 +762,7 @@ form.search
 }
 
 /* //////////////////////////////////////////	CATEGORIES	/////////////////////////////////////////// */
-/* .agents
-{
-	background: rgb(167, 147, 124);
-	box-shadow: 0px 0px 15px wheat, 0px 0px 60px wheat inset;
-} */
-
-.top-categories, .about-us, .agents, .properties, .policy
+.top-categories, .about-us, .properties, .policy
 {
 	margin: 50px 10px;
 	border-radius: 10px;
@@ -901,84 +895,7 @@ form.search
 /* //////////////////////////////////////////	AGENTS	/////////////////////////////////////////// */
 .agents
 {
-	/* box-shadow: none; */
-	color: var(--primarycolor);
-}
-
-.agents .row
-{
-	margin-left: 0;
-	margin-top: 20px;
-}
-
-.agents .agent-title
-{
-	margin: auto;
-}
-
-.agents .row .card
-{
-	background:  var(--primarycolor);
-	/* background: rgba(245, 222, 179, 0.091); */
-	box-shadow: 2px 2px 12px black;
-	border: none;
-	border-bottom-left-radius: 50px;
-	border-bottom-right-radius: 60px;
-	transition: .3s;
-}
-.agents .row .card:hover
-{
-	transform: translateY(.2rem);
-	box-shadow: none;
-}
-
-.agents .row .card img
-{
-	width: 250px;
-	height: 250px;
-	border-radius: 50%;
-	image-rendering: -webkit-optimize-contrast;
-	image-rendering: crisp-edges;
-	box-shadow: 1px 1px 10px #141414;
-	transition: 0.5s all ease-in-out;
-}
-
-.agents .row .col:nth-of-type(odd) .card
-{
-	border-top-right-radius: 50%;
-}
-
-.agents .row .col:nth-of-type(even) .card
-{
-	border-top-left-radius: 50%;
-}
-
-.agents .row .card .card-img-overlay
-{
-	margin: auto;
-	position: absolute;
-	top: 50%;
-}
-
-.agents .row .card a
-{
-    color: white;
-	text-decoration: none;
-}
-
-.agents .card:hover .card-title, .agents .card .card-body:hover .card-title, .agents .card .card-body:hover .card-text, .agents .card:hover .card-text
-{
-	color: rgb(228, 228, 228);
-}
-
-.agents .card .btn
-{
-	color: white;
-}
-
-.agents .agent-title .card-title::before, .agents .agent-title .card-title::after
-{
-	width: 33%;
+	text-align: justify;
 }
 
 /* //////////////////////////////////////////	CONTACT US	/////////////////////////////////////////// */
@@ -1276,13 +1193,16 @@ form.search
 	margin-right: 10px;
 }
 
-.properties.property_detail .container .row .col .card-body .container .container.agent
+.properties.property_detail .container .row .col .card-body .container .container.agent,
+.agents .container
 {
 	background: #e9ecf0;
 	border-radius: 15px;
 }
 
-.properties.property_detail .container .row .col .card-body .container .container.agent .profile-container
+.properties.property_detail .container .row .col .card-body .container .container.agent .profile-container,
+.agents .container .row .col,
+.agents .container.swiper.teamSwiper .swiper-wrapper .swiper-slide
 {
 	border-radius: 15px;
 	box-shadow: var(--box-shadow);
@@ -1295,13 +1215,21 @@ form.search
 	flex-direction: column;
 }
 
-.properties.property_detail .container .row .col .card-body .container .container.agent .profile-container .profile-img
+.properties.property_detail .container .row .col .card-body .container .container.agent .profile-container .profile-img,
+.agents .container .row .col .profile-img,
+.agents .container.swiper.teamSwiper .swiper-wrapper .swiper-slide img
 {
-	width: 70%;
-	max-height: 300px;
+	width: 80%;
+	/* height: auto; */
+	max-height: 250px;
 	border-radius: 15px;
 	transform: translateY(-20px);
 	box-shadow: var(--box-shadow);
+}
+
+.agents .container.swiper.teamSwiper .swiper-wrapper .swiper-slide img::selection
+{
+	background: none;
 }
 
 .properties.property_detail .swiper.singlePropertyImageSwiper {
@@ -1321,11 +1249,6 @@ form.search
 	width: 100%;
 }
 
-/* //////////////////////////////////////////	main_section	/////////////////////////////////////////// */
-/* .main_section
-{
-	margin-top: 30px;
-} */
 
 /* //////////////////////////////////////////	PROFILE	/////////////////////////////////////////// */
 .profile
@@ -1653,6 +1576,12 @@ footer
 	{
 		display: block;
 		margin: auto;
+	}
+
+	.agents .container.swiper.teamSwiper .swiper-wrapper .swiper-slide img
+	{
+		width: 80%;
+		transform: translateY(-30px);
 	}
 }
 
