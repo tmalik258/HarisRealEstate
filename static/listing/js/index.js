@@ -341,3 +341,19 @@ window.onscroll = function () {
 		}
 	}
 }
+
+function navRemove() {
+	var scrollPosition = window.innerHeight + window.scrollY;
+	var documentHeight = document.documentElement.scrollHeight;
+  
+	if (scrollPosition >= documentHeight) {
+		$('#navbar-main-menu').hide();
+	} else {
+		$('#navbar-main-menu').show();
+	}
+}
+
+if (window.innerWidth < 990)
+{
+	window.addEventListener('scroll', navRemove);
+}

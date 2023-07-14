@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-	<article class="properties property_detail">
+	<article class="properties property_detail mt-3">
 		<div class="container">
 			<div class="row">
 				<div class="position-relative">
@@ -24,18 +24,20 @@
 				<div class="col-12 mt-3">
 					{% if post.img.first %}
 						<div class="container">
-							<div class="row g-0">
-								<div class="col" style="max-width: 255px;">
-									<a href="{{ img.image.url }}"><img src="{{ post.img.first.image.url }}" class="col" alt="img.image" style="max-height: 400px; border-radius: 15px;"></a>
+							<div class="row row-cols-1 row-cols-md-2 justify-content-center g-1">
+								<div class="col" style="max-width: 400px;">
+									<img src="{{ post.img.first.image.url }}" class="w-100" alt="img.image" style="max-height: 400px; border-radius: 15px;">
 								</div>
 								<div class="col">
-									<div class="row g-1">
-										{% for img in post.img.all %}
-											{% if not forloop.first and forloop.counter <= 9 %}
-												<div class="col"><a href="{{ img.image.url }}"><img src="{{ img.image.url }}" alt="img.image" width="200px" height="200px" style="border-radius: 15px;"></a></div>
-											{% endif %}
-										{% endfor %}
-									</div>
+									<!-- <div class="container-lg"> -->
+										<div class="row row-cols-4 g-1">
+											{% for img in post.img.all %}
+												{% if not forloop.first and forloop.counter <= 9 %}
+													<div class="col"><img src="{{ img.image.url }}" alt="img.image" class="w-100"  style="max-height:200px; border-radius: 15px;"></div>
+												{% endif %}
+											{% endfor %}
+										</div>
+									<!-- </div> -->
 								</div>
 							</div>
 						</div>
