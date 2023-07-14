@@ -1220,6 +1220,7 @@ form.search
 .agents .container.swiper.teamSwiper .swiper-wrapper .swiper-slide img
 {
 	width: 80%;
+	max-width: 250px;
 	/* height: auto; */
 	max-height: 250px;
 	border-radius: 15px;
