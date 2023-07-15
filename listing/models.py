@@ -245,7 +245,7 @@ class ListingImage (models.Model):
 
 		# Save the buffer content to the image field
 		self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
-
+		print(f"In save function: {self.image.name}")
 		super().save(*args, **kwargs)
 	
 	def image_tag(self):

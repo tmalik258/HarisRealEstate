@@ -284,6 +284,7 @@ def createListing (request):
                 img = ListingImage(listing=listing_obj, image=image_file)
                 print(img.image)
                 img.save()
+                print(f"After saving: {img.image}")
 
             messages.success(request, "Ad has been posted successfully!")
             return redirect('account:profile')
