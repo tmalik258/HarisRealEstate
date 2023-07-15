@@ -136,6 +136,7 @@
 						<div class="card">
 							<div class="row g-0">
 								<a href="{% url 'listing:property-detail' post.id %}" title="listing: {{ post.title }}">
+									{% comment %}
 									<div class="col-md-12 mb-md-0 p-md-3">
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.image }}">
@@ -143,6 +144,7 @@
 											<img loading="eager" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" title="No Image Uploaded">
 										{% endif %}
 									</div>
+									{% endcomment %}
 									<div class="col-md-12">
 										<div class="container">
 											<div class="card-body">
@@ -194,7 +196,6 @@
 	</article>
 </section>
 
-{% comment %}
 <section class="hidden">
 	<div class="agents m-3 ms-lg-4">
 		<h1 class="card-title hidden h4 mb-1 ms-2">MEET OUR TEAM</h1>
@@ -272,7 +273,6 @@
 			</div>
 	</div>
 </section>
-{% endcomment %}
 <!-- <section>
 	<div class="contact-us hidden"></div>
 </section> -->
