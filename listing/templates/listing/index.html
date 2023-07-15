@@ -165,9 +165,9 @@
 												{% endif %}
 												<p class="card-text mt-3">
 													<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-outline-secondary email more">More</a>
-													<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email">Email</a>
+													<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email"><i class="fa-solid fa-envelope fa-lg"></i></a>
 													{% if post.creator.profile.phone_number %}
-														<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email">Call</a>
+														<a href="tel:+{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email"><i class="fa-solid fa-phone fa-lg"></i></a>
 													{% endif %}
 												</p>
 												<p class="card-text"  style="line-height: 18px;"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></p>
@@ -272,7 +272,6 @@
 			</div>
 	</div>
 </section>
-<!-- <hr width="80%" class="m-auto"> -->
 
 <!-- <section>
 	<div class="contact-us hidden"></div>
@@ -282,22 +281,26 @@
 {% block script %}
 	<script>
 		var swiper = new Swiper(".teamSwiper", {
-      slidesPerView: 1,
-      spaceBetween: 10,
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 4,
-          spaceBetween: 40,
-        },
-        1024: {
-          slidesPerView: 5,
-          spaceBetween: 30,
-        },
-      },
-    });
+			slidesPerView: 1,
+			spaceBetween: 10,
+			autoplay: {
+				delay: 3000,
+				disableOnInteraction: false,
+			},
+			breakpoints: {
+				640: {
+				slidesPerView: 2,
+				spaceBetween: 20,
+				},
+				768: {
+				slidesPerView: 4,
+				spaceBetween: 40,
+				},
+				1024: {
+				slidesPerView: 5,
+				spaceBetween: 30,
+				},
+			},
+		});
 	</script>
 {% endblock %}
