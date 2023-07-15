@@ -231,21 +231,19 @@ class ListingImage (models.Model):
 		return f"{self.listing}"
 
 	def save(self, *args, **kwargs):
-		if self.image:
-			img = PillowImage.open(self.image)
+		img = PillowImage.open(self.image)
 
-			# Resize image
-			if img.height > 500 or img.width > 500:
-				output_size = (500, 500)
-				img.thumbnail(output_size)
+		# Resize image
+		output_size = (500, 500)
+		img.thumbnail(output_size)
 
-				# Save the resized image to a BytesIO buffer
-				output_buffer = BytesIO()
-				img.save(output_buffer, format='WebP')
-				output_buffer.seek(0)
+		# Save the resized image to a BytesIO buffer
+		output_buffer = BytesIO()
+		img.save(output_buffer, format='WebP')
+		output_buffer.seek(0)
 
-				# Save the buffer content to the image field
-				self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
+		# Save the buffer content to the image field
+		self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
 
 		super().save(*args, **kwargs)
 	
