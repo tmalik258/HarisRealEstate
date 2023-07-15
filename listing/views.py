@@ -278,6 +278,7 @@ def createListing (request):
                 listing_obj.bedroom = ''
                 listing_obj.bathroom = ''
             listing_obj.is_active = True
+            listing_obj.save()
 
             for image_file in images:
                 img = ListingImage(listing=listing_obj, image=image_file)
@@ -285,7 +286,6 @@ def createListing (request):
                 img.save()
                 print(f"After saving: {img.image}")
 
-            listing_obj.save()
 
             messages.success(request, "Ad has been posted successfully!")
             return redirect('account:profile')
