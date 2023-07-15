@@ -215,7 +215,7 @@ def profileUpdate (request):
 			messages.success(request, f'Your account has been updated!')
 			return redirect('account:profile') # Redirect back to profile page
 		else:
-			return render(request, 'account/user/edit_details.html',{
+			return render(request, 'account/user/edit_profile.html',{
 				'form': u_form,
 				'profile_form': p_form
 			})
@@ -227,7 +227,7 @@ def profileUpdate (request):
 		else:
 			p_form = RegisterationProfileForm()
 
-	return render(request, 'account/user/edit_details.html',{
+	return render(request, 'account/user/edit_profile.html',{
 		'form': u_form,
 		'profile_form': p_form
 	})

@@ -38,7 +38,7 @@ urlpatterns = [
 		form_class=PwdResetConfirmForm
 		), name='pwd_reset_confirm'),
 	# password reset complete
-	path('password_reset_confirm/MTA/set-password/password_reset_complete/', views.CustomLoginView.as_view(
+	path('password_reset_confirm/<slug:token>/set-password/password_reset_complete/', views.CustomLoginView.as_view(
 		template_name='account/user/login.html', 
 		form_class=LoginForm
 		), name='password_reset_complete'),
