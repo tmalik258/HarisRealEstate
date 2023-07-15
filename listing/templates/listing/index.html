@@ -138,7 +138,7 @@
 								<a href="{% url 'listing:property-detail' post.id %}" title="listing: {{ post.title }}">
 									<div class="col-md-12 mb-md-0 p-md-3">
 										{% if post.img.first %}
-											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.images }}">
+											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.image }}">
 										{% else %}
 											<img loading="eager" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" title="No Image Uploaded">
 										{% endif %}
@@ -194,7 +194,7 @@
 	</article>
 </section>
 
-
+{% comment %}
 <section class="hidden">
 	<div class="agents m-3 ms-lg-4">
 		<h1 class="card-title hidden h4 mb-1 ms-2">MEET OUR TEAM</h1>
@@ -239,32 +239,32 @@
 			</p>
 			<div class="swiper-wrapper text-center mt-4">
 				<div class="swiper-slide px-2 py-3">
-					<!-- <img src="{% static 'listing/img/team/USMAN_SALEEM.png' %}" class="profile-img mx-auto" alt="Muhammad Usman Saleem PFP" style="width: 80%;"> -->
+					<img src="{% static 'listing/img/team/USMAN_SALEEM.png' %}" class="profile-img mx-auto" alt="Muhammad Usman Saleem PFP" style="width: 80%;">
 					<h3 class="h6">Muhammad Usman Saleem</h3>
 					<div class="text-muted">Chief Executive</div>
 				</div>
 				<div class="swiper-slide px-2 py-3">
-					<!-- <img src="{% static 'listing/img/team/ADNAN_BHAI.png' %}" class="profile-img mx-auto" alt="Muhammad Adnan Saleem PFP"> -->
+					<img src="{% static 'listing/img/team/ADNAN_BHAI.png' %}" class="profile-img mx-auto" alt="Muhammad Adnan Saleem PFP">
 					<h3 class="h6">Muhammad Adnan Saleem</h3>
 					<div class="text-muted">Manager Marketing</div>
 				</div>
 				<div class="swiper-slide px-2 py-3">
-					<!-- <img src="{% static 'listing/img/team/WAQAR_KHILJI.png' %}" class="profile-img mx-auto" alt=""> -->
+					<img src="{% static 'listing/img/team/WAQAR_KHILJI.png' %}" class="profile-img mx-auto" alt="">
 					<h3 class="h6">Waqar Khilji</h3>
 					<div class="text-muted">Senior Realtor</div>
 				</div>
 				<div class="swiper-slide px-2 py-3">
-					<!-- <img src="{% static 'listing/img/team/SAQIB_KHAN.png' %}" class="profile-img mx-auto" alt=""> -->
+					<img src="{% static 'listing/img/team/SAQIB_KHAN.png' %}" class="profile-img mx-auto" alt="">
 					<h3 class="h6">SAQIB KHAN</h3>
 					<div class="text-muted">Senior Realtor</div>
 				</div>
 				<div class="swiper-slide px-2 py-3">
-					<!-- <img src="{% static 'listing/img/team/RANA_MAZHAR.png' %}" class="profile-img mx-auto" alt=""> -->
+					<img src="{% static 'listing/img/team/RANA_MAZHAR.png' %}" class="profile-img mx-auto" alt="">
 					<h3 class="h6">RANA MAZHAR</h3>
 					<div class="text-muted">Senior Realtor</div>
 				</div>
 				<div class="swiper-slide px-2 py-3">
-				<!-- <img src="{% static 'listing/img/team/hamid_pfp.jpg' %}" class="profile-img mx-auto" alt=""> -->
+				<img src="{% static 'listing/img/team/hamid_pfp.jpg' %}" class="profile-img mx-auto" alt="">
 				<h3 class="h6">Hamid</h3>
 				<div class="text-muted">Executive Operations</div>
 				</div>
@@ -272,7 +272,7 @@
 			</div>
 	</div>
 </section>
-
+{% endcomment %}
 <!-- <section>
 	<div class="contact-us hidden"></div>
 </section> -->
