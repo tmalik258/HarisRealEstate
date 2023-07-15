@@ -39,6 +39,11 @@ class ListingAdmin (admin.ModelAdmin):
 	actions = ['make_active', 'make_inactive']
 admin.site.register(Listing, ListingAdmin)
 
+# Image Model
+class ImageAdmin (admin.ModelAdmin):
+	list_display = ('listing', 'image_tag')
+	list_filter = ('listing',)
+admin.site.register(ListingImage, ImageAdmin)
 
 # Contact Model
 admin.site.register(Contact)

@@ -248,6 +248,13 @@ class ListingImage (models.Model):
 				self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
 
 		super().save(*args, **kwargs)
+	
+	def image_tag(self):
+		if self.image:
+			return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
+		else:
+			return 'No image found'
+	image_tag.short_description = 'Image'
 
 
 class Contact (models.Model):
