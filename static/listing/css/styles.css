@@ -460,6 +460,17 @@ body
 	inset 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+.auth_form input[type="submit"].btn.btn-danger
+{
+	background: var(--secondarycolor);
+}
+
+.auth_form input[type="submit"].btn.btn-danger:hover
+{
+	--secondarycolor: #6b0505;
+	background: var(--secondarycolor);
+}
+
 .auth_form input[type="submit"]:hover, 
 .contact-us .auth_form .btn:hover, 
 .search input[type="submit"]:hover,

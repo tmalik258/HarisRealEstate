@@ -14,8 +14,8 @@ from django.utils.http import (urlsafe_base64_decode, urlsafe_base64_encode)
 from django.db.models import BooleanField, Case, When
 from django.views.generic import ListView
 
-from .models import User
-from .forms import (RegistrationUserForm, RegisterationProfileForm, ProfileEditForm)
+from .models import User, Profile
+from .forms import (RegistrationUserForm, RegisterationProfileForm, UserUpdateForm)
 from .token import account_activation_token
 
 # Listing App
@@ -52,20 +52,6 @@ def Add_to_wishlist_view(request, item):
 		messages.error(request, 'Listing doesn\'t exist.')
 
 	return redirect(request.META['HTTP_REFERER'])
-
-
-@login_required
-def edit_details(request):
-	if request.method == 'POST':
-		user_form = ProfileEditForm(instance=request.user, data=request.POST)
-		if user_form.is_valid():
-			user_form.save()
-	else:
-		user_form = ProfileEditForm(instance=request.user)
-
-	return render(request, 'account/user/edit_details.html', {
-		'form': user_form
-	})
 
 
 @login_required
@@ -215,22 +201,33 @@ class profileWithPropertiesListView(ListView, LoginRequiredMixin):
 
 @login_required
 def profileUpdate (request):
-    if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(request, f'Your account has been updated!')
-            return redirect('account:profile') # Redirect back to profile page
+	if request.method == 'POST':
+		u_form = UserUpdateForm(request.POST, instance=request.user)
 
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
-    
-    return render(request, 'user/profile-update.html',{
-        'u_form': u_form,
-        'p_form': p_form
-    })
+		if Profile.objects.filter(user=request.user).exists():
+			p_form = RegisterationProfileForm(request.POST, request.FILES, instance=request.user.profile)
+		else:
+			p_form = RegisterationProfileForm(request.POST, request.FILES)
+
+		if u_form.is_valid() and p_form.is_valid():
+			u_form.save()
+			p_form.save()
+			messages.success(request, f'Your account has been updated!')
+			return redirect('account:profile') # Redirect back to profile page
+		else:
+			return render(request, 'account/user/edit_details.html',{
+				'form': u_form,
+				'profile_form': p_form
+			})
+
+	else:
+		u_form = UserUpdateForm(instance=request.user)
+		if Profile.objects.filter(user=request.user).exists():
+			p_form = RegisterationProfileForm(instance=request.user.profile)
+		else:
+			p_form = RegisterationProfileForm()
+
+	return render(request, 'account/user/edit_details.html',{
+		'form': u_form,
+		'profile_form': p_form
+	})

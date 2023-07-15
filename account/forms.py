@@ -141,71 +141,11 @@ class PwdResetConfirmForm(SetPasswordForm):
 	))
 
 
-class ProfileEditForm(forms.ModelForm):
-
-	email = forms.EmailField(
-		label='Account email', max_length=200, widget=forms.EmailInput(
-			attrs={
-				'class': 'form-control mb-3',
-				'placeholder': 'email',
-				'id': 'form-email',
-				'readonly': 'readonly'
-			}
-		)
-	)
-	username = forms.CharField(
-		label='Username', min_length=4, max_length=50, widget=forms.TextInput(
-			attrs={
-				'class': 'form-control mb-3',
-				'placeholder': 'Username',
-				'id': 'form-username',
-				'readonly': 'readonly'
-			}
-		)
-	)
-	first_name = forms.CharField(
-		label='First Name', min_length=4, max_length=50, widget=forms.TextInput(
-			attrs={
-				'class': 'form-control',
-				'placeholder': 'First Name',
-				'id': 'form-first-name'
-			}
-		)
-	)
-	last_name = forms.CharField(
-		label='First Name', min_length=4, max_length=50, widget=forms.TextInput(
-			attrs={
-				'class': 'form-control',
-				'placeholder': 'Last Name',
-				'id': 'form-last-name'
-			}
-		)
-	)
-
-	class Meta:
-		model = User
-		fields = ('email', 'username', 'first_name', 'last_name')
-
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		self.fields['username'].required = True
-		self.fields['email'].required = True
-
-
 # Create a UserUpdateForm to update a username and email
 class UserUpdateForm(forms.ModelForm):
-	# email = forms.EmailField()
-
 	class Meta:
 		model = User
 		fields = ['username', 'first_name', 'last_name', 'email']
-
-		# labels = {
-		# 	'username': '',
-		# 	'first_name': '',
-		# 	'last_name': '',
-			# 'email': '',
-		# }
 
 		widgets = {
 			'username': forms.TextInput(attrs={
@@ -225,24 +165,9 @@ class UserUpdateForm(forms.ModelForm):
 				'class': 'form-control'
 			}),
 		}
-		# exclude = ('password', 'last_login', 'is_superuser', 'groups', 'user_permissions', 'is_staff', 'is_active', 'date_joined')
-
-
-
-# Create a ProfileUpdateForm to update image.
-class ProfileUpdateForm(forms.ModelForm):
-	class Meta:
-		model = Profile
-		fields = ('__all__')
-		exclude = ('user',)
-
-		widgets = {
-			'bio_info': forms.Textarea(attrs={
-				'placeholder': 'Your Bio Info',
-				'class': 'form-control'
-			}),
-			'estate_name': forms.TextInput(attrs={
-				'placeholder': 'Estate Name',
-				'class': 'form-control'
-			}),
-		}
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['username'].widget.attrs.update({
+			'readonly': True
+		})
