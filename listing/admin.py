@@ -15,8 +15,9 @@ class ImageInline (admin.TabularInline):
 # Listing Model
 class ListingAdmin (admin.ModelAdmin):
 	inlines = [ImageInline]
-	list_display = ('title', 'purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'is_active', 'creator', 'time_created')
+	list_display = ('title', 'is_active', 'purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'creator', 'time_created')
 	list_filter = ('purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'is_active', 'creator', 'time_created')
+	# list_editable = ['is_active',]
 	empty_value_display = '-empty-'
 
 	def get_queryset(self, request):

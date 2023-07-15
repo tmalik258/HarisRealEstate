@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from io import BytesIO
 from django.core.files.base import ContentFile
 from PIL import Image as PillowImage
+from django.utils.safestring import mark_safe
 
 
 # Model Managers
@@ -203,11 +204,11 @@ class Listing (models.Model):
 
 	def __str__(self) -> str:
 		if self.is_active:
-			listing = 'Listing is Active'
+			active = 'Active'
 		else:
-			listing = 'Listing is Closed'
+			active = 'InActive'
 		time = self.time_created.strftime("%H:%M | %d-%m-%Y")
-		return f"Listing: {self.id} | {self.title} | ({self.creator}, {time}) | {listing}"
+		return f"{self.title} | ({self.creator}, {time}) | {active}"
 
 
 # class Comment (models.Model):
@@ -224,11 +225,11 @@ class ListingImage (models.Model):
 	def user_directory_path(instance, filename):
         # file will be uploaded to MEDIA_ROOT/user_<id>/listing_<title>/<filename>
 		return 'user_{0}/listing_{1}/{2}'.format(instance.listing.creator.username, instance.listing.title, filename)
-	image = models.ImageField(upload_to = user_directory_path, blank=True)
+	image = models.ImageField(upload_to = user_directory_path)
 	listing = models.ForeignKey(Listing, on_delete= models.CASCADE, related_name='img')
 
 	def __str__(self):
-		return f"{self.listing}"
+		return f"{self.listing.title}"
 
 	def save(self, *args, **kwargs):
 		img = PillowImage.open(self.image)
@@ -248,10 +249,8 @@ class ListingImage (models.Model):
 		super().save(*args, **kwargs)
 	
 	def image_tag(self):
-		if self.image:
-			return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
-		else:
-			return 'No image found'
+		return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
+
 	image_tag.short_description = 'Image'
 
 

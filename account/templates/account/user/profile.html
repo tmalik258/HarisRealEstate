@@ -2,33 +2,116 @@
 {% load static %}
 {% load custom_tags %}
 
-{% block body %}
-<section class="profile">
-	<section class="m-auto text-center">
-		{% if user.profile.profile_image %}
-			<div class="profileImage"><img src="{{ user.profile.profile_image.url }}" alt="Profile image" width="100%" height="100%" ></div>
-		{% else %}
-			{% comment %}
-			{% if user.socialaccount_set.all.0.get_avatar_url %}
-				<div class="profileImage"><img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="Profile image" width="100%" height="100%" ></div>
-			{% else %}
-			{% endif %}
-			{% endcomment %}
-				<div class="profileImage"><img src="media/image_not_found/No_image_available.png" alt="Profile image" width="100%" height="100%" ></div>
-		{% endif %}
-		<h1>{{ user.username }} | {{ user.first_name }} {{ user.last_name }}</h1>
-		<h6 class="text-secondary">{{ user.profile.bio_info }}</h6>
-		<h5 class="text-muted">{{ user.email }}<br>{{ user.profile.phone_number }}</h5>
-		{% if user.is_authenticated %}
-			<a href="{% url 'account:profile-update' %}" class="btn btn-primary" type="button">Update Profile</a>
-			{% comment %}
-			<a href="{% url 'account:change-password' %}" class="btn btn-outline-danger changepassword" type="button">Update Password</a>
-			{% endcomment %}
-		{% endif %}
-	</section><hr>
+{% block style %}
+	<style>
+		.card.rounded-4, .row.profile
+		{
+			/* box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05); */
+			background-color: #edf1f4;
+			border: none;
+		}
+		.row.profile
+		{
+			max-width: 50rem;
+		}
 
-	<article class="properties">
-		<h1>Properties</h1>
+		.row.profile img
+		{
+			min-width: 100px;
+			min-height: 100px;
+			width: 200px;
+			height: 200px;
+			max-height: 200px;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container my-2">
+		<h1>Your Profile</h1>
+		<div class="row col col-sm-12 col-md-10 my-4 product-item justify-content-center m-auto rounded-4 g-0 p-2 p-lg-4 profile">
+			<!--------------- Image ----------------->
+			<div class="col-4 p-2 order-md-first">
+				{% if user.profile.profile_image %}
+				<img src="{{ user.profile.profile_image.url }}" alt="" style="border-radius: 50%;" class="img-fluid">
+				{% else %}
+				<img src="{% static 'store\imgs\products\No_image_available.png' %}" class="card-img-top" alt="No image available">
+				{% endif %}
+			</div>
+			<!------------- Product Body ------------>
+			<div class="col-8 col-lg-7 ms-lg-3 my-auto">
+				<h1 class="mb-1">{{ user.first_name }} {{ user.last_name }}</h1>
+				<div class="fs-6 text-muted">{{ user.profile.estate_name }}</div>
+				<div class="fs-6 text-muted">{{ user.profile.phone_number }}</div>
+			</div>
+			<div class="col mt-2 ms-2 px-lg-4">
+				<div class="fs-6 mb-3 text-muted">{{ user.email }}</div>
+				<div class="mb-2 fs-6 text-secondary">{{ user.profile.bio_info }}</div>
+			</div>
+			<!-- <div class="container">
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+					<div class="col">
+						<a href="#" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+							<div class="card rounded-4 mb-3">
+								<div class="row g-0">
+									<div class="col-3 position-relative">
+										<div class="position-absolute top-50 start-50 translate-middle">
+											<ion-icon name="list-outline" size="large"></ion-icon>
+										</div>
+									</div>
+									<div class="col-9">
+										<div class="card-body ps-0 ps-md-1">
+											<h1 class="h5">Your Ads</h1>
+											<p class="card-text small text-muted">View, Delete or Edit your Listings</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col">
+						<a href="#" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+							<div class="card rounded-4 mb-3">
+								<div class="row g-0">
+									<div class="col-3 position-relative">
+										<div class="position-absolute top-50 start-50 translate-middle">
+											<ion-icon name="key-outline" size="large"></ion-icon>
+										</div>
+									</div>
+									<div class="col-9">
+										<div class="card-body ps-0 ps-md-1">
+											<h1 class="h5">Login & Security</h1>
+											<p class="card-text small text-muted">Edit/Update Login Password and Profile</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col">
+						<a href="{% url 'account:wishlist' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+							<div class="card rounded-4 mb-3">
+								<div class="row g-0">
+									<div class="col-3 position-relative">
+										<div class="position-absolute top-50 start-50 translate-middle">
+											<ion-icon name="bookmarks-outline" size="large"></ion-icon>
+										</div>
+									</div>
+									<div class="col-9">
+										<div class="card-body ps-0 ps-md-1">
+											<h1 class="h5">Your Wishlist</h1>
+											<p class="card-text small text-muted">View your wishlist</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	<h1 class="text-start mt-5 mb-4">Your Properties</h1>
+	<article class="properties mt-0" style="box-shadow: none;">
 		<div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
 			{% for post in page_obj %}
 				<div class="col">
@@ -128,5 +211,5 @@
 		{% endif %}
 							<!-- PAGINATION END -->
 	</article>
-</section>
+	</div>
 {% endblock %}
