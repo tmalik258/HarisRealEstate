@@ -241,7 +241,7 @@ class ListingImage (models.Model):
 
 				# Save the resized image to a BytesIO buffer
 				output_buffer = BytesIO()
-				img.save(output_buffer, format='JPEG')
+				img.save(output_buffer, format='WebP')
 				output_buffer.seek(0)
 
 				# Save the buffer content to the image field

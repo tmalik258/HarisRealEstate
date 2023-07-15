@@ -255,6 +255,7 @@ def createListing (request):
     if request.method == "POST":
         listing_form = listingForm (request.POST)
         images = request.FILES.getlist('images')
+        print(images)
         bedroom = request.POST.get('bedroom', None)
         bathroom = request.POST.get('bathroom', None)
         category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
