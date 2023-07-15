@@ -234,8 +234,8 @@ class ListingImage (models.Model):
 		return f"{self.listing.title}"
 
 	def save(self, *args, **kwargs):
+		print(f"In save function: {self.image}")
 		img = PillowImage.open(self.image)
-		print(f"Pillow image: {img}")
 		# Resize image
 		output_size = (500, 500)
 		img.thumbnail(output_size)
@@ -246,16 +246,16 @@ class ListingImage (models.Model):
 		output_buffer.seek(0)
 
 		# Generate a unique name for the image
-        # random_string = get_random_string(length=8)
-        # timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
-        # filename = f'{random_string}_{timestamp}.webp'
+		random_string = get_random_string(length=8)
+		timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+		filename = f'{random_string}_{timestamp}.webp'
 
-        # # Save the buffer content to the image field with the unique filename
-        # self.image.save(filename, ContentFile(output_buffer.read()), save=False)
+		# Save the buffer content to the image field with the unique filename
+		self.image.save(filename, ContentFile(output_buffer.read()), save=False)
 
 		# Save the buffer content to the image field
-		self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
-		print(f"In save function: {self.image.name}")
+		# self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
+		print(f"In save function2: {self.image.name}")
 		super().save(*args, **kwargs)
 	
 	def image_tag(self):
