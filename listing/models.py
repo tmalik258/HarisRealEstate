@@ -232,8 +232,9 @@ class ListingImage (models.Model):
 		return f"{self.listing.title}"
 
 	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
 		img = PillowImage.open(self.image)
-
+		print(f"Pillow image: {img}")
 		# Resize image
 		output_size = (500, 500)
 		img.thumbnail(output_size)
@@ -246,7 +247,6 @@ class ListingImage (models.Model):
 		# Save the buffer content to the image field
 		self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
 		print(f"In save function: {self.image.name}")
-		super().save(*args, **kwargs)
 	
 	def image_tag(self):
 		return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
