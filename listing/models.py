@@ -5,6 +5,8 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 # Image Resize and Upload
+from django.utils.crypto import get_random_string
+from django.utils import timezone
 from io import BytesIO
 from django.core.files.base import ContentFile
 from PIL import Image as PillowImage
@@ -232,7 +234,6 @@ class ListingImage (models.Model):
 		return f"{self.listing.title}"
 
 	def save(self, *args, **kwargs):
-		super().save(*args, **kwargs)
 		img = PillowImage.open(self.image)
 		print(f"Pillow image: {img}")
 		# Resize image
@@ -244,9 +245,18 @@ class ListingImage (models.Model):
 		img.save(output_buffer, format='WebP')
 		output_buffer.seek(0)
 
+		# Generate a unique name for the image
+        # random_string = get_random_string(length=8)
+        # timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+        # filename = f'{random_string}_{timestamp}.webp'
+
+        # # Save the buffer content to the image field with the unique filename
+        # self.image.save(filename, ContentFile(output_buffer.read()), save=False)
+
 		# Save the buffer content to the image field
 		self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
 		print(f"In save function: {self.image.name}")
+		super().save(*args, **kwargs)
 	
 	def image_tag(self):
 		return mark_safe('<img src="%s" style="width: 45px; height:45px;" />' % self.image.url)
