@@ -1,184 +1,179 @@
-// document.onreadystatechange = function (e) {
-	// if (document.readyState === 'complete') {
-		if (window.innerWidth > 990)
-		{
-			$('.carousel-inner').height(window.innerHeight - 170);
+if (window.innerWidth > 990)
+{
+	$('.carousel-inner').height(window.innerHeight - 170);
 
-			
-			/* /////////////////////////////////	FADE SCROLL VISUAL	////////////////////////////////// */
-			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					// console.log(entry)
-					if (entry.isIntersecting)
-					{
-						entry.target.classList.add('show');
-					}
-					else
-					{
-						entry.target.classList.remove('show');
-					}
-				})
-			})
+	
+	/* /////////////////////////////////	FADE SCROLL VISUAL	////////////////////////////////// */
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			// console.log(entry)
+			if (entry.isIntersecting)
+			{
+				entry.target.classList.add('show');
+			}
+			else
+			{
+				entry.target.classList.remove('show');
+			}
+		})
+	})
 
-			const hiddenElements = document.querySelectorAll('.hidden');
-			hiddenElements.forEach((el) => observer.observe(el));
+	const hiddenElements = document.querySelectorAll('.hidden');
+	hiddenElements.forEach((el) => observer.observe(el));
+}
+
+// Toggle for navigation
+$('.menuToggle').click(() => $('.navigation').toggleClass('active'));
+
+
+
+if (!$('.contact-us').html()) {
+	load_contact_form();
+}
+
+
+// To send a message or to save a contact us message
+$('#contact-us').submit(function (e) { 
+	e.preventDefault();
+	return send_message();
+});
+
+
+// To make create listing form dynamic
+const category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+$('#category_input').on('change', function (e) {
+	if(!category_list.includes($('#category_input').val())){
+		$('#bedroom').hide();
+		$('#bathroom').hide();
+	}
+	else
+	{
+		$('#bedroom').show();
+		$('#bathroom').show();
+	}
+})
+
+$('#price_input').on('input', function (e) {
+	let val = $('#price_input').val();
+	if (val >= 1000000000) {
+		$('#price_int_word').text(($('#price_input').val()/1000000000).toFixed(2) + " arab");
+	}
+	else if (val >= 10000000) {
+		$('#price_int_word').text(($('#price_input').val()/10000000).toFixed(2) + " crore");
+	}
+	else if (val >= 100000) {
+			$('#price_int_word').text(($('#price_input').val()/100000).toFixed(2) + " lakh");
+	}
+	else if (val >= 10000)
+	{
+		$('#price_int_word').text(($('#price_input').val()/1000).toFixed(2) + " thousand");
+	}
+	else if (val < 10000)
+	{
+		$('#price_int_word').text("");
+	}
+});
+
+let previous_unit = 'M';
+$('#area_size_unit').on('change', function (e) {
+	let a_size = $('#area_size').val();
+	let current_unit = $('#area_size_unit').val();
+
+	// From Marla to Other Unit Conversions
+	if (previous_unit === 'M') {
+		if (current_unit === 'K') {
+			$('#area_size').val(a_size * 0.05);
 		}
+		else if (current_unit === 'SFt') {
+			$('#area_size').val(a_size * 225);
+		}
+		else if (current_unit === 'SM') {
+			$('#area_size').val(a_size * 20.9);
+		}
+		else if (current_unit === 'SYd') {
+			$('#area_size').val(a_size * 25);
+		}
+	}
 
-		 // Toggle for navigation
-		 $('.menuToggle').click(() => $('.navigation').toggleClass('active'));
-	// }
-// }
-
-
-
-// window.onload = function(){
-	//	load contact form virtually
-	if (!$('.contact-us').html()) {
-		load_contact_form();
+	// From Kanal to Other Unit Conversions
+	if (previous_unit === 'K') {
+		if (current_unit === 'M') {
+			$('#area_size').val(a_size * 20);
+		}
+		else if (current_unit === 'SFt') {
+			$('#area_size').val(a_size * 5445);
+		}
+		else if (current_unit === 'SM') {
+			$('#area_size').val(a_size * 505.857);
+		}
+		else if (current_unit === 'SYd') {
+			$('#area_size').val(a_size * 605.625);
+		}
 	}
 	
+	// From SqFt to Other Unit Conversions
+	if (previous_unit === 'SFt') {
+		if (current_unit === 'K') {
+			$('#area_size').val(a_size * 0.0000229568);
+		}
+		else if (current_unit === 'M') {
+			$('#area_size').val(a_size * 0.00367657);
+		}
+		else if (current_unit === 'SM') {
+			$('#area_size').val(a_size * 0.092903);
+		}
+		else if (current_unit === 'SYd') {
+			$('#area_size').val(a_size * 0.111111);
+		}
+	}
 	
-	// To send a message or to save a contact us message
-	$('#contact-us').submit(function (e) { 
-		e.preventDefault();
-		return send_message();
-	});
-
-
-	// To make create listing form dynamic
-	const category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
-	$('#category_input').on('change', function (e) {
-		if(!category_list.includes($('#category_input').val())){
-			$('#bedroom').hide();
-			$('#bathroom').hide();
+	// From SqM to Other Unit Conversions
+	if (previous_unit === 'SM') {
+		if (current_unit === 'K') {
+			$('#area_size').val(a_size * 0.0002517);
 		}
-		else
-		{
-			$('#bedroom').show();
-			$('#bathroom').show();
+		else if (current_unit === 'SFt') {
+			$('#area_size').val(a_size * 10.764);
 		}
-	})
-
-	$('#price_input').on('input', function (e) {
-		let val = $('#price_input').val();
-		if (val >= 1000000000) {
-			$('#price_int_word').text(($('#price_input').val()/1000000000).toFixed(2) + " arab");
+		else if (current_unit === 'M') {
+			$('#area_size').val(a_size * 0.027222);
 		}
-		else if (val >= 10000000) {
-			$('#price_int_word').text(($('#price_input').val()/10000000).toFixed(2) + " crore");
+		else if (current_unit === 'SYd') {
+			$('#area_size').val(a_size * 1.196);
 		}
-		else if (val >= 100000) {
-				$('#price_int_word').text(($('#price_input').val()/100000).toFixed(2) + " lakh");
+	}
+	
+	// From SYd to Other Unit Conversions
+	if (previous_unit === 'SYd') {
+		if (current_unit === 'K') {
+			$('#area_size').val(a_size * 0.0016528926);
 		}
-		else if (val >= 10000)
-		{
-			$('#price_int_word').text(($('#price_input').val()/1000).toFixed(2) + " thousand");
+		else if (current_unit === 'SFt') {
+			$('#area_size').val(a_size * 9);
 		}
-		else if (val < 10000)
-		{
-			$('#price_int_word').text("");
+		else if (current_unit === 'SM') {
+			$('#area_size').val(a_size * 0.83612736);
 		}
-	});
-
-	let previous_unit = 'M';
-	$('#area_size_unit').on('change', function (e) {
-		let a_size = $('#area_size').val();
-		let current_unit = $('#area_size_unit').val();
-
-		// From Marla to Other Unit Conversions
-		if (previous_unit === 'M') {
-			if (current_unit === 'K') {
-				$('#area_size').val(a_size * 0.05);
-			}
-			else if (current_unit === 'SFt') {
-				$('#area_size').val(a_size * 225);
-			}
-			else if (current_unit === 'SM') {
-				$('#area_size').val(a_size * 20.9);
-			}
-			else if (current_unit === 'SYd') {
-				$('#area_size').val(a_size * 25);
-			}
+		else if (current_unit === 'M') {
+			$('#area_size').val(a_size * 0.0826446281);
 		}
-
-		// From Kanal to Other Unit Conversions
-		if (previous_unit === 'K') {
-			if (current_unit === 'M') {
-				$('#area_size').val(a_size * 20);
-			}
-			else if (current_unit === 'SFt') {
-				$('#area_size').val(a_size * 5445);
-			}
-			else if (current_unit === 'SM') {
-				$('#area_size').val(a_size * 505.857);
-			}
-			else if (current_unit === 'SYd') {
-				$('#area_size').val(a_size * 605.625);
-			}
-		}
-		
-		// From SqFt to Other Unit Conversions
-		if (previous_unit === 'SFt') {
-			if (current_unit === 'K') {
-				$('#area_size').val(a_size * 0.0000229568);
-			}
-			else if (current_unit === 'M') {
-				$('#area_size').val(a_size * 0.00367657);
-			}
-			else if (current_unit === 'SM') {
-				$('#area_size').val(a_size * 0.092903);
-			}
-			else if (current_unit === 'SYd') {
-				$('#area_size').val(a_size * 0.111111);
-			}
-		}
-		
-		// From SqM to Other Unit Conversions
-		if (previous_unit === 'SM') {
-			if (current_unit === 'K') {
-				$('#area_size').val(a_size * 0.0002517);
-			}
-			else if (current_unit === 'SFt') {
-				$('#area_size').val(a_size * 10.764);
-			}
-			else if (current_unit === 'M') {
-				$('#area_size').val(a_size * 0.027222);
-			}
-			else if (current_unit === 'SYd') {
-				$('#area_size').val(a_size * 1.196);
-			}
-		}
-		
-		// From SYd to Other Unit Conversions
-		if (previous_unit === 'SYd') {
-			if (current_unit === 'K') {
-				$('#area_size').val(a_size * 0.0016528926);
-			}
-			else if (current_unit === 'SFt') {
-				$('#area_size').val(a_size * 9);
-			}
-			else if (current_unit === 'SM') {
-				$('#area_size').val(a_size * 0.83612736);
-			}
-			else if (current_unit === 'M') {
-				$('#area_size').val(a_size * 0.0826446281);
-			}
-		}
-		
-		previous_unit = current_unit;
-	})
+	}
+	
+	previous_unit = current_unit;
+})
 	
 
 /* /////////////////////////////////	SWIPER SLIDE SCROLLER	////////////////////////////////// */
-	var swiperPopular = new Swiper(".mySwiper", {
+	var swiperPopular = new Swiper(".propertiesSwiper", {
 		// default parameters
 		spaceBetween: 20,
 		grapCursor: true,
 		autoplay: {
-			delay: 3000,
+			delay: 2500,
 			disableOnInteraction: false,
 		},
-		slidesPerView: 4,
+		loop: true,
+		slidesPerView: 1,
 	
 		// Responsive breakpoints
 		breakpoints: {
@@ -195,36 +190,7 @@
 				slidesPerView: 4
 			}
 		},
-
-		navigation: {
-		  nextEl: ".swiper-button-next",
-		  prevEl: ".swiper-button-prev",
-		},
 	});
-
-	var swiperImages = new Swiper(".singlePropertyImageSwiper", {
-		effect: "coverflow",
-		grabCursor: true,
-		centeredSlides: true,
-		slidesPerView: "auto",
-		coverflowEffect: {
-			rotate: 50,
-			stretch: 0,
-			depth: 100,
-			modifier: 1,
-			slideShadows: true,
-		},
-		
-		pagination: {
-			el: ".swiper-pagination",
-		},
-
-		navigation: {
-		  nextEl: ".swiper-button-next",
-		  prevEl: ".swiper-button-prev",
-		},
-	  });
-// };
 
 
 /* ////////////////////////////////	On Resize for Responsiveness	/////////////////////////////// */

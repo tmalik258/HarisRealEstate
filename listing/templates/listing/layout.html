@@ -112,11 +112,9 @@
 					<form action="{% url 'listing:get_property_by_search' %}" method="GET">
 						<input type="search" name="searchByTitle" class="form-control" id="searchByT" placeholder="Search by Title">
 					</form>
-					<!-- <p> -->
 					<a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 						<ion-icon name="options-outline" class="loggedIn" {% if user.is_authenticated %}  id="searchIcon" {% endif %}></ion-icon>
 					</a>
-					<!-- </p> -->
 					<div class="collapse" id="collapseExample">
 						<div class="card card-body">
 							<form class="search row g-1 m-auto" method="GET" action="{% url 'listing:get_property' %}">
@@ -129,7 +127,7 @@
 										<input type="radio" class="btn-check" name="purpose" id="form3_option2" autocomplete="off" value="R">
 										<label class="btn form-select purpose"  for="form3_option2">Rent</label>
 									</li>
-									<li class="nav-item"><input type="submit" class="btn btn-primary purpose" value="SEARCH"></li>
+									<li class="nav-item"><input type="submit" class="btn btn-primary purpose searchbtn" value="SEARCH"></li>
 								</ul>
 								<div class="row container m-0 p-3 pb-4">
 									<div class="col-md-3">
@@ -156,7 +154,7 @@
 								</div>
 							</form>
 						</div>
-						</div>
+					</div>
 				</div>
 				<ul class="navbar-nav text-center m-0 p-0 system">
 					{% if user.is_authenticated %}
