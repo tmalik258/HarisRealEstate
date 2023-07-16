@@ -167,16 +167,14 @@
 								<ion-icon name="person-outline"></ion-icon>
 							</span>
 						</a>
-						<ul class="dropdown-menu p-0">
+						<ul class="dropdown-menu p-2">
 							{% if user.is_authenticated and user.is_staff %}
-								<li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a></li>
+								<li><a class="dropdown-item rounded-3" href="{% url 'admin:index' %}">Admin</a></li>
 							{% endif %}
-							<li><a class="dropdown-item" href="{% url 'account:profile' %}">Profile</a></li>
-							<li><a class="dropdown-item" href="{% url 'account:profile-update' %}">Edit Profile</a></li>
-							<li><a class="dropdown-item" href="{% url 'account:wishlist' %}">Wishlist</a></li>
-							{% comment %}
-							<li><a class="dropdown-item" href="{% url 'account:change-password' %}">Change Password</a></li>
-							{% endcomment %}
+							<li><a class="dropdown-item rounded-3" href="{% url 'account:profile' %}">Profile</a></li>
+							<li><a class="dropdown-item rounded-3" href="{% url 'account:wishlist' %}">Wishlist</a></li>
+							<li><a class="dropdown-item rounded-3" href="{% url 'account:profile-update' %}">Edit Profile</a></li>
+							<li><a class="dropdown-item rounded-3" href="{% url 'account:change-password' %}">Change Password</a></li>
 						</ul>
 					  </li>
 					{% else %}
