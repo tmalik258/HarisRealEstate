@@ -129,14 +129,14 @@ class PwdResetConfirmForm(SetPasswordForm):
 	new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(
 		attrs={
 			'class': 'form-control',
-			'placeholder': 'New Password',
+			'placeholder': 'Enter New Password',
 			'autofocus': 'autofocus'
 		}
 	))
 	new_password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(
 		attrs={
 			'class': 'form-control',
-			'placeholder': 'Repeat Password',
+			'placeholder': 'Enter Repeat Password',
 		}
 	))
 
