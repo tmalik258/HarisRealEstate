@@ -15,7 +15,7 @@
 	--_panel-padding: 0.5rem;
 	display: flex;
 	flex-direction: row;
-	gap: 1rem;
+	gap: .17rem;
 }
 
 @media (width < 990px) {
