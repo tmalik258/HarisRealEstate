@@ -1,0 +1,96 @@
+.accordion img {
+	max-width: 100%;
+	display: block;
+}
+
+.wrapper {
+	/* max-width: 90rem; */
+	margin-inline: auto;
+	padding-inline: 1rem;
+	color: #fff;
+}
+
+.accordion {
+	--_button-size: 2.2rem;
+	--_panel-padding: 0.5rem;
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}
+
+@media (width < 990px) {
+	.accordion {
+		flex-direction: column;
+	}
+
+	.accordion-panel {
+		height: 100%;
+	}
+}
+
+.accordion *::selection {
+	background: none;
+}
+
+.accordion * {
+	margin: 0;
+}
+
+.accordion-panel {
+	position: relative;
+	isolation: isolate;
+	flex-basis: calc((var(--_panel-padding) * 1.5) + var(--_button-size));
+	height: 25rem;
+	cursor: pointer;
+	overflow: hidden;
+	padding: var(--_panel-padding);
+	border-radius: calc(((var(--_panel-padding) * 1.5) + var(--_button-size)) / 2);
+	filter: brightness(0.5);
+}
+
+.accordion-image {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: -1;
+}
+
+.accordion-trigger {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-direction: row-reverse;
+	background: transparent;
+	border: 0;
+}
+
+.accordion-icon {
+	fill: var(--_panel-color, white);
+	background: hsl(0 0% 0% / 0.55);
+	width: var(--_button-size);
+	aspect-ratio: 1 / 1;
+	padding: 0.5rem;
+	border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.accordion-panel {
+		transition: flex-basis 500ms, filter 500ms, flex-grow 500ms;
+	}
+}
+
+.accordion-panel:nth-of-type(even) {
+	--_panel-color: hsl(160, 70%, 50%)
+}
+
+.accordion-panel:nth-of-type(odd) {
+	--_panel-color: hsl(350, 70%, 50%)
+}
+
+.accordion-panel:has([aria-expanded="true"]) {
+	filter: brightness(1);
+	flex-basis: clamp(20rem, 45vh, 25rem);
+	flex-grow: 1;
+}

@@ -174,7 +174,7 @@ class Listing (models.Model):
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=250)
-	description = models.TextField(max_length=700)
+	description = models.TextField(max_length=1000)
 	user_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_wishlist', blank=True)
 	time_created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -234,7 +234,6 @@ class ListingImage (models.Model):
 		return f"{self.listing.title}"
 
 	def save(self, *args, **kwargs):
-		print(f"In save function: {self.image}")
 		img = PillowImage.open(self.image)
 		# Resize image
 		output_size = (500, 500)
@@ -255,7 +254,6 @@ class ListingImage (models.Model):
 
 		# Save the buffer content to the image field
 		# self.image.save(self.image.name, ContentFile(output_buffer.read()), save=False)
-		print(f"In save function2: {self.image.name}")
 		super().save(*args, **kwargs)
 	
 	def image_tag(self):

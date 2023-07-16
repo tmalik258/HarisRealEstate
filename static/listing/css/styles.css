@@ -1100,17 +1100,13 @@ form.search
 }
 
 .index_properties .properties .mySwiper .swiper-button-prev::after,
-.index_properties .properties .mySwiper .swiper-button-next::after,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev::after,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next::after
+.index_properties .properties .mySwiper .swiper-button-next::after
 {
 	content: '';
 }
 
 .index_properties .properties .mySwiper .swiper-button-next,
-.index_properties .properties .mySwiper .swiper-button-prev,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next
+.index_properties .properties .mySwiper .swiper-button-prev
 {
 	width: initial;
 	height: initial;
@@ -1121,27 +1117,17 @@ form.search
 	transition: .4s;
 }
 
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next
-{
-	color: var(--primarycolor);
-}
-
 .index_properties .properties .mySwiper .swiper-button-next
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next
 {
 	right: 0;
 }
-.index_properties .properties .mySwiper .swiper-button-prev,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev
+.index_properties .properties .mySwiper .swiper-button-prev
 {
 	left: 0;
 }
 
 .index_properties .properties .mySwiper .swiper-button-next:hover,
-.index_properties .properties .mySwiper .swiper-button-prev:hover,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev:hover,
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next:hover
+.index_properties .properties .mySwiper .swiper-button-prev:hover
 {
 	background: rgb(167, 147, 124);
 	color: #141414;
@@ -1244,24 +1230,6 @@ form.search
 	background: none;
 }
 
-.properties.property_detail .swiper.singlePropertyImageSwiper {
-	width: 100%;
-	padding-top: 10px;
-}
-
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-slide {
-	background-position: center;
-	background-size: cover;
-	width: 300px;
-	height: 300px;
-}
-
-.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-slide img {
-	display: block;
-	width: 100%;
-}
-
-
 /* //////////////////////////////////////////	PROFILE	/////////////////////////////////////////// */
 .profile
 {
@@ -1326,10 +1294,6 @@ footer
 	.index_properties .properties .mySwiper.swiper .swiper-wrapper
 	{
 		margin-left: 45px;
-	}
-
-	.properties.property_detail .swiper.singlePropertyImageSwiper {
-		padding-top: 30px;
 	}
 
 	.properties.property_detail #no_image
@@ -1510,37 +1474,20 @@ footer
 		border: 2px solid #1c1c1c;
 	}
 	
-	.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next,
-	.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev
-	{
-		border: 1px solid wheat;
-		top: initial;
-		bottom: 15px;
-	}
-
-	.index_properties .properties .mySwiper .swiper-button-next,
-	.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-next
+	.index_properties .properties .mySwiper .swiper-button-next
 	{
 		right: calc(50% - 3rem);
 	}
-	.index_properties .properties .mySwiper .swiper-button-prev,
-	.properties.property_detail .swiper.singlePropertyImageSwiper .swiper-button-prev
+	.index_properties .properties .mySwiper .swiper-button-prev
 	{
 		left: calc(50% - 3rem);
 	}
 
 	.index_properties .properties .mySwiper .swiper-button-next:hover,
-	.index_properties .properties .mySwiper .swiper-button-prev:hover,
-	.properties.property_detail .swiper.singlePropertyImageSwiper .sw
+	.index_properties .properties .mySwiper .swiper-button-prev:hover
 	{
 		background: #1c1c1c;
 		color: rgb(167, 147, 124);
-	}
-
-	.properties.property_detail .swiper.singlePropertyImageSwiper
-	{
-		max-width: 300px;
-		max-height: 300px;
 	}
 
 	.properties.property_detail #no_image
