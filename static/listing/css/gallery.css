@@ -24,4 +24,7 @@
 	.image-gallery {
 		display: none;
 	}
+	.open_gallery {
+		display: none;
+	}
 }
