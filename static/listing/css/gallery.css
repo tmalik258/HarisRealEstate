@@ -1,0 +1,27 @@
+.image-gallery {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 10px;
+	width: max-content;
+	height: max-content;
+	background: #edf1f4;
+	padding: 1rem;
+	padding-top: 3rem;
+	box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2),
+    -10px -10px 15px rgba(0, 0, 0, 0.05);
+	z-index: 10;
+	margin-left: 4%;
+	transition: 1s;
+}
+
+.image-gallery svg {
+	cursor: pointer;
+	transform: translateX(-9px) translateY(10px);
+}
+
+@media (width < 990px) {
+	.image-gallery {
+		display: none;
+	}
+}

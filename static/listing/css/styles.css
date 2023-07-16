@@ -1038,6 +1038,13 @@ form.search
 }
 
 /* -----------------------------------	SINGLE PROPERTY and AGENTS	----------------------------------- */
+.properties.property_detail
+{
+	background: var(--maincolor);
+	box-shadow: var(--box-shadow);
+	margin: 20px;
+}
+
 .properties.property_detail .container .row .col .card-body .container .container .row div.col
 {
 	box-shadow: var(--box-shadow);

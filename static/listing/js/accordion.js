@@ -20,3 +20,22 @@ function toggleAccordion(panelToActive) {
 	panelToActive.querySelector("button").setAttribute("aria-expanded", true);
 	panelToActive.querySelector(".accordion-content").setAttribute("aria-hidden", false);
 }
+
+$(document).ready(function () {
+	let expanded = false;
+	$('.accordion button').each(function () {
+	  if ($(this).attr('aria-expanded') === 'true') {
+		expanded = true;
+		return false; // Exit the loop if any button has aria-expanded set to true
+	  }
+	});
+	if (!expanded) {
+		$('.accordion button').eq(0).attr('aria-expanded', true);
+	}
+	else {
+		if (window.innerWidth < 990) {
+			const activePanel = document.querySelector('.accordion-panel:first-child');
+			toggleAccordion(activePanel);
+		}
+	}
+});
