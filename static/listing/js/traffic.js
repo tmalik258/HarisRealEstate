@@ -6,7 +6,7 @@ function countAnimation(id, total) {
 		id_traffic_count.textContent = count;
 		count++;
 	
-		if (count > 100) {
+		if (count > total) {
 			clearInterval(interval);
 		}
 	}, 10);
