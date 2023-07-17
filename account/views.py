@@ -14,7 +14,7 @@ from django.utils.http import (urlsafe_base64_decode, urlsafe_base64_encode)
 from django.db.models import BooleanField, Case, When
 from django.views.generic import ListView
 
-from .models import User, Profile
+from .models import User, Profile, TrafficUser
 from .forms import (RegistrationUserForm, RegisterationProfileForm, UserUpdateForm)
 from .token import account_activation_token
 
@@ -231,3 +231,16 @@ def profileUpdate (request):
 		'form': u_form,
 		'profile_form': p_form
 	})
+
+
+def get_ip_address (request):
+	"""
+	Get Ip Address of user that requested website
+	"""
+	ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+	if ip_address:
+		ip = ip_address.split(',')[-1].strip()
+	else:
+		ip = request.META.get('REMOTE_ADDR')
+	
+	return ip

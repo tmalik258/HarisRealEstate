@@ -87,3 +87,16 @@ class Profile (models.Model):
 
 	def __str__(self):
 		return ""
+
+
+class TrafficUser (models.Model):
+	user_ip = models.CharField(verbose_name=_("User Ip Address"), max_length=256)
+	time_created = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		ordering = (('-time_created'),)
+		verbose_name = _('Traffic User')
+		verbose_name_plural = _('Traffic Users')
+	
+	def __str__(self):
+		return self.user

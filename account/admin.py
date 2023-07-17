@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User, Profile
+from .models import (User, Profile, TrafficUser)
 # Register your models here.
 
 # User Model
@@ -54,3 +54,9 @@ class UserAdmin (UserAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+
+@admin.register(TrafficUser)
+class TrafficUserAdmin (admin.ModelAdmin):
+	list_display = ('user_ip', 'time_created')
+	list_filter = ('time_created',)

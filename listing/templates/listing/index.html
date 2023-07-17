@@ -127,6 +127,25 @@
 	</div>
 </section>
 
+<section class="m-3 mt-5 ms-lg-4 p-5 hidden" id="counter_section">
+	<div class="container">
+		<div class="row text-center">
+			<div class="col p-2">
+				<h2 class="h5" id="traffic_count">0</h2>
+				<p class="text-muted">Unique Visitors</p>
+			</div>
+			<div class="col p-2">
+				<h2 class="h5" id="sale_count">0</h2>
+				<p class="text-muted">Listing for Sale</p>
+			</div>
+			<div class="col p-2">
+				<h2 class="h5" id="rent_count">0</h2>
+				<p class="text-muted">Listing for Rent</p>
+			</div>
+		</div>
+	</div>
+</section>
+
 <section class="hidden index_properties m-3 ms-lg-4">
 	<h1 class="h4 mb-1 ms-2">RECENT PROPERTIES</h1>
 	<article class="container p-4 ms-0 mb-4 mt-1 properties swiper propertiesSwiper" style="box-shadow: none;">
@@ -289,5 +308,10 @@
 				},
 			},
 		});
+
+		const TRAFFIC_COUNT = '{{ trafficCount }}';
+		const SALE_COUNT = '{{ saleCount }}';
+		const RENT_COUNT = '{{ rentCount }}';
 	</script>
+	<script src="{% static 'listing/js/traffic.js' %}" data-rel-js></script>
 {% endblock %}

@@ -18,12 +18,34 @@ from django.db.models import BooleanField, Case, When
 from .models import Listing, ListingImage, Contact
 from .forms import listingForm
 
+from account.views import get_ip_address
+from account.models import TrafficUser
+
 
 # Create your views here.
 def index (request):
+    """
+    GET 10 RECENT LISTINGS
+    """
     posts = Listing.posts.all()[0:10]
+
+    """
+    Store unique ip address in trafficuser model if already doesn't exists
+    """
+    ip = get_ip_address(request)
+
+    if not TrafficUser.objects.filter(user_ip__icontains=ip).exists():
+        TrafficUser.objects.create(user_ip=ip)
+
+    trafficCount = TrafficUser.objects.all().count()
+
+    saleCount, rentCount = Listing.posts.filter(purpose='S').count(), Listing.posts.filter(purpose='R').count()
+
     return render(request, 'listing/index.html', {
-        'posts': posts
+        'posts': posts,
+        'trafficCount': trafficCount,
+        'saleCount': saleCount,
+        'rentCount': rentCount,
     })
 
 
