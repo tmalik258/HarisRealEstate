@@ -1,21 +1,21 @@
 import json
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import (render, redirect)
+from django.http import (HttpResponse, HttpResponseRedirect)
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import (authenticate, login, logout)
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.db import IntegrityError
 from django.db.models import Max
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import ListView, View
-from django.db.models import BooleanField, Case, When
+from django.views.generic import (ListView, View)
+from django.db.models import (BooleanField, Case, When)
 
-from .models import Listing, ListingImage, Contact
+from .models import (Listing, ListingImage, ListingSpecificationValue, Category, Contact, ListingAmenity)
 from .forms import listingForm
 
 from account.views import get_ip_address
@@ -39,13 +39,13 @@ def index (request):
 
     trafficCount = TrafficUser.objects.all().count()
 
-    saleCount, rentCount = Listing.posts.filter(purpose='S').count(), Listing.posts.filter(purpose='R').count()
+    # saleCount, rentCount = Listing.posts.filter(purpose='S').count(), Listing.posts.filter(purpose='R').count()
 
     return render(request, 'listing/index.html', {
         'posts': posts,
         'trafficCount': trafficCount,
-        'saleCount': saleCount,
-        'rentCount': rentCount,
+        'saleCount': 0,
+        'rentCount': 0,
     })
 
 
@@ -276,48 +276,59 @@ def agents (request):
 def createListing (request):
     if request.method == "POST":
         listing_form = listingForm (request.POST)
-        images = request.FILES.getlist('images')
-        bedroom = request.POST.get('bedroom', None)
-        bathroom = request.POST.get('bathroom', None)
-        category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
 
         if listing_form.is_valid():
             listing_obj = listing_form.save(commit=False)
-            listing_obj.creator = request.user
-            listing_obj.purpose = request.POST['purpose']
+            # listing_obj.creator = request.user # User
+            # listing_obj.is_active = True # Is Active
+            # listing_obj.is_sold = False # Is Sold
+            # listing_obj.save()
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='purpose', value=listing_form.cleaned_data['purpose']) # Purpose
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='furnished', value=listing_form.cleaned_data['furnished']) # Furnished
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='Construction State', value=listing_form.cleaned_data['state']) # Construction State
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='Floors', value=listing_form.cleaned_data['custom_floor']) # Floors
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='Bedroom', value=listing_form.cleaned_data['custom_bedroom']) # Bedrooms
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='Bathroom', value=listing_form.cleaned_data['custom_bathroom']) # Bathrooms
+            # ListingSpecificationValue.objects.create(listing=listing_obj, specification='Area Size', value=listing_form.cleaned_data['area_size']) # Area Size
 
-            if listing_obj.category in category_list:
-                if listing_obj.custom_bedroom:
-                    listing_obj.bedroom = ''
-                elif bedroom:
-                    listing_obj.bedroom = bedroom
+            # Fetch the selected amenities as a list
+            # selected_amenities = request.POST.getlist('amenities') # Amenities
+            
+            # Iterate over the selected amenities
+            # for amenity in selected_amenities:
+            #     ListingAmenity.objects.create(listing=listing_obj, amenity=amenity)
 
-                if (bedroom or listing_obj.custom_bedroom) and listing_obj.custom_bathroom:
-                    listing_obj.bathroom = ''
-                elif (bedroom or listing_obj.custom_bedroom) and bathroom:
-                    listing_obj.bathroom = bathroom
-            else:
-                listing_obj.bedroom = ''
-                listing_obj.bathroom = ''
-            listing_obj.is_active = True
-            listing_obj.save()
+            # if listing_obj.category in category_list:
+            #     if listing_obj.custom_bedroom:
+            #         listing_obj.bedroom = ''
+            #     elif bedroom:
+            #         listing_obj.bedroom = bedroom
 
+            #     if (bedroom or listing_obj.custom_bedroom) and listing_obj.custom_bathroom:
+            #         listing_obj.bathroom = ''
+            #     elif (bedroom or listing_obj.custom_bedroom) and bathroom:
+            #         listing_obj.bathroom = bathroom
+            # else:
+            #     listing_obj.bedroom = ''
+            #     listing_obj.bathroom = ''
+
+            # Iterate over the images
+            images = request.POST.getlist('images')
             for image_file in images:
-                img = ListingImage(listing=listing_obj, image=image_file)
-                print(img.image)
-                img.save()
-                print(f"After saving: {img.image}")
+                print(image_file)
+            #     img = ListingImage(listing=listing_obj, image=image_file)
+                # img.save()
 
 
-            messages.success(request, "Ad has been posted successfully!")
-            return redirect('account:profile')
+            # messages.success(request, "Ad has been posted successfully!")
+            return redirect('listing:createListing')
         
         else:
             return render(request, 'listing/createListing.html', {
                 'form': listing_form,
             })
 
-    listing_form = listingForm
+    listing_form = listingForm()
     return render(request, 'listing/createListing.html', {
         'form': listing_form,
     })

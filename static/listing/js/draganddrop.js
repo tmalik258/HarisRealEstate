@@ -2,7 +2,7 @@
 var dropzone = document.getElementById('dropzone');
 
 // Get the file input element and the image preview container
-var fileInput = document.getElementById('listing-image');
+var fileInput = document.getElementById('id_images');
 var fileInput_pfp = document.getElementById('id_profile_image');
 var imagePreview = document.getElementById('image-preview');
 
@@ -61,7 +61,7 @@ if (fileInput) {
     // Iterate over the selected files
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
-      var inputFile = document.getElementById('listing-image');
+      var inputFile = document.getElementById('id_images');
       createImagePreview(file, inputFile);
     }
   });

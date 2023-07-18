@@ -5,19 +5,42 @@ from .models import Listing, ListingImage
 
 
 class listingForm (ModelForm):
+	custom_bedroom = forms.CharField(widget=forms.TextInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Custom Bedrooms'
+	}), required=False)
+	custom_bathroom = forms.IntegerField(widget=forms.NumberInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Custom Baths'
+	}), required=False)
+	custom_floor = forms.IntegerField(widget=forms.NumberInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Custom Floor level',
+	}), required=False)
+	area_size = forms.IntegerField(widget=forms.NumberInput(attrs={
+		'class': 'form-control mt-2',
+		'placeholder': 'Enter area size'
+	}), required=False)
+	purpose = forms.CharField(widget=forms.TextInput(attrs={
+		'hidden': True
+	}), required=False)
+	furnished = forms.CharField(widget=forms.TextInput(attrs={
+		'hidden': True
+	}), required=False)
+	state = forms.CharField(widget=forms.TextInput(attrs={
+		'hidden': True
+	}), required=False)
 	class Meta:
 		model = Listing
 		fields = ('__all__')
 
-		exclude = ('creator', 'time_created', 'is_active', 'bedroom', 'bathroom')
+		exclude = ('creator', 'time_created', 'is_active', 'user_wishlist', 'is_sold', 'bedroom', 'bathroom')
 
 		labels = {
 			'title': 'Property Title',
 			'price': 'Price',
-			'category': 'Category',
 			'address': 'Address',
 			'description': 'Description',
-			'area_size': 'Area Size',
 			'area_size_unit': 'Area Unit',
 		}
 
@@ -25,7 +48,6 @@ class listingForm (ModelForm):
 			'title': forms.TextInput(attrs={
 				'class': 'form-control mt-2',
 				'placeholder': 'Title',
-				'id': ''
 			}),
 			'price': forms.NumberInput(attrs={
 				'class': 'form-control mt-2',
@@ -35,47 +57,31 @@ class listingForm (ModelForm):
 			}),
             'category': forms.Select(attrs={
 				'class': 'form-select mt-2',
-				'id': 'category_input'
+				'hidden': True,
+				# 'id': 'id_category'
 			}),
             'city': forms.Select(attrs={
 				'class': 'form-select mt-2',
-				'id': ''
 			}),
             'address': forms.TextInput(attrs={
 				'class': 'form-control mt-2',
 				'placeholder': 'Address',
-				'id': ''
 			}),
             'description': forms.Textarea(attrs={
 				'class': 'form-control mt-2',
 				'placeholder': 'Write a description about your property',
-				'id': '',
-			}),
-			'purpose': forms.RadioSelect(attrs={
-				'class': 'form-radio-inline',
-				'id': ''
-			}),
-			'custom_bedroom': forms.NumberInput(attrs={
-				'placeholder': 'Custom Rooms',
-				'min': 11,
-				'class': 'w-100'
-			}),
-			'custom_bathroom': forms.NumberInput(attrs={
-				'placeholder': 'Custom Baths',
-				'min': 7,
-				'class': 'w-100'
-			}),
-			'area_size': forms.NumberInput(attrs={
-				'class': 'form-control mt-2',
-				'placeholder': 'Enter Area Size',
-				'min': 0,
-				'id': 'area_size'
 			}),
             'area_size_unit': forms.Select(attrs={
 				'class': 'form-select mt-2',
 				'id': 'area_size_unit'
 			}),
 		}
+	
+	# def __init__(self, *args, **kwargs):
+	# 	super().__init__(*args, **kwargs)
+	# 	self.fields['purpose'].widget.attrs.update({
+	# 		'hidden': True
+	# 	})
 
 
 CITY_CHOICES = (
@@ -181,7 +187,6 @@ CATEGORY_CHOICES = [
 	)),
 	('other', 'Other')
 ]
-
 
 class listingGetRequestForm (ModelForm):
 	city = forms.CharField(widget=forms.Select(attrs={

@@ -2,9 +2,32 @@ from django.contrib import admin
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
-from .models import Listing, ListingImage, Contact
+from .models import (Listing, ListingImage, Contact, Category, Amenities, ListingAmenity, ListingSpecification, ListingSpecificationValue)
 
 # Register your models here.
+admin.site.register(Amenities)
+admin.site.register(ListingSpecification)
+admin.site.register(ListingSpecificationValue)
+
+
+@admin.register(Category)
+class CategoryAdmin (admin.ModelAdmin):
+	prepopulated_fields = {'slug': ('name',)}
+
+
+class ListingAmenityInline (admin.TabularInline):
+	model = ListingAmenity
+	fk_name = 'listing'
+	verbose_name_plural = _('Amenities')
+
+
+class ListingSpecificationInline(admin.TabularInline):
+	model = ListingSpecification
+
+
+class ListingSpecificationValueInline(admin.TabularInline):
+	model = ListingSpecificationValue
+
 
 class ImageInline (admin.TabularInline):
 	model = ListingImage
@@ -14,10 +37,13 @@ class ImageInline (admin.TabularInline):
 
 # Listing Model
 class ListingAdmin (admin.ModelAdmin):
-	inlines = [ImageInline]
-	list_display = ('title', 'is_active', 'purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'creator', 'time_created')
-	list_filter = ('purpose', 'category', 'bedroom', 'bathroom', 'area_size', 'area_size_unit', 'is_active', 'creator', 'time_created')
-	# list_editable = ['is_active',]
+	inlines = [
+		ListingAmenityInline,
+		ImageInline,
+		ListingSpecificationValueInline
+	]
+	list_display = ('title', 'is_active', 'area_size_unit', 'creator', 'time_created')
+	list_filter = ('area_size_unit', 'is_active', 'creator', 'time_created')
 	empty_value_display = '-empty-'
 
 	def get_queryset(self, request):

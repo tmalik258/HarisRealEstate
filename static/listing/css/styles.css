@@ -496,13 +496,13 @@ body
 
 .auth_form .form-select.purpose
 {
-	background: black;
+	background: rgb(0, 0, 0);
 	color: #fff;
 }
 
 .auth_form .purpose:checked, .auth_form .purpose:hover, .auth_form input:checked + .purpose
 {
-	background: #0c294a;
+	background: var(--primarycolor);
 }
 
 

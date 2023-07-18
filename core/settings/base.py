@@ -16,7 +16,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Application definition
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # External PACKAGES
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
+    'mptt',
     # Internal APPS
     'account',
     'listing',
