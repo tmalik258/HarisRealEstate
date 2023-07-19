@@ -167,7 +167,6 @@ $('#area_size_unit').on('change', function (e) {
 	var swiperPopular = new Swiper(".propertiesSwiper", {
 		// default parameters
 		spaceBetween: 20,
-		grapCursor: true,
 		autoplay: {
 			delay: 2500,
 			disableOnInteraction: false,
