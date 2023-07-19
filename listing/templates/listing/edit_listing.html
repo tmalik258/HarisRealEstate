@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-	<link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" />
+	<!-- <link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" /> -->
 	<style>
 		#myTab li button[aria-selected='true'] {
 			background: #edf1f4;
@@ -61,7 +61,7 @@
 							<div class="container">
 								<div class="row g-2" id="purpose_field">
 									<div class="col">
-										<input type="radio" class="btn-check" name="purpose" id="purpose_option1" autocomplete="off" value="Sale" checked>
+										<input type="radio" class="btn-check" name="purpose" id="purpose_option1" autocomplete="off" value="Sale">
 										<label class="btn form-select purpose" for="purpose_option1">For Sale</label>
 									</div>
 									<div class="col">
@@ -78,7 +78,7 @@
 						<div class="my-2 mt-4">Category</div>
 						<ul class="nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item" role="presentation" style="background: none;">
-							  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Homes</button>
+							  <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">Homes</button>
 							</li>
 							<li class="nav-item" role="presentation">
 							  <button class="nav-link" id="plot-tab" data-bs-toggle="tab" data-bs-target="#plot-tab-pane" type="button" role="tab" aria-controls="plot-tab-pane" aria-selected="false">Plots</button>
@@ -94,11 +94,11 @@
 							</li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
-							<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+							<div class="tab-pane fade" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 								<div class="container">
 									<div class="row g-2 my-1 mb-2">
 										<div class="col">
-											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option1" autocomplete="off" value="Houses" checked>
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option1" autocomplete="off" value="House" checked>
 											<label class="btn form-select purpose" for="home-tab-pane-option1">House</label>
 										</div>
 										<div class="col" style="min-width: fit-content;">
@@ -114,8 +114,8 @@
 											<label class="btn form-select purpose" for="home-tab-pane-option5">Penthouse</label>
 										</div>
 										<div class="col">
-											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option2" autocomplete="off" value="Flats/Appartments">
-											<label class="btn form-select purpose" for="home-tab-pane-option2">Flats/Appartments</label>
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option2" autocomplete="off" value="Flat/Appartment">
+											<label class="btn form-select purpose" for="home-tab-pane-option2">Flat/Appartment</label>
 										</div>
 									</div>
 								</div>
@@ -189,7 +189,7 @@
 								<div class="container">
 									<div class="row g-2 g-lg-2" id="furnished_field">
 										<div class="col">
-											<input type="radio" class="btn-check" name="furnished" id="furnished_option1" autocomplete="off" value="Furnished" checked>
+											<input type="radio" class="btn-check" name="furnished" id="furnished_option1" autocomplete="off" value="Furnished">
 											<label class="btn form-select purpose" for="furnished_option1">Furnished</label>
 										</div>
 										<div class="col">
@@ -205,7 +205,7 @@
 								<div class="container">
 									<div class="row g-2" id="state_field">
 										<div class="col">
-											<input type="radio" class="btn-check" name="construction-state" id="construction-state-option1" autocomplete="off" value="Finished" checked>
+											<input type="radio" class="btn-check" name="construction-state" id="construction-state-option1" autocomplete="off" value="Finished">
 											<label class="btn form-select purpose" for="construction-state-option1">Finished</label>
 										</div>
 										<div class="col" style="min-width: fit-content;">
@@ -281,7 +281,7 @@
 								<div class="container">
 									<div class="row g-2 my-1 mb-2" id="bedroom_field">
 										<div class="col-8">
-											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option0" autocomplete="off" value="Studio" checked>
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option0" autocomplete="off" value="Studio">
 											<label class="btn form-select purpose" for="bedroom_option0">Studio</label>
 										</div>
 										<div class="col-4">
@@ -509,11 +509,11 @@
 						</div>
 						<div class="col my-3">{{ form.description.label }}{{ form.description }}</div>
 
-						<div id="dropzone" class="form-group mb-3">
+						<!-- <div id="dropzone" class="form-group mb-3">
 							<label for="id_images" style="color: #0c294a;">Click to upload Images or Drag and Drop Here <span class="text-muted small"><br>(Select upto 15 images for the property to upload.)</span></label>
 							<input type="file" name="images" id="id_images" accept="image/*" multiple>
 						</div>
-						<div id="image-preview" class="col m-auto"></div> <!-- Container for displaying uploaded images -->
+						<div id="image-preview" class="col m-auto"></div> Container for displaying uploaded images -->
 						<input type="submit" value="Post" class="btn btn-dark w-25 mb-4 float-end">
 					</form>
 				</div>
@@ -524,6 +524,10 @@
 {% endblock %}
 
 {% block script %}
-	<script src="{% static 'listing/js/listing_form.js' %}"></script>
-	<script src="{% static 'listing/js/draganddrop.js' %}"></script>
+	<script>
+		var amenities = '{{ amenities|safe }}';
+		var amenities_list = JSON.parse(amenities);
+	</script>
+	<script src="{% static 'listing/js/update_listing_form.js' %}" defer data-rel-js></script>
+	<!-- <script src="{% static 'listing/js/draganddrop.js' %}"></script> -->
 {% endblock %}

@@ -102,14 +102,14 @@ class ListingSpecificationValue(models.Model):
 		super().clean()
 
 		# Check value based on specification
-		if self.specification.name == 'purpose':
+		if self.specification.name == 'Purpose':
 			allowed_values = ['Rent', 'Sale']
 		elif self.specification.name == 'Furnished':
 			allowed_values = ['Furnished', 'Unfurnished']
 		elif self.specification.name == 'Construction State':
 			allowed_values = ['Grey Structure', 'Finished']
 		else:
-			allowed_values = []
+			return
 
 		if self.value not in allowed_values:
 			raise ValidationError(f"The value '{self.value}' is not allowed for the specification '{self.specification.name}'.")
@@ -245,6 +245,15 @@ class Listing (models.Model):
 
 	def get_bathroom(self):
 		return self.get_specification_value('Bathroom')
+
+	def get_floor(self):
+		return self.get_specification_value('Floors')
+
+	def get_construction_state(self):
+		return self.get_specification_value('Construction State')
+
+	def get_furnished(self):
+		return self.get_specification_value('Furnished')
 
 	def __str__(self) -> str:
 		if self.is_active:

@@ -23,6 +23,15 @@ from account.views import get_ip_address
 from account.models import TrafficUser
 
 
+from uuid import UUID
+
+class CustomJSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, UUID):
+            return str(obj)
+        return super().default(obj)
+
+
 # Create your views here.
 def index (request):
 	"""
@@ -422,15 +431,18 @@ def updateListing (request, item_id):
 				specifications = ListingSpecification.objects.all()
 				cache.set('listing_specifications', specifications)
 
+			# Delete the list of ListingSpecificationValue objects
+			ListingSpecificationValue.objects.filter(listing=listing).delete()
+
 			# Create a list of ListingSpecificationValue objects
 			specification_values = [
 				ListingSpecificationValue(
-					listing=listing_form,
+					listing=listing,
 					specification=specifications.get(name='Purpose'),
 					value=listing_form.cleaned_data['purpose']
 				),
 				ListingSpecificationValue(
-					listing=listing_form,
+					listing=listing,
 					specification=specifications.get(name='Area Size'), value=listing_form.cleaned_data['area_size']
 				),
 			]
@@ -439,12 +451,12 @@ def updateListing (request, item_id):
 			if furnished:
 				specification_values += [
 					ListingSpecificationValue(
-						listing=listing_form,
+						listing=listing,
 						specification=specifications.get(name='Furnished'),
 						value=listing_form.cleaned_data['furnished']
 					),
 					ListingSpecificationValue(
-						listing=listing_form,
+						listing=listing,
 						specification=specifications.get(name='Construction State'), value=listing_form.cleaned_data['state']
 					),
 				]
@@ -453,7 +465,7 @@ def updateListing (request, item_id):
 			if floor_levels:
 				specification_values += [
 					ListingSpecificationValue(
-						listing=listing_form,
+						listing=listing,
 						specification=specifications.get(name='Floors'), value=floor_levels
 					),
 				]
@@ -465,18 +477,18 @@ def updateListing (request, item_id):
 				if baths:
 					specification_values += [
 							ListingSpecificationValue(
-							listing=listing_form,
+							listing=listing,
 							specification=specifications.get(name='Bedroom'), value=beds
 						),
 						ListingSpecificationValue(
-							listing=listing_form,
+							listing=listing,
 							specification=specifications.get(name='Bathroom'), value=baths
 						),
 					]
 				else:
 					specification_values += [
 							ListingSpecificationValue(
-							listing=listing_form,
+							listing=listing,
 							specification=specifications.get(name='Bedroom'), value=beds
 						),
 					]
@@ -486,6 +498,7 @@ def updateListing (request, item_id):
 			ListingSpecificationValue.objects.bulk_create(specification_values)
 
 			# Fetch the selected amenities as a list
+			ListingAmenity.objects.filter(listing=listing).delete()
 			selected_amenities = request.POST.getlist('amenities') # Amenities
 			if selected_amenities:
 				amenities = cache.get('listing_amenities')
@@ -499,7 +512,7 @@ def updateListing (request, item_id):
 				for s_amenity in selected_amenities:
 					amenities_values += [
 						ListingAmenity(
-							listing=listing_form,
+							listing=listing,
 							amenity=amenities.get(feature=s_amenity)
 						),
 					]
@@ -509,7 +522,7 @@ def updateListing (request, item_id):
 			# Iterate over the images
 			# images = request.FILES.getlist('images')
 			# for image_file in images:
-			# 	img = ListingImage(listing=listing_form, image=image_file)
+			# 	img = ListingImage(listing=listing, image=image_file)
 			# 	img.save()
 
 
@@ -517,13 +530,28 @@ def updateListing (request, item_id):
 			return redirect('account:profile')
 		
 		else:
-			return render(request, 'listing/createListing.html', {
+			return render(request, 'listing/edit_listing.html', {
 				'form': listing_form,
 			})
 
-	listing_form = listingForm(instance=listing)
-	return render(request, 'listing/createListing.html', {
+	listing_form = listingForm(instance=listing, initial={
+		'area_size': listing.get_area_size(),
+		'purpose': listing.get_purpose(),
+		'custom_bedroom': listing.get_bedroom(),
+		'custom_bathroom': listing.get_bathroom(),
+		'custom_floor': listing.get_floor(),
+		'furnished': listing.get_furnished(),
+		'state': listing.get_construction_state(),
+	})
+	amenities_fields = ListingAmenity.objects.filter(listing=listing)
+	amenities_list = []
+	for amenity in amenities_fields:
+		amenities_list.append(amenity.amenity.feature)
+	amenities_json = json.dumps(amenities_list)
+
+	return render(request, 'listing/edit_listing.html', {
 		'form': listing_form,
+		'amenities': amenities_json
 	})
 
 @login_required

@@ -133,17 +133,17 @@
 											<h5 class="card-title text-center">{{ post.title | upper }}</h5><hr>
 											<p class="card-text"><span style="color: rgb(174, 115, 229);">PKR </span><span style="font-size: 20px;">{{ post.price | int_word }}</span></p>
 											<p class="card-text" style="line-height: 18px;">{{ post.address | truncatechars:33 }}</p>
-											<p class="card-text"><span style="color: rgb(174, 115, 229);;">{{ post.get_category_display }}</span> for <span style="color: rgb(174, 115, 229);">{{ post.get_purpose_display }}</span></p>
+											<p class="card-text"><span style="color: rgb(174, 115, 229);;">{{ post.category }}</span> for <span style="color: rgb(174, 115, 229);">{{ post.get_purpose }}</span></p>
 											<p class="card-text">
-												<span style="color: rgb(174, 115, 229);">{{ post.area_size }} </span>
+												<span style="color: rgb(174, 115, 229);">{{ post.get_area_size }} </span>
 												{{ post.get_area_size_unit_display }}
 											</p>
 											{% if post.get_bedroom and post.get_bathroom %}
 												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom }}</strong> <span class="bedicon">
 													<ion-icon name="bed-outline"></ion-icon>
-												</span> <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
-											{% elif post.get_bathroom %}
-												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
+												</span> <strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Bath(s)</p>
+											{% elif post.get_bedroom %}
+												<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bedroom }}</strong> Bed(s)</p>
 											{% endif %}
 											<p class="card-text mt-3">
 												<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-sm btn-outline-secondary email more">More</a>
