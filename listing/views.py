@@ -384,14 +384,14 @@ def createListing (request):
 			#     listing_obj.bathroom = ''
 
 			# Iterate over the images
-			# images = request.FILES.getlist('images')
-			# for image_file in images:
-			# 	img = ListingImage(listing=listing_obj, image=image_file)
-			# 	img.save()
+			images = request.FILES.getlist('images')
+			for image_file in images:
+				img = ListingImage(listing=listing_obj, image=image_file)
+				img.save()
 
 
 			messages.success(request, "Ad has been posted successfully!")
-			return redirect('listing:createListing')
+			return redirect('account:profile')
 		
 		else:
 			return render(request, 'listing/createListing.html', {
@@ -406,59 +406,123 @@ def createListing (request):
 # Update Form Incomplete ## image ## bedroom and bathroom errors
 @login_required
 def updateListing (request, item_id):
-    listing = Listing.posts.get(pk=item_id)
+	listing = Listing.posts.get(pk=item_id)
 
-    if request.method == "POST":
-        listing_form = listingForm (request.POST, instance=listing)
-        # images = request.FILES.getlist('images')
-        bedroom = request.POST.get('bedroom', None)
-        bathroom = request.POST.get('bathroom', None)
-        category_list = ['house', 'flat', 'up', 'lp', 'fh', 'room', 'ph']
+	if request.method == "POST":
+		listing_form = listingForm (request.POST, instance=listing)
 
-        if listing_form.is_valid():
-            listing_obj = listing_form.save(commit=False)
-            listing_obj.purpose = request.POST['purpose']
+		if listing_form.is_valid():
+			listing_form.save()
 
-            if listing_obj.category in category_list:
-                if listing_obj.custom_bedroom:
-                    listing_obj.bedroom = ''
-                elif bedroom:
-                    listing_obj.bedroom = bedroom
+			# Fetch or cache the ListingSpecification objects
+			specifications = cache.get('listing_specifications')
+			if not specifications:
+				specifications = ListingSpecification.objects.all()
+				cache.set('listing_specifications', specifications)
 
-                if (bedroom or listing_obj.custom_bedroom) and listing_obj.custom_bathroom:
-                    listing_obj.bathroom = ''
-                elif (bedroom or listing_obj.custom_bedroom) and bathroom:
-                    listing_obj.bathroom = bathroom
-            else:
-                listing_obj.bedroom = ''
-                listing_obj.bathroom = ''
-                listing_obj.custom_bedroom = ''
-                listing_obj.custom_bathroom = ''
-            listing_obj.save()
+			# Create a list of ListingSpecificationValue objects
+			specification_values = [
+				ListingSpecificationValue(
+					listing=listing_form,
+					specification=specifications.get(name='Purpose'),
+					value=listing_form.cleaned_data['purpose']
+				),
+				ListingSpecificationValue(
+					listing=listing_form,
+					specification=specifications.get(name='Area Size'), value=listing_form.cleaned_data['area_size']
+				),
+			]
 
-            # No Image Update Option
-            # for image_file in images:
-            #     img = Image(listing=listing_obj, image=image_file)
-            #     img.save()
+			furnished = listing_form.cleaned_data['furnished']
+			if furnished:
+				specification_values += [
+					ListingSpecificationValue(
+						listing=listing_form,
+						specification=specifications.get(name='Furnished'),
+						value=listing_form.cleaned_data['furnished']
+					),
+					ListingSpecificationValue(
+						listing=listing_form,
+						specification=specifications.get(name='Construction State'), value=listing_form.cleaned_data['state']
+					),
+				]
 
-            messages.success(request, "Ad has been Updated!")
-            return redirect('account:profile')
+			floor_levels = listing_form.cleaned_data['custom_floor']
+			if floor_levels:
+				specification_values += [
+					ListingSpecificationValue(
+						listing=listing_form,
+						specification=specifications.get(name='Floors'), value=floor_levels
+					),
+				]
+			
+			beds = listing_form.cleaned_data['custom_bedroom']
+			baths = listing_form.cleaned_data['custom_bathroom']
 
-        else:
-            return render(request, 'listing/edit_listing.html', {
-                'form': listing_form,
-                'purpose': listing.purpose,
-            })
+			if beds:
+				if baths:
+					specification_values += [
+							ListingSpecificationValue(
+							listing=listing_form,
+							specification=specifications.get(name='Bedroom'), value=beds
+						),
+						ListingSpecificationValue(
+							listing=listing_form,
+							specification=specifications.get(name='Bathroom'), value=baths
+						),
+					]
+				else:
+					specification_values += [
+							ListingSpecificationValue(
+							listing=listing_form,
+							specification=specifications.get(name='Bedroom'), value=beds
+						),
+					]
 
-    listing_form = listingForm(instance=listing)
-    return render(request, 'listing/edit_listing.html', {
-        'form': listing_form,
-        'purpose': listing.purpose,
-        'bedroom': listing.bedroom,
-        'custom_bedroom': listing.custom_bedroom,
-        'bathroom': listing.bathroom,
-        'custom_bathroom': listing.custom_bathroom,
-    })
+
+			# Bulk create the ListingSpecificationValue objects
+			ListingSpecificationValue.objects.bulk_create(specification_values)
+
+			# Fetch the selected amenities as a list
+			selected_amenities = request.POST.getlist('amenities') # Amenities
+			if selected_amenities:
+				amenities = cache.get('listing_amenities')
+				if not amenities:
+					amenities = Amenities.objects.all()
+					cache.set('listing_amenities', amenities)
+				
+				amenities_values = []
+				
+				# # Iterate over the selected amenities
+				for s_amenity in selected_amenities:
+					amenities_values += [
+						ListingAmenity(
+							listing=listing_form,
+							amenity=amenities.get(feature=s_amenity)
+						),
+					]
+				
+				ListingAmenity.objects.bulk_create(amenities_values)
+
+			# Iterate over the images
+			# images = request.FILES.getlist('images')
+			# for image_file in images:
+			# 	img = ListingImage(listing=listing_form, image=image_file)
+			# 	img.save()
+
+
+			messages.success(request, "Ad has been Updated successfully!")
+			return redirect('account:profile')
+		
+		else:
+			return render(request, 'listing/createListing.html', {
+				'form': listing_form,
+			})
+
+	listing_form = listingForm(instance=listing)
+	return render(request, 'listing/createListing.html', {
+		'form': listing_form,
+	})
 
 @login_required
 def deleteListing (request, item_id):
