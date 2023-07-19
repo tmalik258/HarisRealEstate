@@ -25,29 +25,31 @@ from account.models import TrafficUser
 
 # Create your views here.
 def index (request):
-    """
-    GET 10 RECENT LISTINGS
-    """
-    posts = Listing.posts.all()[0:10]
+	"""
+	GET 10 RECENT LISTINGS
+	"""
+	posts = Listing.posts.all()[0:10]
 
-    """
-    Store unique ip address in trafficuser model if already doesn't exists
-    """
-    ip = get_ip_address(request)
+	"""
+	Store unique ip address in trafficuser model if already doesn't exists
+	"""
+	ip = get_ip_address(request)
 
-    if not TrafficUser.objects.filter(user_ip__icontains=ip).exists():
-        TrafficUser.objects.create(user_ip=ip)
+	if not TrafficUser.objects.filter(user_ip__icontains=ip).exists():
+		TrafficUser.objects.create(user_ip=ip)
 
-    trafficCount = TrafficUser.objects.all().count()
+	trafficCount = TrafficUser.objects.all().count()
 
-    # saleCount, rentCount = Listing.posts.filter(purpose='S').count(), Listing.posts.filter(purpose='R').count()
+	saleCount = Listing.posts.filter(specification_value__specification__name='Purpose', specification_value__value='Sale').count()
 
-    return render(request, 'listing/index.html', {
-        'posts': posts,
-        'trafficCount': trafficCount,
-        'saleCount': 0,
-        'rentCount': 0,
-    })
+	rentCount = Listing.posts.filter(specification_value__specification__name='Purpose', specification_value__value='Rent out').count()
+
+	return render(request, 'listing/index.html', {
+		'posts': posts,
+		'trafficCount': trafficCount,
+		'saleCount': saleCount,
+		'rentCount': rentCount,
+	})
 
 
 class PropertiesListView (ListView):

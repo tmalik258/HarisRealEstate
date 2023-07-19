@@ -166,13 +166,13 @@ $('#area_size_unit').on('change', function (e) {
 /* /////////////////////////////////	SWIPER SLIDE SCROLLER	////////////////////////////////// */
 	var swiperPopular = new Swiper(".propertiesSwiper", {
 		// default parameters
+		slidesPerView: 1,
 		spaceBetween: 20,
 		autoplay: {
 			delay: 2500,
 			disableOnInteraction: false,
 		},
 		loop: true,
-		slidesPerView: 1,
 	
 		// Responsive breakpoints
 		breakpoints: {
