@@ -7,7 +7,6 @@ from .models import (Listing, ListingImage, Contact, Category, Amenities, Listin
 # Register your models here.
 admin.site.register(Amenities)
 admin.site.register(ListingSpecification)
-admin.site.register(ListingSpecificationValue)
 
 
 @admin.register(Category)

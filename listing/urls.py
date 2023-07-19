@@ -17,7 +17,7 @@ urlpatterns = [
 	# filtered properties display
     path('filtered_properties', views.FilteredPropertiesListView.as_view(), name='get_property'),
 	# filtered properties display
-    path('properties?category=<str:type>', views.CategoryListView.as_view(), name='get_category'),
+    path('properties?category=<slug:category_slug>', views.CategoryListView.as_view(), name='get_category'),
 	# about us url
 	path('about_us', views.about_us, name='about_us'),
 	# agents url

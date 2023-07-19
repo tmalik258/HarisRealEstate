@@ -40,6 +40,11 @@ class Category (MPTTModel):
 
 	def __str__(self):
 		return self.name
+	
+	def get_absolute_url(self):
+		return reverse('listing:get_category', kwargs={
+			'category_slug': self.slug
+		})
 
 	def save (self, *args, **kwargs):
 		if self.slug == '':
@@ -67,8 +72,8 @@ class ListingAmenity (models.Model):
 	amenity = models.ForeignKey(Amenities, on_delete=models.CASCADE, related_name='amenity')
 	listing = models.ForeignKey('Listing', on_delete=models.CASCADE, related_name='amenity')
 
-	def __str__(self):
-		return self.amenity
+	# def __str__(self):
+	# 	return self.amenity.feature
 
 
 class ListingSpecification(models.Model):
@@ -86,7 +91,7 @@ class ListingSpecificationValue(models.Model):
 	The Listing Specification Value table holds each of the products individual specification or bespoke features
 	"""
 	
-	listing = models.ForeignKey("Listing", on_delete=models.CASCADE)
+	listing = models.ForeignKey("Listing", on_delete=models.CASCADE, related_name=_('specification_value'))
 	specification = models.ForeignKey("ListingSpecification", on_delete=models.RESTRICT)
 	value = models.CharField(verbose_name=_("value"), max_length=255, help_text=_("Listing Specification Value (maximum of 255 characters)"))
 
@@ -223,24 +228,23 @@ class Listing (models.Model):
 	class Meta:
 		ordering = (('-updated'),)
 
+	def get_specification_value(self, specification_name):
+		try:
+			return self.specification_value.get(specification__name=specification_name).value
+		except ListingSpecificationValue.DoesNotExist:
+			return None
+
+	def get_purpose(self):
+		return self.get_specification_value('Purpose')
+
+	def get_area_size(self):
+		return self.get_specification_value('Area Size')
+
 	def get_bedroom(self):
-		if self.custom_bedroom:
-			return self.custom_bedroom
-		elif self.bedroom:
-			if self.bedroom == 'S':
-				return 'Studio'
-			else:
-				return self.bedroom
-		else:
-			return False
+		return self.get_specification_value('Bedroom')
 
 	def get_bathroom(self):
-		if self.custom_bathroom:
-			return self.custom_bathroom
-		elif self.bathroom:
-			return self.bathroom
-		else:
-			return False
+		return self.get_specification_value('Bathroom')
 
 	def __str__(self) -> str:
 		if self.is_active:

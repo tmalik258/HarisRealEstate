@@ -20,7 +20,7 @@ class listingForm (ModelForm):
 	area_size = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control mt-2',
 		'placeholder': 'Enter area size'
-	}), required=False)
+	}))
 	purpose = forms.CharField(widget=forms.TextInput(attrs={
 		'hidden': True
 	}), required=False)

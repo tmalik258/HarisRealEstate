@@ -1,5 +1,129 @@
 $(document).ready(function () {
-	// floor field input
+	 // When a tab is shown
+	 $('.nav-link').on('shown.bs.tab', function (e) {
+		// Get the value of the selected radio button in the corresponding tab pane
+		var category = $(e.target.getAttribute('data-bs-target')).attr('aria-labelledby');
+		switch(category) {
+			case 'home-tab':
+				// Furnished and Construction State
+				$('#furnished_state').css('display', 'flex');
+				$('#furnished_state #furnished_field input#furnished_option1').prop('checked', true);
+				$('#furnished_state #state_field input#construction-state-option1').prop('checked', true);
+
+				// Bedrooms and Bathrooms
+				$('#beds_baths').css('display', 'flex');
+				$('#beds_baths #bedroom_field input#bedroom_option0').prop('checked', true);
+
+				// Floor
+				$('#floor_col').css('display', 'none');
+				$('#floor_col #floor_field input[name="floor"]').each(function (_index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Amenities
+				InputUncheck();
+				$('.amenities_plot').css('display', 'none');
+				$('.amenities_commercial').css('display', 'none');
+				$('.amenities_home').css('display', 'inline');
+				break;
+			case 'plot-tab':
+				// Furnished and Construction State
+				$('#furnished_state').css('display', 'none');
+				$('#furnished_state input').each(function (_index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Bedrooms and Bathrooms
+				$('#beds_baths').css('display', 'none');
+				$('#beds_baths input').each(function (_index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Floor
+				$('#floor_col').css('display', 'none');
+				$('#floor_col #floor_field input[name="floor"]').each(function (index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Amenities
+				InputUncheck();
+				$('.amenities_home').css('display', 'none');
+				$('.amenities_commercial').css('display', 'none');
+				$('.amenities_plot').css('display', 'inline');
+				break;
+			case 'commercial-tab':
+				// Furnished and Construction State
+				$('#furnished_state').css('display', 'flex');
+				$('#furnished_state #furnished_field input#furnished_option1').prop('checked', true);
+				$('#furnished_state #state_field input#construction-state-option1').prop('checked', true);
+
+				// Bedrooms and Bathrooms
+				$('#beds_baths').css('display', 'none');
+				$('#beds_baths input').each(function (_index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Floor
+				$('#floor_col').css('display', 'block');
+
+				// Amenities
+				InputUncheck();
+				$('.amenities_home').css('display', 'none');
+				$('.amenities_plot').css('display', 'none');
+				$('.amenities_commercial').css('display', 'inline');
+				break;
+			case 'room-tab':
+				// Furnished and Construction State
+				$('#furnished_state').css('display', 'none');
+				$('#furnished_state input').each(function (index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Bedrooms and Bathrooms
+				$('#beds_baths').css('display', 'none');
+				$('#beds_baths input').each(function (_index, element) {
+					// element == this
+					$(element).prop('checked', false);
+				});
+
+				// Floor
+				$('#floor_col').css('display', 'block');
+
+				// Amenities
+				InputUncheck();
+				$('.amenities_home').css('display', 'none');
+				$('.amenities_plot').css('display', 'none');
+				$('.amenities_commercial').css('display', 'none');
+				break;
+			case 'other-tab':
+				// Furnished and Construction State
+				$('#furnished_state').css('display', 'flex');
+				$('#furnished_state #furnished_field input#furnished_option1').prop('checked', true);
+				$('#furnished_state #state_field input#construction-state-option1').prop('checked', true);
+
+				// Bedrooms and Bathrooms
+				$('#beds_baths').css('display', 'flex');
+				$('#beds_baths #bedroom_field input#bedroom_option0').prop('checked', true);
+
+				// Floor
+				$('#floor_col').css('display', 'block');
+
+				// Amenities
+				InputUncheck();
+				$('.amenities_home').css('display', 'inline');
+				$('.amenities_plot').css('display', 'inline');
+				$('.amenities_commercial').css('display', 'inline');
+				break;
+		}
+	  });
+
+	// Floor field input
 	$('#floor_field input[name="floor"]').on('change', () => {
 		let input_val = $(`#floor_field input[name="floor"]:checked`).val();
 		$('#id_custom_floor').val(input_val);
@@ -10,7 +134,7 @@ $(document).ready(function () {
 			$('#id_custom_floor').css('display', 'none');
 	});
 
-	// bedroom field input
+	// Bedroom field input
 	$('#id_custom_bedroom').val("Studio");
 	$('#bedroom_field input[name="bedroom"]').on('change', () => {
 		let input_val = $('#bedroom_field input[name="bedroom"]:checked').val();
@@ -33,6 +157,7 @@ $(document).ready(function () {
 			$('#id_custom_bathroom').css('display', 'none');
 	});
 
+	// Form Submit
 	$('form').submit(function (e) { 
 		// e.preventDefault();
 
@@ -47,15 +172,6 @@ $(document).ready(function () {
 
 		Category();
 
-		var fileInput = document.getElementById('id_images');
-
-		if (fileInput.files.length === 0) {
-			e.preventDefault(); // Prevent the form from submitting
-			alert('Please select at least one image.'); // Display an error message
-		  }
-		  else {
-			console.log(fileInput.files.length)
-		  }
 		// return false;
 	});
 });
@@ -89,4 +205,11 @@ function Category () {
 			break;
 		}
 	}
+}
+
+function InputUncheck () {
+	$('#amenities input[name="amenities"]').each(function (_index, element) {
+		// element == this
+		$(element).prop('checked', false);
+	});
 }

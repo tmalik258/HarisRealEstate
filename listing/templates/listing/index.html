@@ -92,7 +92,7 @@
 	<div class="container top-categories hidden p-4 ms-0 mb-4 mt-1">
 		<div class="row row-cols-1 row-cols-md-3">
 			<div class="col hidden">
-				<a href="{% url 'listing:get_category' type='Homes' %}" class="nav-link">
+				<a href="{% url 'listing:get_category' category_slug='Homes' %}" class="nav-link">
 					<div class="card h-100">
 						<img loading="lazy" src="{% static 'listing/img/categories/home.jpg' %}" class="card-img-top" alt="Home Category Image" width="100%" height="100%">
 						<div class="card-img-overlay"></div>
@@ -103,7 +103,7 @@
 				</a>
 				</div>
 			<div class="col hidden">
-			  <a href="{% url 'listing:get_category' type='Plots' %}" class="nav-link">
+			  <a href="{% url 'listing:get_category' category_slug='Plots' %}" class="nav-link">
 				<div class="card h-100">
 					<img loading="lazy" src="{% static 'listing/img/categories/plots.jpg' %}" class="card-img-top img2" width="100%" height="100%" alt="Plots Category Image">
 					<div class="card-img-overlay">
@@ -113,7 +113,7 @@
 			  </a>
 			</div>
 			<div class="col hidden">
-				<a href="{% url 'listing:get_category' type='Commercial' %}" class="nav-link">
+				<a href="{% url 'listing:get_category' category_slug='Commercial' %}" class="nav-link">
 					<div class="card h-100">
 						<div class="card-body">
 							<h5 class="card-title">COMMERCIAL</h5>

@@ -45,11 +45,11 @@
 												</p>
 		
 												<p class="card-text text-muted" style="line-height: 18px;">
-													{{ post.get_category_display | safe }}
+													{{ post.category }}
 													<span class="vr"></span>
-													{{ post.get_purpose_display }}
+													{{ post.get_purpose }}
 													<span class="vr"></span>
-													{{ post.area_size }}
+													{{ post.get_area_size }}
 													{{ post.get_area_size_unit_display }}
 												</p>
 												{% if post.get_bedroom and post.get_bathroom %}
@@ -58,8 +58,8 @@
 													</span>
 													<span class="vr"></span>
 													{{ post.get_bathroom }} Baths</p>
-												{% elif post.get_bathroom %}
-													<p class="card-text"><strong style="color: rgb(174, 115, 229);">{{ post.get_bathroom }}</strong> Baths</p>
+												{% elif post.get_bedroom %}
+													<p class="card-text text-muted">{{ post.get_bedroom }} Beds</p>
 												{% endif %}
 												<p class="card-text">
 													<div class="hstack gap-1">

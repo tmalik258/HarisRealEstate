@@ -238,7 +238,7 @@
 					</a>
 				</li>
 				<li {% if "/properties?category=Homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
-					<a class="section nav-link" href="{% url 'listing:get_category' type='Homes' %}">
+					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='homes' %}">
 						<span class="icon">
 							<ion-icon name="home-outline"></ion-icon>
 						</span>
@@ -246,7 +246,7 @@
 					</a>
 				</li>
 				<li {% if "/properties?category=Plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
-					<a class="section nav-link" href="{% url 'listing:get_category' type='Plots' %}">
+					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='plots' %}">
 						<span class="icon">
 							<ion-icon name="map-outline"></ion-icon>
 						</span>
@@ -254,7 +254,7 @@
 					</a>
 				</li>
 				<li {% if "/properties?category=Commercial" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
-					<a class="section nav-link" href="{% url 'listing:get_category' type='Commercial' %}">
+					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='commercial' %}">
 						<span class="icon">
 							<ion-icon name="business-outline"></ion-icon>
 						</span>
