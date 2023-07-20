@@ -59,6 +59,7 @@ class Amenities (models.Model):
 		max_length=124,
 		unique=True
 	)
+	icon = models.CharField(verbose_name=_('Feature Icon'), max_length=124, blank=True, null=True)
 
 	class Meta:
 		verbose_name = _('Amenity')
