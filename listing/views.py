@@ -14,22 +14,13 @@ from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
 from django.views.generic import (ListView, View)
-from django.db.models import (BooleanField, Case, When)
+from django.db.models import (BooleanField, Case, When, Q)
 
 from .models import (Listing, ListingImage, ListingSpecification, ListingSpecificationValue, Category, Contact, Amenities,ListingAmenity)
-from .forms import listingForm
+from .forms import listingForm, listingGetRequestForm
 
 from account.views import get_ip_address
 from account.models import TrafficUser
-
-
-from uuid import UUID
-
-class CustomJSONEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, UUID):
-            return str(obj)
-        return super().default(obj)
 
 
 # Create your views here.
@@ -105,10 +96,20 @@ class SearchedPropertiesListView (ListView):
 	template_name = "listing/property_list.html"
 
 	def get_queryset(self, **kwargs):
-		qs = super().get_queryset(**kwargs).filter(
-				title__icontains=self.request.GET['searchByTitle'],
-			)
-		return qs
+		qs = super().get_queryset(**kwargs)
+		title_or_address_query = self.request.GET['searchByTitle']
+		filtered_qs = qs.filter(
+			Q(title__icontains=title_or_address_query) | 
+			Q(address__icontains=title_or_address_query) |
+			Q(price__icontains=title_or_address_query) |
+			Q(category__name__icontains=title_or_address_query) |
+			Q(area_size_unit__icontains=title_or_address_query) |
+			Q(city__icontains=title_or_address_query) | 
+			Q(specification_value__value__icontains=title_or_address_query) |
+			Q(specification_value__specification__name__icontains=title_or_address_query) |
+			Q(amenity__amenity__feature__icontains=title_or_address_query)
+			).distinct()
+		return filtered_qs
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -119,6 +120,10 @@ class SearchedPropertiesListView (ListView):
 		return context
 
 
+def is_valid_queryparam(param):
+	return param != '' and param is not None
+
+
 class FilteredPropertiesListView (ListView):
 	model = Listing
 	queryset = Listing.posts.all()
@@ -127,51 +132,53 @@ class FilteredPropertiesListView (ListView):
 
 	def get_queryset(self, **kwargs):
 		qs = super().get_queryset(**kwargs)
-		qs = qs.filter(
-				purpose=self.request.GET['purpose'],
-			)
+		listing_form = listingGetRequestForm(self.request.GET)
+		if listing_form.is_valid():
+			purpose_query = self.request.GET['purpose']
+			category_query = listing_form.cleaned_data['category']
+			address_query = listing_form.cleaned_data['location']
+			city_query = listing_form.cleaned_data['city']
+			min_price_query = listing_form.cleaned_data['min_price']
+			max_price_query = listing_form.cleaned_data['max_price']
+			area_size = listing_form.cleaned_data['area_size']
+			area_size_unit = listing_form.cleaned_data['area_size_unit']
 
-		# SEARCH BY CATEGORY
-		if self.request.GET['category']:
-			if self.request.GET['category'] != 'any':
+			if is_valid_queryparam(purpose_query):
 				qs = qs.filter(
-					category=self.request.GET['category']
+						specification_value__specification__name='Purpose', specification_value__value__icontains=purpose_query
+					)
+
+			# SEARCH BY CATEGORY
+			if is_valid_queryparam(category_query):
+				qs = qs.filter(
+					category__in=Category.objects.get(name=category_query).get_descendants(include_self=True)
 				)
-		# SEARCH BY LOCATION
-		if self.request.GET['location']:
-			qs = qs.filter(
-				address__icontains=self.request.GET['location']
-			)
+			# SEARCH BY LOCATION
+			if is_valid_queryparam(address_query):
+				qs = qs.filter(address__icontains=address_query)
 
-		# SEARCH BY CITY
-		if self.request.GET['city'] != '':
-			qs = qs.filter(
-				city=self.request.GET['city']
-			)
+			# SEARCH BY CITY
+			if is_valid_queryparam(city_query):
+				qs = qs.filter(city=city_query)
 
-		# SEARCH BY PRICE RANGE
-		if self.request.GET['min_price'] and self.request.GET['max_price']:
-			qs = qs.filter(
-				price__range=(self.request.GET['min_price'], self.request.GET['max_price'])
-			)
-		elif self.request.GET['min_price']:
-			max_price = qs.aggregate(
-				Max('price')
-			)['price__max']
-			qs = qs.filter(
-				price__range=(self.request.GET['min_price'], max_price)
-			)
-		elif self.request.GET['max_price']:
-			qs = qs.filter(
-				price__range=(0, self.request.GET['max_price'])
-			)
+			# SEARCH BY PRICE MIN
+			if is_valid_queryparam(min_price_query):
+				qs = qs.filter(price__gte=min_price_query)
+
+			# SEARCH BY PRICE MAX
+			if is_valid_queryparam(max_price_query):
+				qs = qs.filter(price__lt=max_price_query)
+
+			# SEARCH BY AREA SIZE
+			if is_valid_queryparam(area_size):
+				qs = qs.filter(specification_value__specification__name='Area Size', specification_value__value=area_size)
+
+			# SEARCH BY AREA SIZE
+			if is_valid_queryparam(area_size_unit):
+				qs = qs.filter(area_size_unit=area_size_unit)
 		
-		# SEARCH BY AREA SIZE
-		if self.request.GET['area_size']:
-			qs = qs.filter(
-				area_size=self.request.GET['area_size'],
-				area_size_unit=self.request.GET['area_size_unit']
-			)
+		else:
+			qs = qs.none()
 
 		return qs
 

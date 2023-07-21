@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Listing, ListingImage
+from .models import Listing, ListingImage, Category
 
 
 class listingForm (ModelForm):
@@ -84,177 +84,125 @@ class listingForm (ModelForm):
 	# 	})
 
 
-CITY_CHOICES = (
-	('', 'City'),
-	('abd', 'Attock'),
-	('abt', 'Abbottabad'),
-	('bhr', 'Bahawalnagar'),
-	('bwn', 'Bhawana'),
-	('bhk', 'Bhakkar'),
-	('bwp', 'Bahawalpur'),
-	('cwp', 'Chishtian'),
-	('dgh', 'Dera Ghazi Khan'),
-	('dnb', 'Dinawali'),
-	('dip', 'Dipalpur'),
-	('fdr', 'Fateh Jhang'),
-	('fsl', 'Faisalabad'),
-	('ghk', 'Gujar Khan'),
-	('gjr', 'Gujranwala'),
-	('grk', 'Gwadar'),
-	('grw', 'Gujranwala'),
-	('gjr', 'Gujrat'),
-	('hyd', 'Hyderabad'),
-	('isl', 'Islamabad'),
-	('jlm', 'Jalalpur'),
-	('jwn', 'Jaranwala'),
-	('jwp', 'Jhelum'),
-	('khr', 'Khairpur'),
-	('khi', 'Karachi'),
-	('khr', 'Khanewal'),
-	('ktt', 'Kotli'),
-	('kwb', 'Kot Adu'),
-	('lai', 'Lalamusa'),
-	('lhr', 'Lahore'),
-	('ldr', 'Lodhran'),
-	('lrd', 'Larkana'),
-	('ltr', 'Layyah'),
-	('mll', 'Mian Channu'),
-	('mlk', 'Malakwal'),
-	('mlt', 'Mardan'),
-	('mrd', 'Multan'),
-	('mnt', 'Mansehra'),
-	('mgw', 'Mandi Bahauddin'),
-	('mwm', 'Mianwali'),
-	('mtr', 'Multan'),
-	('mzt', 'Murree'),
-	('mzw', 'Muzaffargarh'),
-	('ngt', 'Narowal'),
-	('nwn', 'Nankana Sahib'),
-	('pwp', 'Peshawar'),
-	('phl', 'Pattoki'),
-	('qta', 'Quetta'),
-	('qrb', 'Quetta Residency'),
-	('rch', 'Rajanpur'),
-	('rnw', 'Rawalpindi'),
-	('rkn', 'Rahim Yar Khan'),
-	('rwp', 'Rawalpindi'),
-	('sgr', 'Sargodha'),
-	('skt', 'Sialkot'),
-	('shw', 'Sheikhupura'),
-	('swn', 'Swat'),
-	('sak', 'Sargodha'),
-	('sbq', 'Sahiwal'),
-	('ska', 'Sakrand'),
-	('skz', 'Sukheki'),
-	('stw', 'Sialkot'),
-	('suk', 'Sukkur'),
-	('swl', 'Sahiwal'),
-	('sgr', 'Sargodha'),
-	('swl', 'Sialkot'),
-	('saw', 'Sawat'),
-	('ttn', 'Toba Tek Singh'),
-	('vhn', 'Vehari'),
-	('wah', 'Wah Cantt'),
-	('wln', 'Wazirabad'),
-)
+class listingGetRequestForm (forms.Form):
+	CITY_CHOICES = (
+		('', 'City'),
+		('abd', 'Attock'),
+		('abt', 'Abbottabad'),
+		('bhr', 'Bahawalnagar'),
+		('bwn', 'Bhawana'),
+		('bhk', 'Bhakkar'),
+		('bwp', 'Bahawalpur'),
+		('cwp', 'Chishtian'),
+		('dgh', 'Dera Ghazi Khan'),
+		('dnb', 'Dinawali'),
+		('dip', 'Dipalpur'),
+		('fdr', 'Fateh Jhang'),
+		('fsl', 'Faisalabad'),
+		('ghk', 'Gujar Khan'),
+		('gjr', 'Gujranwala'),
+		('grk', 'Gwadar'),
+		('grw', 'Gujranwala'),
+		('gjr', 'Gujrat'),
+		('hyd', 'Hyderabad'),
+		('isl', 'Islamabad'),
+		('jlm', 'Jalalpur'),
+		('jwn', 'Jaranwala'),
+		('jwp', 'Jhelum'),
+		('khr', 'Khairpur'),
+		('khi', 'Karachi'),
+		('khr', 'Khanewal'),
+		('ktt', 'Kotli'),
+		('kwb', 'Kot Adu'),
+		('lai', 'Lalamusa'),
+		('lhr', 'Lahore'),
+		('ldr', 'Lodhran'),
+		('lrd', 'Larkana'),
+		('ltr', 'Layyah'),
+		('mll', 'Mian Channu'),
+		('mlk', 'Malakwal'),
+		('mlt', 'Mardan'),
+		('mrd', 'Multan'),
+		('mnt', 'Mansehra'),
+		('mgw', 'Mandi Bahauddin'),
+		('mwm', 'Mianwali'),
+		('mtr', 'Multan'),
+		('mzt', 'Murree'),
+		('mzw', 'Muzaffargarh'),
+		('ngt', 'Narowal'),
+		('nwn', 'Nankana Sahib'),
+		('pwp', 'Peshawar'),
+		('phl', 'Pattoki'),
+		('qta', 'Quetta'),
+		('qrb', 'Quetta Residency'),
+		('rch', 'Rajanpur'),
+		('rnw', 'Rawalpindi'),
+		('rkn', 'Rahim Yar Khan'),
+		('rwp', 'Rawalpindi'),
+		('sgr', 'Sargodha'),
+		('skt', 'Sialkot'),
+		('shw', 'Sheikhupura'),
+		('swn', 'Swat'),
+		('sak', 'Sargodha'),
+		('sbq', 'Sahiwal'),
+		('ska', 'Sakrand'),
+		('skz', 'Sukheki'),
+		('stw', 'Sialkot'),
+		('suk', 'Sukkur'),
+		('swl', 'Sahiwal'),
+		('sgr', 'Sargodha'),
+		('swl', 'Sialkot'),
+		('saw', 'Sawat'),
+		('ttn', 'Toba Tek Singh'),
+		('vhn', 'Vehari'),
+		('wah', 'Wah Cantt'),
+		('wln', 'Wazirabad'),
+	)
+	AREA_SIZE_CHOICES = (
+		('', 'Unit'),
+		('SFt', 'Sq. Ft.'),
+		('SM', 'Sq. M.'),
+		('SYd', 'Sq. Yd.'),
+		('M', 'Marla'),
+		('K', 'Kanal'),
+	)
 
-CATEGORY_CHOICES = [
-	('', 'Category'),
-	('any', 'Any'),
-	('Homes', (
-		('house', 'House'),
-		('flat', 'Flat'),
-		('up', 'Upper Portion'),
-		('lp', 'Lower Portion'),
-		('fh', 'Farm House'),
-		('room', 'Room'),
-		('ph', 'Penthouse')
-	)),
-	('Plots', (
-		('rp', 'Residential Plots'),
-		('cp', 'Commercial Plots'),
-		('al', 'Agricultural Land'),
-		('il', 'Industrial Land'),
-		('pfile', 'Plot File'),
-		('pform', 'Plot Form'),
-	)),
-	('Commercial', (
-		('off', 'Office'),
-		('shop', 'Shop'),
-		('wh', 'Warehouse'),
-		('fact', 'Factory'),
-		('buil', 'Building'),
-	)),
-	('other', 'Other')
-]
+	class CategoryChoiceField(forms.ModelChoiceField):
+		def label_from_instance(self, obj):
+			# This function will generate the display label for each category.
+			# It adds appropriate indentation using dashes ('---') to represent the hierarchy.
+			return '---' * obj.get_level() + str(obj)
 
-class listingGetRequestForm (ModelForm):
 	city = forms.CharField(widget=forms.Select(attrs={
 		'class': 'form-select',
 		'title': 'Select City',
-		'id': ''
 	}, choices=CITY_CHOICES), required=False)
-	category = forms.CharField(widget=forms.Select(attrs={
-		'class': 'form-select',
-		'title': 'Select Category',
-		'id': ''
-	}, choices=CATEGORY_CHOICES))
+	category = CategoryChoiceField(
+        queryset=Category.objects.all(),
+        empty_label="Category",  # Optional, set a custom label for the empty option
+        widget=forms.Select(attrs={'class': 'form-select'}),
+		required=False
+    )
 	location = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Search by Location',
-		'id': ''
 	}), label='', required=False)
 	min_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Min Price',
 		'min': 10000,
-		'id': ''
 	}), label='', required=False, min_length=4)
 	max_price = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Max Price',
 		'min': 10000,
-		'id': ''
 	}), label='', required=False, min_length=4)
 	area_size = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Area Size',
-		'id': '',
 		'min': 0
 	}), label='', required=False)
-
-	class Meta:
-		model = Listing
-		fields = ('__all__')
-
-		exclude = ('creator', 'time_created','active', 'title', 'description', 'address', 'price', 'purpose', 'city')
-
-		labels = {
-			# 'price': 'Price',
-			'category': '',
-			'address': '',
-			'area_size': ''
-		}
-
-		widgets = {
-				'title': 'Select Category',
-			# 'purpose': forms.Select(attrs={
-			# 	'class': 'form-select',
-			# 	'required': 'false',
-			# 	'title': 'Option for Sale or Rent'
-			# }),
-			# 'area_size': forms.NumberInput(attrs={
-			# 	'class': 'form-control',
-			# 	'min': 0,
-			# 	'placeholder': 'Area Size'
-			# }, required=False),
-			# 'city': forms.Select(attrs={
-			# 	'class': 'form-select',
-			# 	'title': 'Select City'
-			# }),
-			'area_size_unit': forms.Select(attrs={
-				'class': 'form-select',
-				'title': 'Specify Unit for Area Size',
-				'id': ''
-			}),
-		}
+	area_size_unit = forms.CharField(widget=forms.Select(attrs={
+		'class': 'form-select',
+		'title': 'Select Unit',
+	}, choices=AREA_SIZE_CHOICES), required=False)
