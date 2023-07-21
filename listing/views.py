@@ -426,140 +426,144 @@ def createListing (request):
 def updateListing (request, item_id):
 	listing = Listing.posts.get(pk=item_id)
 
-	if request.method == "POST":
-		listing_form = listingForm (request.POST, instance=listing)
+	if request.user == listing.creator:
+		if request.method == "POST":
+			listing_form = listingForm (request.POST, instance=listing)
 
-		if listing_form.is_valid():
-			listing_form.save()
+			if listing_form.is_valid():
+				listing_form.save()
 
-			# Fetch or cache the ListingSpecification objects
-			specifications = cache.get('listing_specifications')
-			if not specifications:
-				specifications = ListingSpecification.objects.all()
-				cache.set('listing_specifications', specifications)
+				# Fetch or cache the ListingSpecification objects
+				specifications = cache.get('listing_specifications')
+				if not specifications:
+					specifications = ListingSpecification.objects.all()
+					cache.set('listing_specifications', specifications)
 
-			# Delete the list of ListingSpecificationValue objects
-			ListingSpecificationValue.objects.filter(listing=listing).delete()
+				# Delete the list of ListingSpecificationValue objects
+				ListingSpecificationValue.objects.filter(listing=listing).delete()
 
-			# Create a list of ListingSpecificationValue objects
-			specification_values = [
-				ListingSpecificationValue(
-					listing=listing,
-					specification=specifications.get(name='Purpose'),
-					value=listing_form.cleaned_data['purpose']
-				),
-				ListingSpecificationValue(
-					listing=listing,
-					specification=specifications.get(name='Area Size'), value=listing_form.cleaned_data['area_size']
-				),
-			]
-
-			furnished = listing_form.cleaned_data['furnished']
-			if furnished:
-				specification_values += [
+				# Create a list of ListingSpecificationValue objects
+				specification_values = [
 					ListingSpecificationValue(
 						listing=listing,
-						specification=specifications.get(name='Furnished'),
-						value=listing_form.cleaned_data['furnished']
+						specification=specifications.get(name='Purpose'),
+						value=listing_form.cleaned_data['purpose']
 					),
 					ListingSpecificationValue(
 						listing=listing,
-						specification=specifications.get(name='Construction State'), value=listing_form.cleaned_data['state']
+						specification=specifications.get(name='Area Size'), value=listing_form.cleaned_data['area_size']
 					),
 				]
 
-			floor_levels = listing_form.cleaned_data['custom_floor']
-			if floor_levels:
-				specification_values += [
-					ListingSpecificationValue(
-						listing=listing,
-						specification=specifications.get(name='Floors'), value=floor_levels
-					),
-				]
-			
-			beds = listing_form.cleaned_data['custom_bedroom']
-			baths = listing_form.cleaned_data['custom_bathroom']
-
-			if beds:
-				if baths:
+				furnished = listing_form.cleaned_data['furnished']
+				if furnished:
 					specification_values += [
-							ListingSpecificationValue(
+						ListingSpecificationValue(
 							listing=listing,
-							specification=specifications.get(name='Bedroom'), value=beds
+							specification=specifications.get(name='Furnished'),
+							value=listing_form.cleaned_data['furnished']
 						),
 						ListingSpecificationValue(
 							listing=listing,
-							specification=specifications.get(name='Bathroom'), value=baths
+							specification=specifications.get(name='Construction State'), value=listing_form.cleaned_data['state']
 						),
 					]
-				else:
+
+				floor_levels = listing_form.cleaned_data['custom_floor']
+				if floor_levels:
 					specification_values += [
+						ListingSpecificationValue(
+							listing=listing,
+							specification=specifications.get(name='Floors'), value=floor_levels
+						),
+					]
+				
+				beds = listing_form.cleaned_data['custom_bedroom']
+				baths = listing_form.cleaned_data['custom_bathroom']
+
+				if beds:
+					if baths:
+						specification_values += [
+								ListingSpecificationValue(
+								listing=listing,
+								specification=specifications.get(name='Bedroom'), value=beds
+							),
 							ListingSpecificationValue(
-							listing=listing,
-							specification=specifications.get(name='Bedroom'), value=beds
-						),
-					]
+								listing=listing,
+								specification=specifications.get(name='Bathroom'), value=baths
+							),
+						]
+					else:
+						specification_values += [
+								ListingSpecificationValue(
+								listing=listing,
+								specification=specifications.get(name='Bedroom'), value=beds
+							),
+						]
 
 
-			# Bulk create the ListingSpecificationValue objects
-			ListingSpecificationValue.objects.bulk_create(specification_values)
+				# Bulk create the ListingSpecificationValue objects
+				ListingSpecificationValue.objects.bulk_create(specification_values)
 
-			# Fetch the selected amenities as a list
-			ListingAmenity.objects.filter(listing=listing).delete()
-			selected_amenities = request.POST.getlist('amenities') # Amenities
-			if selected_amenities:
-				amenities = cache.get('listing_amenities')
-				if not amenities:
-					amenities = Amenities.objects.all()
-					cache.set('listing_amenities', amenities)
-				
-				amenities_values = []
-				
-				# # Iterate over the selected amenities
-				for s_amenity in selected_amenities:
-					amenities_values += [
-						ListingAmenity(
-							listing=listing,
-							amenity=amenities.get(feature=s_amenity)
-						),
-					]
-				
-				ListingAmenity.objects.bulk_create(amenities_values)
+				# Fetch the selected amenities as a list
+				ListingAmenity.objects.filter(listing=listing).delete()
+				selected_amenities = request.POST.getlist('amenities') # Amenities
+				if selected_amenities:
+					amenities = cache.get('listing_amenities')
+					if not amenities:
+						amenities = Amenities.objects.all()
+						cache.set('listing_amenities', amenities)
+					
+					amenities_values = []
+					
+					# # Iterate over the selected amenities
+					for s_amenity in selected_amenities:
+						amenities_values += [
+							ListingAmenity(
+								listing=listing,
+								amenity=amenities.get(feature=s_amenity)
+							),
+						]
+					
+					ListingAmenity.objects.bulk_create(amenities_values)
 
-			# Iterate over the images
-			# images = request.FILES.getlist('images')
-			# for image_file in images:
-			# 	img = ListingImage(listing=listing, image=image_file)
-			# 	img.save()
+				# Iterate over the images
+				# images = request.FILES.getlist('images')
+				# for image_file in images:
+				# 	img = ListingImage(listing=listing, image=image_file)
+				# 	img.save()
 
 
-			messages.success(request, "Ad has been Updated successfully!")
-			return redirect('account:profile')
-		
-		else:
-			return render(request, 'listing/edit_listing.html', {
-				'form': listing_form,
-			})
+				messages.success(request, "Ad has been Updated successfully!")
+				return redirect('account:profile')
+			
+			else:
+				return render(request, 'listing/edit_listing.html', {
+					'form': listing_form,
+				})
 
-	listing_form = listingForm(instance=listing, initial={
-		'area_size': listing.get_area_size(),
-		'purpose': listing.get_purpose(),
-		'custom_bedroom': listing.get_bedroom(),
-		'custom_bathroom': listing.get_bathroom(),
-		'custom_floor': listing.get_floor(),
-		'furnished': listing.get_furnished(),
-		'state': listing.get_construction_state(),
-	})
-	amenities_fields = ListingAmenity.objects.filter(listing=listing)
-	amenities_list = []
-	for amenity in amenities_fields:
-		amenities_list.append(amenity.amenity.feature)
-	amenities_json = json.dumps(amenities_list)
+		listing_form = listingForm(instance=listing, initial={
+			'area_size': listing.get_area_size(),
+			'purpose': listing.get_purpose(),
+			'custom_bedroom': listing.get_bedroom(),
+			'custom_bathroom': listing.get_bathroom(),
+			'custom_floor': listing.get_floor(),
+			'furnished': listing.get_furnished(),
+			'state': listing.get_construction_state(),
+		})
+		amenities_fields = ListingAmenity.objects.filter(listing=listing)
+		amenities_list = []
+		for amenity in amenities_fields:
+			amenities_list.append(amenity.amenity.feature)
+		amenities_json = json.dumps(amenities_list)
 
-	return render(request, 'listing/edit_listing.html', {
-		'form': listing_form,
-		'amenities': amenities_json
-	})
+		return render(request, 'listing/edit_listing.html', {
+			'form': listing_form,
+			'amenities': amenities_json
+		})
+	else:
+		messages.error(request, 'You are not authorized to edit this listing')
+		return redirect('listing:index')
 
 @login_required
 def deleteListing (request, item_id):
