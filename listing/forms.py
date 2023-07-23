@@ -58,8 +58,6 @@ class listingForm (ModelForm):
             'category': forms.Select(attrs={
 				'class': 'form-select mt-2',
 				'hidden': True,
-				'id': 'id_category',
-				'name': 'category'
 			}),
             'city': forms.Select(attrs={
 				'class': 'form-select mt-2',
@@ -77,14 +75,6 @@ class listingForm (ModelForm):
 				'id': 'area_size_unit'
 			}),
 		}
-	
-	# def cleaned_images(self):
-	# 	images = self.cleaned_data['images']
-	# 	if not images:
-	# 		raise forms.ValidationError(
-	# 			'Images are required.'
-	# 		)
-	# 	return images
 	
 
 class listingGetRequestForm (forms.Form):

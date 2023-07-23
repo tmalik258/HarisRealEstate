@@ -136,6 +136,16 @@
 											{{ post.get_bedroom }} beds
 										</div>
 									{% endif %}
+									{% if post.get_floor %}
+									<div class="col" style="min-width: max-content;">
+										{{ post.get_floor }} Floor(s)
+									</div>
+									{% endif %}
+									{% if post.get_construction_state %}
+									<div class="col" style="min-width: max-content;">
+										Construction State: {{ post.get_construction_state }}
+									</div>
+									{% endif %}
 								</div>
 							</div>
 
@@ -146,6 +156,7 @@
 							
 							<hr class="w-75 m-auto my-5">
 
+							{% if post.amenity.first %}
 							<div class="container">
 								<div class="row g-3 text-center">
 									{% for amenity in post.amenity.all %}
@@ -160,6 +171,7 @@
 							</div>
 
 							<hr class="w-75 m-auto my-5">
+							{% endif %}
 
 							<h2 class="h5">Meet your Agent</h2>
 							<div class="container agent py-3">

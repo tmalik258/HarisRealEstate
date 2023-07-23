@@ -3,12 +3,6 @@
 
 {% block title %}Edit Profile{% endblock %}
 
-{% comment %}
-{% block style %}
-	<link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" />
-{% endblock %}
-{% endcomment %}
-
 {% block body %}
 <div class="container-fluid">
 	<div class="row no-gutter">
@@ -76,14 +70,6 @@
 									<label for="id_email">{{ profile_form.bio_info.label }} <span class="form-text text-muted small">({{ profile_form.bio_info.help_text }})</span></label>
 									{{ profile_form.bio_info }}
 								</div>
-								<div id="dropzone" class="form-group mb-3">
-									<!-- <label for="id_profile_image" style="color: #0c294a;">
-										Click to Upload Your Profile Picture or Drag and Drop Here
-										<br>
-										<span class="text-muted small">(Optional)</span>
-									</label> -->
-									{{ profile_form.profile_image }}
-								</div>
 
 								<input class="btn w-100" type="submit" value="Save Changes">
 							</form>
@@ -103,8 +89,3 @@
 	</div>
 </div>
 {% endblock %}
-{% comment %}
-{% block script %}
-	<script src="{% static 'listing/js/draganddrop.js' %}"></script>
-{% endblock %}
-{% endcomment %}

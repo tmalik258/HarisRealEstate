@@ -434,7 +434,12 @@ def updateListing (request, item_id):
 			listing_form = listingForm (request.POST, instance=listing)
 
 			if listing_form.is_valid():
-				listing_form.save()
+				listing_obj = listing_form.save(commit=False)
+				# listing_obj.creator = request.user # User
+				# listing_obj.is_active = True # Is Active
+				listing_obj.is_sold = False # Is Sold
+				listing_obj.category = Category.objects.get(id=request.POST.get('category_alternative'))
+				listing_obj.save()
 
 				# Fetch or cache the ListingSpecification objects
 				specifications = cache.get('listing_specifications')
@@ -448,12 +453,12 @@ def updateListing (request, item_id):
 				# Create a list of ListingSpecificationValue objects
 				specification_values = [
 					ListingSpecificationValue(
-						listing=listing,
+						listing=listing_obj,
 						specification=specifications.get(name='Purpose'),
 						value=listing_form.cleaned_data['purpose']
 					),
 					ListingSpecificationValue(
-						listing=listing,
+						listing=listing_obj,
 						specification=specifications.get(name='Area Size'), value=listing_form.cleaned_data['area_size']
 					),
 				]
@@ -462,12 +467,12 @@ def updateListing (request, item_id):
 				if furnished:
 					specification_values += [
 						ListingSpecificationValue(
-							listing=listing,
+							listing=listing_obj,
 							specification=specifications.get(name='Furnished'),
 							value=listing_form.cleaned_data['furnished']
 						),
 						ListingSpecificationValue(
-							listing=listing,
+							listing=listing_obj,
 							specification=specifications.get(name='Construction State'), value=listing_form.cleaned_data['state']
 						),
 					]
@@ -476,7 +481,7 @@ def updateListing (request, item_id):
 				if floor_levels:
 					specification_values += [
 						ListingSpecificationValue(
-							listing=listing,
+							listing=listing_obj,
 							specification=specifications.get(name='Floors'), value=floor_levels
 						),
 					]
@@ -488,18 +493,18 @@ def updateListing (request, item_id):
 					if baths:
 						specification_values += [
 								ListingSpecificationValue(
-								listing=listing,
+								listing=listing_obj,
 								specification=specifications.get(name='Bedroom'), value=beds
 							),
 							ListingSpecificationValue(
-								listing=listing,
+								listing=listing_obj,
 								specification=specifications.get(name='Bathroom'), value=baths
 							),
 						]
 					else:
 						specification_values += [
 								ListingSpecificationValue(
-								listing=listing,
+								listing=listing_obj,
 								specification=specifications.get(name='Bedroom'), value=beds
 							),
 						]
@@ -523,7 +528,7 @@ def updateListing (request, item_id):
 					for s_amenity in selected_amenities:
 						amenities_values += [
 							ListingAmenity(
-								listing=listing,
+								listing=listing_obj,
 								amenity=amenities.get(feature=s_amenity)
 							),
 						]
@@ -562,7 +567,8 @@ def updateListing (request, item_id):
 
 		return render(request, 'listing/edit_listing.html', {
 			'form': listing_form,
-			'amenities': amenities_json
+			'amenities': amenities_json,
+			'category': listing.category
 		})
 	else:
 		messages.error(request, 'You are not authorized to edit this listing')

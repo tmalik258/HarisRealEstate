@@ -20,6 +20,7 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_floor').val('');
 
 				// Amenities
 				InputUncheck();
@@ -41,6 +42,8 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_bedroom').val('');
+				$('#id_custom_bathroom').val('');
 
 				// Floor
 				$('#floor_col').css('display', 'none');
@@ -48,6 +51,7 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_floor').val('');
 
 				// Amenities
 				InputUncheck();
@@ -67,6 +71,8 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_bedroom').val('');
+				$('#id_custom_bathroom').val('');
 
 				// Floor
 				$('#floor_col').css('display', 'block');
@@ -91,6 +97,8 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_bedroom').val('');
+				$('#id_custom_bathroom').val('');
 
 				// Floor
 				$('#floor_col').css('display', 'block');
@@ -171,12 +179,7 @@ $(document).ready(function () {
 		$('#id_state').val($('#state_field input[name="construction-state"]:checked').val())
 
 		Category();
-		// $('#id_category').change(function (e) { 
-		// 	e.preventDefault();
-		// 	$(this).val($('#id_category').val());
-		// });
-		console.log($('#id_category').val());
-		
+
 		// e.preventDefault();
 		// return false;
 	});

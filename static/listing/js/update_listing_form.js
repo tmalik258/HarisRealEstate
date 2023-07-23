@@ -6,17 +6,23 @@ $(document).ready(function () {
 	var categoryDropdown = document.getElementById("id_category");
 	var options = categoryDropdown.options;
 	var selected_option;
-	for (var option of options) {
-		if (option.selected) {
-			selected_option = option.text;
-			break;
+	if ($('#id_category').val()) {
+		for (var option of options) {
+			if (option.selected) {
+				selected_option = option.text;
+				category = selected_option.replace("--- ", "");
+				break;
+			}
 		}
 	}
+	else {
+		selected_option = category;
+	}
+
 	const home_list = ['House', 'Upper Portion', 'Lower Portion', 'Penthouse', 'Flat/Appartment']
 	const plot_list = ['Residential Plot', 'Agricultural Plot', 'Commercial Plot', 'Industrial Land', 'Plot File', 'Plot Form']
 	const commercial_list = ['Office', 'Shop', 'Warehouse', 'Factory', 'Building']
 	// Remove "-- " from the selected option value
-	var category = selected_option.replace("--- ", "");
 
 	if (home_list.includes(category)) {
 		var pane = 'home-tab-pane';
@@ -32,7 +38,7 @@ $(document).ready(function () {
 			// element == this
 			$(element).prop('checked', false);
 		});
-		$(`div#${pane} input[value=${category}]`).prop('checked', true)
+		$(`div#${pane} input[value="${category}"]`).prop('checked', true)
 
 		// Floor
 		$('#floor_col').css('display', 'none');
@@ -80,7 +86,7 @@ $(document).ready(function () {
 			// element == this
 			$(element).prop('checked', false);
 		});
-		$(`div#${pane} input[value=${category}]`).prop('checked', true)
+		$(`div#${pane} input[value="${category}"]`).prop('checked', true)
 
 		// Floor
 		$('#floor_col').css('display', 'none');
@@ -114,7 +120,7 @@ $(document).ready(function () {
 			// element == this
 			$(element).prop('checked', false);
 		});
-		$(`div#${pane} input[value=${category}]`).prop('checked', true)
+		$(`div#${pane} input[value="${category}"]`).prop('checked', true)
 
 		// Bedrooms and Bathrooms
 		$('#beds_baths').css('display', 'none');
@@ -257,6 +263,7 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_floor').val('');
 
 				// Amenities
 				InputUncheck();
@@ -278,6 +285,8 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_bedroom').val('');
+				$('#id_custom_bathroom').val('');
 
 				// Floor
 				$('#floor_col').css('display', 'none');
@@ -285,6 +294,7 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_floor').val('');
 
 				// Amenities
 				InputUncheck();
@@ -304,6 +314,8 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_bedroom').val('');
+				$('#id_custom_bathroom').val('');
 
 				// Floor
 				$('#floor_col').css('display', 'block');
@@ -328,6 +340,8 @@ $(document).ready(function () {
 					// element == this
 					$(element).prop('checked', false);
 				});
+				$('#id_custom_bedroom').val('');
+				$('#id_custom_bathroom').val('');
 
 				// Floor
 				$('#floor_col').css('display', 'block');
@@ -429,7 +443,6 @@ function Category () {
 		case 'other-tab':
 			input_val = 'Other'
 			break;
-			
 	}
 
 	var categoryDropdown = document.getElementById("id_category");
@@ -441,6 +454,7 @@ function Category () {
 			break;
 		}
 	}
+	$('#category_alternative').val(categoryDropdown.value)
 }
 
 function InputUncheck () {

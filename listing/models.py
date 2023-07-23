@@ -213,7 +213,7 @@ class Listing (models.Model):
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listing")
 	title = models.CharField(max_length=64)
 	price = models.IntegerField()
-	category = TreeForeignKey(Category, on_delete=models.CASCADE, related_name='listing', blank=True)
+	category = TreeForeignKey(Category, on_delete=models.CASCADE, related_name='listing')
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=250)

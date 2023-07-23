@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block style %}
-	<!-- <link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" /> -->
 	<style>
 		#myTab li button[aria-selected='true'] {
 			background: #edf1f4;
@@ -30,7 +29,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="auth_form col-12 col-lg-10">
-					<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto px-3 py-5 col-lg-11">
+					<form action="" method="post" class="form-floating m-auto px-3 py-5 col-lg-11">
 						{% csrf_token %}
 						<h1 class="h3">Sell Your Own Property</h1>
 						<p class="mb-5 text-muted">Maximize your property's exposure and connect with thousands of eager buyers and tenants effortlessly.</p>
@@ -180,6 +179,7 @@
 							<div class="tab-pane fade" id="other-tab-pane" role="tabpanel" aria-labelledby="other-tab" tabindex="0"></div>
 						</div>
 						{{ form.category }}
+						<input type="number" name="category_alternative" id="category_alternative" hidden>
 
 						<hr class="w-75 mx-auto mt-5 mb-4">
 
@@ -509,11 +509,6 @@
 						</div>
 						<div class="col my-3">{{ form.description.label }}{{ form.description }}</div>
 
-						<!-- <div id="dropzone" class="form-group mb-3">
-							<label for="id_images" style="color: #0c294a;">Click to upload Images or Drag and Drop Here <span class="text-muted small"><br>(Select upto 15 images for the property to upload.)</span></label>
-							<input type="file" name="images" id="id_images" accept="image/*" multiple>
-						</div>
-						<div id="image-preview" class="col m-auto"></div> Container for displaying uploaded images -->
 						<input type="submit" value="Post" class="btn btn-dark w-25 mb-4 float-end">
 					</form>
 				</div>
@@ -527,7 +522,7 @@
 	<script>
 		var amenities = '{{ amenities|safe }}';
 		var amenities_list = JSON.parse(amenities);
+		var category = '{{ category|safe }}';
 	</script>
-	<script src="{% static 'listing/js/update_listing_form.js' %}" defer data-rel-js></script>
-	<!-- <script src="{% static 'listing/js/draganddrop.js' %}"></script> -->
+	<script src="{% static 'listing/js/update_listing_form.js' %}" data-rel-js></script>
 {% endblock %}
