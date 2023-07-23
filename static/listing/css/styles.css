@@ -1226,6 +1226,10 @@ footer {
 		width: auto;
 	}
 
+	.listing_image {
+		margin-top: 15px;
+	}
+
 	.navigation .menu, .navigation .menu .menuToggle, .navigation .menu .menuText, .navigation ul li .text
 	{
 		display: none;
