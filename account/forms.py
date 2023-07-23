@@ -96,9 +96,6 @@ class RegisterationProfileForm(forms.ModelForm):
 				'class': 'form-control',
 				'placeholder': field_name.replace('_', ' ').title()
 			})
-		# self.fields['estate_name'].widget.attrs.update({
-		# 	'placeholder': 'Estate Name (Optional)'
-		# })
 		self.fields['bio_info'].widget.attrs.update({
 			'rows': 3,
 			'placeholder': 'Write about yourself or your agency ...'

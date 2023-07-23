@@ -171,7 +171,13 @@ $(document).ready(function () {
 		$('#id_state').val($('#state_field input[name="construction-state"]:checked').val())
 
 		Category();
-
+		// $('#id_category').change(function (e) { 
+		// 	e.preventDefault();
+		// 	$(this).val($('#id_category').val());
+		// });
+		console.log($('#id_category').val());
+		
+		// e.preventDefault();
 		// return false;
 	});
 });
@@ -193,7 +199,6 @@ function Category () {
 		case 'other-tab':
 			input_val = 'Other'
 			break;
-			
 	}
 
 	var categoryDropdown = document.getElementById("id_category");
@@ -205,6 +210,7 @@ function Category () {
 			break;
 		}
 	}
+	$('#category_alternative').val(categoryDropdown.value)
 }
 
 function InputUncheck () {

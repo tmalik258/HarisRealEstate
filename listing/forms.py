@@ -34,7 +34,7 @@ class listingForm (ModelForm):
 		model = Listing
 		fields = ('__all__')
 
-		exclude = ('creator', 'time_created', 'is_active', 'user_wishlist', 'is_sold', 'bedroom', 'bathroom')
+		exclude = ('creator', 'time_created', 'is_active', 'user_wishlist', 'is_sold')
 
 		labels = {
 			'title': 'Property Title',
@@ -58,7 +58,8 @@ class listingForm (ModelForm):
             'category': forms.Select(attrs={
 				'class': 'form-select mt-2',
 				'hidden': True,
-				# 'id': 'id_category'
+				'id': 'id_category',
+				'name': 'category'
 			}),
             'city': forms.Select(attrs={
 				'class': 'form-select mt-2',
@@ -77,12 +78,14 @@ class listingForm (ModelForm):
 			}),
 		}
 	
-	# def __init__(self, *args, **kwargs):
-	# 	super().__init__(*args, **kwargs)
-	# 	self.fields['purpose'].widget.attrs.update({
-	# 		'hidden': True
-	# 	})
-
+	# def cleaned_images(self):
+	# 	images = self.cleaned_data['images']
+	# 	if not images:
+	# 		raise forms.ValidationError(
+	# 			'Images are required.'
+	# 		)
+	# 	return images
+	
 
 class listingGetRequestForm (forms.Form):
 	CITY_CHOICES = (

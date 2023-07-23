@@ -287,13 +287,16 @@ def agents (request):
 @login_required
 def createListing (request):
 	if request.method == "POST":
-		listing_form = listingForm (request.POST)
+		listing_form = listingForm (request.POST, request.FILES)
 
 		if listing_form.is_valid():
 			listing_obj = listing_form.save(commit=False)
 			listing_obj.creator = request.user # User
 			listing_obj.is_active = True # Is Active
 			listing_obj.is_sold = False # Is Sold
+			category = listing_form.cleaned_data['category']
+			if not category:
+				listing_obj.category = Category.objects.get(id=request.POST.get('category_alternative'))
 			listing_obj.save()
 
 			# Fetch or cache the ListingSpecification objects

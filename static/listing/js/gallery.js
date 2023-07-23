@@ -4,8 +4,8 @@ if (window.innerWidth > 990) {
 		$('.image-gallery').css('display', 'none');
 	});
 
-	$('.open_gallery').click(function (e) { 
-		e.preventDefault();
+	$('#open_gallery').click(function (e) { 
+		// e.preventDefault();
 		$('.image-gallery').css('display', 'flex');
 	});
 }

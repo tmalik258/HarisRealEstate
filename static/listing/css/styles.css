@@ -423,7 +423,7 @@ body
 .auth_form input, .auth_form input:focus, .auth_form textarea, .auth_form textarea:focus, .auth_form .form-select, 
 .contact-us .auth_form .btn,
 .search input, .search input:focus, .search .form-select, 
-.profile .btn, .auth_form .btn.btn-outline-secondary
+.auth_form .btn.btn-outline-secondary
 {
 	border: 1px solid rgba(128, 128, 128, 0.11);
 	outline: none;

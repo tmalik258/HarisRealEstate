@@ -54,7 +54,9 @@ urlpatterns = [
 	# profile
 	path('profile', views.profileWithPropertiesListView.as_view(), name='profile'),
 	# profile update
-	path('profile-update', views.profileUpdate, name = 'profile-update'),
+	path('profile-update', views.profileUpdate, name='profile-update'),
+	# profile image update
+	path('profile-image-update', views.profileImageUpdate, name='profile-image-update'),
 	# password changer form
 	path('change-password', PasswordChangeView.as_view(
 		template_name='account/user/update_password.html',

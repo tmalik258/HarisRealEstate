@@ -233,6 +233,22 @@ def profileUpdate (request):
 	})
 
 
+@login_required
+def profileImageUpdate (request):
+	if request.method == "POST":
+		image =  request.FILES['profile_image']
+		user = User.objects.get(pk=request.user.id)
+		user.profile.profile_image = image
+		user.profile.save()
+
+		messages.success(request, 'Profile Picture has been updated.')
+
+		return redirect('account:profile')
+	
+	else:
+		return redirect('listing:index')
+
+
 def get_ip_address (request):
 	"""
 	Get Ip Address of user that requested website
