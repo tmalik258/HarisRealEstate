@@ -951,7 +951,7 @@ form.search
 .properties .card .card-body
 {
 	font-size: small;
-	line-height: 5px;
+	/* line-height: 0px; */
 }
 
 .properties .card img

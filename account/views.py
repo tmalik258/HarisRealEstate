@@ -199,6 +199,28 @@ class profileWithPropertiesListView(ListView, LoginRequiredMixin):
 		return qs
 
 
+class userPropertiesListView(ListView, LoginRequiredMixin):
+	model = Listing
+	queryset = Listing.posts.all()
+	paginate_by = 25 # show 25 posts in reverse chronologial order
+	template_name = "listing/property_list.html"
+
+	def get_queryset(self, **kwargs):
+		qs = super().get_queryset(**kwargs)
+		qs = qs.filter(
+				creator=self.request.user
+			)
+		return qs
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		wishlist_listings = []
+		if self.request.user.is_authenticated:
+			wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
+		return context
+
+
 @login_required
 def profileUpdate (request):
 	if request.method == 'POST':

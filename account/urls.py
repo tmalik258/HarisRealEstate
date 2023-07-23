@@ -53,6 +53,8 @@ urlpatterns = [
 	path('wishlist/add_to_wishlist/<uuid:item>', views.Add_to_wishlist_view, name="add-to-wishlist"),
 	# profile
 	path('profile', views.profileWithPropertiesListView.as_view(), name='profile'),
+	# User Ads
+	path('listings', views.userPropertiesListView.as_view(), name='user-listings'),
 	# profile update
 	path('profile-update', views.profileUpdate, name='profile-update'),
 	# profile image update
