@@ -10,6 +10,8 @@ from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
 # Image Resize and Upload
+from django.utils.crypto import get_random_string
+from django.utils import timezone
 from io import BytesIO
 from django.core.files.base import ContentFile
 from PIL import Image as PillowImage
