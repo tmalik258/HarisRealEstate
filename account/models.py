@@ -77,11 +77,16 @@ class Profile (models.Model):
 
 			# Save the resized image to a BytesIO buffer
 			output_buffer = BytesIO()
-			img.save(output_buffer, format='JPEG')
+			img.save(output_buffer, format='WebP')
 			output_buffer.seek(0)
 
-			# Save the buffer content to the image field
-			self.profile_image.save(self.profile_image.name, ContentFile(output_buffer.read()), save=False)
+			# Generate a unique name for the image
+			random_string = get_random_string(length=8)
+			timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+			filename = f'{random_string}_{timestamp}.webp'
+
+			# Save the buffer content to the image field with the unique filename
+			self.profile_image.save(filename, ContentFile(output_buffer.read()), save=False)
 
 		super().save(*args, **kwargs)
 
