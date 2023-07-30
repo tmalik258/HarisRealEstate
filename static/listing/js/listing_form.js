@@ -181,7 +181,7 @@ $(document).ready(function () {
 		Category();
 
 		if(!$("#id_images").val()) {
-			$('#image_error').text('Images are required');
+			$('#image_error').text('Images are required (note: other fields may have been reset)');
 			return false;
 		}
 		
