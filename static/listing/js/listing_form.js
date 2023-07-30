@@ -181,7 +181,7 @@ $(document).ready(function () {
 		Category();
 
 		if(!$("#id_images").val()) {
-			alert('Images are required to upload');
+			$('#image_error').text('Images are required');
 			return false;
 		}
 		
