@@ -42,7 +42,7 @@ def index (request):
 
 	saleCount = Listing.posts.filter(specification_value__specification__name='Purpose', specification_value__value='Sale').count()
 
-	rentCount = Listing.posts.filter(specification_value__specification__name='Purpose', specification_value__value='Rent out').count()
+	rentCount = Listing.posts.filter(specification_value__specification__name='Purpose', specification_value__value='Rent').count()
 
 	return render(request, 'listing/index.html', {
 		'posts': posts,
