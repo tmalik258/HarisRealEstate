@@ -135,7 +135,7 @@ class FilteredPropertiesListView (ListView):
 		listing_form = listingGetRequestForm(self.request.GET)
 		if listing_form.is_valid():
 			purpose_query = self.request.GET['purpose']
-			category_query = listing_form.cleaned_data['category']
+			category_query = listing_form.cleaned_data['category_query']
 			address_query = listing_form.cleaned_data['location']
 			city_query = listing_form.cleaned_data['city']
 			min_price_query = listing_form.cleaned_data['min_price']
@@ -294,9 +294,6 @@ def createListing (request):
 			listing_obj.creator = request.user # User
 			listing_obj.is_active = True # Is Active
 			listing_obj.is_sold = False # Is Sold
-			category = listing_form.cleaned_data['category']
-			if not category:
-				listing_obj.category = Category.objects.get(id=request.POST.get('category_alternative'))
 			listing_obj.save()
 
 			# Fetch or cache the ListingSpecification objects
@@ -434,12 +431,8 @@ def updateListing (request, item_id):
 			listing_form = listingForm (request.POST, instance=listing)
 
 			if listing_form.is_valid():
-				listing_obj = listing_form.save(commit=False)
-				# listing_obj.creator = request.user # User
-				# listing_obj.is_active = True # Is Active
-				listing_obj.is_sold = False # Is Sold
-				listing_obj.category = Category.objects.get(id=request.POST.get('category_alternative'))
-				listing_obj.save()
+				listing_form.is_sold = False # Is Sold
+				listing_form.save()
 
 				# Fetch or cache the ListingSpecification objects
 				specifications = cache.get('listing_specifications')
@@ -453,12 +446,12 @@ def updateListing (request, item_id):
 				# Create a list of ListingSpecificationValue objects
 				specification_values = [
 					ListingSpecificationValue(
-						listing=listing_obj,
+						listing=listing,
 						specification=specifications.get(name='Purpose'),
 						value=listing_form.cleaned_data['purpose']
 					),
 					ListingSpecificationValue(
-						listing=listing_obj,
+						listing=listing,
 						specification=specifications.get(name='Area Size'), value=listing_form.cleaned_data['area_size']
 					),
 				]
@@ -467,12 +460,12 @@ def updateListing (request, item_id):
 				if furnished:
 					specification_values += [
 						ListingSpecificationValue(
-							listing=listing_obj,
+							listing=listing,
 							specification=specifications.get(name='Furnished'),
 							value=listing_form.cleaned_data['furnished']
 						),
 						ListingSpecificationValue(
-							listing=listing_obj,
+							listing=listing,
 							specification=specifications.get(name='Construction State'), value=listing_form.cleaned_data['state']
 						),
 					]
@@ -481,7 +474,7 @@ def updateListing (request, item_id):
 				if floor_levels:
 					specification_values += [
 						ListingSpecificationValue(
-							listing=listing_obj,
+							listing=listing,
 							specification=specifications.get(name='Floors'), value=floor_levels
 						),
 					]
@@ -493,18 +486,18 @@ def updateListing (request, item_id):
 					if baths:
 						specification_values += [
 								ListingSpecificationValue(
-								listing=listing_obj,
+								listing=listing,
 								specification=specifications.get(name='Bedroom'), value=beds
 							),
 							ListingSpecificationValue(
-								listing=listing_obj,
+								listing=listing,
 								specification=specifications.get(name='Bathroom'), value=baths
 							),
 						]
 					else:
 						specification_values += [
 								ListingSpecificationValue(
-								listing=listing_obj,
+								listing=listing,
 								specification=specifications.get(name='Bedroom'), value=beds
 							),
 						]
@@ -528,7 +521,7 @@ def updateListing (request, item_id):
 					for s_amenity in selected_amenities:
 						amenities_values += [
 							ListingAmenity(
-								listing=listing_obj,
+								listing=listing,
 								amenity=amenities.get(feature=s_amenity)
 							),
 						]

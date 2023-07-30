@@ -94,6 +94,7 @@ function createImagePreview(file, inputFile) {
     var image = document.createElement('img');
     image.classList.add('image-preview');
     image.src = e.target.result;
+    image.alt = 'image' + e.target.result;
 
     var deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-button', 'btn', 'btn-sm', 'mx-auto', 'mt-2');

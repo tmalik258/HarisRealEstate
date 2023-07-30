@@ -454,7 +454,6 @@ function Category () {
 			break;
 		}
 	}
-	$('#category_alternative').val(categoryDropdown.value)
 }
 
 function InputUncheck () {

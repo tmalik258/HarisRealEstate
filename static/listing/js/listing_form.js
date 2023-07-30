@@ -180,8 +180,12 @@ $(document).ready(function () {
 
 		Category();
 
+		if(!$("#id_images").val()) {
+			alert('Images are required to upload');
+			return false;
+		}
+		
 		// e.preventDefault();
-		// return false;
 	});
 });
 
@@ -203,7 +207,7 @@ function Category () {
 			input_val = 'Other'
 			break;
 	}
-
+	console.log('hello')
 	var categoryDropdown = document.getElementById("id_category");
 	var options = categoryDropdown.options;
 
@@ -213,7 +217,6 @@ function Category () {
 			break;
 		}
 	}
-	$('#category_alternative').val(categoryDropdown.value)
 }
 
 function InputUncheck () {

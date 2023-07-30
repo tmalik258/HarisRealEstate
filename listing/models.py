@@ -213,7 +213,7 @@ class Listing (models.Model):
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="listing")
 	title = models.CharField(max_length=64)
 	price = models.IntegerField()
-	category = TreeForeignKey(Category, on_delete=models.CASCADE, related_name='listing')
+	category = TreeForeignKey(Category, on_delete=models.CASCADE, related_name='listing', default=29)
 	area_size_unit =  models.CharField( max_length=10, choices=AREA_SIZE_CHOICES, default='M')
 	city = models.CharField( max_length=3, choices=CITY_CHOICES, default='lhr')
 	address = models.TextField(max_length=250)
@@ -288,7 +288,7 @@ class ListingImage (models.Model):
 	def save(self, *args, **kwargs):
 		img = PillowImage.open(self.image)
 		# Resize image
-		output_size = (500, 500)
+		output_size = (1000, 1000)
 		img.thumbnail(output_size)
 
 		# Save the resized image to a BytesIO buffer

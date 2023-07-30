@@ -74,7 +74,7 @@ class Profile (models.Model):
 			img = PillowImage.open(self.profile_image)
 
 			# Resize image
-			output_size = (500, 500)
+			output_size = (1000, 1000)
 			img.thumbnail(output_size)
 
 			# Save the resized image to a BytesIO buffer

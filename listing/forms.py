@@ -7,28 +7,35 @@ from .models import Listing, ListingImage, Category
 class listingForm (ModelForm):
 	custom_bedroom = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
-		'placeholder': 'Custom Bedrooms'
+		'placeholder': 'Custom Bedrooms',
+		'aria-label': 'bed'
 	}), required=False)
 	custom_bathroom = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
-		'placeholder': 'Custom Baths'
+		'placeholder': 'Custom Baths',
+		'aria-label': 'baths'
 	}), required=False)
 	custom_floor = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Custom Floor level',
+		'aria-label': 'floors'
 	}), required=False)
 	area_size = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control mt-2',
-		'placeholder': 'Enter area size'
+		'placeholder': 'Enter area size',
+		'aria-label': 'area size'
 	}))
 	purpose = forms.CharField(widget=forms.TextInput(attrs={
-		'hidden': True
+		'hidden': True,
+		'aria-label': 'purpose'
 	}), required=False)
 	furnished = forms.CharField(widget=forms.TextInput(attrs={
-		'hidden': True
+		'hidden': True,
+		'aria-label': 'furnished'
 	}), required=False)
 	state = forms.CharField(widget=forms.TextInput(attrs={
-		'hidden': True
+		'hidden': True,
+		'aria-label': 'construction state'
 	}), required=False)
 	class Meta:
 		model = Listing
@@ -57,10 +64,11 @@ class listingForm (ModelForm):
 			}),
             'category': forms.Select(attrs={
 				'class': 'form-select mt-2',
-				'hidden': True,
+				'hidden': 'true',
 			}),
             'city': forms.Select(attrs={
 				'class': 'form-select mt-2',
+				'title': 'Choose City'
 			}),
             'address': forms.TextInput(attrs={
 				'class': 'form-control mt-2',
@@ -72,7 +80,8 @@ class listingForm (ModelForm):
 			}),
             'area_size_unit': forms.Select(attrs={
 				'class': 'form-select mt-2',
-				'id': 'area_size_unit'
+				'id': 'area_size_unit',
+				'title': 'Choose Area Size Unit'
 			}),
 		}
 	
@@ -170,7 +179,7 @@ class listingGetRequestForm (forms.Form):
 		'class': 'form-select',
 		'title': 'Select City',
 	}, choices=CITY_CHOICES), required=False)
-	category = CategoryChoiceField(
+	category_query = CategoryChoiceField(
         queryset=Category.objects.all(),
         empty_label="Category",  # Optional, set a custom label for the empty option
         widget=forms.Select(attrs={'class': 'form-select'}),
