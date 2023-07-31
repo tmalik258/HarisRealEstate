@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
     'mptt',
+    'django_mptt_admin',
     # Internal APPS
     'account',
     'listing',

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_mptt_admin.admin import DjangoMpttAdmin
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
@@ -10,7 +11,7 @@ admin.site.register(ListingSpecification)
 
 
 @admin.register(Category)
-class CategoryAdmin (admin.ModelAdmin):
+class CategoryAdmin (DjangoMpttAdmin):
 	prepopulated_fields = {'slug': ('name',)}
 
 
