@@ -1,0 +1,53 @@
+.swiper.imagesGallerySwiper {
+	width: 50%;
+	height: 24rem;
+	border-radius: 10px;
+}
+
+.swiper.imagesGallerySwiper .swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	border-radius: 10px;
+	/* background: #000; */
+}
+
+.swiper.imagesGallerySwiper .swiper-button-next, .swiper.imagesGallerySwiper .swiper-button-prev {
+	background: black;
+	color: #fff;
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+	/* top: 50%; */
+	/* transform: translateY(-5px); */
+	transition: .2s;
+}
+
+.swiper.imagesGallerySwiper .swiper-button-next::after, .swiper.imagesGallerySwiper .swiper-button-prev::after {
+	/* content: '>'; */
+	font-size: 20px;
+}
+
+.swiper.imagesGallerySwiper .swiper-button-next:hover, .swiper.imagesGallerySwiper .swiper-button-prev:hover {
+	background: rgba(0, 0, 0, 0.829);
+}
+
+.swiper.imagesGallerySwiper .swiper-slide img {
+	width: max-content;
+	height: max-content;
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 10px;
+	-ms-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+}
+
+@media (width < 990px) {
+	.swiper.imagesGallerySwiper {
+		width: 100%;
+	}
+}
