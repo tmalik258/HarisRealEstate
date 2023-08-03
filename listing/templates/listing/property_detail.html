@@ -64,8 +64,10 @@
 							<div class="swiper-wrapper">
 								{% for img in post.img.all %}
 									<div class="swiper-slide">
-										<img src="{{ img.image.url }}" alt="Image-{{ forloop.counter }}" loading="lazy">
-										<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+										<div class="swiper-zoom-container">
+											<img src="{{ img.image.url }}" alt="Image-{{ forloop.counter }}" loading="lazy">
+											<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+										</div>
 									</div>
 								{% endfor %}
 							</div>
