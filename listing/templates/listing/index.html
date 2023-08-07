@@ -155,7 +155,7 @@
 					<div class="card">
 						<div class="row g-0">
 							<a href="{% url 'listing:property-detail' post.id %}" title="listing: {{ post.title }}">
-								<div class="col-md-12 mb-md-0 p-md-3">
+								<div class="col-11 col-sm-12 mx-auto listing_image mb-md-0 p-md-3">
 									{% if post.img.first %}
 										<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" max-height="300px" alt="{{ post.img.first.image }}">
 									{% else %}

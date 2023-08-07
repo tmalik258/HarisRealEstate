@@ -18,6 +18,9 @@
 						<div class="card my-2">
 							<div class="row row-cols-1 g-0">
 								<div class="position-relative">
+									{% if post.is_sold %}
+									<span class="badge px-3 py-2 rounded-pill text-bg-warning position-absolute top-0 start-0" style="transform: translateX(20px) translateY(20px);">Sold</span>
+									{% endif %}
 									<a href="{% url 'account:add-to-wishlist' post.id %}" class="position-absolute pt-0 top-0 start-100" style="transform: translateX(-50px) translateY(25px);">
 										{% if post in wishlist_listings %}
 											<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>

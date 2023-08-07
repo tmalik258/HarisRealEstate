@@ -568,6 +568,26 @@ def updateListing (request, item_id):
 		return redirect('listing:index')
 
 @login_required
+def markAsSoldListing(request, item_id):
+	listing = Listing.posts.get(pk=item_id)
+	if request.user == listing.creator:
+		if listing.is_sold:
+			listing.is_sold = False
+			messages.success(request, "Ad Has Been Marked as Unsold!")
+		else:
+			listing.is_sold = True
+			messages.success(request, "Ad Has Been Marked as Sold!")
+
+		listing.save()
+		return redirect('account:profile')
+	else:
+		message.error(request, "Sorry! You don't have privilege to delete this ad.")
+		return render(request, 'listing/property_detail.html', {
+			'post': listing,
+			'active': False
+		})
+
+@login_required
 def deleteListing (request, item_id):
     listing = Listing.posts.get(pk=item_id)
     if request.user == listing.creator:

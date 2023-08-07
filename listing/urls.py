@@ -28,8 +28,10 @@ urlpatterns = [
 	path('contact', views.contact, name='contact_us'),
 	# create listing url
 	path('createListing', views.createListing, name='createListing'),
-	# # update listing url
+	# update listing url
 	path('properties/property/<uuid:item_id>/edit', views.updateListing, name='update-listing'),
+	# mark as sold url
+	path('property/<uuid:item_id>/mark-as-sold', views.markAsSoldListing, name='mark-as-sold'),
 	# delete listing url
 	path('delete-listing/<uuid:item_id>', views.deleteListing, name='delete-listing'),
 	# privacy policy url

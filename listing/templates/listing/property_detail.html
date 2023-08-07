@@ -7,19 +7,19 @@
 <link rel="stylesheet" href="{% static 'listing/css/imageGallerySwiper.css' %}">
 <link rel="stylesheet" href="{% static 'listing/css/gallery.css' %}">
 <style>
-	i.fa-solid.fa-xl.fa-trash {
+	a:has(> i.fa-solid.fa-trash) {
 		color: #f00;
 		transition: .17s;
 	}
-	i.fa-solid.fa-xl.fa-trash:hover {
+	a:has(> i.fa-solid.fa-trash):hover {
 		color: #000;
 	}
 	
-	i.fa-solid.fa-pen-to-square.fa-xl {
+	a:has(> i.fa-solid.fa-pen-to-square) {
 		color: #0c294a;
 	}
 
-	i.fa-solid.fa-pen-to-square.fa-xl:hover {
+	a:has(> i.fa-solid.fa-pen-to-square):hover {
 		color: #000;
 	}
 </style>
@@ -41,11 +41,25 @@
 	<article class="properties property_detail mt-3">
 		<div class="container">
 			<div class="row">
-				<div class="position-relative mb-2" style="max-width: 1200px;">
-					<div class="position-absolute pt-0 top-0 start-100 d-flex gap-2" {% if active %} style="transform: translateX(-90px);" {% else %} style="transform: translateX(-20px);" {% endif %}>
+				<div class="position-relative">
+					<div class="position-absolute top-0 end-0 d-flex gap-2 translate-middle-x">
 						{% if active %}
-						<a href="{% url 'listing:delete-listing' post.id %}"><i class="fa-solid fa-trash fa-xl"></i></a>
-						<a href="{% url 'listing:update-listing' post.id %}"><i class="fa-solid fa-pen-to-square fa-xl"></i></a>
+						<div class="dropdown">
+							<a class="link-dark link-opacity-50-hover" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<ion-icon name="ellipsis-vertical-outline" style="font-size: 25px;"></ion-icon>
+							</a>
+							<ul class="dropdown-menu border border-0 shadow bg-body-tertiary p-2">
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-listing' post.id %}">Edit Post<i class="fa-solid fa-pen-to-square fa-md ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
+
+								{% if post.is_sold %}
+									<li><a class="dropdown-item rounded-2 position-relative pe-5" href="{% url 'listing:mark-as-sold' post.id %}">Mark as Unsold<ion-icon name="checkmark-done-circle-outline" class="position-absolute translate-middle top-50 end-0" style="font-size: 25px;"></ion-icon></a></li>
+								{% else %}
+									<li><a class="dropdown-item rounded-2 position-relative pe-5" href="{% url 'listing:mark-as-sold' post.id %}">Mark as Sold<ion-icon name="checkmark-done-circle" class="position-absolute translate-middle top-50 end-0" style="font-size: 25px;"></ion-icon></a></li>
+								{% endif %}
+
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:delete-listing' post.id %}">Delete<i class="fa-solid fa-trash fa-md position-absolute translate-middle top-50 end-0"></i></a></li>
+							</ul>
+						</div>
 						{% endif %}
 						<a href="{% url 'account:add-to-wishlist' post.id %}">
 							{% if is_added_to_wishlist %}
@@ -56,7 +70,12 @@
 						</a>
 					</div>
 				</div>
-				<h1 class="card-title h5 text-start">{{ post.title | upper }}</h1>
+				<h1 class="card-title h5 text-start">
+					{{ post.title | upper }}
+					{% if post.is_sold %}
+						<span class="badge rounded-pill text-bg-warning fw-normal text-light shadow">Sold</span>
+					{% endif %}
+				</h1>
 				<p class="card-title">{{ post.address }}, {{ post.get_city_display }}</p>
 				{% if post.img.first %}
 					<div class="container-fluid py-4">
