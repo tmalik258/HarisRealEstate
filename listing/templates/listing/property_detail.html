@@ -49,7 +49,9 @@
 								<ion-icon name="ellipsis-vertical-outline" style="font-size: 25px;"></ion-icon>
 							</a>
 							<ul class="dropdown-menu border border-0 shadow bg-body-tertiary p-2">
-								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-listing' post.id %}">Edit Post<i class="fa-solid fa-pen-to-square fa-md ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-listing' post.id %}">Edit Post<i class="fa-solid fa-pen-to-square ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
+
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-images' post.id %}">Edit Pictures<i class="fa-regular fa-images ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
 
 								{% if post.is_sold %}
 									<li><a class="dropdown-item rounded-2 position-relative pe-5" href="{% url 'listing:mark-as-sold' post.id %}">Mark as Unsold<ion-icon name="checkmark-done-circle-outline" class="position-absolute translate-middle top-50 end-0" style="font-size: 25px;"></ion-icon></a></li>
@@ -158,6 +160,11 @@
 									{% if post.get_construction_state %}
 									<div class="col" style="min-width: max-content;">
 										Construction State: {{ post.get_construction_state }}
+									</div>
+									{% endif %}
+									{% if post.get_furnished %}
+									<div class="col" style="min-width: max-content;">
+										{{ post.get_furnished }}
 									</div>
 									{% endif %}
 								</div>

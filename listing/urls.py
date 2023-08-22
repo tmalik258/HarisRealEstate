@@ -30,6 +30,8 @@ urlpatterns = [
 	path('createListing', views.createListing, name='createListing'),
 	# update listing url
 	path('properties/property/<uuid:item_id>/edit', views.updateListing, name='update-listing'),
+	# update listing url
+	path('properties/property/images/<uuid:item_id>/edit', views.updateMedia, name='update-images'),
 	# mark as sold url
 	path('property/<uuid:item_id>/mark-as-sold', views.markAsSoldListing, name='mark-as-sold'),
 	# delete listing url
