@@ -43,13 +43,19 @@ class WishlistView(LoginRequiredMixin, ListView):
 def Add_to_wishlist_view(request, item):
 	try:
 		post = Listing.posts.get(pk=item)
+		url = redirect('account:wishlist').url
 		if post.user_wishlist.filter(id=request.user.id).exists():
 			post.user_wishlist.remove(request.user)
+			messages.success(request, f'Listing removed from <a href="{url}">Wishlist</a>')
 		else:
 			post.user_wishlist.add(request.user)
+			messages.success(request, f'Listing added to <a href="{url}">Wishlist</a>')
 
 	except ObjectDoesNotExist:
 		messages.error(request, 'Listing doesn\'t exist.')
+	http_referer = request.META['HTTP_REFERER']
+	if "login" in http_referer:
+		return redirect("listing:property-detail", item=post.id)
 
 	return redirect(request.META['HTTP_REFERER'])
 

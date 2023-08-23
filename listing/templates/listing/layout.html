@@ -69,7 +69,9 @@
 		{% if messages %}
 			{% for message in messages %}
 				<div {% if message.tags %} {% if message.tags == 'error' %} class="alert alert-danger alert-dismissible fade show text-center m-0" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show text-center m-0" {% endif %} {% endif %} role="alert">
-					{{ message }}
+					{% autoescape on %}
+					{{ message | safe }}
+					{% endautoescape %}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			{% endfor %}
@@ -237,7 +239,7 @@
 						<span class="text">Listings</span>
 					</a>
 				</li>
-				<li {% if "/properties?category=Homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
+				<li {% if "/properties?category=homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
 					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='homes' %}">
 						<span class="icon">
 							<ion-icon name="home-outline"></ion-icon>
@@ -245,7 +247,7 @@
 						<span class="text">Homes</span>
 					</a>
 				</li>
-				<li {% if "/properties?category=Plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
+				<li {% if "/properties?category=plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
 					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='plots' %}">
 						<span class="icon">
 							<ion-icon name="map-outline"></ion-icon>
@@ -253,12 +255,28 @@
 						<span class="text">Land/Plots</span>
 					</a>
 				</li>
-				<li {% if "/properties?category=Commercial" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
+				<li {% if "/properties?category=commercial" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
 					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='commercial' %}">
 						<span class="icon">
 							<ion-icon name="business-outline"></ion-icon>
 						</span>
 						<span class="text">Commercials</span>
+					</a>
+				</li>
+				<li {% if "/properties?category=room" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
+					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='room' %}">
+						<span class="icon">
+							<ion-icon name="bed-outline"></ion-icon>
+						</span>
+						<span class="text">Rooms</span>
+					</a>
+				</li>
+				<li {% if "/properties?category=other" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
+					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='other' %}">
+						<span class="icon">
+							<ion-icon name="list-circle-outline"></ion-icon>
+						</span>
+						<span class="text">Others</span>
 					</a>
 				</li>
 				{% if user.is_authenticated %}
@@ -307,104 +325,13 @@
 	
 	<!--------------------------	FOOTER Starts  ------------------------------ -->
 	{% block footer %}
-	<!-- <footer>
-		<div class="footer_row">
-			<div class="footer_col">
-				<img loading="lazy" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="img-fluid rounded-start" alt="logo" width="70%" height="auto">
-			</div>
-			<div class="footer_col">
-				<ul class="footer_list">
-					<th class="footer_list_item"><h3>CONTACT</h3></th>
-					<li>
-						<a href="tel:+92 3004882031">
-							+92 300-4882031
-						</a>
-					</li>
-					<li>
-						<a href="mail:harisrealestate@yahoo.com">
-							harisrealestate@yahoo.com
-						</a>
-					</li>
-					<li>10 Block-L Johar Town, Lahore, Punjab, Pakistan
-				</ul>
-			</div>
-			<div class="footer_col">
-				<ul class="footer_list">
-					<th class="th-group-item"><h3>LINKS</h3></th>
-					<li>
-						<a href="{% url 'listing:index' %}">
-							Home
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'listing:properties' %}">
-							Properties
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'listing:about_us' %}">
-							About Us
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'listing:agents' %}">
-							Agents
-						</a>
-					</li>
-					<li>
-						<a href="{% url 'listing:contact_us' %}">
-							Contact Us
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<ul class="nav justify-content-center fw-light m-0 p-0" style="font-size: 13px;">
-			<li class="nav-item">
-				<a class="nav-link disabled">Copyright &copy; 2023 <div class="vr"></div> All Rights Reserved</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="https://wa.me/qr/OMSZI67F3FZSC1" target="_blank">K.T. Developers</a>
-			</li>
-			<li class="nav-item">
-				  <a class="nav-link" href="{% url 'listing:privacy-policy' %}">
-				Privacy Policy
-				</a>
-			</li>
-			<li class="nav-item">
-			  <a class="nav-link" href="{% url 'listing:terms' %}">Terms of Use</a>
-			</li>
-		  </ul>
-	</footer> -->
-	<!-- <div class="container">
-		<footer class="d-flex flex-wrap justify-content-between align-items-center p-3 px-4 my-4 border-top">
-		  <div class="col-md-4 d-flex align-items-center">
-			<a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-				<img loading="eager" class="logo" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
-			</a>
-			<span class="mb-3 mb-md-0 text-body-secondary">
-				© 2023 Haris Real Estate, Inc
-			</span>
-		  </div>
-	  
-		  <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-			<li class="ms-3"><a class="text-body-secondary text-reset fs-5 call-icon" href="tel:+92 3004882031"><ion-icon name="call-outline"></ion-icon></a></li>
-			<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="mail:harisrealestate@yahoo.com"><ion-icon name="mail-outline"></ion-icon></a></li>
-			<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://wa.me/message/4KG4PPKO5BJBI1" target="_blank"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-			<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://instagram.com/harisrealestateandbuilders?igshid=MzRlODBiNWFlZA=="><ion-icon name="logo-instagram"></ion-icon></a></li>
-			<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://www.facebook.com/HREBLHR"><ion-icon name="logo-facebook"></ion-icon></a></li>
-			<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://youtube.com/@muhammadusmansaleem786"><ion-icon name="logo-youtube"></ion-icon></a></li>
-		</ul>
-		</footer>
-	  </div> -->
 	  <div class="container">
 		<footer class="py-3 my-4">
 		  <ul class="nav justify-content-center pb-1">
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Terms of Use</a></li>
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Privacy Policy</a></li>
-			<!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li> -->
-			<!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li> -->
+			<li class="nav-item"><a href="{% url 'listing:terms' %}" class="nav-link px-2 text-body-secondary">Terms of Use</a></li>
+			<li class="nav-item"><a href="{% url 'listing:privacy-policy' %}" class="nav-link px-2 text-body-secondary">Privacy Policy</a></li>
 			<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+			<li class="nav-item"><a href="https://wa.me/qr/OMSZI67F3FZSC1" target="_blank" class="nav-link px-2 text-body-secondary">KayTee Developers</a></li>
 		  </ul>
 		  <hr class="w-75 m-auto mb-2">
 		  <div class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center px-4">
@@ -418,9 +345,9 @@
 						<li class="ms-3"><a class="text-body-secondary text-reset fs-5 call-icon" href="tel:+92 3004882031"><ion-icon name="call-outline"></ion-icon></a></li>
 						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="mail:harisrealestate@yahoo.com"><ion-icon name="mail-outline"></ion-icon></a></li>
 						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://wa.me/message/4KG4PPKO5BJBI1" target="_blank"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://instagram.com/harisrealestateandbuilders?igshid=MzRlODBiNWFlZA=="><ion-icon name="logo-instagram"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://www.facebook.com/HREBLHR"><ion-icon name="logo-facebook"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://youtube.com/@muhammadusmansaleem786"><ion-icon name="logo-youtube"></ion-icon></a></li>
+						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://instagram.com/harisrealestateandbuilders?igshid=MzRlODBiNWFlZA==" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
+						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://www.facebook.com/HREBLHR" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
+						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://youtube.com/@muhammadusmansaleem786" target="_blank"><ion-icon name="logo-youtube"></ion-icon></a></li>
 					</ul>
 		  </div>
 		</footer>

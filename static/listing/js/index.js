@@ -302,7 +302,7 @@ window.onscroll = function () {
 		}
 		else
 		{
-			$('.navigation').css('inset', '140px 0 20px 20px');
+			$('.navigation').css('inset', '120px 0 20px 20px');
 		}
 	}
 }
