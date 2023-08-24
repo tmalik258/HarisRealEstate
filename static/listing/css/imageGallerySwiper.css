@@ -8,7 +8,6 @@
 	text-align: center;
 	font-size: 18px;
 	border-radius: 10px;
-	/* background: #000; */
 }
 
 .swiper.imagesGallerySwiper .swiper-button-next, .swiper.imagesGallerySwiper .swiper-button-prev {
@@ -17,13 +16,10 @@
 	border-radius: 50%;
 	width: 3rem;
 	height: 3rem;
-	/* top: 50%; */
-	/* transform: translateY(-5px); */
 	transition: .2s;
 }
 
 .swiper.imagesGallerySwiper .swiper-button-next::after, .swiper.imagesGallerySwiper .swiper-button-prev::after {
-	/* content: '>'; */
 	font-size: 20px;
 }
 
@@ -37,13 +33,11 @@
 	max-width: 100%;
 	max-height: 100%;
 	border-radius: 10px;
-	-ms-transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	position: absolute;
-	left: 50%;
-	top: 50%;
+}
+
+.swiper.imagesGallerySwiper .swiper-slide::selection, .swiper.imagesGallerySwiper .swiper-slide img::selection, .swiper.imagesGallerySwiper::selection {
+	display: none;
+	background: none;
 }
 
 @media (width < 990px) {

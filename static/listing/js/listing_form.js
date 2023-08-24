@@ -24,6 +24,7 @@ $(document).ready(function () {
 
 				// Amenities
 				InputUncheck();
+				$('#amentity_label').css('display', 'block');
 				$('.amenities_plot').css('display', 'none');
 				$('.amenities_commercial').css('display', 'none');
 				$('.amenities_home').css('display', 'inline');
@@ -55,6 +56,7 @@ $(document).ready(function () {
 
 				// Amenities
 				InputUncheck();
+				$('#amentity_label').css('display', 'block');
 				$('.amenities_home').css('display', 'none');
 				$('.amenities_commercial').css('display', 'none');
 				$('.amenities_plot').css('display', 'inline');
@@ -79,6 +81,7 @@ $(document).ready(function () {
 
 				// Amenities
 				InputUncheck();
+				$('#amentity_label').css('display', 'block');
 				$('.amenities_home').css('display', 'none');
 				$('.amenities_plot').css('display', 'none');
 				$('.amenities_commercial').css('display', 'inline');
@@ -105,6 +108,7 @@ $(document).ready(function () {
 
 				// Amenities
 				InputUncheck();
+				$('#amentity_label').css('display', 'none');
 				$('.amenities_home').css('display', 'none');
 				$('.amenities_plot').css('display', 'none');
 				$('.amenities_commercial').css('display', 'none');
@@ -124,6 +128,7 @@ $(document).ready(function () {
 
 				// Amenities
 				InputUncheck();
+				$('#amentity_label').css('display', 'block');
 				$('.amenities_home').css('display', 'inline');
 				$('.amenities_plot').css('display', 'inline');
 				$('.amenities_commercial').css('display', 'inline');
@@ -163,6 +168,28 @@ $(document).ready(function () {
 		}
 		else
 			$('#id_custom_bathroom').css('display', 'none');
+	});
+
+	// Price Field input
+	$('#id_price').on('input', function (e) {
+		let val = $('#id_price').val();
+		if (val >= 1000000000) {
+			$('#id_price_in_words').text((val/1000000000).toFixed(2) + " arab");
+		}
+		else if (val >= 10000000) {
+			$('#id_price_in_words').text((val/10000000).toFixed(2) + " crore");
+		}
+		else if (val >= 100000) {
+				$('#id_price_in_words').text((val/100000).toFixed(2) + " lakh");
+		}
+		else if (val >= 10000)
+		{
+			$('#id_price_in_words').text((val/1000).toFixed(2) + " thousand");
+		}
+		else if (val < 10000)
+		{
+			$('#id_price_in_words').text("");
+		}
 	});
 
 	// Form Submit

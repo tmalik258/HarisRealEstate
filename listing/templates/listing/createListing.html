@@ -47,17 +47,20 @@
 							{% endfor %}
 						{% endif %}
 						<div class="row">
-							<div class="col-md-8 mb-3">{{ form.title.label }}{{ form.title }}</div>
+							<div class="col-md-8 mb-3">
+								<label for="id_title">{{ form.title.label }}</label>
+								{{ form.title }}</div>
 							<div class="col mb-3">
-								{{ form.price.label }}{{ form.price }}
-								<div class="form-text" id="price_int_word"></div>
+								<label for="id_price">{{ form.price.label }}</label>
+								{{ form.price }}
+								<div class="form-text" id="id_price_in_words"></div>
 							</div>
 						</div>
 
 						<hr class="w-75 mx-auto">
 
 						<div class="col col-md-6 mt-1">
-							Purpose<br>
+							<label for="id_purpose">{{ form.purpose.label }}</label>
 							<div class="container">
 								<div class="row g-2" id="purpose_field">
 									<div class="col">
@@ -185,7 +188,7 @@
 
 						<div class="row g-0" id="furnished_state">
 							<div class="col">
-								Furnished<br>
+								<label for="id_furnished">{{ form.furnished.label }}</label>
 								<div class="container">
 									<div class="row g-2 g-lg-2" id="furnished_field">
 										<div class="col">
@@ -201,7 +204,7 @@
 								{{ form.furnished }}
 							</div>
 							<div class="col">
-								Construction State<br>
+								<label for="id_furnished">{{ form.state.label }}</label>
 								<div class="container">
 									<div class="row g-2" id="state_field">
 										<div class="col">
@@ -221,7 +224,7 @@
 
 
 						<div class="col" id="floor_col">
-							Floor Level <br>
+							<label for="id_custom_floor">{{ form.custom_floor.label }}</label>
 							<div class="container">
 								<div class="row g-2 my-1 mb-2" id="floor_field">
 									<div class="col">
@@ -277,7 +280,7 @@
 
 						<div class="row" id="beds_baths">
 							<div class="col-md-6 mt-3">
-								Bedroom <br>
+								<label for="id_custom_bedroom">{{ form.custom_bedroom.label }}</label>
 								<div class="container">
 									<div class="row g-2 my-1 mb-2" id="bedroom_field">
 										<div class="col-8">
@@ -329,7 +332,7 @@
 								</div>
 							</div>
 							<div class="col-md-6 mt-3">
-								Bathroom <br>
+								<label for="id_custom_bathroom">{{ form.custom_bathroom.label }}</label>
 								<div class="container">
 									<div class="row row-cols-4 g-2 my-1 mb-2" id="bathroom_field">
 										<div class="col">
@@ -373,7 +376,7 @@
 
 
 						<div class="col">
-							Amenities/Facilities <br>
+							<label id="amentity_label">Amenities/Facilities</label>
 							<div class="container">
 								<div class="row g-2 my-1 mb-2" id="amenities">
 									<div class="col amenities_home" style="min-width: fit-content;">
@@ -499,15 +502,30 @@
 						</div>
 
 						<div class="row mt-4">
-							<div class="col">{{ form.area_size.label }}{{ form.area_size }}</div>
-							<div class="col">{{ form.area_size_unit.label }}{{ form.area_size_unit }}</div>
+							<div class="col">
+								<label for="id_area_size">{{ form.area_size.label }}</label>
+								{{ form.area_size }}
+							</div>
+							<div class="col">
+								<label for="id_area_size_unit">{{ form.area_size_unit.label }}</label>
+								{{ form.area_size_unit }}
+							</div>
 						</div>
 
 						<div class="row my-3">
-							<div class="col-md-9">{{ form.address.label }}{{ form.address }}</div>
-							<div class="col">{{ form.city.label }}{{ form.city }}</div>
+							<div class="col-md-9">
+								<label for="id_address">{{ form.address.label }}</label>
+								{{ form.address }}
+							</div>
+							<div class="col">
+								<label for="id_city">{{ form.city.label }}</label>
+								{{ form.city }}
+							</div>
 						</div>
-						<div class="col my-3">{{ form.description.label }}{{ form.description }}</div>
+						<div class="col my-3">
+							<label for="id_description">{{ form.description.label }}</label>
+							{{ form.description }}
+						</div>
 
 						<div id="dropzone" class="form-group mb-3">
 							<label for="id_images" style="color: #0c294a;">Click to upload Images or Drag and Drop Here <span class="text-muted small"><br>(Select upto 15 images for the property to upload.)</span></label>

@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm
+from django.utils.translation import gettext_lazy as _
 
 from .models import Listing, ListingImage, Category
 
@@ -9,17 +10,17 @@ class listingForm (ModelForm):
 		'class': 'form-control',
 		'placeholder': 'Custom Bedrooms',
 		'aria-label': 'bed'
-	}), required=False)
+	}), required=False, label=_("Bedroom"))
 	custom_bathroom = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Custom Baths',
 		'aria-label': 'baths'
-	}), required=False)
+	}), required=False, label=_("Bathroom"))
 	custom_floor = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Custom Floor level',
 		'aria-label': 'floors'
-	}), required=False)
+	}), required=False, label=_("Floor Level"))
 	area_size = forms.IntegerField(widget=forms.NumberInput(attrs={
 		'class': 'form-control mt-2',
 		'placeholder': 'Enter area size',
@@ -39,52 +40,44 @@ class listingForm (ModelForm):
 	}), required=False)
 	class Meta:
 		model = Listing
-		fields = ('__all__')
 
 		exclude = ('creator', 'time_created', 'is_active', 'user_wishlist', 'is_sold')
 
 		labels = {
 			'title': 'Property Title',
-			'price': 'Price',
-			'address': 'Address',
-			'description': 'Description',
-			'area_size_unit': 'Area Unit',
+			'area_size_unit': 'Area Size Unit',
 		}
 
 		widgets = {
-			'title': forms.TextInput(attrs={
-				'class': 'form-control mt-2',
-				'placeholder': 'Title',
-			}),
-			'price': forms.NumberInput(attrs={
-				'class': 'form-control mt-2',
-				'id': 'price_input',
-				'placeholder': 'Enter Price',
-				'min': 0
-			}),
-            'category': forms.Select(attrs={
-				'class': 'form-select mt-2',
-				'hidden': 'true',
-			}),
-            'city': forms.Select(attrs={
-				'class': 'form-select mt-2',
-				'title': 'Choose City'
-			}),
-            'address': forms.TextInput(attrs={
-				'class': 'form-control mt-2',
-				'placeholder': 'Address',
-			}),
-            'description': forms.Textarea(attrs={
-				'class': 'form-control mt-2',
-				'placeholder': 'Write a description about your property',
-			}),
-            'area_size_unit': forms.Select(attrs={
-				'class': 'form-select mt-2',
-				'id': 'area_size_unit',
-				'title': 'Choose Area Size Unit'
-			}),
+            'address': forms.TextInput(),
 		}
-	
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		for field_name in self.fields:
+			self.fields[field_name].widget.attrs.update({
+				'class': 'form-control mt-2',
+				'placeholder': field_name.replace('_', ' ').title()
+			})
+		self.fields['description'].widget.attrs.update({
+			'rows': 3,
+			'placeholder': 'Write a brief description about your property ...'
+		})
+		self.fields['city'].widget.attrs.update({
+			'class': 'form-select mt-2',
+		})
+		self.fields['price'].widget.attrs.update({
+			'min': 0,
+			'placeholder': 'Enter Price'
+		})
+		self.fields['area_size_unit'].widget.attrs.update({
+			'class': 'form-select mt-2',
+		})
+		self.fields['category'].widget.attrs.update({
+			'class': 'form-select',
+			'hidden': True
+		})
+
 
 class listingGetRequestForm (forms.Form):
 	CITY_CHOICES = (

@@ -148,7 +148,6 @@ function createImagePreview(file, inputFile) {
       });
       inputFile.files = dt.files;
       imagePreview.removeChild(previewContainer);
-      console.log(selectedImages)
     });
 
     var previewContainer = document.createElement('div');

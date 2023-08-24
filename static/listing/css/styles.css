@@ -399,13 +399,10 @@ body {
   display: block;
   align-items: center;
   justify-content: center;
-  /* width: 50%; */
   box-shadow: var(--box-shadow);
   background-color: var(--maincolor);
   border-radius: 20px;
-  /* padding: 25px 20px; */
   margin: auto;
-  /* margin-top: 5%; */
   box-sizing: border-box;
   overflow: auto;
 }
@@ -425,6 +422,10 @@ body {
   border-radius: 8px;
   padding: 12px 20px;
   background: white;
+}
+
+.auth_form input:disabled {
+  color: gray;
 }
 
 .search input,
@@ -475,9 +476,9 @@ body {
   margin-bottom: 20px;
 }
 
-.auth_form .form-floating label {
+/* .auth_form .form-floating label {
   color: rgb(136, 133, 133);
-}
+} */
 
 .auth_form .contact-us #contact_us .form-floating label {
   font-size: 10px;
@@ -1165,6 +1166,7 @@ footer {
     flex-direction: row;
     justify-content: center;
     gap: 30px;
+    transform: translateY(15px);
   }
 
   .navigation ul li {

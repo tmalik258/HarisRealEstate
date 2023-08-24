@@ -203,6 +203,14 @@ class profileWithPropertiesListView(ListView, LoginRequiredMixin):
 				creator=self.request.user
 			)
 		return qs
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		wishlist_listings = []
+		if self.request.user.is_authenticated:
+			wishlist_listings = self.request.user.user_wishlist.all()
+		context['wishlist_listings'] = wishlist_listings
+		return context
 
 
 class userPropertiesListView(ListView, LoginRequiredMixin):
