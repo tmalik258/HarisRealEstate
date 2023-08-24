@@ -9,7 +9,7 @@ function countAnimation(id, total) {
 		if (count > total) {
 			clearInterval(interval);
 		}
-	}, 5);
+	}, 1);
 }
 
 window.onscroll = function () {

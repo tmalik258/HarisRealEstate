@@ -141,32 +141,32 @@ $(function () {
 		
 	
 	/* /////////////////////////////////	SWIPER SLIDE SCROLLER	////////////////////////////////// */
-		var swiperPopular = new Swiper(".propertiesSwiper", {
-			// default parameters
-			slidesPerView: 1,
-			spaceBetween: 20,
-			autoplay: {
-				delay: 2500,
-				disableOnInteraction: false,
-			},
-			loop: true,
-		
-			// Responsive breakpoints
-			breakpoints: {
-				// when window width is less than 990
-				0: {
-					slidesPerView: 1,
-				},
+	var swiperPopular = new Swiper(".propertiesSwiper", {
+		// default parameters
+		slidesPerView: 1,
+		spaceBetween: 20,
+		autoplay: {
+			delay: 2500,
+			disableOnInteraction: false,
+		},
+		loop: true,
 	
-				450: {
-					slidesPerView: 2
-				},
-	
-				990: {
-					slidesPerView: 4
-				}
+		// Responsive breakpoints
+		breakpoints: {
+			// when window width is less than 990
+			0: {
+				slidesPerView: 1,
 			},
-		});
+
+			450: {
+				slidesPerView: 2
+			},
+
+			990: {
+				slidesPerView: 4
+			}
+		},
+	});
 });
 
 
@@ -182,7 +182,6 @@ window.onresize = function () {
 	}
 	else
 		$('.carousel-inner').height(window.innerHeight - 170);
-			// $('.carousel-inner').height(window.innerHeight );
 }
 
 
