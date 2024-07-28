@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    volumes:
+      - .:/src
+    image: app:src
+    container_name: HRE_Web
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - SECRET_KEY="dxkw4*re8@pc8rv68$%v75$$hhx3wmn2s@_h&5-9=zmd4zej*="
