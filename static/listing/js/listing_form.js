@@ -234,7 +234,6 @@ function Category () {
 			input_val = 'Other'
 			break;
 	}
-	console.log('hello')
 	var categoryDropdown = document.getElementById("id_category");
 	var options = categoryDropdown.options;
 

@@ -23,16 +23,27 @@ SESSION_COOKIE_SECURE = True
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 DATABASES = {
-    #       POSTGRESQL CONNECTION ONE WAY
+    #       MYSQL CONNECTION
 
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': config("DB_NAME"),
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
         'PORT': config("DB_PORT"),
     }
+	
+    #       POSTGRESQL CONNECTION ONE WAY
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': config("DB_NAME"),
+    #     'USER': config("DB_USER"),
+    #     'PASSWORD': config("DB_PASSWORD"),
+    #     'HOST': config("DB_HOST"),
+    #     'PORT': config("DB_PORT"),
+    # }
 
     #       POSTGRESQL CONNECTION ANOTHER WAY
 

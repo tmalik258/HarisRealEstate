@@ -19,7 +19,6 @@ from PIL import Image as PillowImage
 
 class User(AbstractUser):
 	class Meta:
-		unique_together = ('email', )
 		verbose_name = 'Account'
 		verbose_name_plural = 'Accounts'
 
@@ -45,7 +44,7 @@ class User(AbstractUser):
 		email.attach_alternative(message, "text/html")
 
 
-		email.send(fail_silently=False)
+		email.send(fail_silently=True)
 		# send_mail(
 		# 	subject,
 		# 	message,

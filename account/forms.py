@@ -7,7 +7,7 @@ from .models import User, Profile
 
 class LoginForm(AuthenticationForm):
 
-	username = forms.EmailField(widget=forms.EmailInput(
+	username = forms.EmailField(widget=forms.TextInput(
 		attrs={
 			'class': 'form-control',
 			'placeholder': 'Email',
@@ -55,28 +55,42 @@ class RegistrationUserForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+
+		# first_name field
 		self.fields['first_name'].widget.attrs.update({
 			'placeholder': 'First Name',
 			'class': 'form-control',
 			'autofocus': 'autofocus'
 		})
+		self.fields['first_name'].help_text = 'Required'
+
+		# last_name field
 		self.fields['last_name'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Last Name'
 		})
+		self.fields['last_name'].help_text = 'Required'
+
+		# username field
 		self.fields['username'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Username',
 		})
+
+		# email field
 		self.fields['email'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Email',
 			'name': 'email'
 		})
+
+		# password field
 		self.fields['password'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Password'
 		})
+
+		# password2 field
 		self.fields['password2'].widget.attrs.update({
 			'class': 'form-control',
 			'placeholder': 'Repeat Password'
