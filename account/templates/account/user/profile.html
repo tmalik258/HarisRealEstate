@@ -1,0 +1,339 @@
+{% extends 'listing/layout.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block style %}
+	<style>
+		.card.rounded-4, .row.profile
+		{
+			background-color: #edf1f4;
+			border: none;
+		}
+		.row.profile
+		{
+			max-width: 50rem;
+		}
+
+		.row.profile img
+		{
+			min-width: 100px;
+			min-height: 100px;
+			width: 200px;
+			height: 200px;
+			max-height: 200px;
+		}
+
+		.btn.btn-modal {
+			transform: translateX(-10px) translateY(-10px);
+		}
+		.btn.btn-modal .fa-regular.fa-pen-to-square {
+			transition: .15s;
+		}
+		.btn.btn-modal:hover .fa-regular.fa-pen-to-square {
+			color: rgb(13, 99, 99);
+		}
+	</style>
+	<link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" />
+{% endblock %}
+
+{% block body %}
+	<div class="container my-2">
+		<h1 class="h4 mb-1 ms-2">Your Profile</h1>
+		<div class="row col col-sm-12 col-md-10 mb-4 product-item justify-content-center m-auto rounded-4 g-0 p-2 p-lg-4 profile">
+			<!--------------- Image ----------------->
+			<div class="col-6 col-lg-4 p-lg-2 pe-2 order-md-first position-relative">
+				{% if user.profile.profile_image %}
+				<img src="{{ user.profile.profile_image.url }}" alt="" style="border-radius: 50%;" class="img-fluid">
+				{% else %}
+				<img src="\media\image_not_found\No-image.png" class="card-img-top" alt="No image available">
+				{% endif %}
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-modal p-1 position-absolute bottom-0" data-bs-toggle="modal" data-bs-target="#profileModal">
+					<i class="fa-regular fa-pen-to-square fa-xl"></i>
+				</button>
+				
+				<!-- Modal -->
+				<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<form action="{% url 'account:profile-image-update' %}" enctype="multipart/form-data" method="post" class="modal-content">
+							{% csrf_token %}
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">Profile Picture Update</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body justify-content-center">
+								<div id="dropzone" class="form-group mb-3">
+									<label for="id_profile_image" style="color: #0c294a;">
+										Click to Upload Your Profile Picture or Drag and Drop Here
+									</label>
+									<input type="file" name="profile_image" id="id_profile_image" accept="image/*" required>
+								</div>
+								<div id="image-preview" class="m-auto" style="max-width: max-content;"></div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+								<input type="submit" class="btn btn-dark" id="upload_input" value="Upload" disabled>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!------------- Product Body ------------>
+			<div class="col-6 ms-lg-3 my-auto">
+				<h1 class="mb-1 h5">{{ user.first_name }} {{ user.last_name }}</h1>
+				<div class="fs-6 text-muted">{{ user.profile.estate_name }}</div>
+				<div class="fs-6 text-muted">{{ user.profile.phone_number }}</div>
+			</div>
+			<div class="col mt-2 ms-2 px-lg-4">
+				<div class="fs-6 mb-3 text-muted">{{ user.email }}</div>
+				<div class="mb-2 fs-6 text-secondary">{{ user.profile.bio_info }}</div>
+			</div>
+		</div>
+		<div class="container mobile">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+				<div class="col">
+					<a href="{% url 'account:user-listings' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+							<div class="row g-0">
+								<div class="col-3 position-relative">
+									<div class="position-absolute top-50 start-50 translate-middle">
+										<ion-icon name="list-outline" size="large"></ion-icon>
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="card-body ps-0 ps-md-1">
+										<h1 class="h5">Your Ads</h1>
+										<p class="card-text small text-muted">View your Listings</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col">
+					<a href="{% url 'account:profile-update' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+							<div class="row g-0">
+								<div class="col-3 position-relative">
+									<div class="position-absolute top-50 start-50 translate-middle">
+										<ion-icon name="person-circle-outline" size="large"></ion-icon>
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="card-body ps-0 ps-md-1">
+										<h1 class="h5">Edit Profile</h1>
+										<p class="card-text small text-muted">Edit/Update your Profile</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col">
+					<a href="{% url 'account:change-password' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+							<div class="row g-0">
+								<div class="col-3 position-relative">
+									<div class="position-absolute top-50 start-50 translate-middle">
+										<ion-icon name="key-outline" size="large"></ion-icon>
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="card-body ps-0 ps-md-1">
+										<h1 class="h5">Login & Security</h1>
+										<p class="card-text small text-muted">Edit/Update Login Password</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col">
+					<a href="{% url 'account:wishlist' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
+						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+							<div class="row g-0">
+								<div class="col-3 position-relative">
+									<div class="position-absolute top-50 start-50 translate-middle">
+										<ion-icon name="bookmarks-outline" size="large"></ion-icon>
+									</div>
+								</div>
+								<div class="col-9">
+									<div class="card-body ps-0 ps-md-1">
+										<h1 class="h5">Your Wishlist</h1>
+										<p class="card-text small text-muted">View your wishlist</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<h1 class="h4 mb-1 ms-2 system">Your Properties</h1>
+		<article class="properties system mt-3">
+			<div class="row row-cols-1 row-cols-md-4 g-4">
+				{% for post in page_obj %}
+					<div class="col">
+						<div class="card my-2">
+							<div class="row row-cols-1 g-0">
+								<div class="position-relative">
+									{% if post.is_sold %}
+										<span class="badge px-3 py-2 rounded-pill text-bg-warning position-absolute top-0 start-0" style="transform: translateX(20px) translateY(20px);">Sold</span>
+									{% endif %}
+									<a href="{% url 'account:add-to-wishlist' post.id %}" class="position-absolute pt-0 top-0 start-100" style="transform: translateX(-50px) translateY(25px);">
+										{% if post in wishlist_listings %}
+											<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+										{% else %}
+											<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
+										{% endif %}
+									</a>
+								</div>
+								<div class="col-11 col-sm-12 mx-auto listing_image mb-md-0 p-md-3">
+									<a href="{% url 'listing:property-detail' post.id %}">
+										{% if post.img.first %}
+											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
+										{% else %}
+											<img loading="lazy" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+										{% endif %}
+									</a>
+								</div>
+								<div class="col">
+									<div class="container">
+										<a href="{% url 'listing:property-detail' post.id %}">
+											<div class="card-body pt-sm-0">
+												<h2 class="card-title text-center h6">{{ post.title | upper }}</h2><hr class="w-75 mx-auto mt-0 mb-1">
+												<div class="card-text my-1">
+													Rs. {{ post.price | int_word }}
+												</div>
+		
+												<div class="card-text text-muted">
+													{{ post.category }}
+													<span class="vr"></span>
+													{{ post.get_purpose }}
+													<span class="vr"></span>
+													{{ post.get_area_size }}
+													{{ post.get_area_size_unit_display }}
+												</div>
+												{% if post.get_bedroom and post.get_bathroom %}
+													<div class="card-text text-muted">{{ post.get_bedroom }}<span class="bedicon">
+														<ion-icon name="bed-outline"></ion-icon>
+													</span>
+													<span class="vr"></span>
+													{{ post.get_bathroom }}<span class="bedicon"></span> <i class="fa-solid fa-shower fa-lg"></i>
+													
+													</span>
+												</div>
+												{% elif post.get_bedroom %}
+													<div class="card-text text-muted">{{ post.get_bedroom }} <span class="bedicon">
+														<ion-icon name="bed-outline"></ion-icon>
+													</span></div>
+												{% endif %}
+												<div class="card-text">
+													<div class="hstack gap-1">
+														<a href="{% url 'listing:property-detail' item=post.id %}"  class="btn btn-sm btn-outline-secondary email more">More</a>
+														<a href="mailto:{{ post.creator.email }}"  class="btn btn-sm btn-outline-secondary email"><span class="bedicon">
+															<ion-icon name="mail-outline"></ion-icon>
+														</span></a>
+														{% if post.creator.profile.phone_number %}
+															<!-- <div class="vr"></div> -->
+															<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-sm btn-outline-secondary email more"><span class="bedicon m-0 p-0">
+																<ion-icon name="call-outline"></ion-icon>
+															</span></a>
+														{% endif %}
+														<!-- <div class="p-2">Third item</div> -->
+													</div>
+												</div>
+												<div class="card-text my-0 py-0"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></div>
+												<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<div class="emptyProperty">
+						<h2>Sorry! No Property Found !!</h2>
+					</div>
+				{% endfor %}
+			</div>
+						<!-- PAGINATION START -->
+			{% if is_paginated %}
+				<nav aria-label="Page Navigation">
+					<ul class="pagination justify-content-center">
+						{% if page_obj.has_previous %}
+							<li class="page-item">
+								<a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+						{% else %}
+							<li class="page-item disabled">
+								<a class="page-link" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+						{% endif %}
+						{% for i in page_obj.paginator.get_elided_page_range %}
+							{% if page_obj.paginator.ELLIPSIS == forloop.counter %}
+								<li class="page-item disabled"><a class="page-link">{{ forloop.counter }}</a></li>
+							{% else %}
+								{% if page_obj.number == forloop.counter %}
+									<li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+								{% else %}
+									<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+						{% if page_obj.has_next %}
+							<li class="page-item">
+								<a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						{% else %}
+							<li class="page-item disabled">
+								<a class="page-link" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
+				</nav>
+			{% endif %}
+								<!-- PAGINATION END -->
+		</article>
+	</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'listing/js/draganddrop.js' %}" data-rel-js></script>
+{% if user.profile.profile_image %}
+	<script>
+		$('#profileModal').on('show.bs.modal', () => {
+			let image = '{{ user.profile.profile_image.url }}';
+			fetch(image)
+			.then((response) => response.blob())
+			.then((blob) => {
+				var inputFile = document.getElementById('id_profile_image');
+				createImagePreview(blob, inputFile);
+			})
+			.catch((error) => {
+			console.error('Error fetching the image:', error);
+			});
+			$('#id_profile_image').on('change', () => {
+				$('#upload_input').attr('disabled', false);
+			})
+		})
+		$('#profileModal').on('hidden.bs.modal', () => {
+			var inputFile = document.getElementById('id_profile_image');
+			var dt = new DataTransfer();
+			inputFile.files = dt.files;
+			$('#image-preview > *').remove();
+			$('#upload_input').attr('disabled', true);
+		})
+	</script>
+{% endif %}
+{% endblock %}

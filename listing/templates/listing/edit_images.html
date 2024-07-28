@@ -1,0 +1,75 @@
+{% extends 'listing/layout.html' %}
+{% load static %}
+
+{% block style %}
+	<link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" />
+	<style>
+		#myTab li button[aria-selected='true'] {
+			background: #edf1f4;
+			box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
+			-5px -5px 10px rgba(0, 0, 0, 0.05);
+			border-radius: 7px;
+		}
+		#myTab li button {
+			border: none;
+		}
+
+		.auth_form input + label {
+			font-size: small;
+		}
+
+		#id_custom_floor, #id_custom_bedroom, #id_custom_bathroom, .amenities_plot, .amenities_commercial, #floor_col {
+			display: none;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="d-flex align-items-center py-4 pb-5">
+		<div class="container">
+			<div class="row">
+				<div class="auth_form col-12 col-lg-10">
+					<form action="" method="post" enctype="multipart/form-data" class="form-floating m-auto px-3 py-5 col-lg-11">
+						{% csrf_token %}
+						<h1 class="h3">Sell Your Own Property</h1>
+						<p class="mb-5 text-muted">Maximize your property's exposure and connect with thousands of eager buyers and tenants effortlessly.</p>
+						
+						<div id="dropzone" class="form-group mb-3">
+							<label for="id_images" style="color: #0c294a;">Click to upload Images or Drag and Drop Here <span class="text-muted small"><br>(Select upto 15 images for the property to upload.)</span></label>
+							<input type="file" name="images" id="id_images" accept="image/*" multiple>
+						</div>
+						<div id="image-preview" class="col m-auto"></div> <!-- Container for displaying uploaded images -->
+						<div id="image_error" class="text-danger"></div>
+						<input type="submit" value="Post" class="btn btn-dark w-25 mb-4 float-end">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'listing/js/draganddrop_edit_images.js' %}" data-rel-js></script>
+	<script>
+		const media = JSON.parse('{{ media|safe }}');
+		var selectedImages = [];
+		var inputFile = document.getElementById('id_images');
+		var dt = new DataTransfer();
+		for (const image of media) {
+			fetch(image)
+			.then((response) => response.blob())
+			.then((blob) => {
+				selectedImages.push([blob, image]);
+				createImagePreview(blob, inputFile);
+			})
+			.catch((error) => {
+			console.error('Error fetching the image:', error);
+			});
+			var blob = new Blob([image], {type: 'image/webp'})
+			dt.items.add(new File([blob], image));
+		}
+		fileInput.files = dt.files;
+	</script>
+{% endblock %}

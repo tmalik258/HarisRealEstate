@@ -1,0 +1,62 @@
+{% extends 'listing/layout.html' %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row no-gutter">
+		<div class="col-md-12">
+			<div class="d-flex align-items-center py-4 pb-5">
+				<div class="container">
+					<div class="row">
+						<div class="auth_form col-12 col-lg-7 mx-auto">
+							<form action="" class="rounded mx-auto p-4 col-lg-10" method="post">
+								{% csrf_token %}
+								<h3 class="mb-4">Sign In</h3>
+								<!-- <p class="mb-4 text-muted">It's free and only takes a minute.</p> -->
+								{% if 'email' in request.get_full_path %}
+									<div class="alert alert-success alert-dismissible fade show mb-4">
+										Thankyou, please check your inbox for the reset password email.
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								{% endif %}
+								{% if 'complete' in request.get_full_path %}
+									<div class="alert alert-success alert-dismissible fade show mb-4">
+										Your password has been Reset.
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								{% endif %}
+								{% if form.errors %}
+									<div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+										Error: Username or Password is incorrect!
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								{% endif %}
+
+								<div class="mb-3">
+									<!-- <label for="">{{ form.username.label }}<span class="text-muted small ms-1">(Required)</span></label> -->
+									{{ form.username }}
+								</div>
+								<div class="mb-3">
+									<!-- <label for="">{{ form.password.label }}<span class="text-muted small"></span></label> -->
+									<!-- <small class="form-text text-muted mb-4 small">At least 8 characters and 1 digit</small> -->
+									{{ form.password }}
+								</div>
+								<input class="btn w-100 mb-2" type="submit" value="Login">
+								<p class="text-center">
+									<a href="{% url 'account:register' %}">Don't have an account?</a><br>
+									<a href="{% url 'account:pwd_reset' %}">Forgotten password?</a>
+								</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

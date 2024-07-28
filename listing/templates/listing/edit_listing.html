@@ -1,0 +1,546 @@
+{% extends 'listing/layout.html' %}
+{% load static %}
+
+{% block style %}
+	<style>
+		#myTab li button[aria-selected='true'] {
+			background: #edf1f4;
+			box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2),
+			-5px -5px 10px rgba(0, 0, 0, 0.05);
+			border-radius: 7px;
+		}
+		#myTab li button {
+			border: none;
+		}
+
+		.auth_form input + label {
+			font-size: small;
+		}
+
+		#id_custom_floor, #id_custom_bedroom, #id_custom_bathroom, .amenities_plot, .amenities_commercial, #floor_col {
+			display: none;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="d-flex align-items-center py-4 pb-5">
+		<div class="container">
+			<div class="row">
+				<div class="auth_form col-12 col-lg-10">
+					<form action="" method="post" class="form-floating m-auto px-3 py-5 col-lg-11">
+						{% csrf_token %}
+						<h1 class="h3">Sell Your Own Property</h1>
+						<p class="mb-5 text-muted">Maximize your property's exposure and connect with thousands of eager buyers and tenants effortlessly.</p>
+						
+						{% if form.errors %}
+							<p class="text-danger">Please correct the following errors:</p>
+							{% for field in form %}
+								{% if field.errors %}
+									<div class="alert alert-danger alert-dismissible fade show" role="alert">
+										{{ field.label }}: {{ field.errors | striptags }}
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+									</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						<div class="row">
+							<div class="col-md-8 mb-3">
+								<label for="id_title">{{ form.title.label }}</label>
+								{{ form.title }}</div>
+							<div class="col mb-3">
+								<label for="id_price">{{ form.price.label }}</label>
+								{{ form.price }}
+								<div class="form-text" id="id_price_in_words"></div>
+							</div>
+						</div>
+
+						<hr class="w-75 mx-auto">
+
+						<div class="col col-md-6 mt-1">
+							<label for="id_purpose">{{ form.purpose.label }}</label>
+							<div class="container">
+								<div class="row g-2" id="purpose_field">
+									<div class="col">
+										<input type="radio" class="btn-check" name="purpose" id="purpose_option1" autocomplete="off" value="Sale">
+										<label class="btn form-select purpose" for="purpose_option1">For Sale</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="purpose" id="purpose_option2" autocomplete="off" value="Rent">
+										<label class="btn form-select purpose" for="purpose_option2">Rent Out</label>
+									</div>
+								</div>
+							</div>
+							{{ form.purpose }}
+						</div>
+
+						<hr class="w-75 mx-auto mt-5">
+
+						<div class="my-2 mt-4">Category</div>
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation" style="background: none;">
+							  <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="false">Homes</button>
+							</li>
+							<li class="nav-item" role="presentation">
+							  <button class="nav-link" id="plot-tab" data-bs-toggle="tab" data-bs-target="#plot-tab-pane" type="button" role="tab" aria-controls="plot-tab-pane" aria-selected="false">Plots</button>
+							</li>
+							<li class="nav-item" role="presentation">
+							  <button class="nav-link" id="commercial-tab" data-bs-toggle="tab" data-bs-target="#commercial-tab-pane" type="button" role="tab" aria-controls="commercial-tab-pane" aria-selected="false">Commercial</button>
+							</li>
+							<li class="nav-item" role="presentation">
+							  <button class="nav-link" id="room-tab" data-bs-toggle="tab" data-bs-target="#room-tab-pane" type="button" role="tab" aria-controls="room-tab-pane" aria-selected="false">Room</button>
+							</li>
+							<li class="nav-item" role="presentation">
+							  <button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other-tab-pane" type="button" role="tab" aria-controls="other-tab-pane" aria-selected="false">Other</button>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+								<div class="container">
+									<div class="row g-2 my-1 mb-2">
+										<div class="col">
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option1" autocomplete="off" value="House" checked>
+											<label class="btn form-select purpose" for="home-tab-pane-option1">House</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option3" autocomplete="off" value="Upper Portion">
+											<label class="btn form-select purpose" for="home-tab-pane-option3">Upper Portion</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option4" autocomplete="off" value="Lower Portion">
+											<label class="btn form-select purpose" for="home-tab-pane-option4">Lower Portion</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option5" autocomplete="off" value="5">
+											<label class="btn form-select purpose" for="home-tab-pane-option5">Penthouse</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="home-tab-pane" id="home-tab-pane-option2" autocomplete="off" value="Flat/Appartment">
+											<label class="btn form-select purpose" for="home-tab-pane-option2">Flat/Appartment</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="plot-tab-pane" role="tabpanel" aria-labelledby="plot-tab" tabindex="0">
+								<div class="container">
+									<div class="row g-2 my-1 mb-2">
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="plot-tab-pane" id="plot-tab-pane-option1" autocomplete="off" value="Residential Plot" checked>
+											<label class="btn form-select purpose" for="plot-tab-pane-option1">Residential Plot</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="plot-tab-pane" id="plot-tab-pane-option2" autocomplete="off" value="Agricultural Plot">
+											<label class="btn form-select purpose" for="plot-tab-pane-option2">Agricultural Plot</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="plot-tab-pane" id="plot-tab-pane-option3" autocomplete="off" value="Commercial Plot">
+											<label class="btn form-select purpose" for="plot-tab-pane-option3">Commercial Plot</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="plot-tab-pane" id="plot-tab-pane-option4" autocomplete="off" value="Industrial Land">
+											<label class="btn form-select purpose" for="plot-tab-pane-option4">Industrial Land</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="plot-tab-pane" id="plot-tab-pane-option5" autocomplete="off" value="Plot File">
+											<label class="btn form-select purpose" for="plot-tab-pane-option5">Plot File</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="plot-tab-pane" id="plot-tab-pane-option6" autocomplete="off" value="Plot Form">
+											<label class="btn form-select purpose" for="plot-tab-pane-option6">Plot Form</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="commercial-tab-pane" role="tabpanel" aria-labelledby="commercial-tab" tabindex="0">
+								<div class="container">
+									<div class="row g-2 my-1 mb-2">
+										<div class="col">
+											<input type="radio" class="btn-check" name="commercial-tab-pane" id="commercial-tab-pane-option1" autocomplete="off" value="Office" checked>
+											<label class="btn form-select purpose" for="commercial-tab-pane-option1">Office</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="commercial-tab-pane" id="commercial-tab-pane-option2" autocomplete="off" value="Shop">
+											<label class="btn form-select purpose" for="commercial-tab-pane-option2">Shop</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="commercial-tab-pane" id="commercial-tab-pane-option3" autocomplete="off" value="Warehouse">
+											<label class="btn form-select purpose" for="commercial-tab-pane-option3">Warehouse</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="commercial-tab-pane" id="commercial-tab-pane-option4" autocomplete="off" value="Factory">
+											<label class="btn form-select purpose" for="commercial-tab-pane-option4">Factory</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="commercial-tab-pane" id="commercial-tab-pane-option5" autocomplete="off" value="Building">
+											<label class="btn form-select purpose" for="commercial-tab-pane-option5">Building</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="room-tab-pane" role="tabpanel" aria-labelledby="room-tab" tabindex="0"></div>
+							<div class="tab-pane fade" id="other-tab-pane" role="tabpanel" aria-labelledby="other-tab" tabindex="0"></div>
+						</div>
+						{{ form.category }}
+
+						<hr class="w-75 mx-auto mt-5 mb-4">
+
+						<div class="row g-0" id="furnished_state">
+							<div class="col">
+								<label for="id_furnished">{{ form.furnished.label }}</label>
+								<div class="container">
+									<div class="row g-2 g-lg-2" id="furnished_field">
+										<div class="col">
+											<input type="radio" class="btn-check" name="furnished" id="furnished_option1" autocomplete="off" value="Furnished">
+											<label class="btn form-select purpose" for="furnished_option1">Furnished</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="furnished" id="furnished_option2" autocomplete="off" value="Unfurnished">
+											<label class="btn form-select purpose" for="furnished_option2">Unfurnished</label>
+										</div>
+									</div>
+								</div>
+								{{ form.furnished }}
+							</div>
+							<div class="col">
+								<label for="id_furnished">{{ form.state.label }}</label>
+								<div class="container">
+									<div class="row g-2" id="state_field">
+										<div class="col">
+											<input type="radio" class="btn-check" name="construction-state" id="construction-state-option1" autocomplete="off" value="Finished">
+											<label class="btn form-select purpose" for="construction-state-option1">Finished</label>
+										</div>
+										<div class="col" style="min-width: fit-content;">
+											<input type="radio" class="btn-check" name="construction-state" id="construction-state-option2" autocomplete="off" value="Grey Structure">
+											<label class="btn form-select purpose" for="construction-state-option2">Grey Structure</label>
+										</div>
+									</div>
+									{{ form.state }}
+								</div>
+							</div>
+							<hr class="w-75 mx-auto my-4">
+						</div>
+
+
+						<div class="col" id="floor_col">
+							<label for="id_custom_floor">{{ form.custom_floor.label }}</label>
+							<div class="container">
+								<div class="row g-2 my-1 mb-2" id="floor_field">
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option0" autocomplete="off" value="0">
+										<label class="btn form-select purpose" for="floor_option0">0</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option1" autocomplete="off" value="1">
+										<label class="btn form-select purpose" for="floor_option1">1</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option2" autocomplete="off" value="2">
+										<label class="btn form-select purpose" for="floor_option2">2</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option3" autocomplete="off" value="3">
+										<label class="btn form-select purpose" for="floor_option3">3</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option4" autocomplete="off" value="4">
+										<label class="btn form-select purpose" for="floor_option4">4</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option5" autocomplete="off" value="5">
+										<label class="btn form-select purpose" for="floor_option5">5</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option6" autocomplete="off" value="6">
+										<label class="btn form-select purpose" for="floor_option6">6</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option7" autocomplete="off" value="7">
+										<label class="btn form-select purpose" for="floor_option7">7</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option8" autocomplete="off" value="8">
+										<label class="btn form-select purpose" for="floor_option8">8</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option9" autocomplete="off" value="9">
+										<label class="btn form-select purpose" for="floor_option9">9</label>
+									</div>
+									<div class="col">
+										<input type="radio" class="btn-check" name="floor" id="floor_option10" autocomplete="off" value="10">
+										<label class="btn form-select purpose" for="floor_option10">10+</label>
+									</div>
+									<div class="col-12 w-100">{{ form.custom_floor }}</div>
+								</div>
+							</div>
+							<hr class="w-75 mx-auto my-4">
+						</div>
+
+
+						<div class="row" id="beds_baths">
+							<div class="col-md-6 mt-3">
+								<label for="id_custom_bedroom">{{ form.custom_bedroom.label }}</label>
+								<div class="container">
+									<div class="row g-2 my-1 mb-2" id="bedroom_field">
+										<div class="col-8">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option0" autocomplete="off" value="Studio">
+											<label class="btn form-select purpose" for="bedroom_option0">Studio</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option1" autocomplete="off" value="1">
+											<label class="btn form-select purpose" for="bedroom_option1">1</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option2" autocomplete="off" value="2">
+											<label class="btn form-select purpose" for="bedroom_option2">2</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option3" autocomplete="off" value="3">
+											<label class="btn form-select purpose" for="bedroom_option3">3</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option4" autocomplete="off" value="4">
+											<label class="btn form-select purpose" for="bedroom_option4">4</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option5" autocomplete="off" value="5">
+											<label class="btn form-select purpose" for="bedroom_option5">5</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option6" autocomplete="off" value="6">
+											<label class="btn form-select purpose" for="bedroom_option6">6</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option7" autocomplete="off" value="7">
+											<label class="btn form-select purpose" for="bedroom_option7">7</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option8" autocomplete="off" value="8">
+											<label class="btn form-select purpose" for="bedroom_option8">8</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option9" autocomplete="off" value="9">
+											<label class="btn form-select purpose" for="bedroom_option9">9</label>
+										</div>
+										<div class="col-4">
+											<input type="radio" class="btn-check" name="bedroom" id="bedroom_option10" autocomplete="off" value="10">
+											<label class="btn form-select purpose" for="bedroom_option10">10+</label>
+										</div>
+										<div class="col">{{ form.custom_bedroom }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 mt-3">
+								<label for="id_custom_bathroom">{{ form.custom_bathroom.label }}</label>
+								<div class="container">
+									<div class="row row-cols-4 g-2 my-1 mb-2" id="bathroom_field">
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option1" autocomplete="off" value="1">
+											<label class="btn form-select purpose" for="bathroom_option1">1</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option2" autocomplete="off" value="2">
+											<label class="btn form-select purpose" for="bathroom_option2">2</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option3" autocomplete="off" value="3">
+											<label class="btn form-select purpose" for="bathroom_option3">3</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option4" autocomplete="off" value="4">
+											<label class="btn form-select purpose" for="bathroom_option4">4</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option5" autocomplete="off" value="5">
+											<label class="btn form-select purpose" for="bathroom_option5">5</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option6" autocomplete="off" value="6">
+											<label class="btn form-select purpose" for="bathroom_option6">6</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option7" autocomplete="off" value="7">
+											<label class="btn form-select purpose" for="bathroom_option7">7</label>
+										</div>
+										<div class="col">
+											<input type="radio" class="btn-check" name="bathroom" id="bathroom_option8" autocomplete="off" value="8">
+											<label class="btn form-select purpose" for="bathroom_option8">8+</label>
+										</div>
+										<div class="col w-100">{{ form.custom_bathroom }}</div>
+									</div>
+								</div>
+							</div>
+							<hr class="w-75 mx-auto my-4">
+						</div>
+
+
+						<div class="col">
+							<label id="amentity_label">Amenities/Facilities</label>
+							<div class="container">
+								<div class="row g-2 my-1 mb-2" id="amenities">
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option1" autocomplete="off" value="Servant Quarter">
+										<label class="btn form-select purpose" for="amenities_option1">Servant Quarter</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option2" autocomplete="off" value="Drawing Room">
+										<label class="btn form-select purpose" for="amenities_option2">Drawing Room</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option3" autocomplete="off" value="Dining Room">
+										<label class="btn form-select purpose" for="amenities_option3">Dining Room</label>
+									</div>
+									<div class="col amenities_home">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option4" autocomplete="off" value="Kitchen">
+										<label class="btn form-select purpose" for="amenities_option4">Kitchen</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option5" autocomplete="off" value="Study Room">
+										<label class="btn form-select purpose" for="amenities_option5">Study Room</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option6" autocomplete="off" value="Prayer Room">
+										<label class="btn form-select purpose" for="amenities_option6">Prayer Room</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option7" autocomplete="off" value="Powder Room">
+										<label class="btn form-select purpose" for="amenities_option7">Powder Room</label>
+									</div>
+									<div class="col amenities_home">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option8" autocomplete="off" value="Gym">
+										<label class="btn form-select purpose" for="amenities_option8">Gym</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option9" autocomplete="off" value="Store Room">
+										<label class="btn form-select purpose" for="amenities_option9">Store Room</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option10" autocomplete="off" value="Steam Room">
+										<label class="btn form-select purpose" for="amenities_option10">Steam Room</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option11" autocomplete="off" value="Lounge or Sitting Room">
+										<label class="btn form-select purpose" for="amenities_option11">Lounge or Sitting Room</label>
+									</div>
+									<div class="col amenities_home">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option12" autocomplete="off" value="Garage">
+										<label class="btn form-select purpose" for="amenities_option12">Garage</label>
+									</div>
+									<div class="col amenities_home" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option13" autocomplete="off" value="Laundry Room">
+										<label class="btn form-select purpose" for="amenities_option13">Laundry Room</label>
+									</div>
+
+									<div class="col amenities_plot" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option14" autocomplete="off" value="Corner Plot">
+										<label class="btn form-select purpose" for="amenities_option14">Corner Plot</label>
+									</div>
+									<div class="col amenities_plot" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option15" autocomplete="off" value="Park Facing">
+										<label class="btn form-select purpose" for="amenities_option15">Park Facing</label>
+									</div>
+									<div class="col amenities_plot">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option16" autocomplete="off" value="Disputed">
+										<label class="btn form-select purpose" for="amenities_option16">Disputed</label>
+									</div>
+									<div class="col amenities_plot">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option17" autocomplete="off" value="Sewerage">
+										<label class="btn form-select purpose" for="amenities_option17">Sewerage</label>
+									</div>
+									<div class="col amenities_plot">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option18" autocomplete="off" value="Electricity">
+										<label class="btn form-select purpose" for="amenities_option18">Electricity</label>
+									</div>
+									<div class="col amenities_plot" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option19" autocomplete="off" value="Water Supply">
+										<label class="btn form-select purpose" for="amenities_option19">Water Supply</label>
+									</div>
+									<div class="col amenities_plot" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option20" autocomplete="off" value="Gas Supply">
+										<label class="btn form-select purpose" for="amenities_option20">Gas Supply</label>
+									</div>
+									<div class="col amenities_plot" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option21" autocomplete="off" value="Boundary Wall">
+										<label class="btn form-select purpose" for="amenities_option21">Boundary Wall</label>
+									</div>
+
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option22" autocomplete="off" value="Parking Spaces Available">
+										<label class="btn form-select purpose" for="amenities_option22">Parking Spaces Available</label>
+									</div>
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option23" autocomplete="off" value="Lobby in Building">
+										<label class="btn form-select purpose" for="amenities_option23">Lobby in Building</label>
+									</div>
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option24" autocomplete="off" value="Double Gazed Windows">
+										<label class="btn form-select purpose" for="amenities_option24">Double Gazed Windows</label>
+									</div>
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option25" autocomplete="off" value="Central Air Conditioning">
+										<label class="btn form-select purpose" for="amenities_option25">Central Air Conditioning</label>
+									</div>
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option26" autocomplete="off" value="Central Heating">
+										<label class="btn form-select purpose" for="amenities_option26">Central Heating</label>
+									</div>
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option27" autocomplete="off" value="Electricity Backup">
+										<label class="btn form-select purpose" for="amenities_option27">Electricity Backup</label>
+									</div>
+									<div class="col amenities_commercial" style="min-width: fit-content;">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option28" autocomplete="off" value="Waste Disposal">
+										<label class="btn form-select purpose" for="amenities_option28">Waste Disposal</label>
+									</div>
+									<div class="col amenities_commercial">
+										<input type="checkbox" class="btn-check" name="amenities" id="amenities_option29" autocomplete="off" value="Elevators">
+										<label class="btn form-select purpose" for="amenities_option29">Elevators</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-4">
+							<div class="col">
+								<label for="id_area_size">{{ form.area_size.label }}</label>
+								{{ form.area_size }}
+							</div>
+							<div class="col">
+								<label for="id_area_size_unit">{{ form.area_size_unit.label }}</label>
+								{{ form.area_size_unit }}
+							</div>
+						</div>
+
+						<div class="row my-3">
+							<div class="col-md-9">
+								<label for="id_address">{{ form.address.label }}</label>
+								{{ form.address }}
+							</div>
+							<div class="col">
+								<label for="id_city">{{ form.city.label }}</label>
+								{{ form.city }}
+							</div>
+						</div>
+
+						<div class="col my-3">
+							<label for="id_description">{{ form.description.label }}</label>
+							{{ form.description }}
+						</div>
+
+						<input type="submit" value="Post" class="btn btn-dark w-25 mb-4 float-end">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+	<script>
+		var amenities = '{{ amenities|safe }}';
+		var amenities_list = JSON.parse(amenities);
+		var category = '{{ category|safe }}';
+	</script>
+	<script src="{% static 'listing/js/update_listing_form.js' %}" data-rel-js></script>
+{% endblock %}

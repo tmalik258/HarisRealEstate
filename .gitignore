@@ -1,0 +1,9 @@
+data.json
+db.sqlite3
+**__pycache__/
+.env
+virtual/
+media/
+.vscode
+staticfiles/
+_documentation/

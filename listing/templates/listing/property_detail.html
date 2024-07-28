@@ -1,0 +1,231 @@
+{% extends 'listing/layout.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="{% static 'listing/css/imageGallerySwiper.css' %}">
+<link rel="stylesheet" href="{% static 'listing/css/gallery.css' %}">
+<style>
+	a:has(> i.fa-solid.fa-trash) {
+		color: #f00;
+		transition: .17s;
+	}
+	a:has(> i.fa-solid.fa-trash):hover {
+		color: #000;
+	}
+	
+	a:has(> i.fa-solid.fa-pen-to-square) {
+		color: #0c294a;
+	}
+
+	a:has(> i.fa-solid.fa-pen-to-square):hover {
+		color: #000;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+	{% if post.img.first %}
+		<div class="image-gallery position-absolute container rounded-4">
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle position-absolute end-0 top-0 close_btn" viewBox="0 0 16 16">
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+				<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+			</svg>
+			{% for img in post.img.all %}
+				<img src="{{ img.image.url }}" alt="Image-{{ forloop.counter }}" style="max-width: 35rem; max-height: 35rem;" class="col rounded-3">
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<article class="properties property_detail mt-3">
+		<div class="container">
+			<div class="row">
+				<div class="position-relative">
+					<div class="position-absolute top-0 end-0 d-flex gap-2 translate-middle-x">
+						{% if active %}
+						<div class="dropdown">
+							<a class="link-dark link-opacity-50-hover" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<ion-icon name="ellipsis-vertical-outline" style="font-size: 25px;"></ion-icon>
+							</a>
+							<ul class="dropdown-menu border border-0 shadow bg-body-tertiary p-2">
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-listing' post.id %}">Edit Post<i class="fa-solid fa-pen-to-square ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
+
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-images' post.id %}">Edit Pictures<i class="fa-regular fa-images ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
+
+								{% if post.is_sold %}
+									<li><a class="dropdown-item rounded-2 position-relative pe-5" href="{% url 'listing:mark-as-sold' post.id %}">Mark as Unsold<ion-icon name="checkmark-done-circle-outline" class="position-absolute translate-middle top-50 end-0" style="font-size: 25px;"></ion-icon></a></li>
+								{% else %}
+									<li><a class="dropdown-item rounded-2 position-relative pe-5" href="{% url 'listing:mark-as-sold' post.id %}">Mark as Sold<ion-icon name="checkmark-done-circle" class="position-absolute translate-middle top-50 end-0" style="font-size: 25px;"></ion-icon></a></li>
+								{% endif %}
+
+								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:delete-listing' post.id %}">Delete<i class="fa-solid fa-trash fa-md position-absolute translate-middle top-50 end-0"></i></a></li>
+							</ul>
+						</div>
+						{% endif %}
+						<a href="{% url 'account:add-to-wishlist' post.id %}">
+							{% if is_added_to_wishlist %}
+								<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+							{% else %}
+								<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
+							{% endif %}
+						</a>
+					</div>
+				</div>
+				<h1 class="card-title h5 text-start">
+					{{ post.title | upper }}
+					{% if post.is_sold %}
+						<span class="badge rounded-pill text-bg-warning fw-normal text-light shadow">Sold</span>
+					{% endif %}
+				</h1>
+				<p class="card-title">{{ post.address }}, {{ post.get_city_display }}</p>
+				{% if post.img.first %}
+					<div class="container-fluid py-4">
+						<div style="--swiper-navigation-color: black; --swiper-pagination-color: black;" class="swiper imagesGallerySwiper">
+							<div class="swiper-wrapper">
+								{% for img in post.img.all %}
+									<div class="swiper-slide">
+										<div class="swiper-zoom-container">
+											<img src="{{ img.image.url }}" alt="Image-{{ forloop.counter }}" loading="lazy">
+										</div>
+										<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+									</div>
+								{% endfor %}
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-pagination"></div>
+						</div>
+						<div class="btn btn-outline-dark mt-3 float-end rounded-5 d-flex justify-content-center m-auto" id="open_gallery"><ion-icon name="images-outline" size="large"></ion-icon> <span class="m-auto mx-2">Show All Images</span></div>
+					</div>
+
+				{% else %}
+					<img loading="lazy" src="\media\image_not_found\no-image.png"  class="card-img-top d-block m-auto" id="no_image" alt="No Image Uploaded">
+				{% endif %}
+
+				<div class="col mt-4">
+					<hr class="w-75 m-auto mb-5 mt-2">
+					<div class="card-body">
+						<div class="container">
+							<h2 class="card-title h5 mb-4">What this Place Offers</h2>
+							<div class="container">
+								<div class="row g-3 text-center">
+									<div class="col" style="min-width: max-content;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cash me-lg-2" viewBox="0 0 16 16">
+											<path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+											<path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+										</svg>
+										PKR {{ post.price | int_word }}
+									</div>
+									<div class="col" style="min-width: max-content;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building me-lg-2" viewBox="0 0 16 16">
+											<path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+											<path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
+										</svg>
+										{{ post.get_purpose }}
+									</div>
+									<div class="col" style="min-width: max-content;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-tag me-lg-2" viewBox="0 0 16 16">
+											<path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z"/>
+											<path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z"/>
+											</svg>
+										{{ post.category }}
+									</div>
+									<div class="col" style="min-width: max-content;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-geo me-lg-2" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"/>
+										  </svg>
+										{{ post.get_area_size }} {{ post.get_area_size_unit_display }}
+									</div>
+									{% if post.get_bedroom and post.get_bathroom %}
+										<div class="col" style="min-width: max-content;">
+											<i class="fa fa-bed me-2" style="font-size: 25px;"></i>
+											{{ post.get_bedroom }} beds
+										</div>
+										<div class="col" style="min-width: max-content;">
+											<i class="fa-solid fa-shower fa-xl" style="color: #000000;"></i>
+											{{ post.get_bathroom }} Baths
+										</div>
+									{% elif post.get_bedroom %}
+										<div class="col" style="min-width: max-content;">
+											<i class="fa fa-bed me-2" style="font-size: 25px;"></i>
+											{{ post.get_bedroom }} beds
+										</div>
+									{% endif %}
+									{% if post.get_floor %}
+									<div class="col" style="min-width: max-content;">
+										{{ post.get_floor }} Floor(s)
+									</div>
+									{% endif %}
+									{% if post.get_construction_state %}
+									<div class="col" style="min-width: max-content;">
+										Construction State: {{ post.get_construction_state }}
+									</div>
+									{% endif %}
+									{% if post.get_furnished %}
+									<div class="col" style="min-width: max-content;">
+										{{ post.get_furnished }}
+									</div>
+									{% endif %}
+								</div>
+							</div>
+
+							<hr class="w-75 m-auto my-5">
+
+							<h2 class="card-title h5 mt-5 mb-3">About this Place</h2>
+							<div class="container agent p-3">{{ post.description | linebreaksbr | safe }}</div>
+							
+							<hr class="w-75 m-auto my-5">
+
+							{% if post.amenity.first %}
+							<div class="container">
+								<div class="row g-3 text-center">
+									{% for amenity in post.amenity.all %}
+										<div class="col" style="min-width: min-content;">
+											{% if amenity.amenity.icon %}
+												{{ amenity.amenity.icon | safe }}
+											{% endif %}
+											{{ amenity.amenity.feature | safe }}
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+
+							<hr class="w-75 m-auto my-5">
+							{% endif %}
+
+							<h2 class="h5">Meet your Agent</h2>
+							<div class="container agent py-3">
+								<div class="profile-container">
+									{% if post.creator.profile.profile_image %}
+									<img src="{{ post.creator.profile.profile_image.url }}" class="profile-img mx-auto" alt="">
+									{% else %}
+									<img src="/media/Image_not_found/no-image.png" class="profile-img mx-auto" alt="">
+									{% endif %}
+									<h3 class="h6">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
+									<div class="text-muted">{{ post.creator.profile.estate_name }}</div>
+									<div class="p-1">
+										{% if post.creator.profile.phone_number %}
+											<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email fs-4"><ion-icon name="call-outline"></ion-icon></a>
+										{% endif %}
+										<a href="mailto:{{ post.creator.email }}"  class="btn btn-outline-secondary email fs-4"><ion-icon name="mail-outline"></ion-icon></a>
+									</div>
+								</div>
+								<div class="text-center mt-3">
+									{{ post.creator.profile.bio_info | safe }}
+								</div>
+							</div>
+							<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated | timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'listing/js/imageGallerySwiper.js' %}"></script>
+	<script src="{% static 'listing/js/gallery.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+{% endblock %}

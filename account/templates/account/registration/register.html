@@ -1,0 +1,124 @@
+{% extends 'listing/layout.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" href="{% static 'listing/css/draganddrop.css' %}" type="text/css" />
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row no-gutter">
+		<div class="col-md-12">
+			<div class="d-flex align-items-center py-4 pb-5">
+				<div class="container">
+					<div class="row">
+						<div class="auth_form col-12 col-lg-8 mx-auto">
+							<form action="" class="rounded mx-auto p-4 col-lg-10" method="post">
+								{% csrf_token %}
+								<h3 class="mb-2">Create an Account</h3>
+								<p class="mb-4 text-muted">It's free and only takes a minute.</p>
+
+								{% if form.errors %}
+									<p class="text-danger">Please correct the following errors:</p>
+									{% for field in form %}
+										{% if field.errors %}
+											<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												{{ field.errors | striptags }}
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+											</div>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if profile_form.errors %}
+									<p class="text-danger">Please correct the following errors:</p>
+									{% for field in profile_form %}
+										{% if field.errors %}
+											<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												{{ field.errors | striptags }}
+												<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+											</div>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								<div class="row row-cols-1 row-cols-lg-2 g-1 mb-2">
+									<div class="col">
+										<!-- <label for="id_first_name">{{ form.first_name.label }} <span class="text-muted small">{{ form.first_name.help_text }}</span></label> -->
+										{{ form.first_name }}
+									</div>
+									<div class="col">
+										<!-- <label for="id_last_name">{{ form.last_name.label }} <span class="text-muted small">(Required)</span></label> -->
+										{{ form.last_name }}
+									</div>
+								</div>
+
+								<div class="row row-cols-1 row-cols-lg-2 g-1 mb-2">
+									<div class="col">
+										<!-- <label for="id_username">{{ form.username.label }} <span class="text-muted small">{{ form.username.help_text }}</span></label> -->
+										{{ form.username }}
+									</div>
+									<div class="col">
+										<!-- <label for="id_email">{{ form.email.label }} <span class="text-muted small">(Required)</span></label> -->
+										{{ form.email }}
+									</div>
+								</div>
+								<div class="row row-cols-1 row-cols-lg-2 g-1 mb-2">
+									<div class="col">
+										{{ profile_form.estate_name }}
+										<span class="form-text text-muted small">{{ profile_form.estate_name.help_text }}</span>
+									</div>
+									<div class="col">
+										{{ profile_form.phone_number }}
+										<span class="form-text text-muted small">{{ profile_form.phone_number.help_text }}</span>
+									</div>
+								</div>
+								<div class="row row-cols-1 g-1 mb-2">
+									<div class="col">
+										<!-- <label for="id_password">{{ form.password.label }}</label> -->
+										{{ form.password }}
+										<small class="form-text text-muted small">{{ form.password.help_text }}</small>
+									</div>
+									<div class="col">
+										<!-- <label for="id_password2">{{ form.password2.label }} <span class="text-muted small">(Required)</span></label> -->
+										{{ form.password2 }}
+										{{ form.password2.help_text }}
+									</div>
+								</div>
+								<div class="col mb-2">
+									{{ profile_form.bio_info }}
+									<span class="form-text text-muted small">{{ profile_form.bio_info.help_text }}</span>
+								</div>
+								<div id="dropzone" class="form-group mb-3">
+									<label for="id_profile_image" style="color: #0c294a;">
+										Click to Upload Your Profile Picture or Drag and Drop Here
+										<br>
+										<span class="text-muted small">(Optional)</span>
+									</label>
+									{{ profile_form.profile_image }}
+								</div>
+								<div id="image-preview" class="col m-auto"></div>
+								<input class="btn w-100 my-2" type="submit" value="Register">
+								<p class="text-center">Already have an account? <a href="{% url 'account:login' %}" class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Sign in</a></p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'listing/js/draganddrop.js' %}"></script>
+{% endblock %}
