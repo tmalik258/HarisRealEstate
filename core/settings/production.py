@@ -57,5 +57,4 @@ MEDIA_URL = '/media/'
 
 # Static Configuration S3
 STATIC_URL = '/static/'
-STATICFILES_DIR = [BASE_DIR / 'static']
 STATIC_ROOT = 'staticfiles'
