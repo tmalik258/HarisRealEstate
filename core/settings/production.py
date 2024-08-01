@@ -5,7 +5,7 @@ from .base import *
 
 
 ## ALLOWED HOSTS
-ALLOWED_HOSTS = ['127.0.0.1', '.harisrealestate.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.harisrealestate.com', '67.223.119.66']
 
 ## CSRF TOKEN CLEARANCE
 CSRF_COOKIE_SECURE = True
@@ -58,3 +58,4 @@ MEDIA_URL = '/media/'
 # Static Configuration S3
 STATIC_URL = '/static/'
 STATICFILES_DIR = [BASE_DIR / 'static']
+STATIC_ROOT = 'staticfiles'
