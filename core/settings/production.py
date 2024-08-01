@@ -26,12 +26,15 @@ DATABASES = {
     #       MYSQL CONNECTION
 
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': config("DB_NAME"),
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
         'PORT': config("DB_PORT"),
+		'OPTIONS': {
+          'autocommit': True,
+        },
     }
 	
     #       POSTGRESQL CONNECTION ONE WAY
