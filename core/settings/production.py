@@ -2,6 +2,7 @@ from decouple import config
 # import dj_database_url
 
 from .base import *
+from . import pymysql_init
 
 
 ## ALLOWED HOSTS
@@ -26,16 +27,16 @@ DATABASES = {
     #       MYSQL CONNECTION
 
     'default': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': config("DB_NAME"),
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
         'PORT': config("DB_PORT"),
-		'OPTIONS': {
-          'autocommit': True,
-		  'use_pure': True
-        },
+		# 'OPTIONS': {
+        #   'autocommit': True,
+		#   'use_pure': True
+        # },
     }
 	
     #       POSTGRESQL CONNECTION ONE WAY
