@@ -34,6 +34,7 @@ DATABASES = {
         'PORT': config("DB_PORT"),
 		'OPTIONS': {
           'autocommit': True,
+		  'use_pure': True
         },
     }
 	
