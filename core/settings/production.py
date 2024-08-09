@@ -33,10 +33,6 @@ DATABASES = {
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
         'PORT': config("DB_PORT"),
-		# 'OPTIONS': {
-        #   'autocommit': True,
-		#   'use_pure': True
-        # },
     }
 	
     #       POSTGRESQL CONNECTION ONE WAY
@@ -60,6 +56,9 @@ DATABASES = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Static Configuration S3
+# Static Configuration
 STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles')
+]

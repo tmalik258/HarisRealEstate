@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -29,7 +29,7 @@ from .models import (
 from .forms import listingForm, listingGetRequestForm
 
 from account.views import get_ip_address
-from account.models import TrafficUser
+from account.models import User, TrafficUser
 
 
 # Create your views here.
@@ -88,12 +88,12 @@ class PropertiesListView(ListView):
 
 def property_detail(request, item):
 	active = False
+	# Check if the user has added the listing to their wishlist
+	is_added_to_wishlist = False
 
 	try:
 		post = Listing.posts.get(pk=item)
 
-		# Check if the user has added the listing to their wishlist
-		is_added_to_wishlist = False
 
 		if request.user.is_authenticated:
 			is_added_to_wishlist = post.user_wishlist.filter(
@@ -654,7 +654,7 @@ def markAsSoldListing(request, item_id):
 		listing.save()
 		return redirect("account:profile")
 	else:
-		message.error(request, "Sorry! You don't have privilege to delete this ad.")
+		messages.error(request, "Sorry! You don't have privilege to delete this ad.")
 		return render(
 			request, "listing/property_detail.html", {"post": listing, "active": False}
 		)
@@ -669,7 +669,7 @@ def deleteListing(request, item_id):
 		messages.success(request, "Ad Has Been Deleted!")
 		return redirect("account:profile")
 	else:
-		message.error(request, "Sorry! You don't have privilege to delete this ad.")
+		messages.error(request, "Sorry! You don't have privilege to delete this ad.")
 		return render(
 			request, "listing/property_detail.html", {"post": listing, "active": False}
 		)
