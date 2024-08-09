@@ -1147,9 +1147,12 @@ footer {
 
   /*-------- NAVIGATION-MENU --------*/
   .navigation {
-    inset: auto 15px 8px 15px;
-    width: auto;
-    max-height: 3em;
+    inset: initial;
+    bottom: 2em;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 3em;
   }
 
   .listing_image {
@@ -1167,7 +1170,7 @@ footer {
     flex-direction: row;
     justify-content: center;
     gap: 30px;
-    transform: translateY(15px);
+    /* transform: translateY(15px); */
   }
 
   .navigation ul li {
