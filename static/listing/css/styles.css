@@ -1149,6 +1149,7 @@ footer {
   .navigation {
     inset: auto 15px 8px 15px;
     width: auto;
+    max-height: 3em;
   }
 
   .listing_image {
