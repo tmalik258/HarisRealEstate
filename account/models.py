@@ -1,8 +1,9 @@
 import uuid
 from django.db import models
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
-from django_countries.fields import CountryField
+# from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -33,7 +34,7 @@ class User(AbstractUser):
 		"""
         Send an email to this User.
         """
-		from_email = 'talhamalik25.tm@gmail.com'
+		from_email = settings.EMAIL_HOST_USER
 		# Create a plain text version of the email
 		text_message = strip_tags(message)
 
