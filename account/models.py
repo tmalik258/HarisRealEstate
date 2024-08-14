@@ -44,7 +44,7 @@ class User(AbstractUser):
 		email.attach_alternative(message, "text/html")
 
 
-		email.send(fail_silently=True)
+		email.send(fail_silently=False)
 		# send_mail(
 		# 	subject,
 		# 	message,
