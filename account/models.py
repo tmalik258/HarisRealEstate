@@ -40,7 +40,7 @@ class User(AbstractUser):
 
 		# Create the EmailMultiAlternatives object
 		email = EmailMultiAlternatives(
-			subject=subject, body=message, to=[self.email], from_email=from_email, **kwargs
+			subject=subject, body=text_message, to=[self.email], from_email=from_email, **kwargs
 		)
 		email.attach_alternative(message, "text/html")
 

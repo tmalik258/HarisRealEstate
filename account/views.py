@@ -98,7 +98,8 @@ class CustomLoginView(LoginView):
 				user.send_verification_email(subject=subject, message=message)
 				# Add a message to inform the user about the email resent
 				messages.info(self.request, 'A verification email has been resent. Please check your email and activate your account.')
-				self.user.send_verification_email(self.request.user)
+				print('verification sent')
+				# self.user.send_verification_email(self.request.user)
 				
 				
 				# Redirect the user to a page indicating that the verification email has been resent
