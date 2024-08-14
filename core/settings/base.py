@@ -129,9 +129,9 @@ PASSWORD_RESET_TIMEOUT_DAYS = 2
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # SMTP Configuration for Gmail
-EMAIL_HOST: str = 'django.core.mail.backends.smtp.EmailBackend'  # or the SMTP server provided by your email service
-EMAIL_PORT: int = 587  # or the appropriate port for your email service
+# EMAIL_HOST: str = 'smtp.EmailBackend'  # or the SMTP server provided by your email service
 EMAIL_HOST: str = os.getenv('EMAIL_HOST')
+EMAIL_PORT: int = 587  # or the appropriate port for your email service
 EMAIL_HOST_USER: str = os.getenv('EMAIL_HOST_USER')  # your Gmail or email service username
 EMAIL_HOST_PASSWORD: str = os.getenv('EMAIL_HOST_PASSWORD')  # your Gmail or email service password
 EMAIL_USE_TLS: bool = True  # or False if your email service does not support TLS/SSL
