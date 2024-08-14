@@ -95,10 +95,10 @@ class CustomLoginView(LoginView):
 					'uid': urlsafe_base64_encode(force_bytes(user.pk)),
 					'token': account_activation_token.make_token(user),
 				})
-				user.send_verification_email(subject=subject, message=message)
+				sent = user.send_verification_email(subject=subject, message=message)
 				# Add a message to inform the user about the email resent
 				messages.info(self.request, 'A verification email has been resent. Please check your email and activate your account.')
-				print('verification sent')
+				print('verification sent', sent)
 				# self.user.send_verification_email(self.request.user)
 				
 				
