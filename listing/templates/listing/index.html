@@ -1,5 +1,8 @@
-{% extends 'listing/layout.html' %} {% load static %} {% load custom_tags %} {%
-block head %}
+{% extends 'listing/layout.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block head %}
 <link
 	rel="preload"
 	href="{% static 'listing/img/crousal/construction.jpg' %}"
@@ -37,7 +40,9 @@ block head %}
 	href="{% static 'listing/img/logo/HARIS-LOGO77.png' %}"
 	as="image"
 />
-{% endblock %} {% block body %}
+{% endblock head %}
+
+{% block body %}
 <section class="mt-3">
 	<div
 		id="carouselExampleFade"
@@ -273,8 +278,7 @@ block head %}
 													"
 													>PKR </span
 												><span style="font-size: 16px"
-													>{{ post.price | int_word
-													}}</span
+													>{{ post.price | int_word }}</span
 												>
 											</p>
 											<p
@@ -300,8 +304,7 @@ block head %}
 															229
 														);
 													"
-													>{{ post.get_purpose
-													}}</span
+													>{{ post.get_purpose }}</span
 												>
 												<span class="vr"></span>
 												<!-- <p class="card-text"> -->
@@ -315,12 +318,9 @@ block head %}
 													"
 													>{{ post.get_area_size }}
 												</span>
-												{{
-												post.get_area_size_unit_display
-												}}
+												{{ post.get_area_size_unit_display }}
 											</p>
-											{% if post.get_bedroom and
-											post.get_bathroom %}
+											{% if post.get_bedroom and post.get_bathroom %}
 											<p class="card-text">
 												<strong
 													style="
@@ -330,8 +330,7 @@ block head %}
 															229
 														);
 													"
-													>{{ post.get_bedroom
-													}}</strong
+													>{{ post.get_bedroom }}</strong
 												>
 												Bed(s)
 												<strong
@@ -342,8 +341,7 @@ block head %}
 															229
 														);
 													"
-													>{{ post.get_bathroom
-													}}</strong
+													>{{ post.get_bathroom }}</strong
 												>
 												Bath(s)
 											</p>
@@ -357,8 +355,7 @@ block head %}
 															229
 														);
 													"
-													>{{ post.get_bedroom
-													}}</strong
+													>{{ post.get_bedroom }}</strong
 												>
 												Bed(s)
 											</p>
@@ -376,9 +373,7 @@ block head %}
 														class="fa-solid fa-envelope fa-lg"
 													></i
 												></a>
-												{% if
-												post.creator.profile.phone_number
-												%}
+												{% if post.creator.profile.phone_number %}
 												<a
 													href="tel:+{{ post.creator.profile.phone_number }}"
 													class="btn btn-outline-secondary email"
@@ -393,10 +388,7 @@ block head %}
 												style="line-height: 18px"
 											>
 												<small class="text-muted"
-													>Listed {{ post.time_created
-													| timesince }} ago by {{
-													post.creator.first_name
-													}}</small
+													>Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small
 												>
 											</p>
 										</div>
@@ -500,7 +492,9 @@ block head %}
 		<div class="contact-us hidden"></div>
 	</section> -->
 </article>
-{% endblock %} {% block script %}
+{% endblock body %}
+
+{% block script %}
 <script>
 	var swiper = new Swiper(".teamSwiper", {
 		slidesPerView: 1,
@@ -530,4 +524,4 @@ block head %}
 	const RENT_COUNT = "{{ rentCount }}";
 </script>
 <script src="{% static 'listing/js/traffic.js' %}" data-rel-js></script>
-{% endblock %}
+{% endblock script %}
