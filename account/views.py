@@ -80,32 +80,31 @@ class CustomLoginView(LoginView):
 		return super().dispatch(request, *args, **kwargs)
 
 	def form_invalid(self, form):
+		import logging
+		logger = logging.getLogger(__name__)
 		try:
 			user = User.objects.get(email=form.cleaned_data.get('username'))
-			# Check if the user is active
 			if not user.is_active and not user.is_verified:
-				# Resend verification email to the user
-				# Setup email
 				current_site = get_current_site(self.request)
 				subject = 'Activate your Account'
-				# user = self.request.user
 				message = render_to_string('account/registration/account_verification_resent_email.html', {
 					'user': user,
 					'domain': current_site.domain,
 					'uid': urlsafe_base64_encode(force_bytes(user.pk)),
 					'token': account_activation_token.make_token(user),
 				})
-				sent = user.send_verification_email(subject=subject, message=message)
-				# Add a message to inform the user about the email resent
-				messages.info(self.request, 'A verification email has been resent. Please check your email and activate your account.')
-				print('verification sent', sent)
-				# self.user.send_verification_email(self.request.user)
-				
-				
-				# Redirect the user to a page indicating that the verification email has been resent
+				try:
+					sent = user.send_verification_email(subject=subject, message=message)
+					logger.info(f"Verification email sent: {sent}")
+					messages.info(self.request, 'A verification email has been resent. Please check your email and activate your account.')
+				except Exception as e:
+					logger.error(f"Error sending verification email: {str(e)}")
+					messages.error(self.request, 'An error occurred while sending the verification email. Please try again later.')
 				return redirect('account:login')
-		except:
-			pass
+		except User.DoesNotExist:
+			logger.warning(f"Login attempt with non-existent email: {form.cleaned_data.get('username')}")
+		except Exception as e:
+			logger.error(f"Unexpected error in form_invalid: {str(e)}")
 		
 		return super().form_invalid(form)
 
