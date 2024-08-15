@@ -5,7 +5,7 @@ const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('id_images');
 const fileInput_pfp = document.getElementById('id_profile_image');
 const imagePreview = document.getElementById('image-preview');
-const selectedImages = [];
+let selectedImages = [];
 
 dropzone.addEventListener('dragenter', handleDragEnter, false);
 dropzone.addEventListener('dragover', handleDragOver, false);
@@ -122,10 +122,6 @@ if (fileInput_pfp) {
 
       createImagePreview(file, inputFile);
     }
-
-    if (imagePreview.innerHTML == '') {
-      $('#upload_input').attr('disabled', true);
-    }
   });
 }
 
@@ -143,7 +139,15 @@ function createImagePreview(file, inputFile) {
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-button', 'btn', 'btn-sm', 'mx-auto', 'mt-2');
     deleteButton.textContent = 'Remove';
-    deleteButton.addEventListener('click', function () {
+    
+    const previewContainer = document.createElement('div');
+    previewContainer.classList.add('image-preview-container');
+    previewContainer.appendChild(image);
+    previewContainer.appendChild(deleteButton);
+    
+    imagePreview.appendChild(previewContainer);
+    deleteButton.addEventListener('click', function (e) {
+      e.preventDefault();
       const imageFile = inputFile.files[Array.from(imagePreview.children).indexOf(previewContainer)];
       const dt = new DataTransfer();
       selectedImages = selectedImages.filter(function (img) {
@@ -151,17 +155,12 @@ function createImagePreview(file, inputFile) {
           dt.items.add(img);
           return true;
         }
-        return false;
       });
       inputFile.files = dt.files;
       imagePreview.removeChild(previewContainer);
+      if (selectedImages.length === 0) {
+        $('#upload_input').attr('disabled', true);
+      }
     });
-
-    const previewContainer = document.createElement('div');
-    previewContainer.classList.add('image-preview-container');
-    previewContainer.appendChild(image);
-    previewContainer.appendChild(deleteButton);
-
-    imagePreview.appendChild(previewContainer);
   };
 }

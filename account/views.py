@@ -274,10 +274,12 @@ def profileImageUpdate (request):
 	if request.method == "POST":
 		image =  request.FILES['profile_image']
 		user = User.objects.get(pk=request.user.id)
-		user.profile.profile_image = image
-		user.profile.save()
-
-		messages.success(request, 'Profile Picture has been updated.')
+		try:
+			user.profile.profile_image = image
+			user.profile.save()
+			messages.success(request, 'Profile Picture has been updated.')
+		except Profile.DoesNotExist:
+			messages.error(request, 'Profile doesn\'t exist. Please contact admin@harisrealestate.com')
 
 		return redirect('account:profile')
 	
