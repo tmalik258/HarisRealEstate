@@ -882,7 +882,6 @@ form.search {
 
 .properties .card .card-body {
   font-size: small;
-  /* line-height: 0px; */
 }
 
 .properties .card img {
@@ -927,7 +926,6 @@ form.search {
 .pagination .page-item a {
   background: black;
   color: wheat;
-  /* border: none; */
 }
 
 .pagination .page-item.active a {
