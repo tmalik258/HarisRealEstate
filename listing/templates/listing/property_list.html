@@ -32,9 +32,9 @@
 								<div class="col-11 col-sm-12 mx-auto listing_image mb-md-0 p-md-3">
 									<a href="{% url 'listing:property-detail' post.id %}">
 										{% if post.img.first %}
-											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
+											<img loading="lazy" decoding="async" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
 										{% else %}
-											<img loading="lazy" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+											<img loading="lazy" decoding="async" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 										{% endif %}
 									</a>
 								</div>
