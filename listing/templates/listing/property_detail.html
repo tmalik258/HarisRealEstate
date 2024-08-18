@@ -200,10 +200,12 @@
 									{% if post.creator.profile.profile_image %}
 									<img src="{{ post.creator.profile.profile_image.url }}" class="profile-img mx-auto" alt="">
 									{% else %}
-									<img src="/media/Image_not_found/no-image.png" class="profile-img mx-auto" alt="">
+									<img src="{% static 'listing/img/Image_not_found/no-image-found.webp' }" class="profile-img mx-auto" alt="">
 									{% endif %}
 									<h3 class="h6">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
-									<div class="text-muted">{{ post.creator.profile.estate_name }}</div>
+									{% if post.creator.profile.estate_name %}
+										<div class="text-muted">{{ post.creator.profile.estate_name }}</div>
+									{% endif %}
 									<div class="p-1">
 										{% if post.creator.profile.phone_number %}
 											<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-outline-secondary email fs-4"><ion-icon name="call-outline"></ion-icon></a>

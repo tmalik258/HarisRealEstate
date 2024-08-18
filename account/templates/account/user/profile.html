@@ -45,7 +45,7 @@
 				{% if user.profile.profile_image %}
 				<img src="{{ user.profile.profile_image.url }}" alt="" style="border-radius: 50%;" class="img-fluid">
 				{% else %}
-				<img src="\media\image_not_found\No-image.png" class="card-img-top" alt="No image available">
+				<img src="{% static 'listing/img/image_not_found\no-image-found.webp' %}" class="card-img-top" alt="No image available">
 				{% endif %}
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-modal p-1 position-absolute bottom-0" data-bs-toggle="modal" data-bs-target="#profileModal">
@@ -194,7 +194,7 @@
 										{% if post.img.first %}
 											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
 										{% else %}
-											<img loading="lazy" src="{% static 'listing/img/logo/HARIS-LOGO77.png' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+											<img loading="lazy" src="{% static 'listing/img/logo/Dark_theme_logo.webp' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 										{% endif %}
 									</a>
 								</div>

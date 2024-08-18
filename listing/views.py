@@ -365,25 +365,19 @@ def createListing(request):
 			baths = listing_form.cleaned_data["custom_bathroom"]
 
 			if beds:
+				specification_values += [
+					ListingSpecificationValue(
+						listing=listing_obj,
+						specification=specifications.get(name="Bedroom"),
+						value=beds,
+					),
+				]
 				if baths:
 					specification_values += [
 						ListingSpecificationValue(
 							listing=listing_obj,
-							specification=specifications.get(name="Bedroom"),
-							value=beds,
-						),
-						ListingSpecificationValue(
-							listing=listing_obj,
 							specification=specifications.get(name="Bathroom"),
 							value=baths,
-						),
-					]
-				else:
-					specification_values += [
-						ListingSpecificationValue(
-							listing=listing_obj,
-							specification=specifications.get(name="Bedroom"),
-							value=beds,
 						),
 					]
 
