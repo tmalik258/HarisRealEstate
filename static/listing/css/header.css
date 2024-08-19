@@ -1,0 +1,377 @@
+/* //////////////////////////////////////////	NAV MENU /////////////////////////////////////////// */
+.navigation {
+	position: fixed;
+	inset: 200px 0 20px 20px;
+	width: 60px;
+	background-color: var(--maincolor);
+	display: flex;
+	align-items: center;
+	box-shadow: var(--box-shadow);
+	border-radius: 10px;
+	transition: 0.5s;
+	z-index: 15;
+	flex-direction: column;
+}
+
+.navigation.active {
+	width: 250px;
+}
+
+.navigation::selection {
+	background: none;
+}
+
+/* Navigation Menu */
+.navigation .menu {
+	width: 100%;
+	height: 50px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.025);
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 0 15px;
+}
+
+/* Navigation MenuToggle */
+.navigation .menu .menuToggle {
+	cursor: pointer;
+	width: 30px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.navigation .menu .menuToggle::before {
+	content: "";
+	position: absolute;
+	width: 30px;
+	height: 2px;
+	background: rgba(0, 0, 0, 0.5);
+	transform: translateY(-8px);
+	transition: 0.5s;
+}
+
+.navigation .menu .menuToggle::after {
+	content: "";
+	position: absolute;
+	width: 30px;
+	height: 2px;
+	background: rgba(0, 0, 0, 0.5);
+	transform: translateY(8px);
+	transition: 0.5s;
+}
+
+.navigation.active .menu .menuToggle {
+	width: 23px;
+	height: 18px;
+}
+
+.navigation.active .menu .menuToggle::before {
+	width: 20px;
+	transform: translateY(0) rotate(-45deg);
+}
+
+.navigation.active .menu .menuToggle::after {
+	width: 20px;
+	transform: translateY(0) rotate(45deg);
+}
+
+/* Navigation Menu text */
+.navigation .menu .menuText {
+	visibility: hidden;
+	font-size: 1px;
+	opacity: 0;
+	color: rgba(0, 0, 0, 0.5);
+	transition: 0.2s;
+	transform: translateX(20px);
+}
+
+.navigation.active .menu .menuText {
+	font-size: 25px;
+	visibility: visible;
+	opacity: 1;
+}
+
+.navigation .menu .menuText::selection {
+	display: none;
+}
+
+/* Navigation List */
+.navigation ul {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-block: auto;
+	transform: translateX(-25px) translateY(5px);
+}
+
+.navigation ul li {
+	list-style: none;
+	position: relative;
+	height: 55px;
+	cursor: pointer;
+	transition: 1s;
+}
+
+.navigation ul li .section {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	text-align: center;
+	width: 100%;
+}
+
+.navigation ul li .section::after {
+	content: "";
+	width: 100%;
+	border-top: 1px solid rgba(0, 0, 0, 0.103);
+}
+
+/* Navigation link */
+.navigation ul li a {
+	color: black;
+}
+
+.navigation ul li a:hover {
+	text-decoration: none;
+}
+
+/* Navigation Icons */
+.navigation ul li .icon {
+	position: relative;
+	display: block;
+	min-width: 48px;
+	height: 48px;
+	border-radius: 10px;
+	color: black;
+	font-size: 1.5em;
+	line-height: 55px;
+	transition: 0.5s;
+}
+
+.navigation ul li.active .icon,
+.navigation ul li:hover .icon {
+	background: var(--primarycolor);
+	color: white;
+	transform: translateX(15px);
+	transition: 0.5s;
+}
+
+.navigation.active ul li.active .icon,
+.navigation.active ul li:hover .icon {
+	transform: translateX(10px);
+}
+
+.navigation ul li .icon::before {
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--primarycolor);
+	filter: blur(8px);
+	opacity: 0;
+	transition: 0.5s;
+}
+
+.navigation ul li.active .icon::before,
+.navigation ul li:hover .icon::before {
+	opacity: 1;
+}
+
+/* Navigation Text */
+.navigation ul li .text {
+	opacity: 0;
+	visibility: hidden;
+	transition: 0.15s ease-in;
+}
+
+.navigation.active ul li .text {
+	padding: 0 15px;
+	opacity: 1;
+	visibility: visible;
+}
+
+.navigation.active ul li.active .text {
+	padding-left: 25px;
+}
+
+.navigation ul li.active .text,
+.navigation ul li:hover .text {
+	transition: 0.3s;
+	color: var(--primarycolor);
+	z-index: -1;
+}
+
+/* //////////////////////////////////////////	NAV BAR	/////////////////////////////////////////// */
+.HRE {
+	display: inline-block;
+	line-height: 17px;
+	font-size: 28px;
+	margin-left: 6px;
+	vertical-align: bottom;
+	color: var(--primarycolor);
+}
+
+.HRE .re-text {
+	font-size: 13px;
+}
+
+.HRE:hover {
+	color: #505050;
+}
+
+.navbar:nth-of-type(1) {
+	--maincolor: #e7eff7;
+	border-bottom: #6161610a 1px solid;
+	background: var(--maincolor);
+}
+
+.navbar:nth-of-type(2) {
+	z-index: 4;
+	font-size: 18px;
+	transition: 0.1s;
+}
+
+.nav-item .nav-link {
+	color: #616161;
+}
+
+.nav-item .nav-link.active,
+.nav-item .nav-link:hover {
+	color: var(--primarycolor);
+}
+
+.navbar .container-fluid .navbar-nav .nav-item .profile-nav {
+	font-size: larger;
+}
+
+.navbar .container-fluid .navbar-nav .nav-item.dropstart .dropdown-menu {
+	border: none;
+	box-shadow: var(--box-shadow);
+	transform: translateX(50px) translateY(50px);
+}
+
+
+@media screen and (min-width: 990px) {
+	.navbar .container-fluid .navbar-text .card {
+		position: absolute;
+		max-width: 50rem;
+		transform: translateX(calc(50% - 32.5rem));
+		opacity: 0;
+		visibility: hidden;
+		transition: 0.1s ease-in-out;
+	}
+
+	.navbar .container-fluid .navbar-text .collapse .card {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	@media (prefers-reduced-motion) {
+		.hidden {
+			transition: none;
+		}
+	}
+}
+
+@media screen and (max-width: 992px) {
+	/*-------- NAV-BAR --------*/
+	.navbar .container-fluid .navbar-brand {
+		display: none;
+	}
+
+	/*-------- NAVIGATION-MENU --------*/
+	.navigation {
+		inset: initial;
+		bottom: 1.5em;
+		width: fit-content;
+		left: 50%;
+		transform: translateX(-50%);
+		height: 3em;
+	}
+
+	.navigation .menu,
+	.navigation .menu .menuToggle,
+	.navigation .menu .menuText,
+	.navigation ul li .text {
+		display: none;
+	}
+
+	.navigation ul {
+		flex-direction: row;
+		justify-content: center;
+		gap: 30px;
+		padding: 0;
+		padding-inline: 3em;
+		transform: translate(0);
+	}
+
+	.navigation ul li {
+		height: auto;
+	}
+
+	.navigation ul li .icon {
+		font-size: 1.7em;
+	}
+
+	.navigation ul li.active .icon,
+	.navigation ul li:hover .icon {
+		transform: translate(0, -0.6em);
+	}
+
+	.navigation ul li.active .icon ion-icon {
+		content: "filled";
+	}
+
+	.navigation ul li .section {
+		border: none;
+	}
+
+	/*-------- SEARCH --------*/
+	.navbar .container-fluid .navbar-text #searchByT {
+		margin: 0;
+		width: 20rem;
+		height: 2.7rem;
+	}
+
+	.navbar .container-fluid .navbar-text.m-auto {
+		margin: 0;
+	}
+
+	.navbar .container-fluid .navbar-text .card {
+		padding: 0;
+		padding-top: 10px;
+	}
+
+	.navbar .container-fluid .navbar-text a .loggedIn,
+	.navbar .container-fluid .navbar-text a #searchIcon,
+	.navbar .container-fluid .navbar-text a #searchIcon:hover,
+	.navbar .container-fluid .navbar-text a[aria-expanded="true"] #searchIcon,
+	.navbar .container-fluid .navbar-text a .loggedIn:hover,
+	.navbar .container-fluid .navbar-text a[aria-expanded="true"] .loggedIn {
+		right: calc(50% - 12.25rem);
+		font-size: 2.4rem;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.navbar:nth-of-type(1) {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.navigation ul {
+		gap: 1em;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.navigation ul {
+		gap: 1em;
+		padding-inline: 1.5em;
+	}
+}

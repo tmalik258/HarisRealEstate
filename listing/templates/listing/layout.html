@@ -2,380 +2,189 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#F5DEB3">
-	<meta name="description" content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates.">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#F5DEB3" />
+		<meta
+			name="description"
+			content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates."
+		/>
 
-	<title>{% block title %}Haris Real Estate: Get Your Own Property{% endblock %}</title>
+		<title>
+			{% block title %}Haris Real Estate: Get Your Own Property{% endblock title %}
+		</title>
 
-	
-	<!-----------------------	Open Graph Tags	-------------------------- -->
-	<meta property="og:title" content="Haris Real Estate & Builders">
-	<meta property="og:description" content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates.">
-	<meta property="og:image" content="{% static 'listing/img/logo/Dark_theme_logo.png' %}">
-	<link itemprop="logo" href="{% static 'listing/img/logo/Dark_theme_logo.png' %}" rel="image_src">
+		<!-----------------------	Open Graph Tags	-------------------------- -->
+		<meta property="og:title" content="Haris Real Estate & Builders" />
+		<meta
+			property="og:description"
+			content="The most reputed and reliable real estate company in Pakistan, HARIS REAL ESTATE & BUILDERS, endeavors to provide fantastic property deals at reasonable rates."
+		/>
+		<meta
+			property="og:image"
+			content="{% static 'listing/img/logo/Dark_theme_logo.png' %}"
+		/>
+		<link
+			itemprop="logo"
+			href="{% static 'listing/img/logo/Dark_theme_logo.png' %}"
+			rel="image_src"
+		/>
 
+		<!-----------------------	Bootstrap CSS	-------------------------- -->
+		<link
+			rel="preload"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+			as="style"
+			integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+			crossorigin="anonymous"
+		/>
 
-	<!-----------------------	Bootstrap CSS	-------------------------- -->
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" as="style" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		<!-------------------------		Bootstrap JavaScript Preload Link 	-------------------------- -->
+		<link
+			rel="preload"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+			crossorigin="anonymous"
+			as="script"
+		/>
 
-	<!-------------------------		Bootstrap JavaScript Preload Link 	-------------------------- -->
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous" as="script">
+		<!-----------------------	Style CSS	-------------------------- -->
+		<link
+			rel="preload"
+			href="{% static 'listing/css/styles.css' %}"
+			as="style"
+		/>
+		<link rel="stylesheet" href="{% static 'listing/css/styles.css' %}" />
 
-	<!-----------------------	Style Sheet CSS	-------------------------- -->
-	<link rel="preload" href="{% static 'listing/css/styles.css' %}" as="style">
-	<link rel="stylesheet" href="{% static 'listing/css/styles.css' %}">
-	
-	<!-----------------------	Fav Icon	-------------------------- -->
-	<link rel="preload" href="{% static 'listing/img/logo/Dark_theme_logo.png' %}" type="image/x-icon" as="image">
-	<link rel="shortcut icon" href="{% static 'listing/img/logo/Dark_theme_logo.png' %}" type="image/x-icon">
+		<!-----------------------	Header CSS	-------------------------- -->
+		<link
+			rel="preload"
+			href="{% static 'listing/css/header.css' %}"
+			as="style"
+		/>
+		<link rel="stylesheet" href="{% static 'listing/css/header.css' %}" />
 
-	<!-----------------------	JavaScript Preload Link	-------------------------- -->
-	<link rel="preload" href="{% static 'listing/js/index.js' %}" as="script" defer>
+		<!-----------------------	Fav Icon	-------------------------- -->
+		<link
+			rel="preload"
+			href="{% static 'listing/img/logo/Dark_theme_logo.png' %}"
+			type="image/x-icon"
+			as="image"
+		/>
+		<link
+			rel="shortcut icon"
+			href="{% static 'listing/img/logo/Dark_theme_logo.png' %}"
+			type="image/x-icon"
+		/>
 
-	<!-----------------------	Jquery Preload Link	-------------------------- -->
-	<link rel="preload" href="https://code.jquery.com/jquery-3.7.0.min.js" as="script"
-	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
-	crossorigin="anonymous">
+		<!-----------------------	JavaScript Preload Link	-------------------------- -->
+		<link
+			rel="preload"
+			href="{% static 'listing/js/index.js' %}"
+			as="script"
+			defer
+		/>
 
-	<!-----------------------	Icons JavaScript Preload Link 	-------------------------- -->
-	<link rel="preload" href="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" as="script" crossorigin>
+		<!-----------------------	Jquery Preload Link	-------------------------- -->
+		<link
+			rel="preload"
+			href="https://code.jquery.com/jquery-3.7.0.min.js"
+			as="script"
+			integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+			crossorigin="anonymous"
+		/>
 
-	<!-----------------------	SWIPER  CSS	-------------------------- -->
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" as="style">
-	<link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-	/>
+		<!-----------------------	Icons JavaScript Preload Link 	-------------------------- -->
+		<link
+			rel="preload"
+			href="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+			as="script"
+			crossorigin
+		/>
 
-	<!-----------------------	SWIPER JS Pre load	-------------------------- -->
-	<link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js" as="script">
-	
-	<!-----------------------	FONT AWESOME CSS LINK	-------------------------- -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-	
-	{% block head %}
-	{% endblock %}
-	{% block style %}
-	{% endblock %}
-</head>
-<body>
-	{% block nav %}
-	<header>
-		<div class="alert alert-info alert-dismissible fade show" role="alert">
-			<strong>Disclaimer: </strong> This is Beta version. Some features may not work properly.
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-		</div>
-		{% if messages %}
-			{% for message in messages %}
-				<div {% if message.tags %} {% if message.tags == 'error' %} class="alert alert-danger alert-dismissible fade show text-center m-0" {% else %} class="alert alert-{{ message.tags }} alert-dismissible fade show text-center m-0" {% endif %} {% endif %} role="alert">
-					{% autoescape on %}
-					{{ message | safe }}
-					{% endautoescape %}
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				</div>
-			{% endfor %}
-		{% endif %}
-		<!-----------------------	Navigation call menu	 ------------------------ -->
-		<nav class="navbar navbar-expand-sm bg-body-tertiary">
-			<div class="container-fluid">
-				<span class="navbar-text ms-4">
-					Let's Get You Your Own Property
-				</span>
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="tel:+92 3004882031">Call
-							<span class="ms-1" aria-hidden="true">
-								<ion-icon name="call-outline"></ion-icon>
-							</span>
-						</a>
-					</li>
-					<div class="d-flex mt-1" style="height: 30px;">
-						<div class="vr"></div>
-					</div>
-					<li class="nav-item">
-						<a class="nav-link" href="https://wa.me/message/4KG4PPKO5BJBI1" target="_blank">Whatsapp
-							<span class="ms-1" aria-hidden="true">
-								<ion-icon name="logo-whatsapp"></ion-icon>
-							</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<!-----------------------	Navigation search and profile menu	 ------------------------ -->
-		<nav class="navbar navbar-expand-lg px-3">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="{% url 'listing:index' %}">
-					<img loading="eager" decoding="async" class="logo" src="{% static 'listing/img/logo/Light_theme_logo.webp' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
-					<span class="HRE">Haris<br><span style="font-size: 13px;">Real Estate</span></span>
-				</a>
-				<div class="navbar-text m-sm-auto">
-					<form action="{% url 'listing:get_property_by_search' %}" method="GET">
-						<input type="search" name="searchByTitle" class="form-control" id="searchByT" placeholder="Search by Title">
-					</form>
-					<a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-						<ion-icon name="options-outline" class="loggedIn" {% if user.is_authenticated %}  id="searchIcon" {% endif %}></ion-icon>
-					</a>
-					<div class="collapse" id="collapseExample">
-						<div class="card card-body">
-							<form class="search row g-1 m-auto" method="GET" action="{% url 'listing:get_property' %}">
-								<ul class="nav nav-tabs p-0 m-0">
-									<li class="nav-item">
-										<input type="radio" class="btn-check" name="purpose" id="form3_option1" autocomplete="off" value="S" checked>
-										<label class="btn form-select purpose" for="form3_option1">Buy</label>
-									</li>
-									<li class="nav-item">
-										<input type="radio" class="btn-check" name="purpose" id="form3_option2" autocomplete="off" value="R">
-										<label class="btn form-select purpose"  for="form3_option2">Rent</label>
-									</li>
-									<li class="nav-item"><input type="submit" class="btn btn-primary purpose searchbtn" value="SEARCH"></li>
-								</ul>
-								<div class="row container m-0 p-3 pb-4">
-									<div class="col-md-3">
-										{{ filter_form.city }}
-									</div>
-									<div class="col-md-6">
-										{{ filter_form.location }}
-									</div>
-									<div class="col-md-3">
-										{{ filter_form.category_query }}
-									</div>
-									<div class="col-md-3">
-										{{ filter_form.min_price }}
-									</div>
-									<div class="col-md-3">
-										{{ filter_form.max_price }}
-									</div>
-									<div class="col-md-3">
-										{{ filter_form.area_size }}
-									</div>
-									<div class="col-md-3">
-										{{ filter_form.area_size_unit }}
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<ul class="navbar-nav text-center m-0 p-0 system">
-					{% if user.is_authenticated %}
-					<li class="nav-item">
-						<a href="{% url 'account:logout' %}" class="btn btn-outline-dark rounded-pill">LOGOUT</a>
-					</li>
-					<li class="nav-item dropstart">
-						<a class="nav-link pt-1 pe-0" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<span class="profile-nav">
-								<ion-icon name="person-outline"></ion-icon>
-							</span>
-						</a>
-						<ul class="dropdown-menu p-2">
-							{% if user.is_authenticated and user.is_staff %}
-								<li><a class="dropdown-item rounded-3" href="{% url 'admin:index' %}">Admin</a></li>
-							{% endif %}
-							<li><a class="dropdown-item rounded-3" href="{% url 'account:profile' %}">Profile</a></li>
-							<li><a class="dropdown-item rounded-3" href="{% url 'account:wishlist' %}">Wishlist</a></li>
-							<li><a class="dropdown-item rounded-3" href="{% url 'account:profile-update' %}">Edit Profile</a></li>
-							<li><a class="dropdown-item rounded-3" href="{% url 'account:change-password' %}">Change Password</a></li>
-						</ul>
-					  </li>
-					{% else %}
-					<li class="nav-item">
-						<a href="{% url 'account:login' %}" class="btn btn-outline-dark rounded-pill">LOGIN</a>
-					</li>
-					<li class="nav-item">
-						<a href="{% url 'account:register' %}" {% if "/register" in request.path %}class="nav-link active "{% endif %} class="nav-link">SIGN UP</a>
-					</li>
-				</ul>
-				{% endif %}
-			</div>
-		</nav>
+		<!-----------------------	SWIPER  CSS	-------------------------- -->
+		<link
+			rel="preload"
+			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+			as="style"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+		/>
 
-		<div class="navigation" id="navbar-main-menu">
-			<div class="menu">
-				<span class="menuToggle"></span>
-				<span class="menuText">Menu</span>
-			</div>
-			<ul>
-				<li {% if request.path == '/' %} class="list active system"{% endif %} class="list system" style="--clr: #f00">
-					<a class="section nav-link" href="{% url 'listing:index' %}">
-						<span class="icon">
-							<ion-icon name="planet-outline"></ion-icon>
-						</span>
-						<span class="text">Welcome</span>
-					</a>
-				</li>
-				<li {% if request.path == '/' %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #f00">
-					<a class="section nav-link" href="{% url 'listing:index' %}">
-						<span class="icon">
-							<ion-icon name="home-outline" aria-label="Home"></ion-icon>
-						</span>
-						<span class="text">Welcome</span>
-					</a>
-				</li>
-				<li {% if "/createListing" in request.path %} class="list active"{% endif %} class="list" style="--clr: #707">
-					<a class="section nav-link" href="{% url 'listing:createListing' %}">
-						<span class="icon">
-							<ion-icon name="create-outline" aria-label="Sell"></ion-icon>
-						</span>
-						<span class="text">Sell</span>
-					</a>
-				</li>
-				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #099">
-					<a class="section nav-link" href="{% url 'listing:properties' %}">
-						<span class="icon">
-							<!-- <ion-icon name="business-outline" aria-label="Buy"></ion-icon> -->
-							<ion-icon name="list-outline"></ion-icon>
-						</span>
-						<span class="text">Listings</span>
-					</a>
-				</li>
-				<li {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #099">
-					<a class="section nav-link" href="{% url 'listing:properties' %}">
-						<span class="icon">
-							<!-- <ion-icon name="business-outline" aria-label="Buy"></ion-icon> -->
-							<ion-icon name="list-outline"></ion-icon>
-						</span>
-						<span class="text">Listings</span>
-					</a>
-				</li>
-				<li {% if "/properties?category=homes" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #2196f3">
-					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='homes' %}">
-						<span class="icon">
-							<ion-icon name="home-outline"></ion-icon>
-						</span>
-						<span class="text">Homes</span>
-					</a>
-				</li>
-				<li {% if "/properties?category=plots" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #0fc70f">
-					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='plots' %}">
-						<span class="icon">
-							<ion-icon name="map-outline"></ion-icon>
-						</span>
-						<span class="text">Land/Plots</span>
-					</a>
-				</li>
-				<li {% if "/properties?category=commercial" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
-					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='commercial' %}">
-						<span class="icon">
-							<ion-icon name="business-outline"></ion-icon>
-						</span>
-						<span class="text">Commercials</span>
-					</a>
-				</li>
-				<li {% if "/properties?category=room" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
-					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='room' %}">
-						<span class="icon">
-							<ion-icon name="bed-outline"></ion-icon>
-						</span>
-						<span class="text">Rooms</span>
-					</a>
-				</li>
-				<li {% if "/properties?category=other" in request.path %} class="list active system"{% endif %} class="list system" style="--clr: #000">
-					<a class="section nav-link" href="{% url 'listing:get_category' category_slug='other' %}">
-						<span class="icon">
-							<ion-icon name="list-circle-outline"></ion-icon>
-						</span>
-						<span class="text">Others</span>
-					</a>
-				</li>
-				{% if user.is_authenticated %}
-					<li {% if "/profile" in request.path %} class="list active mobile"{% endif %} class="list mobile" style="--clr: #2196f3">
-						<a class="section nav-link" href="{% url 'account:profile' %}">
-							<span class="icon">
-								<ion-icon name="person-outline" aria-label="Profile"></ion-icon>
-							</span>
-							<span class="text">Profile</span>
-						</a>
-					</li>
-					<li class="list mobile" style="--clr: #0fc70f">
-						<a class="section nav-link" href="{% url 'account:logout' %}">
-							<span class="icon">
-								<ion-icon name="log-out-outline" aria-label="Logout"></ion-icon>
-							</span>
-							<span class="text">Logout</span>
-						</a>
-					</li>
-					{% else %}
-						<li class="list mobile" style="--clr: #000">
-							<a class="section nav-link" href="{% url 'account:login' %}">
-								<span class="icon">
-									<ion-icon name="log-in-outline" aria-label="Login"></ion-icon>
-								</span>
-								<span class="text">Login</span>
-							</a>
-						</li>
-					{% endif %}
-			</ul>
-		</div>
-		<!--------------------------	 Navigation Ends	 -------------------------- -->
-	</header>
-	{% endblock %}
+		<!-----------------------	SWIPER JS Pre load	-------------------------- -->
+		<link
+			rel="preload"
+			href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"
+			as="script"
+		/>
 
-	<!--------------------------	Body Starts	 ------------------------------ -->
-	<main class="ms-lg-5 ps-lg-5">
-		{% block body %}
-		{% endblock %}
-		<!----------------------- SCROLL UP ---------------------------->
-		<a href="#" class="scrollup" id="scroll-up">
-			<ion-icon name="caret-up-outline"></ion-icon>
-		</a>
-	</main>
-	<!--------------------------	Body ends  -------------------------------- -->
-	
-	<!--------------------------	FOOTER Starts  ------------------------------ -->
-	{% block footer %}
-	  <div class="container">
-		<footer class="py-3 my-4">
-		  <ul class="nav justify-content-center pb-1">
-			<li class="nav-item"><a href="{% url 'listing:terms' %}" class="nav-link px-2 text-body-secondary">Terms of Use</a></li>
-			<li class="nav-item"><a href="{% url 'listing:privacy-policy' %}" class="nav-link px-2 text-body-secondary">Privacy Policy</a></li>
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-			<li class="nav-item"><a href="https://wa.me/qr/OMSZI67F3FZSC1" target="_blank" class="nav-link px-2 text-body-secondary">KayTee Developers</a></li>
-		  </ul>
-		  <hr class="w-75 m-auto mb-2">
-		  <div class="d-flex flex-wrap justify-content-center justify-content-md-between align-items-center px-4">
-			<div class="col-md-4 d-flex align-items-center">
-						<a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-							<img loading="eager" decoding="async" class="logo" src="{% static 'listing/img/logo/Light_theme_logo.webp' %}" alt="Haris Real Estate LOGO" width="50px" height="45px">
-						</a>
-						<span class="mb-3 mb-md-0 text-body-secondary">© 2023 Haris Real Estate, Inc</span>
-			</div>
-			<ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5 call-icon" href="tel:+92 3004882031"><ion-icon name="call-outline"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="mail:harisrealestate@yahoo.com"><ion-icon name="mail-outline"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://wa.me/message/4KG4PPKO5BJBI1" target="_blank"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://instagram.com/harisrealestateandbuilders?igshid=MzRlODBiNWFlZA==" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://www.facebook.com/HREBLHR" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
-						<li class="ms-3"><a class="text-body-secondary text-reset fs-5" href="https://youtube.com/@muhammadusmansaleem786" target="_blank"><ion-icon name="logo-youtube"></ion-icon></a></li>
-					</ul>
-		  </div>
-		</footer>
-	  </div>
-	{% endblock %}
-	<!--------------------------	FOOTER Ends  -------------------------------- -->
+		<!-----------------------	FONT AWESOME CSS LINK	-------------------------- -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
 
-	<!-------------------------		Bootstrap JavaScript 	-------------------------- -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-	
-	<!-------------------------		SWIPER JavaScript 	-------------------------- -->
-	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+		{% block head %} {% endblock head %} {% block style %} {% endblock style %}
+	</head>
+	<body>
+		{% block nav %} {% include "components/_header.html" %} {% endblock nav %}
 
-	<!-------------------------		Icons JavaScript 	-------------------------- -->
-	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-	
-	<!-------------------------		JQuery 	-------------------------- -->
-	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-	
-	<!-------------------------		JavaScript 	-------------------------- -->
-	<script defer src="{% static 'listing/js/index.js' %}"></script>
+		<!--------------------------	Body Starts	 ------------------------------ -->
+		<main class="ms-lg-5 ps-lg-5">
+			{% block body %} {% endblock body %}
+			<!----------------------- SCROLL UP ---------------------------->
+			<button type="button" class="scrollup" id="scroll-up">
+				<ion-icon name="caret-up-outline"></ion-icon>
+			</button>
+		</main>
+		<!--------------------------	Body ends  -------------------------------- -->
 
-	{% block script %}
-	{% endblock %}
-</body>
+		<!--------------------------	FOOTER Starts  ------------------------------ -->
+		{% block footer %}
+			{% include "components/_footer.html" %}
+		{% endblock footer %}
+		<!--------------------------	FOOTER Ends  -------------------------------- -->
+
+		<!-------------------------		Bootstrap JavaScript 	-------------------------- -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+			crossorigin="anonymous"
+		></script>
+
+		<!-------------------------		SWIPER JavaScript 	-------------------------- -->
+		<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+		<!-------------------------		Icons JavaScript 	-------------------------- -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+		></script>
+
+		<!-------------------------		JQuery 	-------------------------- -->
+		<script
+			src="https://code.jquery.com/jquery-3.7.0.min.js"
+			integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+			crossorigin="anonymous"
+		></script>
+
+		<!-------------------------		JavaScript 	-------------------------- -->
+		<script defer src="{% static 'listing/js/index.js' %}"></script>
+
+		{% block script %} {% endblock %}
+	</body>
 </html>

@@ -1,0 +1,318 @@
+{% load static %}
+
+<header>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Disclaimer:</strong> This is Beta version. Some features may not work properly.
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"></button>
+    </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}
+					alert-dismissible
+					fade
+					show
+					text-center
+					m-0
+					"
+					{% endif %}
+					role="alert">
+                {% autoescape on %}
+                    {{ message | safe }}
+                {% endautoescape %}
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-----------------------	Navigation call menu	 ------------------------ -->
+    <nav class="navbar navbar-expand-sm bg-body-tertiary">
+        <div class="container-fluid">
+            <span class="navbar-text ms-4">Let's Get You Your Own Property</span>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="tel:+92 3004882031">Call
+                        <span class="ms-1" aria-hidden="true">
+                            <ion-icon name="call-outline"></ion-icon>
+                        </span>
+                    </a>
+                </li>
+                <div class="d-flex mt-1" style="height: 30px;">
+                    <div class="vr"></div>
+                </div>
+				<li class="nav-item">
+					<a class="nav-link"
+						href="https://wa.me/message/4KG4PPKO5BJBI1"
+						target="_blank">Whatsapp
+						<span class="ms-1" aria-hidden="true">
+							<ion-icon name="logo-whatsapp"></ion-icon>
+						</span>
+					</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-----------------------	Navigation search and profile menu	 ------------------------ -->
+    <nav class="navbar navbar-expand-lg px-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'listing:index' %}">
+                <img loading="eager"
+                     decoding="async"
+                     class="logo"
+                     src="{% static 'listing/img/logo/Light_theme_logo.webp' %}"
+                     alt="Haris Real Estate LOGO"
+                     width="50px"
+                     height="45px">
+                <span class="HRE">Haris
+                    <br>
+                    <span class="re-text">Real Estate</span></span>
+                </a>
+                <div class="navbar-text m-sm-auto">
+                    <form action="{% url 'listing:get_property_by_search' %}" method="get">
+                        <input type="search"
+                               name="searchByTitle"
+                               class="form-control"
+                               id="searchByT"
+                               placeholder="Search by Title">
+                    </form>
+                    <a data-bs-toggle="collapse"
+                       href="#collapseExample"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="collapseExample">
+                        <ion-icon name="options-outline" class="loggedIn"
+                        {% if user.is_authenticated %}id="searchIcon"{% endif %}
+                        ></ion-icon>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <form class="search row g-1 m-auto"
+                                  method="GET"
+                                  action="{% url 'listing:get_property' %}">
+                                <ul class="nav nav-tabs p-0 m-0">
+                                    <li class="nav-item">
+                                        <input type="radio"
+                                               class="btn-check"
+                                               name="purpose"
+                                               id="form3_option1"
+                                               autocomplete="off"
+                                               value="S"
+                                               checked>
+                                        <label class="btn form-select purpose" for="form3_option1">Buy</label>
+                                    </li>
+                                    <li class="nav-item">
+                                        <input type="radio"
+                                               class="btn-check"
+                                               name="purpose"
+                                               id="form3_option2"
+                                               autocomplete="off"
+                                               value="R">
+                                        <label class="btn form-select purpose"  for="form3_option2">Rent</label>
+                                    </li>
+                                    <li class="nav-item">
+                                        <input type="submit"
+                                               class="btn btn-primary purpose searchbtn"
+                                               value="SEARCH">
+                                    </li>
+                                </ul>
+                                <div class="row container m-0 p-3 pb-4">
+                                    <div class="col-md-3">{{ filter_form.city }}</div>
+                                    <div class="col-md-6">{{ filter_form.location }}</div>
+                                    <div class="col-md-3">{{ filter_form.category_query }}</div>
+                                    <div class="col-md-3">{{ filter_form.min_price }}</div>
+                                    <div class="col-md-3">{{ filter_form.max_price }}</div>
+                                    <div class="col-md-3">{{ filter_form.area_size }}</div>
+                                    <div class="col-md-3">{{ filter_form.area_size_unit }}</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <ul class="navbar-nav text-center m-0 p-0 system">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="{% url 'account:logout' %}"
+                               class="btn btn-outline-dark rounded-pill">LOGOUT</a>
+                        </li>
+                        <li class="nav-item dropstart">
+                            <a class="nav-link pt-1 pe-0"
+                               role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="profile-nav">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu p-2">
+                                {% if user.is_authenticated and user.is_staff %}
+                                    <li>
+                                        <a class="dropdown-item rounded-3" href="{% url 'admin:index' %}">Admin</a>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <a class="dropdown-item rounded-3" href="{% url 'account:profile' %}">Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded-3" href="{% url 'account:wishlist' %}">Wishlist</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded-3"
+                                       href="{% url 'account:profile-update' %}">Edit Profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item rounded-3"
+                                       href="{% url 'account:change-password' %}">Change Password</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'account:login' %}"
+                               class="btn btn-outline-dark rounded-pill">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+							<a href="{% url 'account:register' %}" class="nav-link {% if '/register' in request.path %}active{% endif %}">SIGN UP</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="navigation" id="navbar-main-menu">
+            <div class="menu">
+                <span class="menuToggle"></span>
+                <span class="menuText">Menu</span>
+            </div>
+            <ul>
+                <li class="list system {% if request.path == '/' %}active{% endif %}"
+                    style="--clr: #f00">
+                    <a class="section nav-link" href="{% url 'listing:index' %}">
+                        <span class="icon">
+                            <ion-icon name="planet-outline"></ion-icon>
+                        </span>
+                        <span class="text">Welcome</span>
+                    </a>
+                </li>
+                <li class="list mobile {% if request.path == '/' %}active{% endif %}"
+                    style="--clr: #f00">
+                    <a class="section nav-link" href="{% url 'listing:index' %}">
+                        <span class="icon">
+                            <ion-icon name="home-outline" aria-label="Home"></ion-icon>
+                        </span>
+                        <span class="text">Welcome</span>
+                    </a>
+                </li>
+                <li class="list {% if "/createListing" in request.path %}active{% endif %}" style="--clr: #707">
+                    <a class="section nav-link" href="{% url 'listing:createListing' %}">
+                        <span class="icon">
+                            <ion-icon name="create-outline" aria-label="Sell"></ion-icon>
+                        </span>
+                        <span class="text">Sell</span>
+                    </a>
+                </li>
+                <li class="list system {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %}active{% endif %}"
+                    style="--clr: #099">
+                    <a class="section nav-link" href="{% url 'listing:properties' %}">
+                        <span class="icon">
+                            <!-- <ion-icon name="business-outline" aria-label="Buy"></ion-icon> -->
+                            <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                        <span class="text">Listings</span>
+                    </a>
+                </li>
+                <li class="list mobile {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %}active{% endif %}"
+                    style="--clr: #099">
+                    <a class="section nav-link" href="{% url 'listing:properties' %}">
+                        <span class="icon">
+                            <!-- <ion-icon name="business-outline" aria-label="Buy"></ion-icon> -->
+                            <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                        <span class="text">Listings</span>
+                    </a>
+                </li>
+                <li class="list system {% if "/properties?category=homes" in request.path %}active{% endif %}"
+                    style="--clr: #2196f3">
+                    <a class="section nav-link"
+                       href="{% url 'listing:get_category' category_slug='homes' %}">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="text">Homes</span>
+                    </a>
+                </li>
+                <li class="list system {% if "/properties?category=plots" in request.path %}active{% endif %}"
+                    style="--clr: #0fc70f">
+                    <a class="section nav-link"
+                       href="{% url 'listing:get_category' category_slug='plots' %}">
+                        <span class="icon">
+                            <ion-icon name="map-outline"></ion-icon>
+                        </span>
+                        <span class="text">Land/Plots</span>
+                    </a>
+                </li>
+                <li class="list system {% if "/properties?category=commercial" in request.path %}active{% endif %}"
+                    style="--clr: #000">
+                    <a class="section nav-link"
+                       href="{% url 'listing:get_category' category_slug='commercial' %}">
+                        <span class="icon">
+                            <ion-icon name="business-outline"></ion-icon>
+                        </span>
+                        <span class="text">Commercials</span>
+                    </a>
+                </li>
+                <li class="list system {% if "/properties?category=room" in request.path %}active{% endif %}"
+                    style="--clr: #000">
+                    <a class="section nav-link"
+                       href="{% url 'listing:get_category' category_slug='room' %}">
+                        <span class="icon">
+                            <ion-icon name="bed-outline"></ion-icon>
+                        </span>
+                        <span class="text">Rooms</span>
+                    </a>
+                </li>
+                <li class="list system {% if "/properties?category=other" in request.path %}active{% endif %}"
+                    style="--clr: #000">
+                    <a class="section nav-link"
+                       href="{% url 'listing:get_category' category_slug='other' %}">
+                        <span class="icon">
+                            <ion-icon name="list-circle-outline"></ion-icon>
+                        </span>
+                        <span class="text">Others</span>
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li {% if "/profile" in request.path %}class="list active mobile"{% endif %}
+                        class="list mobile"
+                        style="--clr: #2196f3">
+                        <a class="section nav-link" href="{% url 'account:profile' %}">
+                            <span class="icon">
+                                <ion-icon name="person-outline" aria-label="Profile"></ion-icon>
+                            </span>
+                            <span class="text">Profile</span>
+                        </a>
+                    </li>
+                    <li class="list mobile" style="--clr: #0fc70f">
+                        <a class="section nav-link" href="{% url 'account:logout' %}">
+                            <span class="icon">
+                                <ion-icon name="log-out-outline" aria-label="Logout"></ion-icon>
+                            </span>
+                            <span class="text">Logout</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="list mobile" style="--clr: #000">
+                        <a class="section nav-link" href="{% url 'account:login' %}">
+                            <span class="icon">
+                                <ion-icon name="log-in-outline" aria-label="Login"></ion-icon>
+                            </span>
+                            <span class="text">Login</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!--------------------------	 Navigation Ends	 -------------------------- -->
+    </header>
