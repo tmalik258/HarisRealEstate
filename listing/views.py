@@ -1,20 +1,14 @@
 import json
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.db import IntegrityError
-from django.db.models import Max
-from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
-from django.views.generic import ListView, View
-from django.db.models import BooleanField, Case, When, Q
+from django.utils.functional import cached_property
+from django.views.generic import ListView
+from django.db.models import Q, Prefetch
 
 from .models import (
 	Listing,
@@ -111,106 +105,68 @@ def property_detail(request, item):
 	)
 
 
-class SearchedPropertiesListView(ListView):
-	model = Listing
-	queryset = Listing.posts.all()
-	paginate_by = 25  # show 25 posts in reverse chronologial order
-	template_name = "listing/property_list.html"
-
-	def get_queryset(self, **kwargs):
-		qs = super().get_queryset(**kwargs)
-		title_or_address_query = self.request.GET["searchByTitle"]
-		filtered_qs = qs.filter(
-			Q(title__icontains=title_or_address_query)
-			| Q(address__icontains=title_or_address_query)
-			| Q(price__icontains=title_or_address_query)
-			| Q(category__name__icontains=title_or_address_query)
-			| Q(area_size_unit__icontains=title_or_address_query)
-			| Q(city__icontains=title_or_address_query)
-			| Q(specification_value__value__icontains=title_or_address_query)
-			| Q(
-				specification_value__specification__name__icontains=title_or_address_query
-			)
-			| Q(amenity__amenity__feature__icontains=title_or_address_query)
-		).distinct()
-		return filtered_qs
-
-	def get_context_data(self, **kwargs):
-		context = super().get_context_data(**kwargs)
-		wishlist_listings = []
-		if self.request.user.is_authenticated:
-			wishlist_listings = self.request.user.user_wishlist.all()
-		context["wishlist_listings"] = wishlist_listings
-		return context
-
-
-def is_valid_queryparam(param):
-	return param != "" and param is not None
-
-
 class FilteredPropertiesListView(ListView):
 	model = Listing
-	queryset = Listing.posts.all()
-	paginate_by = 25  # show 25 posts in reverse chronologial order
+	paginate_by = 25
 	template_name = "listing/property_list.html"
 
-	def get_queryset(self, **kwargs):
-		qs = super().get_queryset(**kwargs)
-		listing_form = listingGetRequestForm(self.request.GET)
-		if listing_form.is_valid():
-			purpose_query = self.request.GET["purpose"]
-			category_query = listing_form.cleaned_data["category_query"]
-			address_query = listing_form.cleaned_data["location"]
-			city_query = listing_form.cleaned_data["city"]
-			min_price_query = listing_form.cleaned_data["min_price"]
-			max_price_query = listing_form.cleaned_data["max_price"]
-			area_size = listing_form.cleaned_data["area_size"]
-			area_size_unit = listing_form.cleaned_data["area_size_unit"]
+	@cached_property
+	def listing_form(self):
+		return listingGetRequestForm(self.request.GET)
 
-			if is_valid_queryparam(purpose_query):
-				qs = qs.filter(
-					specification_value__specification__name="Purpose",
-					specification_value__value__icontains=purpose_query,
-				)
+	def get_queryset(self):
+		if not self.listing_form.is_valid():
+			return Listing.posts.none()
 
-			# SEARCH BY CATEGORY
-			if is_valid_queryparam(category_query):
-				qs = qs.filter(
-					category__in=Category.objects.get(
-						name=category_query
-					).get_descendants(include_self=True)
-				)
-			# SEARCH BY LOCATION
-			if is_valid_queryparam(address_query):
-				qs = qs.filter(address__icontains=address_query)
+		qs = Listing.posts.all()
 
-			# SEARCH BY CITY
-			if is_valid_queryparam(city_query):
-				qs = qs.filter(city=city_query)
+		filters = Q()
+		data = self.listing_form.cleaned_data
 
-			# SEARCH BY PRICE MIN
-			if is_valid_queryparam(min_price_query):
-				qs = qs.filter(price__gte=min_price_query)
+		# Purpose filter
+		purpose_query = self.request.GET.get("purpose")
+		if purpose_query:
+			filters &= Q(specification_value__specification__name="Purpose",
+							specification_value__value__icontains=purpose_query)
 
-			# SEARCH BY PRICE MAX
-			if is_valid_queryparam(max_price_query):
-				qs = qs.filter(price__lt=max_price_query)
+		# Search query
+		search_query = self.request.GET.get("q")
+		if search_query:
+			filters |= Q(title__icontains=search_query) | \
+						Q(address__icontains=search_query) | \
+						Q(price__icontains=search_query) | \
+						Q(category__name__icontains=search_query) | \
+						Q(area_size_unit__icontains=search_query) | \
+						Q(city__icontains=search_query) | \
+						Q(specification_value__value__icontains=search_query) | \
+						Q(specification_value__specification__name__icontains=search_query) | \
+						Q(amenity__amenity__feature__icontains=search_query)
 
-			# SEARCH BY AREA SIZE
-			if is_valid_queryparam(area_size):
-				qs = qs.filter(
-					specification_value__specification__name="Area Size",
-					specification_value__value=area_size,
-				)
+		# Category filter
+		category_query = data.get("category_query")
+		if category_query:
+			category = Category.objects.get(name=category_query)
+			filters &= Q(category__in=category.get_descendants(include_self=True))
 
-			# SEARCH BY AREA SIZE
-			if is_valid_queryparam(area_size_unit):
-				qs = qs.filter(area_size_unit=area_size_unit)
+		# Other filters
+		if data.get("location"):
+			filters &= Q(address__icontains=data["location"])
+		if data.get("city"):
+			filters &= Q(city=data["city"])
+		if data.get("min_price"):
+			filters &= Q(price__gte=data["min_price"])
+		if data.get("max_price"):
+			filters &= Q(price__lt=data["max_price"])
+		if data.get("area_size"):
+			filters &= Q(specification_value__specification__name="Area Size",
+							specification_value__value=data["area_size"])
+		if data.get("area_size_unit"):
+			filters &= Q(area_size_unit=data["area_size_unit"])
 
-		else:
-			qs = qs.none()
-
-		return qs
+		return qs.filter(filters).select_related('category').prefetch_related(
+			Prefetch('specification_value_set', queryset=ListingSpecificationValue.objects.select_related('specification')),
+			Prefetch('amenity_set', queryset=ListingAmenity.objects.select_related('amenity'))
+		).distinct()
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)

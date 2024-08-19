@@ -57,7 +57,7 @@
         </div>
     </nav>
     <!-----------------------	Navigation search and profile menu	 ------------------------ -->
-    <nav class="navbar navbar-expand-lg px-3">
+    <nav class="navbar navbar-expand-lg px-sm-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'listing:index' %}">
                 <img loading="eager"
@@ -70,67 +70,62 @@
                 <span class="HRE">Haris
                     <br>
                     <span class="re-text">Real Estate</span></span>
-                </a>
-                <div class="navbar-text m-sm-auto">
-                    <form action="{% url 'listing:get_property_by_search' %}" method="get">
-                        <input type="search"
-                               name="searchByTitle"
-                               class="form-control"
-                               id="searchByT"
-                               placeholder="Search by Title">
-                    </form>
-                    <a data-bs-toggle="collapse"
-                       href="#collapseExample"
-                       role="button"
-                       aria-expanded="false"
-                       aria-controls="collapseExample">
-                        <ion-icon name="options-outline" class="loggedIn"
-                        {% if user.is_authenticated %}id="searchIcon"{% endif %}
-                        ></ion-icon>
-                    </a>
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            <form class="search row g-1 m-auto"
-                                  method="GET"
-                                  action="{% url 'listing:get_property' %}">
-                                <ul class="nav nav-tabs p-0 m-0">
-                                    <li class="nav-item">
-                                        <input type="radio"
-                                               class="btn-check"
-                                               name="purpose"
-                                               id="form3_option1"
-                                               autocomplete="off"
-                                               value="S"
-                                               checked>
-                                        <label class="btn form-select purpose" for="form3_option1">Buy</label>
-                                    </li>
-                                    <li class="nav-item">
-                                        <input type="radio"
-                                               class="btn-check"
-                                               name="purpose"
-                                               id="form3_option2"
-                                               autocomplete="off"
-                                               value="R">
-                                        <label class="btn form-select purpose"  for="form3_option2">Rent</label>
-                                    </li>
-                                    <li class="nav-item">
-                                        <input type="submit"
-                                               class="btn btn-primary purpose searchbtn"
-                                               value="SEARCH">
-                                    </li>
-                                </ul>
-                                <div class="row container m-0 p-3 pb-4">
-                                    <div class="col-md-3">{{ filter_form.city }}</div>
-                                    <div class="col-md-6">{{ filter_form.location }}</div>
-                                    <div class="col-md-3">{{ filter_form.category_query }}</div>
-                                    <div class="col-md-3">{{ filter_form.min_price }}</div>
-                                    <div class="col-md-3">{{ filter_form.max_price }}</div>
-                                    <div class="col-md-3">{{ filter_form.area_size }}</div>
-                                    <div class="col-md-3">{{ filter_form.area_size_unit }}</div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+			</a>
+                <div class="navbar-search m-sm-auto">
+                    <form action="{% url 'listing:get_property' %}" method="get" class="search-form">
+						<div class="search-bar">
+							{{ filter_form.q }}
+							<a data-bs-toggle="collapse"
+							href="#collapseExample"
+							role="button"
+							aria-expanded="false"
+							aria-controls="collapseExample">
+								<ion-icon name="options-outline" class="options-icon"></ion-icon>
+							</a>
+						</div>
+							<div class="collapse" id="collapseExample">
+								<div class="card card-body">
+									<div class="search row g-1 m-auto">
+										<ul class="nav nav-tabs p-0 m-0">
+											<li class="nav-item">
+												<input type="radio"
+													class="btn-check"
+													name="purpose"
+													id="form3_option1"
+													autocomplete="off"
+													value="S"
+													checked>
+												<label class="btn form-select purpose" for="form3_option1">Buy</label>
+											</li>
+											<li class="nav-item">
+												<input type="radio"
+													class="btn-check"
+													name="purpose"
+													id="form3_option2"
+													autocomplete="off"
+													value="R">
+												<label class="btn form-select purpose"  for="form3_option2">Rent</label>
+											</li>
+											<li class="nav-item">
+												<input type="submit"
+													class="btn btn-primary purpose searchbtn"
+													value="SEARCH">
+											</li>
+										</ul>
+										<div class="row container m-0 p-3 pb-4">
+											<div class="col-md-3">{{ filter_form.city }}</div>
+											<div class="col-md-6">{{ filter_form.location }}</div>
+											<div class="col-md-3">{{ filter_form.category_query }}</div>
+											<div class="col-md-3">{{ filter_form.min_price }}</div>
+											<div class="col-md-3">{{ filter_form.max_price }}</div>
+											<div class="col-md-3">{{ filter_form.area_size }}</div>
+											<div class="col-md-3">{{ filter_form.area_size_unit }}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						<!-- </div> -->
+					</form>
                 </div>
                 <ul class="navbar-nav text-center m-0 p-0 system">
                     {% if user.is_authenticated %}

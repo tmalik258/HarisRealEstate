@@ -1,5 +1,4 @@
 from django.urls import path
-from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -12,10 +11,8 @@ urlpatterns = [
 	path('properties', views.PropertiesListView.as_view(), name='properties'),
 	# single property url
 	path('properties/property/<uuid:item>', views.property_detail, name='property-detail'),
-	# searched properties display
-    path('filtered_properties?', views.SearchedPropertiesListView.as_view(), name='get_property_by_search'),
 	# filtered properties display
-    path('filtered_properties', views.FilteredPropertiesListView.as_view(), name='get_property'),
+    path('search', views.FilteredPropertiesListView.as_view(), name='get_property'),
 	# filtered properties display
     path('properties/category=<slug:category_slug>', views.CategoryListView.as_view(), name='get_category'),
 	# about us url

@@ -168,6 +168,10 @@ class listingGetRequestForm (forms.Form):
 			# It adds appropriate indentation using dashes ('---') to represent the hierarchy.
 			return '---' * obj.get_level() + str(obj)
 
+	q = forms.CharField(widget=forms.TextInput(attrs={
+		'class': 'form-control',
+		'placeholder': 'Search by Title',
+	}), label='', required=False)
 	city = forms.CharField(widget=forms.Select(attrs={
 		'class': 'form-select',
 		'title': 'Select City',

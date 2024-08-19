@@ -246,68 +246,6 @@ form.search {
 	cursor: pointer;
 }
 
-/* ------------------------------	SEARCH BY TITLE AND FILTER	--------------------------- */
-.navbar .container-fluid .navbar-text #searchByT {
-	border: none;
-	position: relative;
-	width: 25rem;
-	border-radius: 20px;
-	transition: 0.3s;
-}
-
-.navbar .container-fluid .navbar-text #searchByT:focus {
-	--box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.3);
-	outline: none;
-	box-shadow: var(--box-shadow);
-}
-
-.navbar .container-fluid .navbar-text a #searchIcon,
-.navbar .container-fluid .navbar-text a .loggedIn {
-	position: absolute;
-	top: 17px;
-	right: calc(50% - 16.3rem);
-	font-size: 2rem;
-	color: var(--primarycolor);
-	transition: 0.2s;
-}
-
-.navbar .container-fluid .navbar-text a .loggedIn {
-	right: calc(50% - 14rem);
-}
-
-.navbar .container-fluid .navbar-text a #searchIcon:hover,
-.navbar .container-fluid .navbar-text a[aria-expanded="true"] #searchIcon {
-	right: calc(50% - 16.5rem);
-}
-
-.navbar .container-fluid .navbar-text a .loggedIn:hover,
-.navbar .container-fluid .navbar-text a[aria-expanded="true"] .loggedIn {
-	right: calc(50% - 14.5rem);
-	top: 14px;
-	padding: 5px;
-	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2),
-		-2px -2px 5px rgba(0, 0, 0, 0.05);
-	border-radius: 5px;
-}
-
-.navbar .container-fluid .navbar-text .card {
-	padding-top: 10px;
-	max-width: 22.3rem;
-	border: none;
-	width: max-content;
-	background: none;
-}
-
-.navbar .container-fluid .navbar-text .collapse .card form,
-.navbar .container-fluid .navbar-text .card form {
-	transition: 0.33s;
-	width: 100%;
-}
-
-.button-text {
-	font-size: 14px;
-}
-
 /* -------------------------------------	CAROUSEL	------------------------------------- */
 .carousel {
 	box-shadow: 0px 1px 20px #141414;
