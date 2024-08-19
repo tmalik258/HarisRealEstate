@@ -205,7 +205,7 @@
                         <span class="text">Welcome</span>
                     </a>
                 </li>
-                <li class="list {% if "/createListing" in request.path %}active{% endif %}" style="--clr: #707">
+                <li class="list {% if '/createListing' in request.path %}active{% endif %}" style="--clr: #707">
                     <a class="section nav-link" href="{% url 'listing:createListing' %}">
                         <span class="icon">
                             <ion-icon name="create-outline" aria-label="Sell"></ion-icon>
@@ -213,7 +213,7 @@
                         <span class="text">Sell</span>
                     </a>
                 </li>
-                <li class="list system {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %}active{% endif %}"
+                <li class="list system {% if '/properties' == request.path or '/filtered_propertie' in request.path or '/properties/property' in request.path %}active{% endif %}"
                     style="--clr: #099">
                     <a class="section nav-link" href="{% url 'listing:properties' %}">
                         <span class="icon">
@@ -223,7 +223,7 @@
                         <span class="text">Listings</span>
                     </a>
                 </li>
-                <li class="list mobile {% if "/properties" == request.path or "/filtered_properties" in request.path or "/properties/property" in request.path %}active{% endif %}"
+                <li class="list mobile {% if '/properties' == request.path or '/filtered_properties' in request.path or '/properties/property' in request.path %}active{% endif %}"
                     style="--clr: #099">
                     <a class="section nav-link" href="{% url 'listing:properties' %}">
                         <span class="icon">
@@ -233,7 +233,7 @@
                         <span class="text">Listings</span>
                     </a>
                 </li>
-                <li class="list system {% if "/properties?category=homes" in request.path %}active{% endif %}"
+                <li class="list system {% if '/properties?category=homes' in request.path %}active{% endif %}"
                     style="--clr: #2196f3">
                     <a class="section nav-link"
                        href="{% url 'listing:get_category' category_slug='homes' %}">
@@ -243,7 +243,7 @@
                         <span class="text">Homes</span>
                     </a>
                 </li>
-                <li class="list system {% if "/properties?category=plots" in request.path %}active{% endif %}"
+                <li class="list system {% if '/properties?category=plots' in request.path %}active{% endif %}"
                     style="--clr: #0fc70f">
                     <a class="section nav-link"
                        href="{% url 'listing:get_category' category_slug='plots' %}">
@@ -253,7 +253,7 @@
                         <span class="text">Land/Plots</span>
                     </a>
                 </li>
-                <li class="list system {% if "/properties?category=commercial" in request.path %}active{% endif %}"
+                <li class="list system {% if '/properties?category=commercial' in request.path %}active{% endif %}"
                     style="--clr: #000">
                     <a class="section nav-link"
                        href="{% url 'listing:get_category' category_slug='commercial' %}">
@@ -263,7 +263,7 @@
                         <span class="text">Commercials</span>
                     </a>
                 </li>
-                <li class="list system {% if "/properties?category=room" in request.path %}active{% endif %}"
+                <li class="list system {% if '/properties?category=room' in request.path %}active{% endif %}"
                     style="--clr: #000">
                     <a class="section nav-link"
                        href="{% url 'listing:get_category' category_slug='room' %}">
@@ -273,7 +273,7 @@
                         <span class="text">Rooms</span>
                     </a>
                 </li>
-                <li class="list system {% if "/properties?category=other" in request.path %}active{% endif %}"
+                <li class="list system {% if '/properties?category=other' in request.path %}active{% endif %}"
                     style="--clr: #000">
                     <a class="section nav-link"
                        href="{% url 'listing:get_category' category_slug='other' %}">
@@ -284,8 +284,7 @@
                     </a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li {% if "/profile" in request.path %}class="list active mobile"{% endif %}
-                        class="list mobile"
+                    <li class="list mobile {% if '/profile' in request.path %}active{% endif %}"
                         style="--clr: #2196f3">
                         <a class="section nav-link" href="{% url 'account:profile' %}">
                             <span class="icon">
