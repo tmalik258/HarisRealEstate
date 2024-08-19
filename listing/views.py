@@ -164,7 +164,7 @@ class FilteredPropertiesListView(ListView):
 			filters &= Q(area_size_unit=data["area_size_unit"])
 
 		return qs.filter(filters).select_related('category').prefetch_related(
-			Prefetch('specification_value_set', queryset=ListingSpecificationValue.objects.select_related('specification')),
+			Prefetch('listing_specification_value_set', queryset=ListingSpecificationValue.objects.select_related('specification')),
 			Prefetch('amenity_set', queryset=ListingAmenity.objects.select_related('amenity'))
 		).distinct()
 
