@@ -165,7 +165,7 @@ class FilteredPropertiesListView(ListView):
 
 		return qs.filter(filters).select_related('category').prefetch_related(
 			Prefetch('specification_value', queryset=ListingSpecificationValue.objects.select_related('specification')),
-			Prefetch('amenity_set', queryset=ListingAmenity.objects.select_related('amenity'))
+			Prefetch('amenity', queryset=ListingAmenity.objects.select_related('amenity'))
 		).distinct()
 
 	def get_context_data(self, **kwargs):
