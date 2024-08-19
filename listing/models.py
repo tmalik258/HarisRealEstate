@@ -17,7 +17,13 @@ from PIL import Image as PillowImage
 from django.utils.safestring import mark_safe
 
 
-# Create your models here.
+# Model Managers
+class ListingManager(models.Manager):
+	def get_queryset(self):
+		return super(models.Manager, self).get_queryset().filter(is_active=True)
+
+
+# Models
 class Category (MPTTModel):
 	"""
 	Category table implimented with MPTT
@@ -121,12 +127,6 @@ class ListingSpecificationValue(models.Model):
 
 
 class Listing (models.Model):
-	# Model Managers
-	class ListingManager(models.Manager):
-		def get_queryset(self):
-			return super(models.Manager, self).get_queryset().filter(is_active=True)
-
-
 	AREA_SIZE_CHOICES = (
 		('SFt', 'Sq. Ft.'),
 		('SM', 'Sq. M.'),
