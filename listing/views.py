@@ -133,14 +133,19 @@ class FilteredPropertiesListView(ListView):
 		# Search query
 		search_query = self.request.GET.get("q")
 		if search_query:
+			search_terms = search_query.split()  # Split query into terms
 			search_fields = [
 				'title', 'address', 'price', 'category__name', 'area_size_unit',
 				'city', 'specification_value__value',
 				'specification_value__specification__name',
 				'amenity__amenity__feature'
 			]
-			search_filters = [Q(**{f'{field}__icontains': search_query}) for field in search_fields]
-			filters |= reduce(operator.or_, search_filters)
+			# Create search filters for each term across all fields
+			term_filters = [
+				reduce(operator.or_, [Q(**{f'{field}__icontains': term}) for field in search_fields])
+				for term in search_terms
+			]
+			filters &= reduce(operator.and_, term_filters)  # Combine filters for all terms
 		
 		# Category filter
 		category_query = data.get("category_query")
@@ -167,6 +172,7 @@ class FilteredPropertiesListView(ListView):
 			Prefetch('specification_value', queryset=ListingSpecificationValue.objects.select_related('specification')),
 			Prefetch('amenity', queryset=ListingAmenity.objects.select_related('amenity'))
 		).distinct()
+
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
