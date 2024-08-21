@@ -1,4 +1,6 @@
 import json
+from functools import reduce
+import operator
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -117,37 +119,35 @@ class FilteredPropertiesListView(ListView):
 	def get_queryset(self):
 		if not self.listing_form.is_valid():
 			return Listing.posts.none()
-
+		
 		qs = Listing.posts.all()
-
 		filters = Q()
 		data = self.listing_form.cleaned_data
-
+		
 		# Purpose filter
 		purpose_query = self.request.GET.get("purpose")
 		if purpose_query:
 			filters &= Q(specification_value__specification__name="Purpose",
-							specification_value__value__icontains=purpose_query)
-
+						specification_value__value__icontains=purpose_query)
+		
 		# Search query
 		search_query = self.request.GET.get("q")
 		if search_query:
-			filters |= Q(title__icontains=search_query) | \
-						Q(address__icontains=search_query) | \
-						Q(price__icontains=search_query) | \
-						Q(category__name__icontains=search_query) | \
-						Q(area_size_unit__icontains=search_query) | \
-						Q(city__icontains=search_query) | \
-						Q(specification_value__value__icontains=search_query) | \
-						Q(specification_value__specification__name__icontains=search_query) | \
-						Q(amenity__amenity__feature__icontains=search_query)
-
+			search_fields = [
+				'title', 'address', 'price', 'category__name', 'area_size_unit',
+				'city', 'specification_value__value',
+				'specification_value__specification__name',
+				'amenity__amenity__feature'
+			]
+			search_filters = [Q(**{f'{field}__icontains': search_query}) for field in search_fields]
+			filters |= reduce(operator.or_, search_filters)
+		
 		# Category filter
 		category_query = data.get("category_query")
 		if category_query:
 			category = Category.objects.get(name=category_query)
 			filters &= Q(category__in=category.get_descendants(include_self=True))
-
+		
 		# Other filters
 		if data.get("location"):
 			filters &= Q(address__icontains=data["location"])
@@ -159,10 +159,10 @@ class FilteredPropertiesListView(ListView):
 			filters &= Q(price__lt=data["max_price"])
 		if data.get("area_size"):
 			filters &= Q(specification_value__specification__name="Area Size",
-							specification_value__value=data["area_size"])
+						specification_value__value=data["area_size"])
 		if data.get("area_size_unit"):
 			filters &= Q(area_size_unit=data["area_size_unit"])
-
+		
 		return qs.filter(filters).select_related('category').prefetch_related(
 			Prefetch('specification_value', queryset=ListingSpecificationValue.objects.select_related('specification')),
 			Prefetch('amenity', queryset=ListingAmenity.objects.select_related('amenity'))
