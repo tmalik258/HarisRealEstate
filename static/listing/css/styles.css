@@ -606,7 +606,7 @@ form.search {
 	.container
 	.container.agent,
 .agents .container,
-.index_properties .properties.container.mySwiper.swiper {
+.index_properties .properties.container.swiper {
 	background: #e9ecf0;
 	border-radius: 15px;
 }
@@ -657,7 +657,7 @@ form.search {
 	.swiper-slide
 	img::selection,
 .index_properties
-	.properties.container.mySwiper.swiper
+	.properties.container.swiper
 	.swiper-wrapper
 	.swiper-slide
 	img::selection {
