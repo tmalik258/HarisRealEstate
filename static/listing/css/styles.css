@@ -611,6 +611,10 @@ form.search {
 	border-radius: 15px;
 }
 
+.index_properties .properties {
+	width: calc(100vw - 9em);
+}
+
 .properties.property_detail
 	.container
 	.row
