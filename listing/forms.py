@@ -161,7 +161,10 @@ class listingGetRequestForm (forms.Form):
 		('M', 'Marla'),
 		('K', 'Kanal'),
 	)
-
+	PURPOSE_CHOICES = (
+		('Sale', 'For Sale'),
+		('Rent', 'For Rent'),
+	)
 	class CategoryChoiceField(forms.ModelChoiceField):
 		def label_from_instance(self, obj):
 			# This function will generate the display label for each category.
@@ -172,36 +175,40 @@ class listingGetRequestForm (forms.Form):
 		'class': 'form-control',
 		'placeholder': 'Search by Title',
 	}), label='', required=False)
-	city = forms.CharField(widget=forms.Select(attrs={
+	city_q = forms.CharField(widget=forms.Select(attrs={
 		'class': 'form-select',
 		'title': 'Select City',
 	}, choices=CITY_CHOICES), required=False)
-	category_query = CategoryChoiceField(
+	category_q = CategoryChoiceField(
         queryset=Category.objects.all(),
         empty_label="Category",  # Optional, set a custom label for the empty option
         widget=forms.Select(attrs={'class': 'form-select'}),
 		required=False
     )
-	location = forms.CharField(widget=forms.TextInput(attrs={
+	location_q = forms.CharField(widget=forms.TextInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Search by Location',
 	}), label='', required=False)
-	min_price = forms.CharField(widget=forms.NumberInput(attrs={
+	min_price_q = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Min Price',
 		'min': 10000,
 	}), label='', required=False, min_length=4)
-	max_price = forms.CharField(widget=forms.NumberInput(attrs={
+	max_price_q = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Max Price',
 		'min': 10000,
 	}), label='', required=False, min_length=4)
-	area_size = forms.CharField(widget=forms.NumberInput(attrs={
+	area_size_q = forms.CharField(widget=forms.NumberInput(attrs={
 		'class': 'form-control',
 		'placeholder': 'Area Size',
 		'min': 0
 	}), label='', required=False)
-	area_size_unit = forms.CharField(widget=forms.Select(attrs={
+	area_size_unit_q = forms.CharField(widget=forms.Select(attrs={
 		'class': 'form-select',
 		'title': 'Select Unit',
 	}, choices=AREA_SIZE_CHOICES), required=False)
+	purpose_q = forms.CharField(widget=forms.RadioSelect(attrs={
+		'class': 'btn-check',
+		'title': 'Select Purpose',
+	}, choices=PURPOSE_CHOICES), required=False)

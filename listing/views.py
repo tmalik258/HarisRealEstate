@@ -117,57 +117,78 @@ class FilteredPropertiesListView(ListView):
 		return listingGetRequestForm(self.request.GET)
 
 	def get_queryset(self):
+		# Check if the form data is valid
 		if not self.listing_form.is_valid():
-			return Listing.posts.none()
+			return Listing.posts.none()  # Return an empty queryset if the form is invalid
 		
+		# Start with all listings
 		qs = Listing.posts.all()
+		
+		# Initialize filters using the Q object (empty at first)
 		filters = Q()
+		
+		# Cleaned data from the form
 		data = self.listing_form.cleaned_data
 		
-		# Purpose filter
+		# Purpose filter: If the user has selected a specific purpose (like 'Rent' or 'Buy')
 		purpose_query = self.request.GET.get("purpose")
 		if purpose_query:
+			# Add filter for listings where the specification value is 'Purpose' and the value matches
 			filters &= Q(specification_value__specification__name="Purpose",
 						specification_value__value__icontains=purpose_query)
 		
-		# Search query
+		# Search query: This handles a search input by the user (like '40 marla house')
 		search_query = self.request.GET.get("q")
 		if search_query:
-			search_terms = search_query.split()  # Split query into terms
+			# Split the search query into individual words
+			search_terms = search_query.split()
+			
+			# Define the fields where you want to search for the terms
 			search_fields = [
 				'title', 'address', 'price', 'category__name', 'area_size_unit',
 				'city', 'specification_value__value',
 				'specification_value__specification__name',
 				'amenity__amenity__feature'
 			]
-			# Create search filters for each term across all fields
+			
+			# Create a filter for each term and search across the fields
 			term_filters = [
 				reduce(operator.or_, [Q(**{f'{field}__icontains': term}) for field in search_fields])
 				for term in search_terms
 			]
-			filters &= reduce(operator.and_, term_filters)  # Combine filters for all terms
+			
+			# Combine the filters for all terms using logical AND
+			filters &= reduce(operator.and_, term_filters)
 		
-		# Category filter
-		category_query = data.get("category_query")
+		# Category filter: If the user has selected a category
+		category_query = data.get("category_q")
 		if category_query:
+			# Get the category object by name
 			category = Category.objects.get(name=category_query)
+			# Add a filter for listings that belong to the selected category or its descendants
 			filters &= Q(category__in=category.get_descendants(include_self=True))
 		
-		# Other filters
-		if data.get("location"):
-			filters &= Q(address__icontains=data["location"])
-		if data.get("city"):
-			filters &= Q(city=data["city"])
-		if data.get("min_price"):
-			filters &= Q(price__gte=data["min_price"])
-		if data.get("max_price"):
-			filters &= Q(price__lt=data["max_price"])
-		if data.get("area_size"):
-			filters &= Q(specification_value__specification__name="Area Size",
-						specification_value__value=data["area_size"])
-		if data.get("area_size_unit"):
-			filters &= Q(area_size_unit=data["area_size_unit"])
+		# Other filters: These apply filters based on specific fields (location, city, price, etc.)
+		if data.get("location_q"):
+			filters &= Q(address__icontains=data["location_q"])
 		
+		if data.get("city_q"):
+			filters &= Q(city=data["city_q"])
+		
+		if data.get("min_price_q"):
+			filters &= Q(price__gte=data["min_price_q"])
+		
+		if data.get("max_price_q"):
+			filters &= Q(price__lt=data["max_price_q"])
+		
+		if data.get("area_size_q"):
+			filters &= Q(specification_value__specification__name="Area Size",
+						specification_value__value=data["area_size_q"])
+		
+		if data.get("area_size_unit_q"):
+			filters &= Q(area_size_unit=data["area_size_unit_q"])
+		
+		# Return the filtered queryset, with related data fetched in a single query
 		return qs.filter(filters).select_related('category').prefetch_related(
 			Prefetch('specification_value', queryset=ListingSpecificationValue.objects.select_related('specification')),
 			Prefetch('amenity', queryset=ListingAmenity.objects.select_related('amenity'))
@@ -285,11 +306,14 @@ def createListing(request):
 				cache.set("listing_specifications", specifications)
 
 			# Create a list of ListingSpecificationValue objects
+			purpose: str = 'Sale'
+			if listing_form.cleaned_data["purpose"] in ['Sale', 'Rent']:
+				purpose = listing_form.cleaned_data["purpose"]
 			specification_values = [
 				ListingSpecificationValue(
 					listing=listing_obj,
 					specification=specifications.get(name="Purpose"),
-					value=listing_form.cleaned_data["purpose"],
+					value=purpose,
 				),
 				ListingSpecificationValue(
 					listing=listing_obj,
@@ -418,11 +442,14 @@ def updateListing(request, item_id):
 				ListingSpecificationValue.objects.filter(listing=listing).delete()
 
 				# Create a list of ListingSpecificationValue objects
+				purpose: str = 'Sale'
+				if listing_form.cleaned_data["purpose"] in ['Sale', 'Rent']:
+					purpose = listing_form.cleaned_data["purpose"]
 				specification_values = [
 					ListingSpecificationValue(
 						listing=listing,
 						specification=specifications.get(name="Purpose"),
-						value=listing_form.cleaned_data["purpose"],
+						value=purpose,
 					),
 					ListingSpecificationValue(
 						listing=listing,

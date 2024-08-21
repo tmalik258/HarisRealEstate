@@ -160,10 +160,6 @@ body {
 	margin-bottom: 20px;
 }
 
-/* .auth_form .form-floating label {
-  color: rgb(136, 133, 133);
-} */
-
 .auth_form .contact-us #contact_us .form-floating label {
 	font-size: 10px;
 }
@@ -224,7 +220,11 @@ form.search {
 }
 
 .search .purpose.searchbtn {
-	background: rgb(107, 2, 2);
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 100%;
+	background: rgb(145, 2, 2);
 }
 
 .search .nav .nav-item:nth-of-type(1) .purpose {
@@ -232,13 +232,14 @@ form.search {
 	border-top-left-radius: 14px;
 }
 
-.search input[type="submit"] {
+.search .searchbtn {
+	border-radius: 0;
 	border-top-right-radius: 14px;
 	color: #fff;
 }
 
-.search input[type="submit"]:hover {
-	background: var(--secondarycolor);
+.search .searchbtn:hover {
+	background: rgb(107, 2, 2);
 	/* color: rgb(136, 133, 133); */
 }
 

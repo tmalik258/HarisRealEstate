@@ -87,39 +87,27 @@
 								<div class="card card-body">
 									<div class="search row g-1 m-auto">
 										<ul class="nav nav-tabs p-0 m-0">
+											{% for radio in filter_form.purpose_q %}
+												<li class="nav-item">
+													{{ radio.tag }}
+													<label class="btn form-select purpose" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+												</li>
+											{% endfor %}
 											<li class="nav-item">
-												<input type="radio"
-													class="btn-check"
-													name="purpose"
-													id="form3_option1"
-													autocomplete="off"
-													value="S"
-													checked>
-												<label class="btn form-select purpose" for="form3_option1">Buy</label>
-											</li>
-											<li class="nav-item">
-												<input type="radio"
-													class="btn-check"
-													name="purpose"
-													id="form3_option2"
-													autocomplete="off"
-													value="R">
-												<label class="btn form-select purpose"  for="form3_option2">Rent</label>
-											</li>
-											<li class="nav-item">
-												<input type="submit"
-													class="btn btn-primary purpose searchbtn"
-													value="SEARCH">
+												<button type="submit" class="btn btn-primary purpose searchbtn">
+													<span class="system">SEARCH <i class="fa-solid fa-magnifying-glass ms-2"></i></span>
+													<span class="mobile px-2"><i class="fa-solid fa-magnifying-glass"></i></span>
+												</button>
 											</li>
 										</ul>
 										<div class="row container m-0 p-3 pb-4">
-											<div class="col-md-3">{{ filter_form.city }}</div>
-											<div class="col-md-6">{{ filter_form.location }}</div>
-											<div class="col-md-3">{{ filter_form.category_query }}</div>
-											<div class="col-md-3">{{ filter_form.min_price }}</div>
-											<div class="col-md-3">{{ filter_form.max_price }}</div>
-											<div class="col-md-3">{{ filter_form.area_size }}</div>
-											<div class="col-md-3">{{ filter_form.area_size_unit }}</div>
+											<div class="col-md-3">{{ filter_form.city_q }}</div>
+											<div class="col-md-6">{{ filter_form.location_q }}</div>
+											<div class="col-md-3">{{ filter_form.category_q }}</div>
+											<div class="col-md-3">{{ filter_form.min_price_q }}</div>
+											<div class="col-md-3">{{ filter_form.max_price_q }}</div>
+											<div class="col-md-3">{{ filter_form.area_size_q }}</div>
+											<div class="col-md-3">{{ filter_form.area_size_unit_q }}</div>
 										</div>
 									</div>
 								</div>
