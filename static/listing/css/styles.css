@@ -612,7 +612,7 @@ form.search {
 }
 
 .index_properties .properties {
-	min-width: calc(100vw - 9em);
+	min-width: calc(100vw - 12em);
 }
 
 .properties.property_detail

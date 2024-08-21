@@ -128,16 +128,20 @@ $(function () {
 		// Responsive breakpoints
 		breakpoints: {
 			// when window width is less than 990
-			0: {
-				slidesPerView: 1,
-			},
-
-			450: {
+			600: {
 				slidesPerView: 2,
 			},
 
-			990: {
+			992: {
+				slidesPerView: 3,
+			},
+
+			1200: {
 				slidesPerView: 4,
+			},
+
+			1400: {
+				slidesPerView: 5,
 			},
 		},
 	});
