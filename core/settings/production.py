@@ -23,19 +23,23 @@ SESSION_COOKIE_SECURE = True
 # DATABASE_URL = os.getenv("DATABASE_URL")
 
 DATABASES = {
-	'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
+	# 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
     #       MYSQL CONNECTION
 
-    'cpanel': {
+    'default': {
         'ENGINE': 'mysql.connector.django',
         'NAME': config("DB_NAME"),
         'USER': config("DB_USER"),
         'PASSWORD': config("DB_PASSWORD"),
         'HOST': config("DB_HOST"),
         'PORT': config("DB_PORT"),
+        'OPTIONS': {
+            'unix_socket': '/var/lib/mysql/mysql.sock',  # Replace with your actual socket path
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 	
     #       POSTGRESQL CONNECTION ONE WAY
