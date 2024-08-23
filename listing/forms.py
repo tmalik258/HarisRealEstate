@@ -208,7 +208,7 @@ class listingGetRequestForm (forms.Form):
 		'class': 'form-select',
 		'title': 'Select Unit',
 	}, choices=AREA_SIZE_CHOICES), required=False)
-	purpose_q = forms.CharField(widget=forms.RadioSelect(attrs={
+	purpose_q = forms.ChoiceField(widget=forms.RadioSelect(attrs={
 		'class': 'btn-check',
 		'title': 'Select Purpose',
-	}, choices=PURPOSE_CHOICES), required=False)
+	}), initial='Sale', choices=PURPOSE_CHOICES, required=False)
