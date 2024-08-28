@@ -110,6 +110,7 @@ body {
 
 .auth_form input:disabled {
 	color: gray;
+	cursor: not-allowed;
 }
 
 .search input,
