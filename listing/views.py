@@ -98,13 +98,15 @@ def property_detail(request, item):
 			if request.user.username == post.creator.username:
 				active = True
 
+		return render(
+			request,
+			"listing/property_detail.html",
+			{"post": post, "active": active, "is_added_to_wishlist": is_added_to_wishlist},
+		)
 	except ObjectDoesNotExist:
-		post = ""
-	return render(
-		request,
-		"listing/property_detail.html",
-		{"post": post, "active": active, "is_added_to_wishlist": is_added_to_wishlist},
-	)
+		pass
+
+	return redirect('listing:index')
 
 
 class FilteredPropertiesListView(ListView):
