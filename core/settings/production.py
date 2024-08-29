@@ -79,3 +79,4 @@ DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
 # Static Configuration S3
 STATICFILES_STORAGE = 'core.storages.StaticManifestS3Storage'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
