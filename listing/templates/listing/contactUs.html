@@ -13,7 +13,7 @@
 				<span class="m-2">{{ contact.message }}</span><br>
 				<a class="btn btn-outline-light my-2" href="mailto:{{ contact.email }}">Email</a>
 				<a class="btn btn-outline-info my-2" href="tel:{{ contact.phone_number }}">Call</a><br>
-				<span class="text-muted">Received {{ contact.date_created | timesince }} ago</span>
+				<span class="text-muted">Received {{ contact.date_created|timesince }} ago</span>
 			</p>
 			<hr style="width: 50%; margin: auto; color: wheat; box-shadow: 0px 0px 3px whitesmoke;">
 		{% empty %}
@@ -50,4 +50,4 @@
 		{% endfor %}
 	</div>
 </section>
-{% endblock %}
+{% endblock body %}

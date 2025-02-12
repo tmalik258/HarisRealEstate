@@ -1,6 +1,5 @@
 {% extends 'listing/layout.html' %}
-{% load static %}
-{% load custom_tags %}
+{% load custom_tags static %}
 
 {% block head %}
 <link
@@ -266,7 +265,7 @@
 									<div class="container">
 										<div class="card-body">
 											<h6 class="card-title text-center">
-												{{ post.title | upper }}
+												{{ post.title|upper }}
 											</h6>
 											<hr />
 											<p class="card-text">
@@ -280,7 +279,7 @@
 													"
 													>PKR </span
 												><span style="font-size: 16px"
-													>{{ post.price | int_word }}</span
+													>{{ post.price|int_word }}</span
 												>
 											</p>
 											<p
@@ -390,7 +389,7 @@
 												style="line-height: 18px"
 											>
 												<small class="text-muted"
-													>Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small
+													>Listed by {{ post.creator.first_name }}</small
 												>
 											</p>
 										</div>

@@ -1,6 +1,5 @@
 {% extends 'listing/layout.html' %}
-{% load static %}
-{% load custom_tags %}
+{% load custom_tags static %}
 
 {% block body %}
 	<section class="m-3 mt-3 ms-lg-4">
@@ -42,9 +41,9 @@
 									<div class="container">
 										<a href="{% url 'listing:property-detail' post.id %}">
 											<div class="card-body pt-sm-0">
-												<h2 class="card-title text-center h6">{{ post.title | upper }}</h2><hr class="w-75 mx-auto mt-0 mb-1">
+												<h2 class="card-title text-center h6">{{ post.title|upper }}</h2><hr class="w-75 mx-auto mt-0 mb-1">
 												<div class="card-text my-1">
-													Rs. {{ post.price | int_word }}
+													Rs. {{ post.price|int_word }}
 												</div>
 		
 												<div class="card-text text-muted">
@@ -84,7 +83,7 @@
 														<!-- <div class="p-2">Third item</div> -->
 													</div>
 												</div>
-												<div class="card-text my-0 py-0"><small class="text-muted">Listed {{ post.time_created | timesince }} ago by {{ post.creator.first_name }}</small></div>
+												<div class="card-text my-0 py-0"><small class="text-muted">Listed by {{ post.creator.first_name }}</small></div>
 												<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
 											</div>
 										</a>
@@ -146,4 +145,4 @@
 								<!-- PAGINATION END -->
 		</article>
 	</section>
-{% endblock %}
+{% endblock body %}

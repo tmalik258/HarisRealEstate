@@ -13,7 +13,7 @@
 		/>
 
 		<title>
-			{% block title %}Haris Real Estate: Get Your Own Property{% endblock title %}
+			{% block title %}Haris Real Estate: Get Your Own Property{% endblock %}
 		</title>
 
 		<!-----------------------	Open Graph Tags	-------------------------- -->
@@ -134,14 +134,14 @@
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 		/>
 
-		{% block head %} {% endblock head %} {% block style %} {% endblock style %}
+		{% block head %} {% endblock %} {% block style %} {% endblock %}
 	</head>
 	<body>
-		{% block nav %} {% include "components/_header.html" %} {% endblock nav %}
+		{% block nav %} {% include "components/_header.html" %} {% endblock %}
 
 		<!--------------------------	Body Starts	 ------------------------------ -->
 		<main class="ms-lg-5 ps-lg-5">
-			{% block body %} {% endblock body %}
+			{% block body %} {% endblock %}
 			<!----------------------- SCROLL UP ---------------------------->
 			<button type="button" class="scrollup" id="scroll-up">
 				<ion-icon name="caret-up-outline"></ion-icon>

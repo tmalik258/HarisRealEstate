@@ -1,6 +1,5 @@
 {% extends 'listing/layout.html' %}
-{% load static %}
-{% load custom_tags %}
+{% load custom_tags static %}
 
 {% block head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,7 +22,7 @@
 		color: #000;
 	}
 </style>
-{% endblock %}
+{% endblock head %}
 
 {% block body %}
 	{% if post.img.first %}
@@ -73,7 +72,7 @@
 					</div>
 				</div>
 				<h1 class="card-title h5 text-start">
-					{{ post.title | upper }}
+					{{ post.title|upper }}
 					{% if post.is_sold %}
 						<span class="badge rounded-pill text-bg-warning fw-normal text-light shadow">Sold</span>
 					{% endif %}
@@ -115,7 +114,7 @@
 											<path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
 											<path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
 										</svg>
-										PKR {{ post.price | int_word }}
+										PKR {{ post.price|int_word }}
 									</div>
 									<div class="col" style="min-width: max-content;">
 										<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building me-lg-2" viewBox="0 0 16 16">
@@ -173,7 +172,7 @@
 							<hr class="w-75 m-auto my-5">
 
 							<h2 class="card-title h5 mt-5 mb-3">About this Place</h2>
-							<div class="container agent p-3">{{ post.description | linebreaksbr | safe }}</div>
+							<div class="container agent p-3">{{ post.description|linebreaksbr|safe }}</div>
 							
 							<hr class="w-75 m-auto my-5">
 
@@ -183,9 +182,9 @@
 									{% for amenity in post.amenity.all %}
 										<div class="col" style="min-width: min-content;">
 											{% if amenity.amenity.icon %}
-												{{ amenity.amenity.icon | safe }}
+												{{ amenity.amenity.icon|safe }}
 											{% endif %}
-											{{ amenity.amenity.feature | safe }}
+											{{ amenity.amenity.feature|safe }}
 										</div>
 									{% endfor %}
 								</div>
@@ -214,20 +213,20 @@
 									</div>
 								</div>
 								<div class="text-center mt-3">
-									{{ post.creator.profile.bio_info | safe }}
+									{{ post.creator.profile.bio_info|safe }}
 								</div>
 							</div>
-							<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated | timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created | timesince }} ago</small></p>
+							<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated|timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created|timesince }} ago</small></p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</article>
-{% endblock %}
+{% endblock body %}
 
 {% block script %}
 	<script src="{% static 'listing/js/imageGallerySwiper.js' %}"></script>
 	<script src="{% static 'listing/js/gallery.js' %}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-{% endblock %}
+{% endblock script %}

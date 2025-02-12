@@ -22,7 +22,7 @@
 			display: none;
 		}
 	</style>
-{% endblock %}
+{% endblock style %}
 
 {% block body %}
 <div class="container-fluid">
@@ -40,7 +40,7 @@
 							{% for field in form %}
 								{% if field.errors %}
 									<div class="alert alert-danger alert-dismissible fade show" role="alert">
-										{{ field.label }}: {{ field.errors | striptags }}
+										{{ field.label }}: {{ field.errors|striptags }}
 										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 									</div>
 								{% endif %}
@@ -540,9 +540,9 @@
 		</div>
 	</div>
 </div>
-{% endblock %}
+{% endblock body %}
 
 {% block script %}
 	<script src="{% static 'listing/js/listing_form.js' %}"></script>
 	<script src="{% static 'listing/js/draganddrop.js' %}"></script>
-{% endblock %}
+{% endblock script %}
