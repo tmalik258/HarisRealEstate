@@ -581,6 +581,7 @@ form.search {
 	background: var(--maincolor);
 	box-shadow: var(--box-shadow);
 	margin: 20px;
+	z-index: 0;
 }
 
 .properties.property_detail

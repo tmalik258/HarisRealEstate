@@ -5,6 +5,7 @@ services:
       - .:/src
     image: app:src
     container_name: HRE_Web
+    restart: always
     ports:
       - "8001:8001"
     environment:

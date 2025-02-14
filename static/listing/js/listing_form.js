@@ -233,12 +233,12 @@ $(document).ready(function () {
 
 		Category();
 
-		if (!$("#id_images").val()) {
-			$("#image_error").text(
-				"Images are required (note: other fields may have been reset)"
-			);
-			return false;
-		}
+		// if (!$("#id_images").val()) {
+		// 	$("#image_error").text(
+		// 		"Images are required (note: other fields may have been reset)"
+		// 	);
+		// 	return false;
+		// }
 
 		// Disable the submit button
 		$('input[type="submit"]').prop('disabled', true)

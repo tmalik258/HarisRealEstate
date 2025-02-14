@@ -42,12 +42,19 @@
 			<div class="row">
 				<div class="position-relative">
 					<div class="position-absolute top-0 end-0 d-flex gap-2 translate-middle-x">
+						<a href="{% url 'account:add-to-wishlist' post.id %}">
+							{% if is_added_to_wishlist %}
+								<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
+							{% else %}
+								<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
+							{% endif %}
+						</a>
 						{% if active %}
-						<div class="dropdown">
+						<div class="dropdown z-3">
 							<a class="link-dark link-opacity-50-hover" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<ion-icon name="ellipsis-vertical-outline" style="font-size: 25px;"></ion-icon>
+								<ion-icon name="ellipsis-vertical" style="font-size: 25px;"></ion-icon>
 							</a>
-							<ul class="dropdown-menu border border-0 shadow bg-body-tertiary p-2">
+							<ul class="dropdown-menu border border-0 shadow bg-body-tertiary p-2 z-3">
 								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-listing' post.id %}">Edit Post<i class="fa-solid fa-pen-to-square ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
 
 								<li><a class="dropdown-item rounded-2 position-relative" href="{% url 'listing:update-images' post.id %}">Edit Pictures<i class="fa-regular fa-images ms-2 position-absolute translate-middle top-50 end-0"></i></a></li>
@@ -62,16 +69,9 @@
 							</ul>
 						</div>
 						{% endif %}
-						<a href="{% url 'account:add-to-wishlist' post.id %}">
-							{% if is_added_to_wishlist %}
-								<i class="fa-sharp fa-solid fa-heart fa-xl" style="color: #000000;"></i>
-							{% else %}
-								<i class="fa-sharp fa-regular fa-heart fa-xl" style="color: #000000;"></i>
-							{% endif %}
-						</a>
 					</div>
 				</div>
-				<h1 class="card-title h5 text-start">
+				<h1 class="card-title h5 text-start" style="z-index: -1;">
 					{{ post.title|upper }}
 					{% if post.is_sold %}
 						<span class="badge rounded-pill text-bg-warning fw-normal text-light shadow">Sold</span>
@@ -157,7 +157,7 @@
 									</div>
 									{% endif %}
 									{% if post.get_construction_state %}
-									<div class="col" style="min-width: max-content;">
+									<div class="col" style="min-width: fit-content; max-width: 100%;">
 										Construction State: {{ post.get_construction_state }}
 									</div>
 									{% endif %}
@@ -201,7 +201,7 @@
 									{% else %}
 									<img src="{% static 'listing/img/Image_not_found/no-image-found.webp' }" class="profile-img mx-auto" alt="">
 									{% endif %}
-									<h3 class="h6">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
+									<h3 class="h6 mt-4">{{ post.creator.first_name }} {{ post.creator.last_name }}</h3>
 									{% if post.creator.profile.estate_name %}
 										<div class="text-muted">{{ post.creator.profile.estate_name }}</div>
 									{% endif %}
@@ -216,7 +216,7 @@
 									{{ post.creator.profile.bio_info|safe }}
 								</div>
 							</div>
-							<p class="card-text text-center"><small class="text-muted">Updated {{ post.updated|timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created|timesince }} ago</small></p>
+							{% comment %} <p class="card-text text-center"><small class="text-muted">Updated {{ post.updated|timesince }} ago</small><br><small class="text-muted">Listed {{ post.time_created|timesince }} ago</small></p> {% endcomment %}
 						</div>
 					</div>
 				</div>

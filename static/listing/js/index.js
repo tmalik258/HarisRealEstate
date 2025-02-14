@@ -8,7 +8,7 @@ $(function () {
 		if (window.scrollY >= 90) {
 			$(".navigation").css("inset", "20px 0 20px 20px");
 		} else {
-			$(".navigation").css("inset", "200px 0 20px 20px");
+			$(".navigation").css("inset", "140px 0 20px 20px");
 		}
 
 
@@ -153,7 +153,7 @@ window.onresize = function () {
 		window.addEventListener("scroll", navRemove);
 		$(".navigation").css({"inset": "initial", "bottom": "1.5em", "left": "50%", "transform": "translateX(-50%)"});
 	}
-	else $(".navigation").css({"inset": "200px 0 20px 20px", "transform": "translateX(0%)"});
+	else $(".navigation").css({"inset": "140px 0 20px 20px", "transform": "translateX(0%)"});
 
 	if (window.innerWidth < 1400) {
 		$(".carousel-inner").height("initial");
@@ -269,7 +269,7 @@ window.onscroll = function () {
 		if (window.scrollY >= 90) {
 			$(".navigation").css("inset", "20px 0 20px 20px");
 		} else {
-			$(".navigation").css("inset", "200px 0 20px 20px");
+			$(".navigation").css("inset", "140px 0 20px 20px");
 		}
 	}
 };

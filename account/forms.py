@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import (AuthenticationForm, SetPasswordForm, PasswordResetForm)
 
 from .models import User, Profile
@@ -7,10 +8,10 @@ from .models import User, Profile
 
 class LoginForm(AuthenticationForm):
 
-	username = forms.EmailField(widget=forms.TextInput(
+	username = forms.CharField(widget=forms.TextInput(
 		attrs={
 			'class': 'form-control',
-			'placeholder': 'Email',
+			'placeholder': 'Email or Username',
 			'autofocus': 'autofocus'
 		}
 	))
@@ -20,6 +21,31 @@ class LoginForm(AuthenticationForm):
 			'placeholder': 'Password',
 		}
 	))
+
+	def clean(self):
+		cleaned_data = super().clean()
+		username_or_email = cleaned_data.get('username')
+		password = cleaned_data.get('password')
+
+		if username_or_email and password:
+			# Try to authenticate using username
+			user = authenticate(username=username_or_email, password=password)
+			
+			# If authentication fails, check if it's an email and try again
+			if user is None and '@' in username_or_email:
+				from django.contrib.auth import get_user_model
+				User = get_user_model()
+				
+				try:
+					user_obj = User.objects.get(email=username_or_email)
+					user = authenticate(username=user_obj.username, password=password)
+				except User.DoesNotExist:
+					pass
+
+			if user is None:
+				raise forms.ValidationError("Invalid username/email or password.")
+		
+		return cleaned_data
 
 
 class RegistrationUserForm(forms.ModelForm):
@@ -41,7 +67,7 @@ class RegistrationUserForm(forms.ModelForm):
 
 	def cleaned_password2(self):
 		cd = self.cleaned_data
-		if c['password'] != cd['password2']:
+		if cd['password'] != cd['password2']:
 			raise forms.ValidationError('Passwords do not match.')
 		return cd['password2']
 

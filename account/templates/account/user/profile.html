@@ -45,7 +45,7 @@
 				{% if user.profile.profile_image %}
 				<img src="{{ user.profile.profile_image.url }}" alt="" style="border-radius: 50%;" class="img-fluid">
 				{% else %}
-				<img src="{% static 'listing/img/image_not_found\no-image-found.webp' %}" class="card-img-top" alt="No image available">
+				<img src="{% static 'listing/img/image_not_found\no-image-found.webp' %}" class="card-img-top object-fit-cover rounded-3" alt="No image available">
 				{% endif %}
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-modal p-1 position-absolute bottom-0" data-bs-toggle="modal" data-bs-target="#profileModal">
@@ -90,10 +90,10 @@
 			</div>
 		</div>
 		<div class="container mobile">
-			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-				<div class="col">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 h-100 g-3">
+				<div class="col h-100">
 					<a href="{% url 'account:user-listings' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
-						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+						<div class="card rounded-4" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
 							<div class="row g-0">
 								<div class="col-3 position-relative">
 									<div class="position-absolute top-50 start-50 translate-middle">
@@ -110,9 +110,9 @@
 						</div>
 					</a>
 				</div>
-				<div class="col">
+				<div class="col h-100">
 					<a href="{% url 'account:profile-update' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
-						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+						<div class="card rounded-4" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
 							<div class="row g-0">
 								<div class="col-3 position-relative">
 									<div class="position-absolute top-50 start-50 translate-middle">
@@ -129,9 +129,9 @@
 						</div>
 					</a>
 				</div>
-				<div class="col">
+				<div class="col h-100">
 					<a href="{% url 'account:change-password' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
-						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+						<div class="card rounded-4" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
 							<div class="row g-0">
 								<div class="col-3 position-relative">
 									<div class="position-absolute top-50 start-50 translate-middle">
@@ -148,9 +148,9 @@
 						</div>
 					</a>
 				</div>
-				<div class="col">
+				<div class="col h-100">
 					<a href="{% url 'account:wishlist' %}" class="text-reset text-decoration-none" role="button" style="max-width: 540px;">
-						<div class="card rounded-4 mb-3" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
+						<div class="card rounded-4" style="box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.2), -10px -10px 15px rgba(0, 0, 0, 0.05);">
 							<div class="row g-0">
 								<div class="col-3 position-relative">
 									<div class="position-absolute top-50 start-50 translate-middle">
@@ -172,7 +172,7 @@
 
 		<h1 class="h4 mb-1 ms-2 system">Your Properties</h1>
 		<article class="properties system mt-3">
-			<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-4">
 				{% for post in page_obj %}
 					<div class="col">
 						<div class="card my-2">
@@ -192,9 +192,9 @@
 								<div class="col-11 col-sm-12 mx-auto listing_image mb-md-0 p-md-3">
 									<a href="{% url 'listing:property-detail' post.id %}">
 										{% if post.img.first %}
-											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top" alt="{{ post.img.first.images }}">
+											<img loading="lazy" src="{{ post.img.first.image.url }}" class="card-img-top object-fit-cover" alt="{{ post.img.first.images }}">
 										{% else %}
-											<img loading="lazy" src="{% static 'listing/img/logo/Dark_theme_logo.webp' %}" class="card-img-top" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
+											<img loading="lazy" src="{% static 'listing/img/logo/Dark_theme_logo.webp' %}" class="card-img-top  object-fit-cover rounded-2" alt="No Image Uploaded" height="100%" style="background: black;" title="No Image Uploaded">
 										{% endif %}
 									</a>
 								</div>

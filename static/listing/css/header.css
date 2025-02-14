@@ -1,7 +1,7 @@
 /* //////////////////////////////////////////	NAV MENU /////////////////////////////////////////// */
 .navigation {
 	position: fixed;
-	inset: 200px 0 20px 20px;
+	inset: 140px 0 20px 20px;
 	width: 60px;
 	background-color: var(--maincolor);
 	display: flex;
@@ -327,11 +327,11 @@
 	/*-------- NAVIGATION-MENU --------*/
 	.navigation {
 		inset: initial;
-		bottom: 1.5em;
+		bottom: 1.2em;
 		width: fit-content;
 		left: 50%;
 		transform: translateX(-50%);
-		height: 3em;
+		height: 3.5em;
 	}
 
 	.navigation .menu,
@@ -355,7 +355,8 @@
 	}
 
 	.navigation ul li .icon {
-		font-size: 1.7em;
+		font-size: 1.3em;
+		transform: translate(0, -0.1em);
 	}
 
 	.navigation ul li.active .icon,
@@ -389,6 +390,18 @@
 }
 
 @media screen and (max-width: 768px) {
+	.navigation {
+		width: 90%;
+	}
+
+	.navigation ul {
+		justify-content: space-evenly;
+		gap: 0;
+		width: 100%;
+		padding: 0;
+		padding-inline: 0;
+	}
+
 	.navbar .container-fluid .navbar-search .search-form .card {
 		max-width: calc(100vw - 5em);
 	}
@@ -405,18 +418,10 @@
 }
 
 @media screen and (max-width: 500px) {
-	.navigation ul {
-		gap: 1em;
-	}
-
 	.navbar .container-fluid .navbar-search .search-form .card {
 		max-width: calc(100vw - 2em);
 	}
 }
 
 @media screen and (max-width: 400px) {
-	.navigation ul {
-		gap: 1em;
-		padding-inline: 0;
-	}
 }

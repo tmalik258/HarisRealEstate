@@ -395,9 +395,10 @@ def createListing(request):
 
 			# Iterate over the images
 			images = request.FILES.getlist("images")
-			for image_file in images:
-				img = ListingImage(listing=listing_obj, image=image_file)
-				img.save()
+			if images:
+				for image_file in images:
+					img = ListingImage(listing=listing_obj, image=image_file)
+					img.save()
 
 			messages.success(request, "Ad has been posted successfully!")
 			return redirect("account:profile")
