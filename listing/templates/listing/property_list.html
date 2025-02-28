@@ -75,16 +75,20 @@
 															<ion-icon name="mail-outline"></ion-icon>
 														</span></a>
 														{% if post.creator.profile.phone_number %}
-															<!-- <div class="vr"></div> -->
-															<a href="tel:{{ post.creator.profile.phone_number }}"  class="btn btn-sm btn-outline-secondary email more"><span class="bedicon m-0 p-0">
-																<ion-icon name="call-outline"></ion-icon>
-															</span></a>
+															<button
+																type="button"
+																class="btn btn-outline-secondary email"
+																data-bs-toggle="modal"
+																data-bs-target="#phoneModal{{ post.id }}"
+															>
+																<i
+																	class="fa-solid fa-phone fa-lg"
+																></i>
+															</button>
 														{% endif %}
-														<!-- <div class="p-2">Third item</div> -->
 													</div>
 												</div>
 												<div class="card-text my-0 py-0"><small class="text-muted">Listed by {{ post.creator.first_name }}</small></div>
-												<!-- <a href="tel:+92 311 5239286" class="btn btn-outline-secondary email">Call</a> -->
 											</div>
 										</a>
 									</div>
@@ -144,5 +148,34 @@
 			{% endif %}
 								<!-- PAGINATION END -->
 		</article>
+
+		{% for post in page_obj %}
+			{% if post.creator.profile.phone_number %}
+				<div class="modal fade top-50" id="phoneModal{{ post.id }}" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5>Contact Seller</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							</div>
+							<div class="modal-body text-center">
+								<p class="fs-5">
+									Phone Number: <strong id="phoneNumber{{ post.id }}">{{ post.creator.profile.phone_number }}</strong>
+								</p>
+								<button class="btn btn-outline-info" onclick="copyToClipboard('{{ post.creator.profile.phone_number }}', this)">
+									<i class="fa-solid fa-copy"></i> Copy
+								</button>
+								<a href="tel:{{ post.creator.profile.phone_number }}" class="btn btn-primary">
+									<i class="fa-solid fa-phone"></i> Call Now
+								</a>
+								<a href="https://wa.me/{{ post.creator.profile.phone_number|cut:'+' }}" target="_blank" class="btn btn-success">
+									<i class="fa-brands fa-whatsapp"></i> WhatsApp
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
 	</section>
 {% endblock body %}

@@ -122,6 +122,7 @@ $(function () {
 		autoplay: {
 			delay: 2500,
 			disableOnInteraction: false,
+			pauseOnMouseEnter: true,
 		},
 		loop: true,
 
@@ -283,4 +284,33 @@ function navRemove() {
 	} else {
 		$("#navbar-main-menu").show();
 	}
+}
+
+function copyToClipboard(phoneNumber, button) {
+    // Remove '+' if present to ensure consistency
+    const cleanPhoneNumber = phoneNumber.replace('+', '');
+    
+    // Fallback for older browsers (optional)
+    if (!navigator.clipboard) {
+        // Use a textarea fallback (less secure, but works in older browsers)
+        const textArea = document.createElement('textarea');
+        textArea.value = cleanPhoneNumber;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    } else {
+        // Modern browser clipboard API
+        navigator.clipboard.writeText(cleanPhoneNumber)
+            .then(() => {
+                button.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+                }, 2000);
+            })
+            .catch((err) => {
+                console.error("Could not copy text: ", err);
+                alert("Failed to copy the phone number. Please try manually.");
+            });
+    }
 }
