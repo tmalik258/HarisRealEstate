@@ -9,8 +9,14 @@ ALLOWED_HOSTS = ['www.harisrealestate.com', 'harisrealestate.com', '67.223.119.6
 
 ## CSRF TOKEN CLEARANCE
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = '.harisrealestate.com'
-CSRF_TRUSTED_ORIGINS = ['https://harisrealestate.com', 'https://www.harisrealestate.com']
+# CSRF_COOKIE_DOMAIN = '.harisrealestate.com'  # Commented out - let Django handle domain automatically
+CSRF_TRUSTED_ORIGINS = [
+    'https://harisrealestate.com',
+    'https://www.harisrealestate.com',
+    'http://harisrealestate.com',  # Include HTTP for redirects
+    'http://www.harisrealestate.com',
+]
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 ## Secure-Only Session Cookie
 SESSION_COOKIE_SECURE = True
