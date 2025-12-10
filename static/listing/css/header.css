@@ -8,15 +8,15 @@
 	align-items: flex-start;
 	box-shadow: var(--box-shadow);
 	border-radius: 10px;
-	transition: 0.5s;
+	transition: width 0.5s ease;
 	z-index: 15;
 	flex-direction: column;
 	overflow: hidden;
 	max-height: calc(100vh - 160px);
 }
 
-/* Hover behavior only on devices that support hover (desktop) */
-@media (hover: hover) and (pointer: fine) {
+/* Hover behavior - expand on hover (desktop only, min-width: 993px) */
+@media screen and (min-width: 993px) {
 	.navigation:hover {
 		width: 250px;
 	}
@@ -67,8 +67,8 @@
 	transition: 0.5s;
 }
 
-/* Hover states for menu toggle */
-@media (hover: hover) and (pointer: fine) {
+/* Hover states for menu toggle (desktop only) */
+@media screen and (min-width: 993px) {
 	.navigation:hover .menu .menuToggle {
 		width: 23px;
 		height: 18px;
@@ -95,8 +95,8 @@
 	transform: translateX(20px);
 }
 
-/* Hover states for menu text */
-@media (hover: hover) and (pointer: fine) {
+/* Hover states for menu text (desktop only) */
+@media screen and (min-width: 993px) {
 	.navigation:hover .menu .menuText {
 		font-size: 25px;
 		visibility: visible;
@@ -192,8 +192,8 @@
 	transition: 0.5s;
 }
 
-/* Hover states for icons */
-@media (hover: hover) and (pointer: fine) {
+/* Hover states for icons (desktop only) */
+@media screen and (min-width: 993px) {
 	.navigation:hover ul li.active .icon,
 	.navigation:hover ul li:hover .icon {
 		transform: translateX(10px);
@@ -225,8 +225,8 @@
 	transition: 0.15s ease-in;
 }
 
-/* Hover states for text */
-@media (hover: hover) and (pointer: fine) {
+/* Hover states for text (desktop only) */
+@media screen and (min-width: 993px) {
 	.navigation:hover ul li .text {
 		padding: 0 15px;
 		opacity: 1;
