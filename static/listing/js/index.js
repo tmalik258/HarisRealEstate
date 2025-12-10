@@ -28,8 +28,7 @@ $(function () {
 		hiddenElements.forEach((el) => observer.observe(el));
 	}
 
-	// Toggle for navigation
-	$(".menuToggle").click(() => $(".navigation").toggleClass("active"));
+	// Navigation now expands on hover - no click handler needed
 
 	if (!$(".contact-us").html()) {
 		load_contact_form();

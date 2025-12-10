@@ -5,16 +5,21 @@
 	width: 60px;
 	background-color: var(--maincolor);
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	box-shadow: var(--box-shadow);
 	border-radius: 10px;
 	transition: 0.5s;
 	z-index: 15;
 	flex-direction: column;
+	overflow: hidden;
+	max-height: calc(100vh - 160px);
 }
 
-.navigation.active {
-	width: 250px;
+/* Hover behavior only on devices that support hover (desktop) */
+@media (hover: hover) and (pointer: fine) {
+	.navigation:hover {
+		width: 250px;
+	}
 }
 
 .navigation::selection {
@@ -30,6 +35,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	padding: 0 15px;
+	flex-shrink: 0;
 }
 
 /* Navigation MenuToggle */
@@ -61,19 +67,22 @@
 	transition: 0.5s;
 }
 
-.navigation.active .menu .menuToggle {
-	width: 23px;
-	height: 18px;
-}
+/* Hover states for menu toggle */
+@media (hover: hover) and (pointer: fine) {
+	.navigation:hover .menu .menuToggle {
+		width: 23px;
+		height: 18px;
+	}
 
-.navigation.active .menu .menuToggle::before {
-	width: 20px;
-	transform: translateY(0) rotate(-45deg);
-}
+	.navigation:hover .menu .menuToggle::before {
+		width: 20px;
+		transform: translateY(0) rotate(-45deg);
+	}
 
-.navigation.active .menu .menuToggle::after {
-	width: 20px;
-	transform: translateY(0) rotate(45deg);
+	.navigation:hover .menu .menuToggle::after {
+		width: 20px;
+		transform: translateY(0) rotate(45deg);
+	}
 }
 
 /* Navigation Menu text */
@@ -86,10 +95,13 @@
 	transform: translateX(20px);
 }
 
-.navigation.active .menu .menuText {
-	font-size: 25px;
-	visibility: visible;
-	opacity: 1;
+/* Hover states for menu text */
+@media (hover: hover) and (pointer: fine) {
+	.navigation:hover .menu .menuText {
+		font-size: 25px;
+		visibility: visible;
+		opacity: 1;
+	}
 }
 
 .navigation .menu .menuText::selection {
@@ -103,6 +115,28 @@
 	width: 100%;
 	margin-block: auto;
 	transform: translateX(-25px) translateY(5px);
+	overflow-y: auto;
+	overflow-x: hidden;
+	flex: 1;
+	min-height: 0;
+	padding-bottom: 10px;
+}
+
+.navigation ul::-webkit-scrollbar {
+	width: 6px;
+}
+
+.navigation ul::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.navigation ul::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+}
+
+.navigation ul::-webkit-scrollbar-thumb:hover {
+	background: rgba(0, 0, 0, 0.3);
 }
 
 .navigation ul li {
@@ -158,9 +192,12 @@
 	transition: 0.5s;
 }
 
-.navigation.active ul li.active .icon,
-.navigation.active ul li:hover .icon {
-	transform: translateX(10px);
+/* Hover states for icons */
+@media (hover: hover) and (pointer: fine) {
+	.navigation:hover ul li.active .icon,
+	.navigation:hover ul li:hover .icon {
+		transform: translateX(10px);
+	}
 }
 
 .navigation ul li .icon::before {
@@ -188,14 +225,17 @@
 	transition: 0.15s ease-in;
 }
 
-.navigation.active ul li .text {
-	padding: 0 15px;
-	opacity: 1;
-	visibility: visible;
-}
+/* Hover states for text */
+@media (hover: hover) and (pointer: fine) {
+	.navigation:hover ul li .text {
+		padding: 0 15px;
+		opacity: 1;
+		visibility: visible;
+	}
 
-.navigation.active ul li.active .text {
-	padding-left: 25px;
+	.navigation:hover ul li.active .text {
+		padding-left: 25px;
+	}
 }
 
 .navigation ul li.active .text,
@@ -332,6 +372,12 @@
 		left: 50%;
 		transform: translateX(-50%);
 		height: 3.5em;
+		max-height: 3.5em;
+		overflow: visible;
+	}
+
+	.navigation:hover {
+		width: fit-content;
 	}
 
 	.navigation .menu,
@@ -348,6 +394,8 @@
 		padding: 0;
 		padding-inline: 3em;
 		transform: translate(0);
+		overflow: visible;
+		flex: none;
 	}
 
 	.navigation ul li {
@@ -394,12 +442,18 @@
 		width: 90%;
 	}
 
+	.navigation:hover {
+		width: 90%;
+	}
+
 	.navigation ul {
 		justify-content: space-evenly;
 		gap: 0;
 		width: 100%;
 		padding: 0;
 		padding-inline: 0;
+		overflow-x: auto;
+		overflow-y: visible;
 	}
 
 	.navbar .container-fluid .navbar-search .search-form .card {
